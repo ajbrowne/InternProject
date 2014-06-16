@@ -54,24 +54,12 @@ public class MainController {
         System.out.println(user.getPassword());
         if(!passwordEncryptor.checkPassword(user.getPassword(), check.getPassword())){
             System.out.println(dateFormat.format(new Date()) + "  INFO: " + user.getUsername() + " failed to login.");
-            JSONObject returnObj = new JSONObject();
-            String helper = "Failed to login";
-            try {
-                returnObj.put("response", helper);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return new ResponseEntity<String>(returnObj.toString(),HttpStatus.UNAUTHORIZED);
+
+            return new ResponseEntity<String>(jsonGen("Invalid Username or Password"),HttpStatus.UNAUTHORIZED);
         }
-        JSONObject returnObj = new JSONObject();
-        String helper = "Success";
-        try {
-            returnObj.put("response", helper);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
         System.out.println(dateFormat.format(new Date()) + "  INFO: " + user.getUsername() + " logged in successfully.");
-        return new ResponseEntity<String>(returnObj.toString() ,HttpStatus.OK);
+        return new ResponseEntity<String>(jsonGen("Login Success") ,HttpStatus.OK);
     }
 
     @RequestMapping(value="/register", method = RequestMethod.POST, produces = "application/json")
@@ -82,14 +70,7 @@ public class MainController {
         String encrypted = passwordEncryptor.encryptPassword(temp);
         user.setPassword(encrypted);
         userRepository.save(user);
-        JSONObject returnObj = new JSONObject();
-        String helper = "Registered";
-        try {
-            returnObj.put("response", helper);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<String>(returnObj.toString(), HttpStatus.OK);
+        return new ResponseEntity<String>(jsonGen("Registered"), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -97,5 +78,16 @@ public class MainController {
     public ResponseEntity<String> update(@RequestBody Special special){
 
         return new ResponseEntity<String>("Updated" ,HttpStatus.OK);
+    }
+
+    private String jsonGen(String response){
+        JSONObject returnObj = new JSONObject();
+        try {
+            returnObj.put("response", response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return returnObj.toString();
     }
 }
