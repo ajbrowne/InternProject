@@ -112,12 +112,12 @@ public class MainActivity extends Activity {
             // Create http client
             HttpClient httpClient = new DefaultHttpClient();
 
-//            HttpHost proxy = new HttpHost("localhost", 8080, "http");
-//            httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+            HttpHost proxy = new HttpHost("det-maharb-m", 8080, "http");
+            httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 
             // Create http post
             HttpPost httpPost = new HttpPost(
-                    "http://localhost:8080/v1/specials/login");
+                    "http://det-maharb-m:8080/v1/specials/login");
             JSONObject auth = new JSONObject();
             try{
                 auth.put("username", user);

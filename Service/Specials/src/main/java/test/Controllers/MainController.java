@@ -1,5 +1,7 @@
 package test.Controllers;
 
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -7,10 +9,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import test.config.ApplicationConfig;
 import test.config.UserRepository;
 import test.model.Special;
@@ -46,7 +45,7 @@ public class MainController {
         return "HELLO";
     }
 
-    @RequestMapping(value="/login", method = RequestMethod.POST)
+    @RequestMapping(value="/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public ResponseEntity<String> login(@RequestBody User user){
         System.out.println(dateFormat.format(new Date()) + "  INFO: " + user.getUsername() + " is trying to login.");
@@ -55,22 +54,37 @@ public class MainController {
         System.out.println(user.getPassword());
         if(!passwordEncryptor.checkPassword(user.getPassword(), check.getPassword())){
             System.out.println(dateFormat.format(new Date()) + "  INFO: " + user.getUsername() + " failed to login.");
-            return new ResponseEntity<String>("Username or Password Incorrect" ,HttpStatus.UNAUTHORIZED);
+            JSONObject returnObj = new JSONObject();
+            String helper = "Failed to login";
+            try {
+                returnObj.put("response", helper);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return new ResponseEntity<String>(returnObj.toString(),HttpStatus.UNAUTHORIZED);
+        }
+        JSONObject returnObj = new JSONObject();
+        String helper = "Success";
+        try {
+            returnObj.put("response", helper);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         System.out.println(dateFormat.format(new Date()) + "  INFO: " + user.getUsername() + " logged in successfully.");
-        return new ResponseEntity<String>("Logged In" ,HttpStatus.OK);
+        return new ResponseEntity<String>(returnObj.toString() ,HttpStatus.OK);
     }
 
-    @RequestMapping(value="/register", method = RequestMethod.POST)
+    @RequestMapping(value="/register", method = RequestMethod.POST, produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<String> register(@RequestBody User user){
+    public String register(@RequestBody User user){
         String temp = user.getPassword();
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         String encrypted = passwordEncryptor.encryptPassword(temp);
         user.setPassword(encrypted);
         userRepository.save(user);
 
-        return new ResponseEntity<String>("Registered",HttpStatus.OK);
+        return "Registered";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
