@@ -9,8 +9,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import test.config.ApplicationConfig;
+import test.config.DealerRepository;
+import test.config.SpecialRepository;
 import test.config.UserRepository;
 import test.model.Special;
 import test.model.User;
@@ -30,12 +35,18 @@ public class MainController {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    SpecialRepository specialRepository;
+    @Autowired
+    DealerRepository dealerRepository;
 
     private DateFormat dateFormat;
 
     public MainController(){
         ApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
         userRepository = (UserRepository) ctx.getBean("userRepository");
+        specialRepository = (SpecialRepository) ctx.getBean("specialRepository");
+        dealerRepository = (DealerRepository) ctx.getBean("dealerRepository");
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     }
 
@@ -51,7 +62,7 @@ public class MainController {
         System.out.println(dateFormat.format(new Date()) + "  INFO: " + user.getUsername() + " is trying to login.");
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         User check = userRepository.findByUsername(user.getUsername());
-        System.out.println(user.getPassword());
+        //System.out.println(user.getPassword());
         if(!passwordEncryptor.checkPassword(user.getPassword(), check.getPassword())){
             System.out.println(dateFormat.format(new Date()) + "  INFO: " + user.getUsername() + " failed to login.");
 
@@ -73,11 +84,26 @@ public class MainController {
         return new ResponseEntity<String>(jsonGen("Registered"), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<String> createSpecial(@RequestBody Special special){
+
+        return new ResponseEntity<String>(jsonGen("Created Special"), HttpStatus.CREATED);
+    }
+
+
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> update(@RequestBody Special special){
 
         return new ResponseEntity<String>(jsonGen("Updated") ,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getSpecial", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Special> getSpecial(@RequestBody String info){
+
+        return new ResponseEntity<Special>(new Special() ,HttpStatus.OK);
     }
 
     private String jsonGen(String response){
