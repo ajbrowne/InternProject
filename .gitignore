@@ -26,4 +26,4 @@ Service/.DS_Store
 Android/.DS_Store
 .DS_Store
 
-target/
+*/target/**
