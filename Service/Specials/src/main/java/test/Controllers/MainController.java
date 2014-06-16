@@ -77,7 +77,7 @@ public class MainController {
     @ResponseBody
     public ResponseEntity<String> update(@RequestBody Special special){
 
-        return new ResponseEntity<String>("Updated" ,HttpStatus.OK);
+        return new ResponseEntity<String>(jsonGen("Updated") ,HttpStatus.OK);
     }
 
     private String jsonGen(String response){
