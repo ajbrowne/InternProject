@@ -95,6 +95,10 @@ public class MainActivity extends Activity {
                 Object success = request;
                 System.out.println(success);
             }
+        } else if(result == 1){
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
     /**
