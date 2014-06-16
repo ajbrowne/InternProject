@@ -5,10 +5,12 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -18,6 +20,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -34,6 +37,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 
 
@@ -80,12 +85,17 @@ public class MainActivity extends Activity {
     /*
        Fires the AuthRequest and then takes action based on result
     */
-    public void asyncCheck(String user, String pass, boolean check){
+    public void asyncCheck(String user, String pass, String name, boolean check){
         AuthRequestAsync run = new AuthRequestAsync();
+        String signUp = "0";
         int result = 0;
 
+        if (check == true){
+            signUp = "1";
+        }
+
         try{
-            result = run.execute(user, pass).get();
+            result = run.execute(user, pass, name, signUp).get();
         } catch (InterruptedException e){
             e.printStackTrace();
         } catch (ExecutionException e){
@@ -115,10 +125,16 @@ public class MainActivity extends Activity {
      */
     public class AuthRequestAsync extends AsyncTask<String, Void, Integer> {
 
+        private ProgressDialog dialog;
+        HttpPost httpPost;
+        JSONObject auth;
+
         @Override
         protected Integer doInBackground(String... params){
             String user = params[0];
             String pass = params[1];
+            String name = params[2];
+            String signUp = params[3];
             int authCode = 0;
 
             // Create http client
@@ -127,16 +143,35 @@ public class MainActivity extends Activity {
             HttpHost proxy = new HttpHost("det-maharb-m", 8080, "http");
             httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 
-            // Create http post
-            HttpPost httpPost = new HttpPost(
-                    "http://det-maharb-m:8080/v1/specials/login");
-            JSONObject auth = new JSONObject();
-            try{
-                auth.put("username", user);
-                auth.put("password", pass);
-            } catch (JSONException e){
-                e.printStackTrace();
+
+            if (signUp.compareTo("0") == 0){
+                System.out.println("LOGIN!!!!!!!!");
+                // Create http post
+                httpPost = new HttpPost(
+                        "http://det-maharb-m:8080/v1/specials/login");
+               auth = new JSONObject();
+                try{
+                    auth.put("username", user);
+                    auth.put("password", pass);
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
             }
+            else{
+                System.out.println("SIGNUP!!!!!!!!");
+                // Create http post
+                httpPost = new HttpPost(
+                        "http://det-maharb-m:8080/v1/specials/register");
+                auth = new JSONObject();
+                try{
+                    auth.put("username", user);
+                    auth.put("password", pass);
+                    auth.put("role", 1);
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+
 
             String message = auth.toString();
 
@@ -177,6 +212,46 @@ public class MainActivity extends Activity {
             }
             return authCode;
         }
+
+    }
+
+    public String computeSHAHash(String password) {
+        String SHAHash = "ZZ";
+        MessageDigest mdSha1 = null;
+        try {
+            mdSha1 = MessageDigest.getInstance("SHA-1");
+        } catch (NoSuchAlgorithmException e1) {
+            Log.e("myapp", "Error initializing SHA1 message digest");
+        }
+        try {
+            mdSha1.update(password.getBytes("ASCII"));
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        byte[] data = mdSha1.digest();
+        try {
+            SHAHash = convertToHex(data);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        //  result.setText("SHA-1 hash generated is: " + " " + SHAHash);
+        return SHAHash;
+    }
+
+    private static String convertToHex(byte[] data) throws java.io.IOException {
+
+
+        StringBuffer sb = new StringBuffer();
+        String hex = null;
+
+        hex = Base64.encodeToString(data, 0, data.length, Base64.NO_CLOSE);
+
+        sb.append(hex);
+
+        return sb.toString();
     }
 
 

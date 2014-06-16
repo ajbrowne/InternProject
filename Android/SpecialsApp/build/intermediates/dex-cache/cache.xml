@@ -7,5 +7,11 @@
         jumboMode="false"
         revision="19.1.0"
         sha1="0dff9b8997395e074b81171c49ff15fa8e72359d"/>
+    <item
+        dex="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/jasypt-1.9.2-8b5ebf8f32baaa740ba3a393d0d6bd5b8ac5f0b3.jar"
+        jar="/Users/brownea/.gradle/caches/modules-2/files-2.1/org.jasypt/jasypt/1.9.2/91eee489a389faba9fc57bfee75c87c615c19cd7/jasypt-1.9.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="91eee489a389faba9fc57bfee75c87c615c19cd7"/>
 
 </pre-dex-items>

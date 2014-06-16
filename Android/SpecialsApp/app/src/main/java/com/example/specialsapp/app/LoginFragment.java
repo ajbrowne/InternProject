@@ -6,12 +6,18 @@ import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 /**
@@ -33,10 +39,10 @@ public class LoginFragment extends Fragment {
         loginView = inflater.inflate(R.layout.fragment_login, container, false);
 
         // Link elements from xml
-        login = (Button)loginView.findViewById(R.id.loginButton);
-        signup = (Button)loginView.findViewById(R.id.signUpButton);
-        username = (EditText)loginView.findViewById(R.id.email);
-        password = (EditText)loginView.findViewById(R.id.password);
+        login = (Button) loginView.findViewById(R.id.loginButton);
+        signup = (Button) loginView.findViewById(R.id.signUpButton);
+        username = (EditText) loginView.findViewById(R.id.email);
+        password = (EditText) loginView.findViewById(R.id.password);
 
         login.setOnClickListener(loginClick());
 
@@ -60,33 +66,37 @@ public class LoginFragment extends Fragment {
     /*
         Fires the asyncCheck when login is clicked
      */
-    private View.OnClickListener loginClick(){
+    private View.OnClickListener loginClick() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String user = username.getText().toString().toLowerCase(Locale.US);
                 String pass = password.getText().toString().toLowerCase(Locale.US);
+
+                String encrypted = ((MainActivity)getActivity()).computeSHAHash(pass);
+                System.out.println(encrypted);
+
                 savePreferences("stored", true);
                 savePreferences("User", user);
                 savePreferences("Password", pass);
-                ((MainActivity)getActivity()).asyncCheck(user, pass, false);
+                ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", false);
             }
         };
     }
 
-    private void loadSavedPreferences(){
+    private void loadSavedPreferences() {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String sUser = shared.getString("User", "");
         String sPass = shared.getString("Password", "");
         boolean check = shared.getBoolean("stored", false);
-        if(check){
-            ((MainActivity)getActivity()).asyncCheck(sUser, sPass, check);
+        if (check) {
+            ((MainActivity) getActivity()).asyncCheck(sUser, sPass, "", check);
         }
 
 
     }
 
-    private void savePreferences(String key, String value){
+    private void savePreferences(String key, String value) {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         SharedPreferences.Editor edit = shared.edit();
@@ -94,13 +104,12 @@ public class LoginFragment extends Fragment {
         edit.commit();
     }
 
-    private void savePreferences(String key, boolean value){
+    private void savePreferences(String key, boolean value) {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         SharedPreferences.Editor edit = shared.edit();
         edit.putBoolean(key, value);
         edit.commit();
     }
-
 
 }

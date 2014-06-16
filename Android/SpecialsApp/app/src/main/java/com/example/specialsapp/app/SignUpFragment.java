@@ -15,6 +15,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Locale;
+
 
 public class SignUpFragment extends Fragment {
 
@@ -37,12 +39,14 @@ public class SignUpFragment extends Fragment {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ConsumerHomeFragment consumerHomeFragment = new ConsumerHomeFragment();
+                String user = username.getText().toString().toLowerCase(Locale.US);
+                String pass = password.getText().toString().toLowerCase(Locale.US);
+                String name = fullName.getText().toString().toLowerCase(Locale.US);
 
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer2, consumerHomeFragment);
-                fragmentTransaction.commit();
+                String encrypted = ((MainActivity)getActivity()).computeSHAHash(pass);
+                System.out.println(encrypted);
+
+                ((MainActivity) getActivity()).asyncCheck(user, encrypted, name, true);
             }
         });
 
