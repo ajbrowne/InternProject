@@ -9,8 +9,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import test.config.ApplicationConfig;
+import test.config.DealerRepository;
+import test.config.SpecialRepository;
 import test.config.UserRepository;
 import test.model.Special;
 import test.model.User;
@@ -30,12 +35,18 @@ public class MainController {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    SpecialRepository specialRepository;
+    @Autowired
+    DealerRepository dealerRepository;
 
     private DateFormat dateFormat;
 
     public MainController(){
         ApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
         userRepository = (UserRepository) ctx.getBean("userRepository");
+        specialRepository = (SpecialRepository) ctx.getBean("specialRepository");
+        dealerRepository = (DealerRepository) ctx.getBean("dealerRepository");
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     }
 
