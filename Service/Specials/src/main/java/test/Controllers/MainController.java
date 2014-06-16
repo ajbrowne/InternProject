@@ -62,7 +62,7 @@ public class MainController {
         System.out.println(dateFormat.format(new Date()) + "  INFO: " + user.getUsername() + " is trying to login.");
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         User check = userRepository.findByUsername(user.getUsername());
-        System.out.println(user.getPassword());
+        //System.out.println(user.getPassword());
         if(!passwordEncryptor.checkPassword(user.getPassword(), check.getPassword())){
             System.out.println(dateFormat.format(new Date()) + "  INFO: " + user.getUsername() + " failed to login.");
 
@@ -84,11 +84,26 @@ public class MainController {
         return new ResponseEntity<String>(jsonGen("Registered"), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<String> createSpecial(@RequestBody Special special){
+
+        return new ResponseEntity<String>(jsonGen("Created Special"), HttpStatus.CREATED);
+    }
+
+
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> update(@RequestBody Special special){
 
         return new ResponseEntity<String>(jsonGen("Updated") ,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getSpecial", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Special> getSpecial(@RequestBody String info){
+
+        return new ResponseEntity<Special>(new Special() ,HttpStatus.OK);
     }
 
     private String jsonGen(String response){
