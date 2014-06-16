@@ -24,4 +24,14 @@ proguard/
 
 Service/.DS_Store
 Android/.DS_Store
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
 .DS_Store
+
+# Maven
+log/
+target/
