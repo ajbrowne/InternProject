@@ -8,8 +8,10 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -252,6 +254,34 @@ public class MainActivity extends Activity {
         sb.append(hex);
 
         return sb.toString();
+    }
+
+    public void loadSavedPreferences() {
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
+        String sUser = shared.getString("User", "");
+        String sPass = shared.getString("Password", "");
+        boolean check = shared.getBoolean("stored", false);
+        if (check) {
+            asyncCheck(sUser, sPass, "", check);
+        }
+
+
+    }
+
+    public void savePreferences(String key, String value) {
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
+
+        SharedPreferences.Editor edit = shared.edit();
+        edit.putString(key, value);
+        edit.commit();
+    }
+
+    public void savePreferences(String key, boolean value) {
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
+
+        SharedPreferences.Editor edit = shared.edit();
+        edit.putBoolean(key, value);
+        edit.commit();
     }
 
 

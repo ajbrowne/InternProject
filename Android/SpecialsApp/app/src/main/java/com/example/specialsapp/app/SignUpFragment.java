@@ -46,9 +46,14 @@ public class SignUpFragment extends Fragment {
                 String encrypted = ((MainActivity)getActivity()).computeSHAHash(pass);
                 System.out.println(encrypted);
 
+                ((MainActivity)getActivity()).savePreferences("stored", true);
+                ((MainActivity)getActivity()).savePreferences("User", user);
+                ((MainActivity)getActivity()). savePreferences("Password", encrypted);
                 ((MainActivity) getActivity()).asyncCheck(user, encrypted, name, true);
             }
         });
+
+        ((MainActivity)getActivity()).loadSavedPreferences();
 
         // Inflate the layout for this fragment
         return signUpView;

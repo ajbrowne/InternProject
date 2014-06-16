@@ -58,7 +58,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        loadSavedPreferences();
+        ((MainActivity)getActivity()).loadSavedPreferences();
 
         return loginView;
     }
@@ -76,40 +76,12 @@ public class LoginFragment extends Fragment {
                 String encrypted = ((MainActivity)getActivity()).computeSHAHash(pass);
                 System.out.println(encrypted);
 
-                savePreferences("stored", true);
-                savePreferences("User", user);
-                savePreferences("Password", pass);
+                ((MainActivity)getActivity()).savePreferences("stored", true);
+                ((MainActivity)getActivity()).savePreferences("User", user);
+                ((MainActivity)getActivity()). savePreferences("Password", encrypted);
                 ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", false);
             }
         };
-    }
-
-    private void loadSavedPreferences() {
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String sUser = shared.getString("User", "");
-        String sPass = shared.getString("Password", "");
-        boolean check = shared.getBoolean("stored", false);
-        if (check) {
-            ((MainActivity) getActivity()).asyncCheck(sUser, sPass, "", check);
-        }
-
-
-    }
-
-    private void savePreferences(String key, String value) {
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-        SharedPreferences.Editor edit = shared.edit();
-        edit.putString(key, value);
-        edit.commit();
-    }
-
-    private void savePreferences(String key, boolean value) {
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-        SharedPreferences.Editor edit = shared.edit();
-        edit.putBoolean(key, value);
-        edit.commit();
     }
 
 }
