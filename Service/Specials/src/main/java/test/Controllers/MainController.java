@@ -75,16 +75,21 @@ public class MainController {
     }
 
     @RequestMapping(value="/register", method = RequestMethod.POST, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public String register(@RequestBody User user){
+    public ResponseEntity<String> register(@RequestBody User user){
         String temp = user.getPassword();
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         String encrypted = passwordEncryptor.encryptPassword(temp);
         user.setPassword(encrypted);
         userRepository.save(user);
-
-        return "Registered";
+        JSONObject returnObj = new JSONObject();
+        String helper = "Registered";
+        try {
+            returnObj.put("response", helper);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<String>(returnObj.toString(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
