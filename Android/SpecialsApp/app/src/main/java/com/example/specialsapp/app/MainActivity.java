@@ -1,9 +1,11 @@
 package com.example.specialsapp.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -92,8 +94,14 @@ public class MainActivity extends Activity {
 
         if (result == 0){
             if (check == false){
-                Object success = request;
-                System.out.println(success);
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Invalid username or password")
+                        .setMessage("Your username or password is incorrect, try again.")
+                        .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                onRestart();
+                            }
+                        }).show();
             }
         } else if(result == 1){
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
