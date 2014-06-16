@@ -2,8 +2,8 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-c14aeca506af8cf08fbcc035c4f9a4a47571fdf7.jar"
-        jar="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.7.0/classes.jar"
+        dex="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-2d8d68d3c216c624ae4dbbd811517a79ded848b1.jar"
+        jar="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.7.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="0dff9b8997395e074b81171c49ff15fa8e72359d"/>
