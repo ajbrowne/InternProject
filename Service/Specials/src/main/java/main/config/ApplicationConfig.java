@@ -1,4 +1,4 @@
-package test.config;
+package main.config;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;

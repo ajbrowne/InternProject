@@ -1,4 +1,4 @@
-package test.Controllers;
+package main.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import test.Helpers.JsonHelp;
-import test.config.ApplicationConfig;
-import test.config.SpecialRepository;
-import test.model.Special;
+import main.Helpers.JsonHelp;
+import main.config.ApplicationConfig;
+import main.config.SpecialRepository;
+import main.model.Special;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

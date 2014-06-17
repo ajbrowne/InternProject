@@ -1,4 +1,4 @@
-package test.model;
+package main.model;
 
 /**
  * Created by maharb on 6/11/14.

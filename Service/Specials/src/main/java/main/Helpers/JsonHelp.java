@@ -1,4 +1,4 @@
-package test.Helpers;
+package main.Helpers;
 
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
