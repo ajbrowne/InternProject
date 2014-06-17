@@ -1,8 +1,10 @@
 package com.example.specialsapp.app;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -58,7 +60,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        ((MainActivity)getActivity()).loadSavedPreferences();
+        ((MainActivity) getActivity()).loadSavedPreferences();
 
         return loginView;
     }
@@ -73,13 +75,17 @@ public class LoginFragment extends Fragment {
                 String user = username.getText().toString().toLowerCase(Locale.US);
                 String pass = password.getText().toString().toLowerCase(Locale.US);
 
-                String encrypted = ((MainActivity)getActivity()).computeSHAHash(pass);
-                System.out.println(encrypted);
+                if (user.length() == 0 || pass.length() == 0) {
+                    new MyAlertDialog(getActivity(), "Invalid username or password", "Your username or password is incorrect, try again.").show();
+                } else {
+                    String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
+                    System.out.println(encrypted);
 
-                ((MainActivity)getActivity()).savePreferences("stored", true);
-                ((MainActivity)getActivity()).savePreferences("User", user);
-                ((MainActivity)getActivity()). savePreferences("Password", encrypted);
-                ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", false);
+                    ((MainActivity) getActivity()).savePreferences("stored", true);
+                    ((MainActivity) getActivity()).savePreferences("User", user);
+                    ((MainActivity) getActivity()).savePreferences("Password", encrypted);
+                    ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", false);
+                }
             }
         };
     }
