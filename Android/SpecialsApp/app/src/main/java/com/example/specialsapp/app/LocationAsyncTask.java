@@ -70,6 +70,7 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
         }
 
         String message = featureCollection.toString();
+        System.out.println(message.toString());
 
         // Url encoding the POST parameters
         try {
