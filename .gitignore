@@ -14,7 +14,7 @@ gen/
 
 # Gradle files
 .gradle/
-build/
+Android/SpecialsApp/build/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -26,6 +26,6 @@ Service/.DS_Store
 Android/.DS_Store
 .DS_Store
 
-target/
+Service/Specials/target/
 *.jar
 .idea/
