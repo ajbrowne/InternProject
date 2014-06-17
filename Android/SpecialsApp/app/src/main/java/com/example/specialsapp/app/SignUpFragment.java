@@ -13,9 +13,6 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.EditText;
-
-import org.w3c.dom.Text;
-
 import java.util.Locale;
 
 
@@ -26,7 +23,6 @@ public class SignUpFragment extends Fragment {
     private EditText confirm;
     private Button signUp;
     private View signUpView;
-    int loop = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,13 +41,21 @@ public class SignUpFragment extends Fragment {
                 String pass = password.getText().toString();
                 String conf = confirm.getText().toString().toLowerCase(Locale.US);
 
-                String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
-                System.out.println(encrypted);
+                if (conf.compareTo(pass) != 0) {
+                    new MyAlertDialog(getActivity(),  "Passwords do not match", "Please enter your password correctly both times.").show();
+                } else if (conf.length() == 0 || pass.length() == 0) {
+                    new MyAlertDialog(getActivity(),  "Password of length zero", "Passwords of length zero are not allowed.").show();
+                } else if (user.length() == 0) {
+                    new MyAlertDialog(getActivity(),  "No email entered", "Please enter an email address.").show();
+                } else {
+                    String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
+                    System.out.println(encrypted);
 
-                ((MainActivity) getActivity()).savePreferences("stored", true);
-                ((MainActivity) getActivity()).savePreferences("User", user);
-                ((MainActivity) getActivity()).savePreferences("Password", encrypted);
-                ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", true);
+                    ((MainActivity) getActivity()).savePreferences("stored", true);
+                    ((MainActivity) getActivity()).savePreferences("User", user);
+                    ((MainActivity) getActivity()).savePreferences("Password", encrypted);
+                    ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", true);
+                }
             }
         });
 
@@ -65,7 +69,7 @@ public class SignUpFragment extends Fragment {
         return signUpView;
     }
 
-    private class MyTextWatcher implements TextWatcher{
+    private class MyTextWatcher implements TextWatcher {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -76,7 +80,7 @@ public class SignUpFragment extends Fragment {
             String pass = password.getText().toString();
             String conf = confirm.getText().toString();
 
-            if (pass.compareTo(conf) == 0) {
+            if (pass.compareTo(conf) == 0 && pass.length() != 0 && conf.length() != 0) {
                 System.out.println("SAME");
                 password.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_confirm));
                 confirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_confirm));

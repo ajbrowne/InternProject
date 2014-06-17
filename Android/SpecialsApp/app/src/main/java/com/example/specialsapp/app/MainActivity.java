@@ -106,14 +106,7 @@ public class MainActivity extends Activity {
 
         if (result == 0){
             if (check == false){
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Invalid username or password")
-                        .setMessage("Your username or password is incorrect, try again.")
-                        .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                onRestart();
-                            }
-                        }).show();
+                new MyAlertDialog(this, "Invalid username or password", "Your username or password is incorrect, try again.").show();
             }
         } else if(result == 1){
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
