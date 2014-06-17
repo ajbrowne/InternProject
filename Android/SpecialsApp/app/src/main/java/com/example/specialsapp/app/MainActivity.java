@@ -147,10 +147,9 @@ public class MainActivity extends Activity {
 
 
             if (signUp.compareTo("0") == 0){
-                System.out.println("LOGIN!!!!!!!!");
                 // Create http post
                 httpPost = new HttpPost(
-                        "http://det-maharb-m:8080/v1/specials/login");
+                        "http://det-brownea-m:8080/v1/specials/login");
                auth = new JSONObject();
                 try{
                     auth.put("username", user);
@@ -160,10 +159,9 @@ public class MainActivity extends Activity {
                 }
             }
             else{
-                System.out.println("SIGNUP!!!!!!!!");
                 // Create http post
                 httpPost = new HttpPost(
-                        "http://det-maharb-m:8080/v1/specials/register");
+                        "http://det-brownea-m:8080/v1/specials/register");
                 auth = new JSONObject();
                 try{
                     auth.put("username", user);

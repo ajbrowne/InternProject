@@ -8,34 +8,18 @@
     android:background="#FFF"
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 
-
-    <EditText
-        android:id="@+id/name1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView"
-        android:layout_marginTop="29dp"
-        android:background="@drawable/rounded_input"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Full Name"
-        android:inputType="textPersonName"/>
-
     <EditText
         android:id="@+id/email1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/name1"
-        android:layout_alignStart="@+id/name1"
-        android:layout_below="@+id/name1"
+        android:layout_below="@+id/imageView"
         android:layout_marginTop="28dp"
         android:background="@drawable/rounded_input"
         android:ems="10"
-        android:gravity="center"
-        android:hint="Username"
-        android:inputType="textEmailAddress" />
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColor="#000"
+        android:textCursorDrawable="@null"/>
 
     <EditText
         android:id="@+id/password1"
@@ -46,8 +30,22 @@
         android:hint="Password"
         android:background="@drawable/rounded_input"
         android:ems="10"
-        android:gravity="center"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:textColor="#000"
+        android:textCursorDrawable="@null"/>
+
+    <EditText
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password1"
+        android:layout_marginTop="28dp"
+        android:hint="Confirm Password"
+        android:background="@drawable/rounded_input"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="#000"
+        android:textCursorDrawable="@null"/>
 
     <ImageView
         android:id="@+id/imageView"
@@ -62,7 +60,7 @@
         android:id="@+id/signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password1"
+        android:layout_below="@+id/confirm"
         android:layout_marginTop="24dp"
         android:text="Sign Up"
         android:textColor="#FFF"

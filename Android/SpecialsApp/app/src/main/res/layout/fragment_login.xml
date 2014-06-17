@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:background="#FFF"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+    android:padding="10dp">
 
     <EditText
         android:id="@+id/email"
@@ -18,10 +17,10 @@
         android:layout_marginTop="29dp"
         android:background="@drawable/rounded_input"
         android:ems="10"
-        android:gravity="center"
-        android:hint="username"
+        android:hint="Email"
         android:inputType="textEmailAddress"
-        android:textColor="#000" />
+        android:textColor="#000"
+        android:textCursorDrawable="@null" />
 
     <EditText
         android:id="@+id/password"
@@ -33,10 +32,10 @@
         android:layout_marginTop="28dp"
         android:background="@drawable/rounded_input"
         android:ems="10"
-        android:gravity="center"
-        android:hint="password"
+        android:hint="Password"
         android:inputType="textPassword"
-        android:textColor="#000" />
+        android:textColor="#000"
+        android:textCursorDrawable="@null" />
 
     <Button
         android:id="@+id/loginButton"
