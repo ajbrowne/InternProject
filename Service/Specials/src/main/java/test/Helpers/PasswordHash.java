@@ -8,7 +8,7 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
 /**
- * Created by maharb on 6/16/14.
+ *
  */
 public class PasswordHash {
 
