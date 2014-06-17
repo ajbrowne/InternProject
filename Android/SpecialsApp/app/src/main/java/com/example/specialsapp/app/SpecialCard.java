@@ -3,14 +3,10 @@ package com.example.specialsapp.app;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
 
 /**
  * This class provides a simple Google Play card
@@ -23,7 +19,7 @@ public class SpecialCard extends Card {
     protected TextView smallTitle;
 
     public SpecialCard(Context context) {
-        this(context, R.layout.gplay_inner_content);
+        this(context, R.layout.deal_card);
     }
 
     public SpecialCard(Context context, int innerLayout){

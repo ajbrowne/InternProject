@@ -10,13 +10,24 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.concurrent.ExecutionException;
+
 
 public class HomeActivity extends Activity {
+
+    Double lat;
+    Double longi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Bundle extras = getIntent().getExtras();
+        lat = (Double) extras.get("lat");
+        longi = (Double) extras.get("long");
+
+        asyncCheck(lat, longi);
 
         ConsumerHomeFragment consumerHomeFragment = new ConsumerHomeFragment();
 
@@ -57,6 +68,29 @@ public class HomeActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    /*
+       Fires the LocationAsyncTask after login and then takes action based on result
+    */
+    public void asyncCheck(Double latitude, Double longitude) {
+        LocationAsyncTask run = new LocationAsyncTask();
+        int result = 0;
+
+        try {
+            result = run.execute(latitude, longitude).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        if (result == 0) {
+            //new MyAlertDialog(this, "Invalid username or password", "Your username or password is incorrect, try again.").show();
+        } else if (result == 1) {
+            // Do stuff with results from Mongo
+        }
     }
 
 }

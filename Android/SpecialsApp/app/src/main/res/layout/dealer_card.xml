@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="3dp"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="#000"/>
+
+    <TextView
+        android:id="@+id/title"
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
+        android:paddingTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/thumbnail"
+        android:paddingLeft="5dp"
+        android:text="$5000 Cashback on Escapes" />
+
+    <TextView
+        android:id="@+id/subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@id/thumbnail"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingTop="2dp"
+        android:text="Get $5000 instant cash back now!"
+        android:textColor="#aaa" />
+
+    <TextView
+        android:id="@+id/dealerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subTitle"
+        android:layout_toRightOf="@id/thumbnail"
+        android:paddingLeft="5dp"
+        android:paddingTop="2dp"
+        android:text="Shaver Autos - Ford Escape" />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dealerName"
+        android:layout_alignParentRight="true"
+        android:textColor="#534CE6"
+        android:paddingRight="5dp"
+        android:text="USED"/>
+
+</RelativeLayout>
