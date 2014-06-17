@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.w3c.dom.Text;
+
 import java.util.Locale;
 
 
@@ -53,65 +55,41 @@ public class SignUpFragment extends Fragment {
             }
         });
 
-        username.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String pass = password.getText().toString();
-                String conf = confirm.getText().toString();
-
-                if (pass.compareTo(conf) == 0) {
-                    password.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_confirm));
-                    confirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_confirm));
-                }
-                else{
-                    password.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_input));
-                    confirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_input));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        confirm.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String pass = password.getText().toString();
-                String conf = confirm.getText().toString();
-
-                if (pass.compareTo(conf) == 0) {
-                    System.out.println("SAME");
-                    password.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_confirm));
-                    confirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_confirm));
-                } else {
-                    System.out.println("DIFF");
-                    password.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_input));
-                    confirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_input));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        confirm.addTextChangedListener(new MyTextWatcher());
+        password.addTextChangedListener(new MyTextWatcher());
 
         ((MainActivity) getActivity()).loadSavedPreferences();
 
 
         // Inflate the layout for this fragment
         return signUpView;
+    }
+
+    private class MyTextWatcher implements TextWatcher{
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String pass = password.getText().toString();
+            String conf = confirm.getText().toString();
+
+            if (pass.compareTo(conf) == 0) {
+                System.out.println("SAME");
+                password.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_confirm));
+                confirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_confirm));
+            } else {
+                System.out.println("DIFF");
+                password.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_input));
+                confirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_input));
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
     }
 }
