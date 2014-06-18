@@ -59,6 +59,9 @@ public class UserController {
             e.printStackTrace();
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
+        } catch (NullPointerException e){
+            log.info("No such user");
+            return new ResponseEntity<String>(jsonHelper.jsonGen("Invalid Username or Password"), HttpStatus.UNAUTHORIZED);
         }
 
         log.info(user.getUsername() + " logged in successfully.");
