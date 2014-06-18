@@ -47,7 +47,7 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
 
         // Create http post
         httpPost = new HttpPost(
-                "http://det-maharb-m:8080/v1/dealers/getDealerByLocation");
+                "http://det-maharb-m:8080/v1/specials/dealer/getByLocation");
         location = new JSONObject();
         point = new JSONObject();
         coord = new JSONArray();

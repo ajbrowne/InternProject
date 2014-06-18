@@ -49,7 +49,7 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
         if (signUp.compareTo("0") == 0) {
             // Create http post
             httpPost = new HttpPost(
-                    "http://det-maharb-m:8080/v1/users/login");
+                    "http://det-maharb-m:8080/v1/specials/user/login");
             auth = new JSONObject();
             try {
                 auth.put("username", user);
@@ -60,7 +60,7 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
         } else {
             // Create http post
             httpPost = new HttpPost(
-                    "http://det-maharb-m:8080/v1/users/register");
+                    "http://det-maharb-m:8080/v1/specials/user/register");
             auth = new JSONObject();
             try {
                 auth.put("username", user);
