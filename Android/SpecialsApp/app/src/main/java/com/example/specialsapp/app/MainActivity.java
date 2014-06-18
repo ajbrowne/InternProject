@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
     /*
        Fires the AuthRequest and then takes action based on result
     */
-    public void asyncCheck(String user, String pass, String name, boolean check) {
+    public int asyncCheck(String user, String pass, String name, boolean check) {
         AuthAsyncTask run = new AuthAsyncTask();
         String signUp = "0";
         int result = 0;
@@ -94,6 +94,7 @@ public class MainActivity extends Activity {
             startActivity(intent);
             finish();
         }
+        return result;
     }
 
     public String computeSHAHash(String password) {

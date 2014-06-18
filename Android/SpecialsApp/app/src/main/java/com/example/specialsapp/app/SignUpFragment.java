@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.EditText;
+
 import java.util.Locale;
 
 
@@ -42,28 +43,28 @@ public class SignUpFragment extends Fragment {
                 String conf = confirm.getText().toString().toLowerCase(Locale.US);
 
                 if (conf.compareTo(pass) != 0) {
-                    new MyAlertDialog(getActivity(),  "Passwords do not match", "Please enter your password correctly both times.").show();
+                    new MyAlertDialog(getActivity(), "Passwords do not match", "Please enter your password correctly both times.").show();
                 } else if (conf.length() == 0 || pass.length() == 0) {
-                    new MyAlertDialog(getActivity(),  "Password of length zero", "Passwords of length zero are not allowed.").show();
+                    new MyAlertDialog(getActivity(), "Password of length zero", "Passwords of length zero are not allowed.").show();
                 } else if (user.length() == 0) {
-                    new MyAlertDialog(getActivity(),  "No email entered", "Please enter an email address.").show();
+                    new MyAlertDialog(getActivity(), "No email entered", "Please enter an email address.").show();
                 } else {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
                     System.out.println(encrypted);
 
-                    ((MainActivity) getActivity()).savePreferences("stored", true);
-                    ((MainActivity) getActivity()).savePreferences("User", user);
-                    ((MainActivity) getActivity()).savePreferences("Password", encrypted);
-                    ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", true);
+                    if (((MainActivity) getActivity()).asyncCheck(user, encrypted, "", false) == 1) {
+
+                        ((MainActivity) getActivity()).savePreferences("stored", true);
+                        ((MainActivity) getActivity()).savePreferences("User", user);
+                        ((MainActivity) getActivity()).savePreferences("Password", encrypted);
+                        ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", true);
+                    }
                 }
             }
         });
 
         confirm.addTextChangedListener(new MyTextWatcher());
         password.addTextChangedListener(new MyTextWatcher());
-
-        ((MainActivity) getActivity()).loadSavedPreferences();
-
 
         // Inflate the layout for this fragment
         return signUpView;

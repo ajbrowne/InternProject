@@ -81,10 +81,12 @@ public class LoginFragment extends Fragment {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
                     System.out.println(encrypted);
 
-                    ((MainActivity) getActivity()).savePreferences("stored", true);
-                    ((MainActivity) getActivity()).savePreferences("User", user);
-                    ((MainActivity) getActivity()).savePreferences("Password", encrypted);
-                    ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", false);
+                    if (((MainActivity)getActivity()).asyncCheck(user, encrypted, "", false) == 1){
+                        ((MainActivity) getActivity()).savePreferences("stored", true);
+                        ((MainActivity) getActivity()).savePreferences("User", user);
+                        ((MainActivity) getActivity()).savePreferences("Password", encrypted);
+                        ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", false);
+                    }
                 }
             }
         };
