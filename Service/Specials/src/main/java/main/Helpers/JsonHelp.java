@@ -2,6 +2,7 @@ package main.Helpers;
 
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import org.springframework.data.geo.Point;
 
 /**
  * Created by maharb on 6/17/14.
@@ -12,6 +13,7 @@ public class JsonHelp {
         JSONObject returnObj = new JSONObject();
         try {
             returnObj.put("response", response);
+            returnObj.put("test", new Point(40,5));
         } catch (JSONException e) {
             e.printStackTrace();
         }

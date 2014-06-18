@@ -1,11 +1,12 @@
 package main.Controllers;
 
+import main.Helpers.JsonHelp;
+import main.config.ApplicationConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import main.config.ApplicationConfig;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,16 +21,18 @@ import java.text.SimpleDateFormat;
 public class MainController {
 
     private DateFormat dateFormat;
+    private JsonHelp jsonHelp;
 
     public MainController(){
         ApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        jsonHelp = new JsonHelp();
     }
 
-    @RequestMapping(value= "/main")
+    @RequestMapping(value= "/main", produces = "application/json")
     @ResponseBody
     public String test(){
-        return "HELLO";
+        return jsonHelp.jsonGen("test");
     }
 
 

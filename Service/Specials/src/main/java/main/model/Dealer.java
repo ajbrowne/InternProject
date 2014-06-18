@@ -1,5 +1,6 @@
 package main.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,21 +13,11 @@ public class Dealer {
 
     public Dealer(){}
 
-    public Dealer(String id, String name, String admin, Point loc) {
+    public Dealer(String id, String name, String admin, Location loc) {
         this.id = id;
         this.name = name;
         this.admin = admin;
         this.loc = loc;
-    }
-
-    @Override
-    public String toString() {
-        return "Dealer{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", admin='" + admin + '\'' +
-                ", loc=" + loc +
-                '}';
     }
 
     public String getId() {
@@ -53,11 +44,11 @@ public class Dealer {
         this.admin = admin;
     }
 
-    public Point getLoc() {
+    public Location getLoc() {
         return loc;
     }
 
-    public void setLoc(Point loc) {
+    public void setLoc(Location loc) {
         this.loc = loc;
     }
 
@@ -65,6 +56,35 @@ public class Dealer {
     private String id;
     private String name;
     private String admin;
-    private Point loc;
+    private Location loc;
+
+    public Dealer(Point location, Location loc, String admin, String name) {
+        this.location = location;
+        this.loc = loc;
+        this.admin = admin;
+        this.name = name;
+    }
+
+    public Point getLocation() {
+        return location;
+    }
+
+    public void setLocation(Point location) {
+        this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        return "Dealer{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", admin='" + admin + '\'' +
+                ", loc=" + loc +
+                ", location=" + location +
+                '}';
+    }
+
+    @JsonIgnore
+    private Point location;
 
 }

@@ -11,5 +11,14 @@ import java.util.List;
  */
 public interface DealerRepository extends MongoRepository<Dealer, String> {
 
-    public List<Dealer> findByLocNear(Point loc);
+    /**
+     * Makes use of the Mongodb $near search. This allows us to put
+     * a point object into our db and index it and then find the closest
+     * results.
+     *
+     * @param loc
+     * @return
+     */
+    public List<Dealer> findByLocationNear(Point loc);
+    public Dealer findByName(String name);
 }
