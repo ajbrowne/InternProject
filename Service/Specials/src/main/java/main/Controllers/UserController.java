@@ -1,5 +1,11 @@
 package main.Controllers;
 
+import main.Helpers.JsonHelp;
+import main.Helpers.PasswordHash;
+import main.config.ApplicationConfig;
+import main.config.UserRepository;
+import main.model.User;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -10,17 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import main.Helpers.JsonHelp;
-import main.Helpers.PasswordHash;
-import main.config.ApplicationConfig;
-import main.config.UserRepository;
-import main.model.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by maharb on 6/17/14.
@@ -33,13 +31,12 @@ public class UserController {
     UserRepository userRepository;
 
     private PasswordHash passwordHash;
-    private DateFormat dateFormat;
+    private Logger log = Logger.getLogger(UserController.class.getName());
     private JsonHelp jsonHelper;
 
     public UserController(){
         ApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
         userRepository = (UserRepository) ctx.getBean("userRepository");
-        dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         passwordHash = new PasswordHash();
         jsonHelper = new JsonHelp();
     }
@@ -47,14 +44,14 @@ public class UserController {
     @RequestMapping(value="/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public ResponseEntity<String> login(@RequestBody User user){
-        System.out.println(dateFormat.format(new Date()) + "  INFO: " + user.getUsername() + " is trying to login.");
+        log.info(user.getUsername() + " is trying to login.");
 
 
         User check = userRepository.findByUsername(user.getUsername());
 
         try {
             if(!passwordHash.validatePassword(user.getPassword(), check.getPassword())){
-                System.out.println(dateFormat.format(new Date()) + "  INFO: " + user.getUsername() + " failed to login.");
+                log.info(user.getUsername() + " failed to login.");
 
                 return new ResponseEntity<String>(jsonHelper.jsonGen("Invalid Username or Password"), HttpStatus.UNAUTHORIZED);
             }
@@ -64,7 +61,7 @@ public class UserController {
             e.printStackTrace();
         }
 
-        System.out.println(dateFormat.format(new Date()) + "  INFO: " + user.getUsername() + " logged in successfully.");
+        log.info(user.getUsername() + " logged in successfully.");
         return new ResponseEntity<String>(jsonHelper.jsonGen("Login Success") ,HttpStatus.OK);
     }
 
@@ -80,6 +77,7 @@ public class UserController {
             e.printStackTrace();
         }
         userRepository.save(user);
+        log.info(user.getUsername() + " has registered as a new user.");
         return new ResponseEntity<String>(jsonHelper.jsonGen("Registered"), HttpStatus.OK);
     }
 }

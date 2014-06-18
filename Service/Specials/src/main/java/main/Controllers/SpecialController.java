@@ -1,5 +1,6 @@
 package main.Controllers;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -28,6 +29,7 @@ public class SpecialController {
     @Autowired
     SpecialRepository specialRepository;
 
+    private Logger log = Logger.getLogger(SpecialController.class.getName());
     private DateFormat dateFormat;
     private JsonHelp jsonHelper;
 
@@ -42,6 +44,7 @@ public class SpecialController {
     @ResponseBody
     public ResponseEntity<String> createSpecial(@RequestBody Special special){
         specialRepository.save(special);
+        log.info("New special added: Title=" + special.getTitle() + ", dealer=" + special.getDealer());
         return new ResponseEntity<String>(jsonHelper.jsonGen("Created Special"), HttpStatus.CREATED);
     }
 
@@ -58,8 +61,10 @@ public class SpecialController {
     public ResponseEntity<Special> getSpecialTitle(@RequestBody Special title){
         Special special = specialRepository.findByTitle(title.getTitle());
         if(special == null){
+            log.info("No Special found that matches this title");
             return new ResponseEntity<Special>(special ,HttpStatus.BAD_REQUEST);
         }
+        log.info("A special was found with the given title");
         return new ResponseEntity<Special>(special ,HttpStatus.OK);
     }
 
@@ -69,8 +74,10 @@ public class SpecialController {
         System.out.println(id.getId());
         Special special = specialRepository.findById(id.getId());
         if(special == null){
+            log.info("No special was found with the given id");
             return new ResponseEntity<Special>(special ,HttpStatus.BAD_REQUEST);
         }
+        log.info("A special was found with the given id");
         return new ResponseEntity<Special>(special ,HttpStatus.OK);
     }
 
@@ -80,8 +87,10 @@ public class SpecialController {
         System.out.println(type.getType());
         Special special = specialRepository.findByType(type.getType());
         if(special == null){
+            log.info("No special was found with the given type");
             return new ResponseEntity<Special>(special ,HttpStatus.BAD_REQUEST);
         }
+        log.info("A special was found with the given Type");
         return new ResponseEntity<Special>(special ,HttpStatus.OK);
     }
 
@@ -91,8 +100,10 @@ public class SpecialController {
         System.out.println(dealer.getDealer());
         Special special = specialRepository.findByDealer(dealer.getDealer());
         if(special == null){
+            log.info("No special was found with the given dealer");
             return new ResponseEntity<Special>(special ,HttpStatus.BAD_REQUEST);
         }
+        log.info("A special was found with the given Dealer");
         return new ResponseEntity<Special>(special ,HttpStatus.OK);
     }
 }
