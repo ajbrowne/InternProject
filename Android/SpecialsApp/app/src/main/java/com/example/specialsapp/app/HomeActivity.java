@@ -1,5 +1,6 @@
 package com.example.specialsapp.app;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -23,17 +24,19 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        setTitle("Specials Near You");
+
         Bundle extras = getIntent().getExtras();
         lat = (Double) extras.get("lat");
         longi = (Double) extras.get("long");
 
         asyncCheck(lat, longi);
 
-        ConsumerHomeFragment consumerHomeFragment = new ConsumerHomeFragment();
+        NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer2, consumerHomeFragment);
+        fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
         fragmentTransaction.commit();
     }
 
@@ -66,6 +69,14 @@ public class HomeActivity extends Activity {
             startActivity(intent);
             finish();
             return true;
+        }
+        if (id == android.R.id.home){
+            NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
+
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
+            fragmentTransaction.commit();
         }
         return super.onOptionsItemSelected(item);
     }

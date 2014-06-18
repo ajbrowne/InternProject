@@ -14,45 +14,45 @@
         android:background="#000"/>
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/dealer"
         style="@android:style/TextAppearance.DeviceDefault.Medium"
         android:paddingTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/thumbnail"
         android:paddingLeft="5dp"
-        android:text="$5000 Cashback on Escapes" />
+        android:text="Bob Thomas Ford" />
 
     <TextView
-        android:id="@+id/subTitle"
+        android:id="@+id/city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/dealer"
         android:layout_toRightOf="@id/thumbnail"
         android:gravity="center"
         android:paddingLeft="5dp"
         android:paddingTop="2dp"
-        android:text="Get $5000 instant cash back now!"
+        android:text="Fort Wayne, IN"
         android:textColor="#aaa" />
 
     <TextView
-        android:id="@+id/dealerName"
+        android:id="@+id/deals"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/subTitle"
+        android:layout_below="@id/city"
         android:layout_toRightOf="@id/thumbnail"
         android:paddingLeft="5dp"
         android:paddingTop="2dp"
-        android:text="Shaver Autos - Ford Escape" />
+        android:text="10 deals currently running" />
 
     <TextView
-        android:id="@+id/type"
+        android:id="@+id/type1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dealerName"
+        android:layout_below="@id/deals"
         android:layout_alignParentRight="true"
         android:textColor="#534CE6"
         android:paddingRight="5dp"
-        android:text="USED"/>
+        android:text="NEW/USED/SERVICE"/>
 
 </RelativeLayout>

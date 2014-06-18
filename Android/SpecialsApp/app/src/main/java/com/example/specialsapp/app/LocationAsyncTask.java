@@ -26,12 +26,10 @@ import java.io.UnsupportedEncodingException;
  */
 public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
 
-    private JSONObject request;
+    private JSONArray request;
     HttpPost httpPost;
-    JSONObject featureCollection;
+    JSONObject location;
     JSONObject point;
-    JSONObject feature;
-    JSONArray featureList;
     JSONArray coord;
 
     @Override
@@ -49,27 +47,22 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
 
         // Create http post
         httpPost = new HttpPost(
-                "http://det-maharb-m:8080/v1/dealers/createDealer");
+                "http://det-maharb-m:8080/v1/dealers/getDealerByLocation");
+        location = new JSONObject();
         point = new JSONObject();
-        featureCollection = new JSONObject();
-        feature = new JSONObject();
-        featureList = new JSONArray();
         coord = new JSONArray();
         try {
             point.put("type", "Point");
             coord.put(longitude);
             coord.put(latitude);
             point.put("coordinates", coord);
-            feature.put("geometry", point);
-            feature.put("type", "Feature");
-            featureList.put(feature);
-            featureCollection.put("features", featureList);
-            featureCollection.put("type", "FeatureCollection");
+            location.put("loc", point);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        String message = featureCollection.toString();
+        String message = location.toString();
+        System.out.println(message.toString());
 
         // Url encoding the POST parameters
         try {
@@ -91,7 +84,7 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
 
             System.out.println(builder.toString());
 
-            request = new JSONObject(builder.toString());
+            request = new JSONArray(builder.toString());
 
             Log.d("HTTP Response: ", response.toString());
 
