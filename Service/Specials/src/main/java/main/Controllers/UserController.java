@@ -24,7 +24,7 @@ import java.security.spec.InvalidKeySpecException;
  * Created by maharb on 6/17/14.
  */
 @Controller
-@RequestMapping(value="/v1/users")
+@RequestMapping(value="/v1/specials/user")
 public class UserController {
 
     @Autowired

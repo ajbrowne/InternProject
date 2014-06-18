@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
  * Created by maharb on 6/17/14.
  */
 @Controller
-@RequestMapping(value="/v1/specials")
+@RequestMapping(value="/v1/specials/special")
 public class SpecialController {
 
     @Autowired
@@ -40,7 +40,7 @@ public class SpecialController {
         jsonHelper = new JsonHelp();
     }
 
-    @RequestMapping(value = "/createSpecial", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public ResponseEntity<String> createSpecial(@RequestBody Special special){
         specialRepository.save(special);
@@ -56,7 +56,7 @@ public class SpecialController {
         return new ResponseEntity<String>(jsonHelper.jsonGen("Updated") ,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getSpecialByTitle", method = RequestMethod.POST)
+    @RequestMapping(value = "/getByTitle", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Special> getSpecialTitle(@RequestBody Special title){
         Special special = specialRepository.findByTitle(title.getTitle());
@@ -68,7 +68,7 @@ public class SpecialController {
         return new ResponseEntity<Special>(special ,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getSpecialByID", method = RequestMethod.POST)
+    @RequestMapping(value = "/getByID", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Special> getSpecialID(@RequestBody Special id){
         System.out.println(id.getId());
@@ -81,7 +81,7 @@ public class SpecialController {
         return new ResponseEntity<Special>(special ,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getSpecialByType", method = RequestMethod.POST)
+    @RequestMapping(value = "/getByType", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Special> getSpecialType(@RequestBody Special type){
         System.out.println(type.getType());
@@ -94,7 +94,7 @@ public class SpecialController {
         return new ResponseEntity<Special>(special ,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getSpecialByDealer", method = RequestMethod.POST)
+    @RequestMapping(value = "/getByDealer", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Special> getSpecialDealer(@RequestBody Special dealer){
         System.out.println(dealer.getDealer());

@@ -22,7 +22,7 @@ import java.util.List;
  * Created by maharb on 6/17/14.
  */
 @Controller
-@RequestMapping(value="/v1/dealers")
+@RequestMapping(value="/v1/specials/dealer")
 public class DealerController {
 
     @Autowired
@@ -35,7 +35,7 @@ public class DealerController {
         dealerRepository = (DealerRepository) ctx.getBean("dealerRepository");
     }
 
-    @RequestMapping(value="/createDealer", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value="/create", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public ResponseEntity<Dealer> createDealer(@RequestBody Dealer dealer){
         double[] first = dealer.getLoc().getCoordinates();
@@ -45,7 +45,7 @@ public class DealerController {
         return new ResponseEntity<Dealer>(dealer, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/getDealerByLocation", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value="/getByLocation", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<Dealer>> getDealerLoc(@RequestBody Dealer dealer){
         //Dealer newdealer = dealerRepository.findByName(dealer.getName());
