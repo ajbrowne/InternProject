@@ -52,13 +52,10 @@ public class SignUpFragment extends Fragment {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
                     System.out.println(encrypted);
 
-                    if (((MainActivity) getActivity()).asyncCheck(user, encrypted, "", true) == 1) {
-
-                        ((MainActivity) getActivity()).savePreferences("stored", true);
-                        ((MainActivity) getActivity()).savePreferences("User", user);
-                        ((MainActivity) getActivity()).savePreferences("Password", encrypted);
-                        ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", true);
-                    }
+                    ((MainActivity) getActivity()).savePreferences("stored", true);
+                    ((MainActivity) getActivity()).savePreferences("User", user);
+                    ((MainActivity) getActivity()).savePreferences("Password", encrypted);
+                    ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", true);
                 }
             }
         });

@@ -81,11 +81,12 @@ public class LoginFragment extends Fragment {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
                     System.out.println(encrypted);
 
-                    if (((MainActivity)getActivity()).asyncCheck(user, encrypted, "", false) == 1){
+
+                    int check = ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", false);
+                    if (check == 1) {
                         ((MainActivity) getActivity()).savePreferences("stored", true);
                         ((MainActivity) getActivity()).savePreferences("User", user);
                         ((MainActivity) getActivity()).savePreferences("Password", encrypted);
-                        ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", false);
                     }
                 }
             }
