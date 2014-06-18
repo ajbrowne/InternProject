@@ -30,7 +30,7 @@ public class HomeActivity extends Activity {
         lat = (Double) extras.get("lat");
         longi = (Double) extras.get("long");
 
-        //asyncCheck(lat, longi);
+        asyncCheck(lat, longi);
 
         NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
 
