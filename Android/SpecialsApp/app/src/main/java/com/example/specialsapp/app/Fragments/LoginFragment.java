@@ -1,25 +1,19 @@
-package com.example.specialsapp.app;
+package com.example.specialsapp.app.Fragments;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import com.example.specialsapp.app.Activities.MainActivity;
+import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
+import com.example.specialsapp.app.R;
+
 import java.util.Locale;
 
 /**
@@ -76,7 +70,7 @@ public class LoginFragment extends Fragment {
                 String pass = password.getText().toString().toLowerCase(Locale.US);
 
                 if (user.length() == 0 || pass.length() == 0) {
-                    new MyAlertDialog(getActivity(), "Invalid username or password", "Your username or password is incorrect, try again.").show();
+                    new CustomAlertDialog(getActivity(), "Invalid username or password", "Your username or password is incorrect, try again.").show();
                 } else {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
                     System.out.println(encrypted);

@@ -1,4 +1,4 @@
-package com.example.specialsapp.app;
+package com.example.specialsapp.app.GPS;
 
 import android.app.AlertDialog;
 import android.app.Service;
@@ -16,7 +16,7 @@ import android.util.Log;
 /**
  * Created by brownea on 6/12/14.
  */
-public class TheGPS extends Service implements LocationListener {
+public class GPS extends Service implements LocationListener {
 
     private Context context;
     boolean isGPSEnabled = false;
@@ -32,7 +32,7 @@ public class TheGPS extends Service implements LocationListener {
 
     protected LocationManager locationManager;
 
-    public TheGPS(Context context){
+    public GPS(Context context){
         this.context = context;
         getLocation();
     }

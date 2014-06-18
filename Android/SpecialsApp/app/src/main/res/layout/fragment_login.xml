@@ -66,6 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:scaleY=".7"
+        android:scaleX=".7"
         android:paddingTop="35dp"
-        android:src="@drawable/adp" />
+        android:src="@drawable/clogo" />
 </RelativeLayout>

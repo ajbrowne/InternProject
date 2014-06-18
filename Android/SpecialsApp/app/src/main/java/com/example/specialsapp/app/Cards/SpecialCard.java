@@ -1,10 +1,12 @@
-package com.example.specialsapp.app;
+package com.example.specialsapp.app.Cards;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.specialsapp.app.R;
 
 import it.gmariotti.cardslib.library.internal.Card;
 

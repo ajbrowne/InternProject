@@ -1,14 +1,15 @@
-package com.example.specialsapp.app;
+package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.specialsapp.app.Activities.HomeActivity;
+import com.example.specialsapp.app.R;
+import com.example.specialsapp.app.Cards.SpecialCard;
 
 import java.util.ArrayList;
 

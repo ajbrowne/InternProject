@@ -54,7 +54,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:paddingTop="35dp"
-        android:src="@drawable/adp" />
+        android:scaleY=".7"
+        android:scaleX=".7"
+        android:src="@drawable/clogo" />
 
     <Button
         android:id="@+id/signup"

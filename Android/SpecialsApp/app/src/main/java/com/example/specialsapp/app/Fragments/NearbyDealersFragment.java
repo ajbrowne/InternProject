@@ -1,4 +1,4 @@
-package com.example.specialsapp.app;
+package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.specialsapp.app.Activities.HomeActivity;
+import com.example.specialsapp.app.R;
+import com.example.specialsapp.app.Cards.SpecialCard;
 
 import java.util.ArrayList;
 
