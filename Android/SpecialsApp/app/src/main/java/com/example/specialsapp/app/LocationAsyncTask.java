@@ -41,13 +41,13 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
         // Create http client
         HttpClient httpClient = new DefaultHttpClient();
 
-        HttpHost proxy = new HttpHost("det-maharb-m", 8080, "http");
+        HttpHost proxy = new HttpHost("det-brownea-m", 8080, "http");
         httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 
 
         // Create http post
         httpPost = new HttpPost(
-                "http://det-maharb-m:8080/v1/specials/dealer/getByLocation");
+                "http://det-brownea-m:8080/v1/specials/dealer/getByLocation");
         location = new JSONObject();
         point = new JSONObject();
         coord = new JSONArray();

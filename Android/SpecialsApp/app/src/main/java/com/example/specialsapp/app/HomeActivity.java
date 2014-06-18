@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -24,8 +25,6 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        setTitle("Specials Near You");
-
         Bundle extras = getIntent().getExtras();
         lat = (Double) extras.get("lat");
         longi = (Double) extras.get("long");
@@ -36,7 +35,7 @@ public class HomeActivity extends Activity {
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
+        fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment, "nearby");
         fragmentTransaction.commit();
     }
 
@@ -101,6 +100,18 @@ public class HomeActivity extends Activity {
             //new MyAlertDialog(this, "Invalid username or password", "Your username or password is incorrect, try again.").show();
         } else if (result == 1) {
             // Do stuff with results from Mongo
+        }
+    }
+
+    @Override
+    public void onBackPressed(){
+        FragmentManager fm = getFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            Log.i("MainActivity", "popping backstack");
+            fm.popBackStack();
+        } else {
+            Log.i("MainActivity", "nothing on backstack, calling super");
+            super.onBackPressed();
         }
     }
 

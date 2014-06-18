@@ -42,14 +42,14 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
         // Create http client
         HttpClient httpClient = new DefaultHttpClient();
 
-        HttpHost proxy = new HttpHost("det-maharb-m", 8080, "http");
+        HttpHost proxy = new HttpHost("det-brownea-m", 8080, "http");
         httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 
 
         if (signUp.compareTo("0") == 0) {
             // Create http post
             httpPost = new HttpPost(
-                    "http://det-maharb-m:8080/v1/specials/user/login");
+                    "http://det-brownea-m:8080/v1/specials/user/login");
             auth = new JSONObject();
             try {
                 auth.put("username", user);
@@ -60,7 +60,7 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
         } else {
             // Create http post
             httpPost = new HttpPost(
-                    "http://det-maharb-m:8080/v1/specials/user/register");
+                    "http://det-brownea-m:8080/v1/specials/user/register");
             auth = new JSONObject();
             try {
                 auth.put("username", user);
