@@ -23,16 +23,6 @@ public class User {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", role=" + role +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
     private int role;
 
     public String getPassword() {
@@ -69,6 +59,70 @@ public class User {
     }
 
     private String password;
+    private String phone;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", role=" + role +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", zip='" + zip + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
+    private String zip;
+
+    public User(String username, int role, String password, String phone, String zip, String firstName, String lastName) {
+        this.username = username;
+        this.role = role;
+        this.password = password;
+        this.phone = phone;
+        this.zip = zip;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    private String firstName;
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    private String lastName;
+
 
 }
 
