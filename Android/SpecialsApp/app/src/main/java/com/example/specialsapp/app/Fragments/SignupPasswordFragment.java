@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.MainActivity;
@@ -25,6 +26,7 @@ public class SignupPasswordFragment extends Fragment {
     private Button next;
     private EditText password;
     private EditText confirm;
+    private TextView signin;
     private String userPassword;
     private String confirmPassword;
     private String email;
@@ -45,6 +47,7 @@ public class SignupPasswordFragment extends Fragment {
         next = (Button) view.findViewById(R.id.flow4_button);
         password = (EditText) view.findViewById(R.id.flow4_password);
         confirm = (EditText) view.findViewById(R.id.flow4_verify);
+        signin = (TextView)view.findViewById(R.id.flow4_signin);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +70,22 @@ public class SignupPasswordFragment extends Fragment {
                     ((MainActivity) getActivity()).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                     startActivity(intent);
                 }
+            }
+        });
+
+        signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginFragment fragment = new LoginFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("clear", "clear");
+                fragment.setArguments(bundle);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();fragment.setArguments(bundle);
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
+                fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+                fragmentTransaction.commit();
             }
         });
         // Inflate the layout for this fragment

@@ -14,6 +14,7 @@ import com.example.specialsapp.app.Activities.MainActivity;
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.R;
 
+import java.nio.charset.MalformedInputException;
 import java.util.Locale;
 
 /**
@@ -26,13 +27,25 @@ public class LoginFragment extends Fragment {
     private Button login;
     private Button signup;
     private View loginView;
-
+    private String clear;
+    private FragmentManager fm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         loginView = inflater.inflate(R.layout.fragment_login, container, false);
+        fm = getFragmentManager();
+
+        try{
+            if (getArguments().getString("clear").compareTo("clear") == 0){
+                for (int i = 0; i < fm.getBackStackEntryCount(); i++){
+                    fm.popBackStack();
+                }
+            }
+        } catch(NullPointerException e){
+
+        }
 
         // Link elements from xml
         login = (Button) loginView.findViewById(R.id.loginButton);
@@ -50,7 +63,7 @@ public class LoginFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
-                fragmentTransaction.replace(R.id.fragmentContainer, fragment, "login").addToBackStack(null);
+                fragmentTransaction.replace(R.id.fragmentContainer, fragment, "number").addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
