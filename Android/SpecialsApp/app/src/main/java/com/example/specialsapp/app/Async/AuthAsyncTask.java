@@ -106,7 +106,7 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
 
             Log.d("HTTP Response: ", response.toString());
 
-            if (response.getStatusLine().getStatusCode() == 200) {
+            if (response.getStatusLine().getStatusCode() == 200 || response.getStatusLine().getStatusCode() == 201) {
                 authCode = 1;
             }
         } catch (ClientProtocolException e) {

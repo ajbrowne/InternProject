@@ -35,7 +35,7 @@ public class DealerSpecialsFragment extends Fragment {
         ActionBar actionBar = ((HomeActivity) getActivity()).getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        ((HomeActivity) getActivity()).setTitle("Specials for this dealer");
+        ((HomeActivity) getActivity()).setTitle("Specials");
 
         SpecialCard card = new SpecialCard(getActivity(), R.layout.deal_card);
 

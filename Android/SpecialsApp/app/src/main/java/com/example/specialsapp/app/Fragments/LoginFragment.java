@@ -14,7 +14,6 @@ import com.example.specialsapp.app.Activities.MainActivity;
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.R;
 
-import java.nio.charset.MalformedInputException;
 import java.util.Locale;
 
 /**
@@ -67,8 +66,6 @@ public class LoginFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-
-        ((MainActivity) getActivity()).loadSavedPreferences();
 
         return loginView;
     }

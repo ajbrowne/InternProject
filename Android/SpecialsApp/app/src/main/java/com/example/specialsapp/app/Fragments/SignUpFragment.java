@@ -46,21 +46,7 @@ public class SignUpFragment extends Fragment {
                 String pass = password.getText().toString();
                 String conf = confirm.getText().toString().toLowerCase(Locale.US);
 
-                if (conf.compareTo(pass) != 0) {
-                    new CustomAlertDialog(getActivity(), "Passwords do not match", "Please enter your password correctly both times.").show();
-                } else if (conf.length() == 0 || pass.length() == 0) {
-                    new CustomAlertDialog(getActivity(), "Password of length zero", "Passwords of length zero are not allowed.").show();
-                } else if (user.length() == 0) {
-                    new CustomAlertDialog(getActivity(), "No email entered", "Please enter an email address.").show();
-                } else {
-                    String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
-                    System.out.println(encrypted);
 
-                    ((MainActivity) getActivity()).savePreferences("stored", true);
-                    ((MainActivity) getActivity()).savePreferences("User", user);
-                    ((MainActivity) getActivity()).savePreferences("Password", encrypted);
-                    ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", true, "", "", "", "");
-                }
             }
         });
 

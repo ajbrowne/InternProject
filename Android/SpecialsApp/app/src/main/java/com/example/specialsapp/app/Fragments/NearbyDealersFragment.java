@@ -36,7 +36,7 @@ public class NearbyDealersFragment extends Fragment {
         // Inflate the layout for this fragment
         homeView = inflater.inflate(R.layout.fragment_nearby_dealers_, container, false);
 
-        getActivity().setTitle("Specials near you");
+        getActivity().setTitle("Dealers");
 
         ActionBar actionBar = ((HomeActivity)getActivity()).getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
