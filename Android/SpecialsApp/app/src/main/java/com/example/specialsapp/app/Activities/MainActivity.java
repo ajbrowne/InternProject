@@ -1,9 +1,8 @@
-package com.example.specialsapp.app;
+package com.example.specialsapp.app.Activities;
 
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +11,12 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.specialsapp.app.Async.AuthAsyncTask;
+import com.example.specialsapp.app.Fragments.LoginFragment;
+import com.example.specialsapp.app.GPS.GPS;
+import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
+import com.example.specialsapp.app.R;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -30,7 +35,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TheGPS gps = new TheGPS(this);
+        GPS gps = new GPS(this);
         lat = gps.getLatitude();
         longi = gps.getLongitude();
 
@@ -85,7 +90,7 @@ public class MainActivity extends Activity {
 
         if (result == 0) {
             if (check == false) {
-                new MyAlertDialog(this, "Invalid username or password", "Your username or password is incorrect, try again.").show();
+                new CustomAlertDialog(this, "Invalid username or password", "Your username or password is incorrect, try again.").show();
             }
         } else if (result == 1) {
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);

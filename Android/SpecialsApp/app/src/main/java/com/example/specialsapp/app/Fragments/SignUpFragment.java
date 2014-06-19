@@ -1,4 +1,4 @@
-package com.example.specialsapp.app;
+package com.example.specialsapp.app.Fragments;
 
 
 import android.app.Fragment;
@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.specialsapp.app.Activities.MainActivity;
+import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
+import com.example.specialsapp.app.R;
 
 import java.util.Locale;
 
@@ -43,11 +47,11 @@ public class SignUpFragment extends Fragment {
                 String conf = confirm.getText().toString().toLowerCase(Locale.US);
 
                 if (conf.compareTo(pass) != 0) {
-                    new MyAlertDialog(getActivity(), "Passwords do not match", "Please enter your password correctly both times.").show();
+                    new CustomAlertDialog(getActivity(), "Passwords do not match", "Please enter your password correctly both times.").show();
                 } else if (conf.length() == 0 || pass.length() == 0) {
-                    new MyAlertDialog(getActivity(), "Password of length zero", "Passwords of length zero are not allowed.").show();
+                    new CustomAlertDialog(getActivity(), "Password of length zero", "Passwords of length zero are not allowed.").show();
                 } else if (user.length() == 0) {
-                    new MyAlertDialog(getActivity(), "No email entered", "Please enter an email address.").show();
+                    new CustomAlertDialog(getActivity(), "No email entered", "Please enter an email address.").show();
                 } else {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
                     System.out.println(encrypted);

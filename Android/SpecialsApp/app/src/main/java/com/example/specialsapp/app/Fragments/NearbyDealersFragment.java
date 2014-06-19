@@ -1,4 +1,4 @@
-package com.example.specialsapp.app;
+package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.specialsapp.app.Activities.HomeActivity;
+import com.example.specialsapp.app.R;
+import com.example.specialsapp.app.Cards.SpecialCard;
 
 import java.util.ArrayList;
 
@@ -32,6 +36,8 @@ public class NearbyDealersFragment extends Fragment {
         // Inflate the layout for this fragment
         homeView = inflater.inflate(R.layout.fragment_nearby_dealers_, container, false);
 
+        getActivity().setTitle("Specials near you");
+
         ActionBar actionBar = ((HomeActivity)getActivity()).getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
 
@@ -43,7 +49,9 @@ public class NearbyDealersFragment extends Fragment {
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
+                fragmentTransaction.remove(NearbyDealersFragment.this);
+                fragmentTransaction.addToBackStack("nearby");
+                fragmentTransaction.add(R.id.fragmentContainer2, nearbyDealersFragment);
                 fragmentTransaction.commit();
             }
         });
