@@ -71,7 +71,7 @@ public class SpecialController {
      * @param dealer - all specials with this dealer_id
      * @return - the list of all specials that match the values passed in
      */
-    @RequestMapping(value = "/special",method = RequestMethod.GET)
+    @RequestMapping(value = "/special",method = RequestMethod.GET, params = {"title", "id", "type", "dealer"})
     @ResponseBody
     public ResponseEntity<List> getMatchingSpecials(@RequestParam(value = "title", required = false) String title,
                                                    @RequestParam(value = "id", required = false) String id,
