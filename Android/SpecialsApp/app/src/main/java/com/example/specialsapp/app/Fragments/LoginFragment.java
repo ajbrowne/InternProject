@@ -1,8 +1,8 @@
 package com.example.specialsapp.app.Fragments;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,10 +45,11 @@ public class LoginFragment extends Fragment {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SignUpFragment fragment = new SignUpFragment();
+                SignupNumberFragment fragment = new SignupNumberFragment();
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
                 fragmentTransaction.replace(R.id.fragmentContainer, fragment, "signUpFragment").addToBackStack("login");
                 fragmentTransaction.commit();
             }
@@ -76,7 +77,7 @@ public class LoginFragment extends Fragment {
                     System.out.println(encrypted);
 
 
-                    int check = ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", false);
+                    int check = ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", false, "", "", "", "");
                     if (check == 1) {
                         ((MainActivity) getActivity()).savePreferences("stored", true);
                         ((MainActivity) getActivity()).savePreferences("User", user);

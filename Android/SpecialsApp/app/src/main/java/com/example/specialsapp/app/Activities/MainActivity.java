@@ -1,12 +1,13 @@
 package com.example.specialsapp.app.Activities;
 
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -14,7 +15,6 @@ import android.view.MenuItem;
 
 import com.example.specialsapp.app.Async.AuthAsyncTask;
 import com.example.specialsapp.app.Fragments.LoginFragment;
-import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.R;
 
@@ -24,29 +24,27 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 
+public class MainActivity extends FragmentActivity {
 
-public class MainActivity extends Activity {
-
-    Double lat;
-    Double longi;
+    private String zip;
+    private String phoneNumber;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GPS gps = new GPS(this);
-        lat = gps.getLatitude();
-        longi = gps.getLongitude();
-
         LoginFragment fragment = new LoginFragment();
 
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment, "loginFragment");
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment);
         fragmentTransaction.commit();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,17 +69,12 @@ public class MainActivity extends Activity {
     /*
        Fires the AuthRequest and then takes action based on result
     */
-    public int asyncCheck(String user, String pass, String name, boolean check) {
-        AuthAsyncTask run = new AuthAsyncTask();
-        String signUp = "0";
+    public int asyncCheck(String user, String pass, String type, boolean check, String first, String last, String zip, String phone) {
+        AuthAsyncTask run = new AuthAsyncTask(type);
         int result = 0;
 
-        if (check == true) {
-            signUp = "1";
-        }
-
         try {
-            result = run.execute(user, pass, name, signUp).get();
+            result = run.execute(user, pass, type, first, last, zip, phone).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -94,8 +87,6 @@ public class MainActivity extends Activity {
             }
         } else if (result == 1) {
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-            intent.putExtra("lat", lat);
-            intent.putExtra("long", longi);
             startActivity(intent);
             finish();
         }
@@ -113,14 +104,12 @@ public class MainActivity extends Activity {
         try {
             mdSha1.update(password.getBytes("ASCII"));
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         byte[] data = mdSha1.digest();
         try {
             SHAHash = convertToHex(data);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -145,7 +134,7 @@ public class MainActivity extends Activity {
         String sPass = shared.getString("Password", "");
         boolean check = shared.getBoolean("stored", false);
         if (check) {
-            asyncCheck(sUser, sPass, "", check);
+            asyncCheck(sUser, sPass, "login", check, "", "", "", "");
         }
     }
 
@@ -163,5 +152,53 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor edit = shared.edit();
         edit.putBoolean(key, value);
         edit.commit();
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

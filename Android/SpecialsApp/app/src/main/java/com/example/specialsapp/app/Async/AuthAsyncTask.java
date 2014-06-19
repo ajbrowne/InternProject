@@ -1,6 +1,5 @@
 package com.example.specialsapp.app.Async;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -27,30 +26,33 @@ import java.io.UnsupportedEncodingException;
 public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
 
     private JSONObject request;
-    private ProgressDialog dialog;
-    HttpPost httpPost;
-    JSONObject auth;
+    private HttpPost httpPost;
+    private JSONObject auth;
+    private HttpHost proxy;
+    private HttpClient httpClient;
+
+    public AuthAsyncTask(String type) {
+        if (type.compareTo("login") == 0) {
+            httpPost = new HttpPost(
+                    "http://det-brownea-m:8080/v1/specials/user/login");
+        } else {
+            httpPost = new HttpPost(
+                    "http://det-brownea-m:8080/v1/specials/user/register");
+        }
+        auth = new JSONObject();
+        httpClient = new DefaultHttpClient();
+        proxy = new HttpHost("det-brownea-m", 8080, "http");
+        httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+    }
 
     @Override
     protected Integer doInBackground(String... params) {
         String user = params[0];
         String pass = params[1];
-        String name = params[2];
-        String signUp = params[3];
+        String type = params[2];
         int authCode = 0;
 
-        // Create http client
-        HttpClient httpClient = new DefaultHttpClient();
-
-        HttpHost proxy = new HttpHost("det-brownea-m", 8080, "http");
-        httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
-
-
-        if (signUp.compareTo("0") == 0) {
-            // Create http post
-            httpPost = new HttpPost(
-                    "http://det-brownea-m:8080/v1/specials/user/login");
-            auth = new JSONObject();
+        if (type.compareTo("login") == 0) {
             try {
                 auth.put("username", user);
                 auth.put("password", pass);
@@ -58,10 +60,6 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
                 e.printStackTrace();
             }
         } else {
-            // Create http post
-            httpPost = new HttpPost(
-                    "http://det-brownea-m:8080/v1/specials/user/register");
-            auth = new JSONObject();
             try {
                 auth.put("username", user);
                 auth.put("password", pass);
