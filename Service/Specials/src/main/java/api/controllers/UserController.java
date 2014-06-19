@@ -97,7 +97,11 @@ public class UserController {
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
         }
-        userRepository.save(user);
+        User check = userRepository.save(user);
+        if(check == null){
+            log.info(user.getUsername() + " has already been registered to another user.");
+            return new ResponseEntity<User>(check, HttpStatus.BAD_REQUEST);
+        }
         log.info(user.getUsername() + " has registered as a new user.");
         return new ResponseEntity<User>(temp, HttpStatus.CREATED);
     }

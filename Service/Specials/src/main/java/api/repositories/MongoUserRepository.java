@@ -1,6 +1,7 @@
 package api.repositories;
 
 import api.models.User;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -18,7 +19,11 @@ public class MongoUserRepository implements UserRepository {
 
     @Override
     public User save(User user) {
-        mongoTemplate.insert(user, "users");
+        try{
+            mongoTemplate.insert(user, "users");
+        }catch(DuplicateKeyException e){
+            return null;
+        }
         return user;
     }
 
