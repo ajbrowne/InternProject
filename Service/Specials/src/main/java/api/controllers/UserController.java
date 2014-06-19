@@ -89,6 +89,7 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<User> register(@RequestBody User user){
         User temp = user;
+        System.out.println("PASS: " + user);
         try {
             String securePass = passwordHash.generateStorngPasswordHash(user.getPassword());
             user.setPassword(securePass);

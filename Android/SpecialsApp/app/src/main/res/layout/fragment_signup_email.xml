@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".Fragments.BlankFragment">
+
+    <TextView
+        android:id="@+id/flow3_title"
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="95dp"
+        android:text="Enter Your Email Address"
+        android:textColor="#00559A"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/flow3_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flow3_title"
+        android:gravity="center"
+        android:textColor="#000"
+        android:paddingTop="25dp"
+        android:text="This is the easiest way for dealers to quickly contact\n you and will also be used as your login." />
+
+    <EditText
+        android:id="@+id/flow3_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flow3_info"
+        android:layout_margin="25dp"
+        android:background="@drawable/rounded_input"
+        android:hint="yourname@example.com"
+        android:textColor="#000"
+        android:textCursorDrawable="@null"/>
+
+    <Button
+        android:id="@+id/flow3_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/flow3_email"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="110dp"
+        android:background="@drawable/custom_button"
+        android:text="Continue"
+        android:textColor="#fff" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:textColor="#00559A"/>
+
+</RelativeLayout>

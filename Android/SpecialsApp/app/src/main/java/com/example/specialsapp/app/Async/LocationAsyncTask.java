@@ -27,10 +27,25 @@ import java.io.UnsupportedEncodingException;
 public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
 
     private JSONArray request;
-    HttpPost httpPost;
-    JSONObject location;
-    JSONObject point;
-    JSONArray coord;
+    private HttpPost httpPost;
+    private JSONObject auth;
+    private HttpHost proxy;
+    private HttpClient httpClient;
+    private JSONObject location;
+    private JSONObject point;
+    private JSONArray coord;
+
+    public LocationAsyncTask() {
+        httpPost = new HttpPost(
+                "http://det-brownea-m:8080/v1/specials/dealers");
+        auth = new JSONObject();
+        httpClient = new DefaultHttpClient();
+        proxy = new HttpHost("det-brownea-m", 8080, "http");
+        httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+        location = new JSONObject();
+        point = new JSONObject();
+        coord = new JSONArray();
+    }
 
     @Override
     protected Integer doInBackground(Double... params) {
@@ -38,19 +53,6 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
         Double longitude = params[1];
         int authCode = 0;
 
-        // Create http client
-        HttpClient httpClient = new DefaultHttpClient();
-
-        HttpHost proxy = new HttpHost("det-brownea-m", 8080, "http");
-        httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
-
-
-        // Create http post
-        httpPost = new HttpPost(
-                "http://det-brownea-m:8080/v1/specials/dealer/getByLocation");
-        location = new JSONObject();
-        point = new JSONObject();
-        coord = new JSONArray();
         try {
             point.put("type", "Point");
             coord.put(longitude);
@@ -100,5 +102,4 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
         }
         return authCode;
     }
-
 }

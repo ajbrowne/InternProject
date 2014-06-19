@@ -10,9 +10,12 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.Async.LocationAsyncTask;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
+import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.R;
 
 import java.util.concurrent.ExecutionException;
@@ -22,15 +25,16 @@ public class HomeActivity extends Activity {
 
     Double lat;
     Double longi;
+    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Bundle extras = getIntent().getExtras();
-        lat = (Double) extras.get("lat");
-        longi = (Double) extras.get("long");
+        GPS gps = new GPS(this);
+        lat = gps.getLatitude();
+        longi = gps.getLongitude();
 
         asyncCheck(lat, longi);
 
@@ -46,6 +50,7 @@ public class HomeActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
+        this.menu = menu;
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
@@ -61,15 +66,15 @@ public class HomeActivity extends Activity {
             return true;
         }
         if (id == R.id.action_logout) {
+            menu.findItem(R.id.action_logout).setVisible(false);
+            menu.findItem(R.id.action_login).setVisible(true);
             SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor edit = shared.edit();
             edit.putString("User", "");
             edit.putString("Password", "");
             edit.putBoolean("stored", false);
             edit.commit();
-            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            new CustomAlertDialog(this, "Logout", "You have been logged out. You can no longer send contact info to dealers").show();
             return true;
         }
         if (id == android.R.id.home){
@@ -80,9 +85,15 @@ public class HomeActivity extends Activity {
             fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
             fragmentTransaction.commit();
         }
+        if (id == R.id.action_login){
+            menu.findItem(R.id.action_logout).setVisible(true);
+            menu.findItem(R.id.action_login).setVisible(false);
+
+            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
-
 
     /*
        Fires the LocationAsyncTask after login and then takes action based on result

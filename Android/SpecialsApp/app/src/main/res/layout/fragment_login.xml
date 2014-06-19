@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#FFF"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="25dp">
 
     <EditText
         android:id="@+id/email"
@@ -14,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/imageView"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/rounded_input"
         android:ems="10"
         android:hint="Email"

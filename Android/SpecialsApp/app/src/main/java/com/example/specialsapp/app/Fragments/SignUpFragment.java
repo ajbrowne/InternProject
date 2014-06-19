@@ -59,7 +59,7 @@ public class SignUpFragment extends Fragment {
                     ((MainActivity) getActivity()).savePreferences("stored", true);
                     ((MainActivity) getActivity()).savePreferences("User", user);
                     ((MainActivity) getActivity()).savePreferences("Password", encrypted);
-                    ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", true);
+                    ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", true, "", "", "", "");
                 }
             }
         });
