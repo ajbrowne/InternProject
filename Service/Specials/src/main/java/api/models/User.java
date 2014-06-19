@@ -1,10 +1,10 @@
-package main.model;
+package api.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Created by maharb on 6/11/14.
+ * Created by maharb on 6/18/14.
  */
 @Document(collection = "users")
 public class User {
@@ -71,3 +71,4 @@ public class User {
     private String password;
 
 }
+

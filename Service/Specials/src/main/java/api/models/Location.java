@@ -1,9 +1,9 @@
-package main.model;
+package api.models;
 
 import java.util.Arrays;
 
 /**
- * Created by maharb on 6/17/14.
+ * Created by maharb on 6/18/14.
  */
 public class Location {
 

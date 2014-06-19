@@ -4,9 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.cobalt.interns</groupId>
-    <artifactId>specials</artifactId>
+    <groupId>com.intern.project</groupId>
+    <artifactId>Specials</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -47,7 +48,7 @@
     </dependencies>
 
     <properties>
-        <start-class>main.Application</start-class>
+        <start-class>api.Application</start-class>
     </properties>
 
     <build>
@@ -75,6 +76,4 @@
             <url>http://repo.spring.io/libs-release</url>
         </pluginRepository>
     </pluginRepositories>
-
-
 </project>

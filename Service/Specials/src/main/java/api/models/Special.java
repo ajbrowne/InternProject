@@ -1,4 +1,4 @@
-package main.model;
+package api.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -6,10 +6,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 /**
- * Created by maharb on 6/12/14.
+ * Created by maharb on 6/18/14.
  */
-@Document
-public class Special {
+@Document(collection = "special")
+public class Special{
+
+    @Id
+    private String id;
 
     public Special(){}
 
@@ -100,8 +103,7 @@ public class Special {
                 '}';
     }
 
-    @Id
-    private String id;
+
     private String title;
     private String dealer;
     private String type;

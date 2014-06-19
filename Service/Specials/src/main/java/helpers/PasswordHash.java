@@ -1,4 +1,4 @@
-package main.Helpers;
+package helpers;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

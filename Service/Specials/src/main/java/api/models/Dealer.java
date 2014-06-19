@@ -1,14 +1,12 @@
-package main.model;
+package api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.geo.Point;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Created by maharb on 6/12/14.
+ * Created by maharb on 6/18/14.
  */
-@Document(collection="dealers")
 public class Dealer {
 
     public Dealer(){}
