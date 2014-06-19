@@ -27,12 +27,11 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    private PasswordHash passwordHash;
     private Logger log = Logger.getLogger(UserController.class.getName());
     private JsonHelper jsonHelper;
 
     public UserController(){
-        passwordHash = new PasswordHash();
+        jsonHelper = new JsonHelper();
     }
 
     public UserController(UserRepository userRepository){
@@ -56,9 +55,8 @@ public class UserController {
         log.info(user.getUsername() + " is trying to login.");
 
         User check = userRepository.getUser(user);
-
         try {
-            if(!passwordHash.validatePassword(user.getPassword(), check.getPassword())){
+            if(!PasswordHash.validatePassword(user.getPassword(), check.getPassword())){
                 log.info(user.getUsername() + " failed to login.");
 
                 return new ResponseEntity<String>(jsonHelper.jsonGen("Invalid Username or Password"), HttpStatus.UNAUTHORIZED);
@@ -91,7 +89,7 @@ public class UserController {
         User temp = user;
         System.out.println("PASS: " + user);
         try {
-            String securePass = passwordHash.generateStorngPasswordHash(user.getPassword());
+            String securePass = PasswordHash.generateStorngPasswordHash(user.getPassword());
             user.setPassword(securePass);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
