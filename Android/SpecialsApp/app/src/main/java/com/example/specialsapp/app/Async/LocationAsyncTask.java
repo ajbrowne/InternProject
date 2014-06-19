@@ -7,6 +7,7 @@ import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.entity.StringEntity;
@@ -27,7 +28,7 @@ import java.io.UnsupportedEncodingException;
 public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
 
     private JSONArray request;
-    private HttpPost httpPost;
+    private HttpGet httpGet;
     private JSONObject auth;
     private HttpHost proxy;
     private HttpClient httpClient;
@@ -36,8 +37,6 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
     private JSONArray coord;
 
     public LocationAsyncTask() {
-        httpPost = new HttpPost(
-                "http://det-brownea-m:8080/v1/specials/dealers");
         auth = new JSONObject();
         httpClient = new DefaultHttpClient();
         proxy = new HttpHost("det-brownea-m", 8080, "http");
@@ -53,30 +52,15 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
         Double longitude = params[1];
         int authCode = 0;
 
-        try {
-            point.put("type", "Point");
-            coord.put(longitude);
-            coord.put(latitude);
-            point.put("coordinates", coord);
-            location.put("loc", point);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        httpGet = new HttpGet(
+                "http://det-brownea-m:8080/v1/specials/dealers?lng=" + longitude + "&lat=" + latitude);
 
         String message = location.toString();
         System.out.println(message.toString());
 
-        // Url encoding the POST parameters
-        try {
-            httpPost.setEntity(new StringEntity(message, "UTF8"));
-            httpPost.setHeader("Content-type", "application/json");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
         // Make http request
         try {
-            HttpResponse response = httpClient.execute(httpPost);
+            HttpResponse response = httpClient.execute(httpGet);
             BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
             StringBuilder builder = new StringBuilder();
 
