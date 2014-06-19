@@ -38,9 +38,7 @@ public class LoginFragment extends Fragment {
 
         try{
             if (getArguments().getString("clear").compareTo("clear") == 0){
-                for (int i = 0; i < fm.getBackStackEntryCount(); i++){
-                    fm.popBackStack();
-                }
+                fm.popBackStack("initial", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         } catch(NullPointerException e){
 
