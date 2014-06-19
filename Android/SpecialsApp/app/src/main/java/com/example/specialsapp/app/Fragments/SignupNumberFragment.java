@@ -48,8 +48,8 @@ public class SignupNumberFragment extends Fragment {
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-                fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+                fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
+                fragmentTransaction.replace(R.id.fragmentContainer, fragment).addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });

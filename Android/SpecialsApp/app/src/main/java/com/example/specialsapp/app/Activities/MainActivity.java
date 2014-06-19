@@ -42,7 +42,7 @@ public class MainActivity extends FragmentActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment, "initial");
         fragmentTransaction.commit();
     }
 
@@ -152,6 +152,18 @@ public class MainActivity extends FragmentActivity {
         SharedPreferences.Editor edit = shared.edit();
         edit.putBoolean(key, value);
         edit.commit();
+    }
+
+    @Override
+    public void onBackPressed(){
+        android.app.FragmentManager fm = getFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            Log.i("MainActivity", "popping backstack");
+            fm.popBackStack();
+        } else {
+            Log.i("MainActivity", "nothing on backstack, calling super");
+            super.onBackPressed();
+        }
     }
 
     public void setZip(String zip) {
