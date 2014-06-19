@@ -37,7 +37,7 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
 
     public LocationAsyncTask() {
         httpPost = new HttpPost(
-                "http://det-brownea-m:8080/v1/specials/dealer/getByLocation");
+                "http://det-brownea-m:8080/v1/specials/dealers");
         auth = new JSONObject();
         httpClient = new DefaultHttpClient();
         proxy = new HttpHost("det-brownea-m", 8080, "http");

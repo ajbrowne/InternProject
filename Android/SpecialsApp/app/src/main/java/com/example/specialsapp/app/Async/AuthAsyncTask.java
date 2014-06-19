@@ -34,10 +34,10 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
     public AuthAsyncTask(String type) {
         if (type.compareTo("login") == 0) {
             httpPost = new HttpPost(
-                    "http://det-brownea-m:8080/v1/specials/user/login");
+                    "http://det-brownea-m:8080/v1/specials/login");
         } else {
             httpPost = new HttpPost(
-                    "http://det-brownea-m:8080/v1/specials/user/register");
+                    "http://det-brownea-m:8080/v1/specials/register");
         }
         auth = new JSONObject();
         httpClient = new DefaultHttpClient();
@@ -50,6 +50,11 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
         String user = params[0];
         String pass = params[1];
         String type = params[2];
+        String first = params[3];
+        String last = params[4];
+        String zip = params[5];
+        String phone = params[6];
+
         int authCode = 0;
 
         if (type.compareTo("login") == 0) {
@@ -64,6 +69,10 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
                 auth.put("username", user);
                 auth.put("password", pass);
                 auth.put("role", 1);
+                auth.put("phone", phone);
+                auth.put("zip", zip);
+                auth.put("firstName", first);
+                auth.put("lastName", last);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -71,6 +80,7 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
 
 
         String message = auth.toString();
+        System.out.println("BUILT: " + message);
 
         // Url encoding the POST parameters
         try {
@@ -92,7 +102,7 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
 
             System.out.println(builder.toString());
 
-            request = new JSONObject(builder.toString());
+            //request = new JSONObject(builder.toString());
 
             Log.d("HTTP Response: ", response.toString());
 
@@ -102,8 +112,6 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
             e.printStackTrace();
         }
         return authCode;

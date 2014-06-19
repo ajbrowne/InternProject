@@ -36,11 +36,11 @@ public class SignupEmailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_signup_email, container, false);
         next = (Button)view.findViewById(R.id.flow3_button);
         email = (EditText)view.findViewById(R.id.flow3_email);
-        emailAddress = email.getText().toString();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                emailAddress = email.getText().toString();
                 ((MainActivity)getActivity()).setEmail(emailAddress);
                 SignupPasswordFragment fragment = new SignupPasswordFragment();
 

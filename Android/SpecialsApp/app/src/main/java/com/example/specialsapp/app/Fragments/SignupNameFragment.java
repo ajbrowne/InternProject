@@ -38,12 +38,12 @@ public class SignupNameFragment extends Fragment {
         next = (Button)view.findViewById(R.id.flow2_button);
         first = (EditText)view.findViewById(R.id.flow2_first);
         last = (EditText)view.findViewById(R.id.flow2_last);
-        firstName = first.getText().toString();
-        lastName = last.getText().toString();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                firstName = first.getText().toString();
+                lastName = last.getText().toString();
                 ((MainActivity)getActivity()).setFirstName(firstName);
                 ((MainActivity)getActivity()).setLastName(lastName);
                 SignupEmailFragment fragment = new SignupEmailFragment();

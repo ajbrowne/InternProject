@@ -38,11 +38,11 @@ public class SignupNumberFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_signup_number, container, false);
         next = (Button)view.findViewById(R.id.flow_button);
         number = (EditText)view.findViewById(R.id.flow_number);
-        phoneNumber = number.getText().toString();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                phoneNumber = number.getText().toString();
                 ((MainActivity)getActivity()).setPhoneNumber(phoneNumber);
                 SignupZipFragment fragment = new SignupZipFragment();
 

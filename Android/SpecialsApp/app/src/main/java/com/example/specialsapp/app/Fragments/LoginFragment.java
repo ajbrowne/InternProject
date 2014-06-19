@@ -77,7 +77,7 @@ public class LoginFragment extends Fragment {
                     System.out.println(encrypted);
 
 
-                    int check = ((MainActivity) getActivity()).asyncCheck(user, encrypted, "", false, "", "", "", "");
+                    int check = ((MainActivity) getActivity()).asyncCheck(user, encrypted, "login", false, "", "", "", "");
                     if (check == 1) {
                         ((MainActivity) getActivity()).savePreferences("stored", true);
                         ((MainActivity) getActivity()).savePreferences("User", user);

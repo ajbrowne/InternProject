@@ -35,11 +35,11 @@ public class SignupZipFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_signup_zip, container, false);
         next = (Button)view.findViewById(R.id.flow1_button);
         zip = (EditText)view.findViewById(R.id.flow1_zip);
-        zipCode = zip.getText().toString();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                zipCode = zip.getText().toString();
                 ((MainActivity)getActivity()).setZip(zipCode);
                 SignupNameFragment fragment = new SignupNameFragment();
 

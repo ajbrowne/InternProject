@@ -83,7 +83,7 @@ public class MainActivity extends FragmentActivity {
 
         if (result == 0) {
             if (check == false) {
-                new CustomAlertDialog(this, "Invalid username or password", "Your username or password is incorrect, try again.").show();
+                //new CustomAlertDialog(this, "Invalid username or password", "Your username or password is incorrect, try again.").show();
             }
         } else if (result == 1) {
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);

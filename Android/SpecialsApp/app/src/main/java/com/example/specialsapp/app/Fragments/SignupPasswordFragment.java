@@ -45,25 +45,28 @@ public class SignupPasswordFragment extends Fragment {
         next = (Button) view.findViewById(R.id.flow4_button);
         password = (EditText) view.findViewById(R.id.flow4_password);
         confirm = (EditText) view.findViewById(R.id.flow4_verify);
-        userPassword = password.getText().toString();
-        confirmPassword = confirm.getText().toString();
-
-        email = (String) ((MainActivity) getActivity()).getEmail();
-        first = (String) ((MainActivity) getActivity()).getFirstName();
-        last = (String) ((MainActivity) getActivity()).getLastName();
-        zip = (String) ((MainActivity) getActivity()).getZip();
-        phone = (String) ((MainActivity) getActivity()).getPhoneNumber();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).setPassword(userPassword);
-                if (((MainActivity) getActivity()).asyncCheck(email, userPassword, "signup", false, first, last, zip, phone) == 1) {
+                userPassword = password.getText().toString();
+                confirmPassword = confirm.getText().toString();
+
+                String encrypted = ((MainActivity) getActivity()).computeSHAHash(userPassword);
+
+                email = (String) ((MainActivity) getActivity()).getEmail();
+                first = (String) ((MainActivity) getActivity()).getFirstName();
+                last = (String) ((MainActivity) getActivity()).getLastName();
+                zip = (String) ((MainActivity) getActivity()).getZip();
+                phone = (String) ((MainActivity) getActivity()).getPhoneNumber();
+
+                ((MainActivity) getActivity()).setPassword(encrypted);
+                if (((MainActivity) getActivity()).asyncCheck(email, encrypted, "", true, first, last, zip, phone) == 1) {
                     new CustomAlertDialog(getActivity(), "Sign Up Success", "Sign up completed successfully. Now go get some deals!").show();
+                    Intent intent = new Intent((MainActivity) getActivity(), HomeActivity.class);
+                    ((MainActivity) getActivity()).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+                    startActivity(intent);
                 }
-                Intent intent = new Intent((MainActivity) getActivity(), HomeActivity.class);
-                ((MainActivity) getActivity()).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-                startActivity(intent);
             }
         });
         // Inflate the layout for this fragment
