@@ -53,6 +53,15 @@ public class HomeActivity extends Activity {
         this.menu = menu;
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean status = shared.getBoolean("stored", true);
+        if (status){
+            menu.findItem(R.id.action_logout).setVisible(true);
+            menu.findItem(R.id.action_login).setVisible(false);
+        } else{
+            menu.findItem(R.id.action_logout).setVisible(false);
+            menu.findItem(R.id.action_login).setVisible(true);
+        }
         return true;
     }
 
@@ -66,8 +75,6 @@ public class HomeActivity extends Activity {
             return true;
         }
         if (id == R.id.action_logout) {
-            menu.findItem(R.id.action_logout).setVisible(false);
-            menu.findItem(R.id.action_login).setVisible(true);
             SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor edit = shared.edit();
             edit.putString("User", "");
@@ -86,9 +93,6 @@ public class HomeActivity extends Activity {
             fragmentTransaction.commit();
         }
         if (id == R.id.action_login){
-            menu.findItem(R.id.action_logout).setVisible(true);
-            menu.findItem(R.id.action_login).setVisible(false);
-
             Intent intent = new Intent(HomeActivity.this, MainActivity.class);
             startActivity(intent);
         }

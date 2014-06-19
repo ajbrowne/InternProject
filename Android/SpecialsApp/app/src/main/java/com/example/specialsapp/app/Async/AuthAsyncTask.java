@@ -34,14 +34,14 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
     public AuthAsyncTask(String type) {
         if (type.compareTo("login") == 0) {
             httpPost = new HttpPost(
-                    "http://det-maharb-m:8080/v1/specials/login");
+                    "http://det-brownea-m:8080/v1/specials/login");
         } else {
             httpPost = new HttpPost(
-                    "http://det-maharb-m:8080/v1/specials/register");
+                    "http://det-brownea-m:8080/v1/specials/register");
         }
         auth = new JSONObject();
         httpClient = new DefaultHttpClient();
-        proxy = new HttpHost("det-maharb-m", 8080, "http");
+        proxy = new HttpHost("det-brownea-m", 8080, "http");
         httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
     }
 
