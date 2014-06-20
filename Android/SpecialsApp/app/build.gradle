@@ -19,8 +19,8 @@ android {
 }
 
 dependencies {
-    compile 'com.github.gabrielemariotti.cards:library:1.7.0'
-    compile "com.android.support:support-v4:18.0.+"
-    compile 'org.jasypt:jasypt:1.9.2'
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.github.gabrielemariotti.cards:library:1.7.0'
+    compile 'com.android.support:support-v4:19.+'
+    compile 'org.jasypt:jasypt:1.9.2'
 }
