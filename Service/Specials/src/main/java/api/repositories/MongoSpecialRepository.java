@@ -33,7 +33,7 @@ public class MongoSpecialRepository implements SpecialRepository {
     @Override
     public List<Special> findMatching(Special special) {
         Query query = new Query();
-        Criteria criteria = new Criteria().orOperator(Criteria.where("title").is(special.getTitle()),
+        Criteria criteria = new Criteria().andOperator(Criteria.where("title").is(special.getTitle()),
                 Criteria.where("type").is(special.getType()),
                 Criteria.where("id").is(special.getId()),
                 Criteria.where("dealer").is(special.getDealer()));
