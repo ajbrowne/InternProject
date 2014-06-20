@@ -47,7 +47,7 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, ArrayList<Dealer>
     public LocationAsyncTask() {
         auth = new JSONObject();
         httpClient = new DefaultHttpClient();
-        proxy = new HttpHost("det-brownea-m", 8080, "http");
+        proxy = new HttpHost("det-maharb-m", 8080, "http");
         httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
         location = new JSONObject();
         content = new JSONObject();
@@ -65,7 +65,7 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, ArrayList<Dealer>
         int authCode = 0;
 
         httpGet = new HttpGet(
-                "http://det-brownea-m:8080/v1/specials/dealers?lng=" + longitude + "&lat=" + latitude);
+                "http://det-maharb-m:8080/v1/specials/dealers?lng=" + longitude + "&lat=" + latitude);
 
         String message = location.toString();
         System.out.println(message.toString());

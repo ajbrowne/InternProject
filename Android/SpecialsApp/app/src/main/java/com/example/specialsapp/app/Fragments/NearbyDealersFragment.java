@@ -7,6 +7,8 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -45,11 +47,12 @@ public class NearbyDealersFragment extends Fragment {
         // Inflate the layout for this fragment
         homeView = inflater.inflate(R.layout.fragment_nearby_dealers_, container, false);
         inflater.inflate(R.layout.dealer_card, container, false);
-
+        ((HomeActivity) getActivity()).toggleDrawerOn();
         getActivity().setTitle("Dealers");
 
         ActionBar actionBar = ((HomeActivity)getActivity()).getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
         // Get location upon opening app, returning to Dealers
         dealers = new ArrayList<Dealer>();
@@ -71,6 +74,7 @@ public class NearbyDealersFragment extends Fragment {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.remove(NearbyDealersFragment.this);
                     fragmentTransaction.addToBackStack("nearby");
+                    ((HomeActivity) getActivity()).toggleDrawerOff();
                     fragmentTransaction.add(R.id.fragmentContainer2, nearbyDealersFragment);
                     fragmentTransaction.commit();
                 }
@@ -86,5 +90,11 @@ public class NearbyDealersFragment extends Fragment {
         }
 
         return homeView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.home, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

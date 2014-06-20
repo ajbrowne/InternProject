@@ -62,10 +62,6 @@ public class HomeActivity extends Activity {
                 R.layout.drawer_list_item, mMenuList));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        // enable ActionBar app icon to behave as action to toggle nav drawer
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -74,19 +70,12 @@ public class HomeActivity extends Activity {
                 R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle("Options");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
+        );
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
+        getActionBar().setActionBarUpIn
+        // enable ActionBar app icon to behave as action to toggle nav drawer
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
         // Show NearbyDealersFragment
         NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
         FragmentManager fragmentManager = getFragmentManager();
@@ -113,8 +102,9 @@ public class HomeActivity extends Activity {
             menu.findItem(R.id.action_logout).setVisible(false);
             menu.findItem(R.id.action_login).setVisible(true);
         }
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -221,5 +211,13 @@ public class HomeActivity extends Activity {
 
     public void setDealers(ArrayList<Dealer> dealers) {
         this.dealers = dealers;
+    }
+
+    public void toggleDrawerOff(){
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
+    }
+
+    public void toggleDrawerOn(){
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
     }
 }
