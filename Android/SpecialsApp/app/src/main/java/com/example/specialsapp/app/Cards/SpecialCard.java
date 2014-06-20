@@ -17,8 +17,8 @@ import it.gmariotti.cardslib.library.internal.Card;
  */
 public class SpecialCard extends Card {
 
-    protected TextView title;
-    protected TextView smallTitle;
+    protected TextView dealer;
+    protected TextView cityState;
 
     public SpecialCard(Context context) {
         this(context, R.layout.deal_card);
@@ -40,7 +40,21 @@ public class SpecialCard extends Card {
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
-        title = (TextView) parent.findViewById(R.id.title);
-        smallTitle = (TextView) parent.findViewById(R.id.subTitle);
+        dealer = (TextView) view.findViewById(R.id.dealer);
+        cityState = (TextView) view.findViewById(R.id.city);
+    }
+
+    public void setDealer(String name){
+        //setupInnerViewElements(null, view);
+        if (dealer != null){
+            dealer.setText(name);
+        }
+    }
+
+    public void setCityState(String location){
+        //setupInnerViewElements(null, view);
+        if (cityState != null){
+            cityState.setText(location);
+        }
     }
 }

@@ -24,8 +24,10 @@ import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.Async.LocationAsyncTask;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
 import com.example.specialsapp.app.GPS.GPS;
+import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.R;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -33,14 +35,13 @@ import java.util.concurrent.ExecutionException;
  */
 public class HomeActivity extends Activity {
 
-    Double lat;
-    Double longi;
-    Menu menu;
+    private Menu menu;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private String[] mMenuList;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mTitle;
+    private ArrayList<Dealer> dealers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class HomeActivity extends Activity {
         mMenuList = getResources().getStringArray(R.array.list_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        dealers = new ArrayList<Dealer>();
 
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -83,12 +86,6 @@ public class HomeActivity extends Activity {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        // Get location upon opening app, returning to Dealers
-        GPS gps = new GPS(this);
-        lat = gps.getLatitude();
-        longi = gps.getLongitude();
-        asyncCheck(lat, longi);
 
         // Show NearbyDealersFragment
         NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
@@ -161,23 +158,24 @@ public class HomeActivity extends Activity {
     /*
        Fires the LocationAsyncTask after login and then takes action based on result
     */
-    public void asyncCheck(Double latitude, Double longitude) {
+    public ArrayList<Dealer> asyncCheck(Double latitude, Double longitude) {
         LocationAsyncTask run = new LocationAsyncTask();
         int result = 0;
 
         try {
-            result = run.execute(latitude, longitude).get();
+            dealers = run.execute(latitude, longitude).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
-        if (result == 0) {
-            //new CustomAlertDialog(this, "Invalid username or password", "Your username or password is incorrect, try again.").show();
-        } else if (result == 1) {
-            // Do stuff with results from Mongo
-        }
+//        if (result == 0) {
+//            //new CustomAlertDialog(this, "Invalid username or password", "Your username or password is incorrect, try again.").show();
+//        } else if (result == 1) {
+//            // Do stuff with results from Mongo
+//        }
+        return dealers;
     }
 
     // Controls backstack for dealers/specials fragments
@@ -215,5 +213,13 @@ public class HomeActivity extends Activity {
 
     private void selectItem(int position) {
 
+    }
+
+    public ArrayList<Dealer> getDealers() {
+        return dealers;
+    }
+
+    public void setDealers(ArrayList<Dealer> dealers) {
+        this.dealers = dealers;
     }
 }

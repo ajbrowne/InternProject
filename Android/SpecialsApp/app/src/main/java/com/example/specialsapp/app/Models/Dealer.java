@@ -61,4 +61,13 @@ public class Dealer {
     public void setDistanceFrom(double distanceFrom) {
         this.distanceFrom = distanceFrom;
     }
+
+    @Override
+    public String toString() {
+        return "Dealer{" +
+                "name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package com.example.specialsapp.app.Async;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import com.example.specialsapp.app.Models.Dealer;
 
@@ -22,21 +23,25 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 /**
  * Created by brownea on 6/12/14.
  * Builds HttpPost and sends JSON for location information to api - returns the auth result code
  */
-public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
+public class LocationAsyncTask extends AsyncTask<Double, Void, ArrayList<Dealer>> {
 
     private JSONArray request;
     private HttpGet httpGet;
     private JSONObject auth;
+    private JSONObject content;
+    private JSONObject distance;
     private HttpHost proxy;
     private HttpClient httpClient;
     private JSONObject location;
     private JSONObject point;
     private JSONArray coord;
+    private ArrayList<Dealer> dealers;
     private Dealer dealer;
 
     public LocationAsyncTask() {
@@ -45,13 +50,16 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
         proxy = new HttpHost("det-brownea-m", 8080, "http");
         httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
         location = new JSONObject();
+        content = new JSONObject();
+        distance = new JSONObject();
         point = new JSONObject();
         coord = new JSONArray();
         dealer = new Dealer();
+        dealers = new ArrayList<Dealer>();
     }
 
     @Override
-    protected Integer doInBackground(Double... params) {
+    protected ArrayList<Dealer> doInBackground(Double... params) {
         Double latitude = params[0];
         Double longitude = params[1];
         int authCode = 0;
@@ -76,14 +84,19 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
 
             request = new JSONArray(builder.toString());
 
-//            for (int i = 0; i < request.length(); i++){
-//                dealer.setName((String)((JSONObject)request.get(i)).get("name"));
-//                dealer.setCity((String)((JSONObject)request.get(i)).get("city"));
-//                dealer.setName((String)((JSONObject)request.get(i)).get("name"));
-//                dealer.setName((String)((JSONObject)request.get(i)).get("name"));
-//                dealer.setName((String)((JSONObject)request.get(i)).get("name"));
-//            }
+            for (int i = 0; i < request.length(); i++){
+                content = (JSONObject)((JSONObject)request.get(i)).get("content");
+                distance = (JSONObject)((JSONObject)request.get(i)).get("distance");
 
+                dealer.setName(content.getString("name"));
+                dealer.setCity(content.getString("city"));
+                dealer.setState(content.getString("state"));
+                System.out.println(i);
+                System.out.println(content.get("name"));
+                //dealer.setNumSpecials(content.getInt("numSpecials"));
+                //dealer.setDistanceFrom(distance.getDouble());
+                dealers.add(i, dealer);
+            }
 
             Log.d("HTTP Response: ", response.toString());
 
@@ -97,6 +110,6 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return authCode;
+        return dealers;
     }
 }
