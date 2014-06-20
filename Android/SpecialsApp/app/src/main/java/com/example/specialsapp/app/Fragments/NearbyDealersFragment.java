@@ -1,26 +1,22 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.HomeActivity;
+import com.example.specialsapp.app.Cards.DealerCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.R;
-import com.example.specialsapp.app.Cards.SpecialCard;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
@@ -59,19 +55,16 @@ public class NearbyDealersFragment extends Fragment {
         dealers = ((HomeActivity)getActivity()).asyncCheck(lat, longi);
 
         for (int i = 0; i < dealers.size(); i++){
-            SpecialCard card = new SpecialCard(getActivity(), R.layout.dealer_card);
+            DealerCard card = new DealerCard(this.getActivity(), R.layout.dealer_card);
             card.setDealer(dealers.get(i).getName());
             card.setCityState(dealers.get(i).getCity() + ", " + dealers.get(i).getState());
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
-                    DealerSpecialsFragment nearbyDealersFragment = new DealerSpecialsFragment();
-
-                    FragmentManager fragmentManager = getFragmentManager();
+                    NearbyDealersFragment dealerSpecialsFragment = new NearbyDealersFragment();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.remove(NearbyDealersFragment.this);
-                    fragmentTransaction.addToBackStack("nearby");
-                    fragmentTransaction.add(R.id.fragmentContainer2, nearbyDealersFragment);
+                    fragmentTransaction.replace(R.id.fragmentContainer2, dealerSpecialsFragment);
                     fragmentTransaction.commit();
                 }
             });

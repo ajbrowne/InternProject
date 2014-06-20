@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.specialsapp.app.R;
 
@@ -17,44 +16,67 @@ import it.gmariotti.cardslib.library.internal.Card;
  */
 public class SpecialCard extends Card {
 
-    protected TextView dealer;
-    protected TextView cityState;
+    protected TextView mTitle;
+    protected TextView mDescription;
+    protected TextView mSpecialType;
+    protected TextView mDealer;
+
+    protected String title;
+    protected String description;
+    protected String type;
+    protected String dealer;
 
     public SpecialCard(Context context) {
-        this(context, R.layout.deal_card);
+        this(context, R.layout.special_card);
     }
 
     public SpecialCard(Context context, int innerLayout) {
         super(context, innerLayout);
-        init();
-    }
-
-    private void init() {
-        setOnClickListener(new OnCardClickListener() {
-            @Override
-            public void onClick(Card card, View view) {
-                Toast.makeText(getContext(), "Click Listener card'", Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
-        dealer = (TextView) view.findViewById(R.id.dealer);
-        cityState = (TextView) view.findViewById(R.id.city);
+        mDealer = (TextView) parent.findViewById(R.id.dealerName);
+        mTitle = (TextView) parent.findViewById(R.id.title);
+        mSpecialType = (TextView) parent.findViewById(R.id.type);
+        mDescription = (TextView) parent.findViewById(R.id.subTitle);
+
+        mDealer.setText(this.dealer);
+        mTitle.setText(title);
+        mDescription.setText(description);
+        mSpecialType.setText(type);
     }
 
-    public void setDealer(String name){
-        //setupInnerViewElements(null, view);
-        if (dealer != null){
-            dealer.setText(name);
-        }
+    public String getTitle() {
+        return title;
     }
 
-    public void setCityState(String location){
-        //setupInnerViewElements(null, view);
-        if (cityState != null){
-            cityState.setText(location);
-        }
+    public void setTitle(String title) {
+        this.title = title;
     }
+
+    public String getDealer() {
+        return dealer;
+    }
+
+    public void setDealer(String dealer) {
+        this.dealer = dealer;
+    }
+
+    public String getSpecialType() {
+        return type;
+    }
+
+    public void setSpecialType(String type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }
