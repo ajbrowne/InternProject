@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,20 +29,19 @@ public class LoginFragment extends Fragment {
     private View loginView;
     private String clear;
     private FragmentManager fm;
+    int stack;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         loginView = inflater.inflate(R.layout.fragment_login, container, false);
-        fm = getFragmentManager();
+        fm = ((MainActivity)getActivity()).getSupportFragmentManager();
 
-        try{
-            if (getArguments().getString("clear").compareTo("clear") == 0){
-                fm.popBackStack("initial", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        } catch(NullPointerException e){
-
+        stack = fm.getBackStackEntryCount();
+        for (int i = 0; i < stack; i++) {
+                Log.i("MainActivity", "popping backstack");
+                fm.popBackStack();
         }
 
         // Link elements from xml

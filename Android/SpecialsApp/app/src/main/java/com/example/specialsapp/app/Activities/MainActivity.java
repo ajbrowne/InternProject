@@ -15,7 +15,6 @@ import android.view.MenuItem;
 
 import com.example.specialsapp.app.Async.AuthAsyncTask;
 import com.example.specialsapp.app.Fragments.LoginFragment;
-import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.R;
 
 import java.io.IOException;
@@ -173,7 +172,7 @@ public class MainActivity extends FragmentActivity {
      */
     @Override
     public void onBackPressed() {
-        android.app.FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() > 0) {
             Log.i("MainActivity", "popping backstack");
             fm.popBackStack();
