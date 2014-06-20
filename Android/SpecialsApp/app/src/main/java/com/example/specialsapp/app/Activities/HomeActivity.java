@@ -7,10 +7,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.Async.LocationAsyncTask;
@@ -26,11 +30,22 @@ public class HomeActivity extends Activity {
     Double lat;
     Double longi;
     Menu menu;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private String[] mMenuList;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mMenuList = getResources().getStringArray(R.array.list_items);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+       // mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.);
+        mDrawerList = (ListView)findViewById(R.id.left_drawer);
+
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mMenuList));
 
         GPS gps = new GPS(this);
         lat = gps.getLatitude();
