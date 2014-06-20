@@ -3,6 +3,8 @@ package com.example.specialsapp.app.Async;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.specialsapp.app.Models.Dealer;
+
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -35,6 +37,7 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
     private JSONObject location;
     private JSONObject point;
     private JSONArray coord;
+    private Dealer dealer;
 
     public LocationAsyncTask() {
         auth = new JSONObject();
@@ -44,6 +47,7 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
         location = new JSONObject();
         point = new JSONObject();
         coord = new JSONArray();
+        dealer = new Dealer();
     }
 
     @Override
@@ -71,6 +75,15 @@ public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
             System.out.println(builder.toString());
 
             request = new JSONArray(builder.toString());
+
+//            for (int i = 0; i < request.length(); i++){
+//                dealer.setName((String)((JSONObject)request.get(i)).get("name"));
+//                dealer.setCity((String)((JSONObject)request.get(i)).get("city"));
+//                dealer.setName((String)((JSONObject)request.get(i)).get("name"));
+//                dealer.setName((String)((JSONObject)request.get(i)).get("name"));
+//                dealer.setName((String)((JSONObject)request.get(i)).get("name"));
+//            }
+
 
             Log.d("HTTP Response: ", response.toString());
 
