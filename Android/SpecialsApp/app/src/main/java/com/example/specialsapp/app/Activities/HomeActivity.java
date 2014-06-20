@@ -85,7 +85,6 @@ public class HomeActivity extends Activity {
             edit.putString("Password", "");
             edit.putBoolean("stored", false);
             edit.commit();
-            getMenuInflater().inflate(R.menu.home, menu);
             menu.findItem(R.id.action_logout).setVisible(false);
             menu.findItem(R.id.action_login).setVisible(true);
             new CustomAlertDialog(this, "Logout", "You have been logged out. You can no longer send contact info to dealers").show();
