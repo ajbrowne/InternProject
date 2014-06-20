@@ -17,7 +17,6 @@ import android.widget.ListView;
 
 import com.example.specialsapp.app.Async.AuthAsyncTask;
 import com.example.specialsapp.app.Fragments.LoginFragment;
-import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.R;
 
 import java.io.IOException;
@@ -26,6 +25,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 
+
+/**
+ * Hosts all fragments that deal with logging in and signing up
+ */
 public class MainActivity extends FragmentActivity {
 
     private String zip;
@@ -40,8 +43,8 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Create and show login fragment
         LoginFragment fragment = new LoginFragment();
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, fragment, "initial");
@@ -50,7 +53,6 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -95,6 +97,9 @@ public class MainActivity extends FragmentActivity {
         return result;
     }
 
+    /*
+        Used for password hashing
+     */
     public String computeSHAHash(String password) {
         String SHAHash = "ZZ";
         MessageDigest mdSha1 = null;
@@ -118,6 +123,7 @@ public class MainActivity extends FragmentActivity {
         return SHAHash;
     }
 
+    // Converts to hex for encryption
     private static String convertToHex(byte[] data) throws java.io.IOException {
 
         StringBuffer sb = new StringBuffer();
@@ -130,6 +136,9 @@ public class MainActivity extends FragmentActivity {
         return sb.toString();
     }
 
+    /*
+        Used to check for login and allow login caching
+     */
     public void loadSavedPreferences() {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
         String sUser = shared.getString("User", "");
@@ -140,25 +149,32 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    /*
+        Stores user for cached login
+     */
     public void savePreferences(String key, String value) {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
-
         SharedPreferences.Editor edit = shared.edit();
         edit.putString(key, value);
         edit.commit();
     }
 
+    /*
+        Stores user for cached login
+     */
     public void savePreferences(String key, boolean value) {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
-
         SharedPreferences.Editor edit = shared.edit();
         edit.putBoolean(key, value);
         edit.commit();
     }
 
+    /*
+        Properly controls backstack for signup and login fragments
+     */
     @Override
-    public void onBackPressed(){
-        android.app.FragmentManager fm = getFragmentManager();
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() > 0) {
             Log.i("MainActivity", "popping backstack");
             fm.popBackStack();
@@ -168,6 +184,7 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    // Getters and setters used for signup
     public void setZip(String zip) {
         this.zip = zip;
     }

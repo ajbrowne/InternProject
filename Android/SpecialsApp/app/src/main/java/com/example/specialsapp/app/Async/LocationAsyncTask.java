@@ -23,7 +23,7 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Created by brownea on 6/12/14.
- * Builds HttpPost and sends JSON for login to api - returns the auth result code
+ * Builds HttpPost and sends JSON for location information to api - returns the auth result code
  */
 public class LocationAsyncTask extends AsyncTask<Double, Void, Integer> {
 

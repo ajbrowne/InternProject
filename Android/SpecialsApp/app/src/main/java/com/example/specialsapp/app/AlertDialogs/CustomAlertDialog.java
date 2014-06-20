@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 
 /**
  * Created by brownea on 6/17/14.
+ * Allows for one line, easy Alert Dialog creation
  */
 public class CustomAlertDialog extends AlertDialog.Builder {
 

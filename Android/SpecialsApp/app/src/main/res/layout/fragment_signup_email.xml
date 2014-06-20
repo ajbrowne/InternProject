@@ -34,6 +34,7 @@
         android:layout_margin="25dp"
         android:background="@drawable/rounded_input"
         android:hint="yourname@example.com"
+        android:inputType="textEmailAddress"
         android:textColor="#000"
         android:textCursorDrawable="@null"/>
 

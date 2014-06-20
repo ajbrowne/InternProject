@@ -24,13 +24,12 @@ public class SpecialCard extends Card {
         this(context, R.layout.deal_card);
     }
 
-    public SpecialCard(Context context, int innerLayout){
+    public SpecialCard(Context context, int innerLayout) {
         super(context, innerLayout);
         init();
     }
 
-    private void init(){
-
+    private void init() {
         setOnClickListener(new OnCardClickListener() {
             @Override
             public void onClick(Card card, View view) {
@@ -40,16 +39,8 @@ public class SpecialCard extends Card {
     }
 
     @Override
-    public void setupInnerViewElements(ViewGroup parent, View view){
+    public void setupInnerViewElements(ViewGroup parent, View view) {
         title = (TextView) parent.findViewById(R.id.title);
         smallTitle = (TextView) parent.findViewById(R.id.subTitle);
-
-//        if (title != null){
-//            title.setText("Google Maps");
-//        }
-//
-//        if (smallTitle != null){
-//            smallTitle.setText("Google Inc.");
-//        }
     }
 }
