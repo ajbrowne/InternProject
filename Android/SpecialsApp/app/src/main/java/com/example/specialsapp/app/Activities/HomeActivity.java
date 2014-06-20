@@ -1,15 +1,14 @@
 package com.example.specialsapp.app.Activities;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -22,9 +21,11 @@ import android.widget.ListView;
 
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.Async.LocationAsyncTask;
+import com.example.specialsapp.app.Async.SpecialAsyncTask;
+import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
-import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Dealer;
+import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.R;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Hosts all fragments that display dealers and their specials
  */
-public class HomeActivity extends Activity {
+public class HomeActivity extends FragmentActivity {
 
     private Menu menu;
     private DrawerLayout mDrawerLayout;
@@ -42,6 +43,7 @@ public class HomeActivity extends Activity {
     private ActionBarDrawerToggle mDrawerToggle;
     private String mTitle;
     private ArrayList<Dealer> dealers;
+    private ArrayList<Special> specials;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class HomeActivity extends Activity {
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         dealers = new ArrayList<Dealer>();
+        specials = new ArrayList<Special>();
 
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -72,15 +75,14 @@ public class HomeActivity extends Activity {
                 R.string.drawer_close  /* "close drawer" description for accessibility */
         );
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        getActionBar().setActionBarUpIn
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
         // Show NearbyDealersFragment
-        NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
-        FragmentManager fragmentManager = getFragmentManager();
+        DealerSpecialsFragment nearbyDealersFragment = new DealerSpecialsFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment, "nearby");
+        fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
         fragmentTransaction.commit();
     }
 
@@ -130,7 +132,7 @@ public class HomeActivity extends Activity {
         if (id == android.R.id.home) {
             NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
 
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
             fragmentTransaction.commit();
@@ -150,7 +152,6 @@ public class HomeActivity extends Activity {
     */
     public ArrayList<Dealer> asyncCheck(Double latitude, Double longitude) {
         LocationAsyncTask run = new LocationAsyncTask();
-        int result = 0;
 
         try {
             dealers = run.execute(latitude, longitude).get();
@@ -159,19 +160,26 @@ public class HomeActivity extends Activity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-//        if (result == 0) {
-//            //new CustomAlertDialog(this, "Invalid username or password", "Your username or password is incorrect, try again.").show();
-//        } else if (result == 1) {
-//            // Do stuff with results from Mongo
-//        }
         return dealers;
+    }
+
+    public ArrayList<Special> asyncCheck(String dealer){
+        SpecialAsyncTask run = new SpecialAsyncTask();
+
+        try{
+            specials = run.execute(dealer).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return specials;
     }
 
     // Controls backstack for dealers/specials fragments
     @Override
     public void onBackPressed() {
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() > 0) {
             Log.i("MainActivity", "popping backstack");
             fm.popBackStack();
