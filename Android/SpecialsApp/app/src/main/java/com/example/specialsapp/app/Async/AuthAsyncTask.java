@@ -21,17 +21,17 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Created by brownea on 6/12/14.
- * Builds HttpPost and sends JSON for login to api - returns the auth result code
+ * Builds HttpGet/Post and sends JSON for login and signup to api - returns the auth result code
  */
 public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
 
-    private JSONObject request;
     private HttpPost httpPost;
     private JSONObject auth;
     private HttpHost proxy;
     private HttpClient httpClient;
 
     public AuthAsyncTask(String type) {
+        // Determines type of auth
         if (type.compareTo("login") == 0) {
             httpPost = new HttpPost(
                     "http://det-brownea-m:8080/v1/specials/login");
@@ -41,12 +41,14 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
         }
         auth = new JSONObject();
         httpClient = new DefaultHttpClient();
+        // Set proxy
         proxy = new HttpHost("det-brownea-m", 8080, "http");
         httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
     }
 
     @Override
     protected Integer doInBackground(String... params) {
+        // Get all info for a new user
         String user = params[0];
         String pass = params[1];
         String type = params[2];
@@ -58,6 +60,7 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
         int authCode = 0;
 
         if (type.compareTo("login") == 0) {
+            // Create JSON for login
             try {
                 auth.put("username", user);
                 auth.put("password", pass);
@@ -65,6 +68,7 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
                 e.printStackTrace();
             }
         } else {
+            // Create JSON for signing up
             try {
                 auth.put("username", user);
                 auth.put("password", pass);
@@ -78,9 +82,8 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
             }
         }
 
-
         String message = auth.toString();
-        System.out.println("BUILT: " + message);
+        System.out.println("Http built: " + message);
 
         // Url encoding the POST parameters
         try {
@@ -102,10 +105,7 @@ public class AuthAsyncTask extends AsyncTask<String, Void, Integer> {
 
             System.out.println(builder.toString());
 
-            //request = new JSONObject(builder.toString());
-
-            Log.d("HTTP Response: ", response.toString());
-
+            // Signifies success
             if (response.getStatusLine().getStatusCode() == 200 || response.getStatusLine().getStatusCode() == 201) {
                 authCode = 1;
             }

@@ -84,7 +84,6 @@ public class LoginFragment extends Fragment {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
                     System.out.println(encrypted);
 
-
                     int check = ((MainActivity) getActivity()).asyncCheck(user, encrypted, "login", false, "", "", "", "");
                     if (check == 1) {
                         ((MainActivity) getActivity()).savePreferences("stored", true);

@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/flow_info"
         android:layout_margin="25dp"
+        android:inputType="phone"
         android:background="@drawable/rounded_input"
         android:hint="(555) 555-5555"
         android:textColor="#000"

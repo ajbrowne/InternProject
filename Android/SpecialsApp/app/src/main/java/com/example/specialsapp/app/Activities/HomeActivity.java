@@ -20,7 +20,9 @@ import com.example.specialsapp.app.R;
 
 import java.util.concurrent.ExecutionException;
 
-
+/**
+ * Hosts all fragments that display dealers and their specials
+ */
 public class HomeActivity extends Activity {
 
     Double lat;
@@ -32,14 +34,14 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // Get location upon opening app, returning to Dealers
         GPS gps = new GPS(this);
         lat = gps.getLatitude();
         longi = gps.getLongitude();
-
         asyncCheck(lat, longi);
 
+        // Show NearbyDealersFragment
         NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
-
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment, "nearby");
@@ -53,12 +55,14 @@ public class HomeActivity extends Activity {
         this.menu = menu;
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
+
+        // Check login status, change menu appropriately
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
         boolean status = shared.getBoolean("stored", true);
-        if (status){
+        if (status) {
             menu.findItem(R.id.action_logout).setVisible(true);
             menu.findItem(R.id.action_login).setVisible(false);
-        } else{
+        } else {
             menu.findItem(R.id.action_logout).setVisible(false);
             menu.findItem(R.id.action_login).setVisible(true);
         }
@@ -81,10 +85,13 @@ public class HomeActivity extends Activity {
             edit.putString("Password", "");
             edit.putBoolean("stored", false);
             edit.commit();
+            getMenuInflater().inflate(R.menu.home, menu);
+            menu.findItem(R.id.action_logout).setVisible(false);
+            menu.findItem(R.id.action_login).setVisible(true);
             new CustomAlertDialog(this, "Logout", "You have been logged out. You can no longer send contact info to dealers").show();
             return true;
         }
-        if (id == android.R.id.home){
+        if (id == android.R.id.home) {
             NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
 
             FragmentManager fragmentManager = getFragmentManager();
@@ -92,7 +99,7 @@ public class HomeActivity extends Activity {
             fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
             fragmentTransaction.commit();
         }
-        if (id == R.id.action_login){
+        if (id == R.id.action_login) {
             Intent intent = new Intent(HomeActivity.this, MainActivity.class);
             startActivity(intent);
         }
@@ -121,8 +128,9 @@ public class HomeActivity extends Activity {
         }
     }
 
+    // Controls backstack for dealers/specials fragments
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         FragmentManager fm = getFragmentManager();
         if (fm.getBackStackEntryCount() > 0) {
             Log.i("MainActivity", "popping backstack");
