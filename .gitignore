@@ -29,3 +29,4 @@ Android/.DS_Store
 Service/Specials/target/
 *.jar
 .idea/
+.idea/workspace.xml
