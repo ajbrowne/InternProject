@@ -1,15 +1,38 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ccc">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear"
+        android:background="@drawable/linear_top">
+
+        <Spinner
+            android:id="@+id/spinnerSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:layout_weight="1"/>
+
+        <Spinner
+            android:id="@+id/spinnerLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
     <it.gmariotti.cardslib.library.view.CardListView
         android:id="@+id/myList1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="12dp"
+        android:layout_below="@id/linear"/>
 
-</FrameLayout>
+</RelativeLayout>

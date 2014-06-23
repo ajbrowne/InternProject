@@ -7,6 +7,8 @@
         <item name="android:actionBarWidgetTheme">@android:style/Theme.Holo.Light</item>
         <item name="android:actionBarTabTextStyle">@android:style/Widget.Holo.Light.ActionBar.TabText</item>
         <item name="android:actionBarTabStyle">@style/MyActionBarTabs</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:actionBarDivider">@null</item>
     </style>
 
 </resources>
