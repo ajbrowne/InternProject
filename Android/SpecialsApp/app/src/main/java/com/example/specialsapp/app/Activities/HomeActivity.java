@@ -20,16 +20,32 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
-import com.example.specialsapp.app.Async.LocationAsyncTask;
-import com.example.specialsapp.app.Async.SpecialAsyncTask;
+import com.example.specialsapp.app.Cards.SpecialCard;
 import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
 import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.R;
+import com.example.specialsapp.app.Rest.SpecialsRestClient;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
+import org.apache.http.Header;
+import org.apache.http.entity.StringEntity;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
+
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
+import it.gmariotti.cardslib.library.view.CardListView;
 
 /**
  * Hosts all fragments that display dealers and their specials
@@ -39,24 +55,31 @@ public class HomeActivity extends FragmentActivity {
     private Menu menu;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
+    private CardListView cardListView;
     private String[] mMenuList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private String mTitle;
     private ArrayList<Dealer> dealers;
     private ArrayList<Special> specials;
+    private ArrayList<Card> cards;
+    private Special special;
+    private Dealer dealer;
+    private RequestParams params;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mTitle = "Specials";
         mMenuList = getResources().getStringArray(R.array.list_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         dealers = new ArrayList<Dealer>();
         specials = new ArrayList<Special>();
+        cards = new ArrayList<Card>();
+        special = new Special();
+        params = new RequestParams();
+        dealer = new Dealer();
 
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -147,35 +170,6 @@ public class HomeActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-       Fires the LocationAsyncTask after login and then takes action based on result
-    */
-    public ArrayList<Dealer> asyncCheck(Double latitude, Double longitude) {
-        LocationAsyncTask run = new LocationAsyncTask();
-
-        try {
-            dealers = run.execute(latitude, longitude).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return dealers;
-    }
-
-    public ArrayList<Special> asyncCheck(String dealer){
-        SpecialAsyncTask run = new SpecialAsyncTask();
-
-        try{
-            specials = run.execute(dealer).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return specials;
-    }
-
     // Controls backstack for dealers/specials fragments
     @Override
     public void onBackPressed() {
@@ -221,11 +215,94 @@ public class HomeActivity extends FragmentActivity {
         this.dealers = dealers;
     }
 
-    public void toggleDrawerOff(){
+    public void toggleDrawerOff() {
         mDrawerToggle.setDrawerIndicatorEnabled(false);
     }
 
-    public void toggleDrawerOn(){
+    public void toggleDrawerOn() {
         mDrawerToggle.setDrawerIndicatorEnabled(true);
+    }
+
+    public ArrayList<Card> getDealerSpecials(String dealer, View homeView) throws JSONException {
+
+        final View view = homeView;
+        params.put("dealer", dealer);
+
+        SpecialsRestClient.get("special", params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONArray request) {
+                for (int i = 0; i < request.length(); i++) {
+                    try {
+                        JSONObject content = ((JSONObject) request.get(i));
+                        special.setTitle(content.getString("title"));
+                        special.setDealer(content.getString("dealer"));
+                        special.setDescription(content.getString("description"));
+                        special.setType(content.getString("type"));
+                        specials.add(special);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                createSpecials(specials);
+                CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(HomeActivity.this, cards);
+
+                cardListView = (CardListView) view.findViewById(R.id.myList1);
+                if (cardListView != null) {
+                    cardListView.setAdapter(mCardArrayAdapter);
+                }
+            }
+        });
+        return cards;
+    }
+
+    public ArrayList<Dealer> getDealers(Double lng, Double lat, View view) throws JSONException {
+
+        String latt = String.valueOf(lat);
+        String longg = String.valueOf(lng);
+
+        final View homeView = view;
+        HashMap<String, String> param = new HashMap<String, String>();
+        param.put("lng", longg);
+        param.put("lat", latt);
+        params = new RequestParams(param);
+
+        SpecialsRestClient.get("dealers", params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONArray request) {
+                for (int i = 0; i < request.length(); i++) {
+                    try {
+                        JSONObject content = (JSONObject) ((JSONObject) request.get(i)).get("content");
+                        JSONObject distance = (JSONObject) ((JSONObject) request.get(i)).get("distance");
+                        dealer.setName(content.getString("name"));
+                        dealer.setCity(content.getString("city"));
+                        dealer.setState(content.getString("state"));
+                        //dealer.setNumSpecials(content.getInt("numSpecials"));
+                        //dealer.setDistanceFrom(distance.getDouble());
+                        dealers.add(i, dealer);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try{
+                    getDealerSpecials(dealers.get(0).getName(), homeView);
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        return dealers;
+    }
+
+    public ArrayList<Card> createSpecials(ArrayList<Special> specials) {
+        for (int i = 0; i < specials.size(); i++) {
+            SpecialCard card = new SpecialCard(HomeActivity.this, R.layout.special_card);
+            card.setTitle(specials.get(i).getTitle());
+            card.setDescription(specials.get(i).getDescription());
+            card.setDealer(specials.get(i).getDealer());
+            card.setSpecialType(specials.get(i).getType());
+            cards.add(card);
+        }
+        return cards;
     }
 }

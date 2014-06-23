@@ -1,6 +1,8 @@
 package com.example.specialsapp.app.Fragments;
 
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +16,11 @@ import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.MainActivity;
 import com.example.specialsapp.app.R;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.

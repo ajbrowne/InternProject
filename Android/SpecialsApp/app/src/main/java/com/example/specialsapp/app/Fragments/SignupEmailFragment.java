@@ -2,6 +2,8 @@ package com.example.specialsapp.app.Fragments;
 
 
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -39,6 +41,10 @@ public class SignupEmailFragment extends Fragment {
         next = (Button)view.findViewById(R.id.flow3_button);
         email = (EditText)view.findViewById(R.id.flow3_email);
         signin = (TextView)view.findViewById(R.id.flow3_signin);
+
+//        Account[] accounts = AccountManager.get(getActivity()).getAccountsByType("com.google");
+//        String e = accounts[0].name;
+//        email.setText(e);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override

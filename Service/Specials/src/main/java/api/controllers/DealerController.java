@@ -85,6 +85,7 @@ public class DealerController {
     public ResponseEntity<List<Dealer>> dealerLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat){
         //Create point object with the latitude and longitude of the user
         Point point = new Point(lng, lat);
+        System.out.println("LNG: " + lng);
         log.info("Location received from app: " + point);
         //Query and return the nearest dealers
         List<Dealer> newDealer = dealerRepository.getDealerByLocation(point);
