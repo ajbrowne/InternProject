@@ -1,5 +1,6 @@
 package com.example.specialsapp.app.Activities;
 
+import android.app.ActionBar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
@@ -10,15 +11,18 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.specialsapp.app.Adapters.TabsPagerAdapter;
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.Cards.SpecialCard;
 import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
@@ -50,10 +54,15 @@ import it.gmariotti.cardslib.library.view.CardListView;
 /**
  * Hosts all fragments that display dealers and their specials
  */
-public class HomeActivity extends FragmentActivity {
+public class HomeActivity extends FragmentActivity implements ActionBar.TabListener {
 
     private Menu menu;
     private CardListView cardListView;
+    private ViewPager viewPager;
+    private TabsPagerAdapter mAdapter;
+    private ActionBar actionBar;
+
+    private String[] tabs = {"Nearby", "Test", "Nearby"};
 
     private ArrayList<Dealer> dealers;
     private ArrayList<Special> specials;
@@ -61,6 +70,23 @@ public class HomeActivity extends FragmentActivity {
     private Special special;
     private Dealer dealer;
     private RequestParams params;
+
+    // ActionBar tab implementation
+
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +100,39 @@ public class HomeActivity extends FragmentActivity {
         params = new RequestParams();
         dealer = new Dealer();
 
+        viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
+        actionBar = getActionBar();
+        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+
+        viewPager.setAdapter(mAdapter);
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        viewPager.setOnPageChangeListener( new ViewPager.OnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+            }
+        });
+
+        for (String tab: tabs){
+            actionBar.addTab(actionBar.newTab().setText(tab).setTabListener(this));
+        }
+
         // Show NearbyDealersFragment
-        DealerSpecialsFragment nearbyDealersFragment = new DealerSpecialsFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
-        fragmentTransaction.commit();
+//        DealerSpecialsFragment nearbyDealersFragment = new DealerSpecialsFragment();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
+//        fragmentTransaction.commit();
     }
 
 
