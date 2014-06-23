@@ -18,4 +18,10 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
+    <style name="MyActionBarTabs"
+        parent="@android:style/Widget.Holo.ActionBar.TabView">
+        <!-- tab indicator -->
+        <item name="android:background">@drawable/tab_indicator_ab_example</item>
+    </style>
+
 </resources>

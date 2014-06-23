@@ -6,6 +6,7 @@
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:actionBarWidgetTheme">@android:style/Theme.Holo.Light</item>
         <item name="android:actionBarTabTextStyle">@android:style/Widget.Holo.Light.ActionBar.TabText</item>
+        <item name="android:actionBarTabStyle">@style/MyActionBarTabs</item>
     </style>
 
 </resources>
