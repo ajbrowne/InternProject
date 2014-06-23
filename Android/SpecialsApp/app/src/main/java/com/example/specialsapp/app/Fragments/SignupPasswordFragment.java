@@ -73,11 +73,7 @@ public class SignupPasswordFragment extends Fragment {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(userPassword);
 
                     ((MainActivity) getActivity()).setPassword(encrypted);
-                    if (((MainActivity) getActivity()).asyncCheck(email, encrypted, "", true, first, last, zip, phone) == 1) {
-                        ((MainActivity) getActivity()).savePreferences("stored", true);
-                        ((MainActivity) getActivity()).savePreferences("User", email);
-                        ((MainActivity) getActivity()).savePreferences("Password", encrypted);
-                    }
+                    ((MainActivity)getActivity()).register(email, encrypted, phone, zip, first, last);
                 }
             }
         });

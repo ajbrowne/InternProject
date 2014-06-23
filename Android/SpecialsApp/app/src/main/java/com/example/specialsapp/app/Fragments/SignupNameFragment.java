@@ -1,5 +1,7 @@
 package com.example.specialsapp.app.Fragments;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -47,8 +49,8 @@ public class SignupNameFragment extends Fragment {
             public void onClick(View v) {
                 firstName = first.getText().toString();
                 lastName = last.getText().toString();
-                ((MainActivity)getActivity()).setFirstName(firstName);
-                ((MainActivity)getActivity()).setLastName(lastName);
+                ((MainActivity) getActivity()).setFirstName(firstName);
+                ((MainActivity) getActivity()).setLastName(lastName);
                 SignupEmailFragment fragment = new SignupEmailFragment();
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

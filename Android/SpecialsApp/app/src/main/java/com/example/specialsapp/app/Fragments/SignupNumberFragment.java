@@ -2,10 +2,12 @@ package com.example.specialsapp.app.Fragments;
 
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,13 @@ public class SignupNumberFragment extends Fragment {
         next = (Button)view.findViewById(R.id.flow_button);
         number = (EditText)view.findViewById(R.id.flow_number);
         signin = (TextView)view.findViewById(R.id.flow_signin);
+
+        TelephonyManager tMgr = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        if (tMgr.getLine1Number() != null){
+            String num = tMgr.getLine1Number();
+            num = ("(" + num.substring(0,3) + ") "  +num.substring(3,6) + "-" + num.substring(6,10));
+            number.setText(num);
+        }
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override

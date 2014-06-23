@@ -55,7 +55,7 @@ public class NearbyDealersFragment extends Fragment {
         GPS gps = new GPS(getActivity());
         lat = gps.getLatitude();
         longi = gps.getLongitude();
-        dealers = ((HomeActivity)getActivity()).asyncCheck(lat, longi);
+        //dealers = ((HomeActivity)getActivity()).asyncCheck(lat, longi);
 
         for (int i = 0; i < dealers.size(); i++){
             DealerCard card = new DealerCard(this.getActivity(), R.layout.dealer_card);

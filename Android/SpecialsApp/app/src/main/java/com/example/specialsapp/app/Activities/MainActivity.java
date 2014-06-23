@@ -8,22 +8,24 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
-import com.example.specialsapp.app.Async.AuthAsyncTask;
 import com.example.specialsapp.app.Fragments.LoginFragment;
 import com.example.specialsapp.app.R;
+import com.example.specialsapp.app.Rest.SpecialsRestClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.apache.http.entity.StringEntity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -70,31 +72,76 @@ public class MainActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-       Fires the AuthRequest and then takes action based on result
-    */
-    public int asyncCheck(String user, String pass, String type, boolean check, String first, String last, String zip, String phone) {
-        AuthAsyncTask run = new AuthAsyncTask(type);
-        int result = 0;
+    public void login(String username, String password) {
+
+        final Boolean loggedIn;
+        final String pass = password;
+        final String user = username;
+        JSONObject auth = new JSONObject();
 
         try {
-            result = run.execute(user, pass, type, first, last, zip, phone).get();
-        } catch (InterruptedException e) {
+            auth.put("username", username);
+            auth.put("password", password);
+            StringEntity entity = new StringEntity(auth.toString());
+            SpecialsRestClient.post(this, "login", entity, "application/json", new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(JSONObject request) {
+                    try {
+                        String response = request.getString("response");
+                        if (response.compareTo("Login Success") == 0) {
+                            savePreferences("stored", true);
+                            savePreferences("User", user);
+                            savePreferences("Password", pass);
+                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (JSONException e) {
             e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
 
-        if (result == 0) {
-            if (check == false) {
-                //new CustomAlertDialog(this, "Invalid username or password", "Your username or password is incorrect, try again.").show();
-            }
-        } else if (result == 1) {
-            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+    public void register(String username, String password, String phone, String zip, String first, String last) {
+
+        final Boolean loggedIn;
+        final String pass = password;
+        final String user = username;
+        JSONObject auth = new JSONObject();
+
+        try {
+            auth.put("username", username);
+            auth.put("password", password);
+            auth.put("role", 1);
+            auth.put("phone", phone);
+            auth.put("zip", zip);
+            auth.put("firstName", first);
+            auth.put("lastName", last);
+            StringEntity entity = new StringEntity(auth.toString());
+            SpecialsRestClient.post(this, "register", entity, "application/json", new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int status, JSONObject request) {
+                    if (status == 201) {
+                        savePreferences("stored", true);
+                        savePreferences("User", user);
+                        savePreferences("Password", pass);
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-        return result;
     }
 
     /*
@@ -145,7 +192,7 @@ public class MainActivity extends FragmentActivity {
         String sPass = shared.getString("Password", "");
         boolean check = shared.getBoolean("stored", false);
         if (check) {
-            asyncCheck(sUser, sPass, "login", check, "", "", "", "");
+            login(sUser, sPass);
         }
     }
 
