@@ -8,8 +8,13 @@
 
     <!-- ActionBar styles -->
     <style name="MyActionBar"
-        parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        parent="@android:style/Widget.Holo.ActionBar">
         <item name="android:background">#00559A</item>
+        <item name="android:titleTextStyle">@style/NewStyleThing</item>
+    </style>
+
+    <style name="NewStyleThing" parent="android:TextAppearance.DeviceDefault.Widget.ActionBar.Title">
+        <item name="android:textColor">#ffffff</item>
     </style>
 
 </resources>
