@@ -54,11 +54,12 @@ public class SpecialController {
      *
      * @return it returns a list of all of the specials
      */
-    @RequestMapping(value = "/special",method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<List<Special>> getAllSpecials(){
-        return new ResponseEntity<List<Special>>(specialRepository.findAll() ,HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/special",method = RequestMethod.GET)
+//    @ResponseBody
+//    public ResponseEntity<List<Special>> getAllSpecials(){
+//        log.info("All specials found");
+//        return new ResponseEntity<List<Special>>(specialRepository.findAll() ,HttpStatus.OK);
+//    }
 
     /**
      * This method is used to get specials based on any of the parameters
@@ -71,12 +72,17 @@ public class SpecialController {
      * @param dealer - all specials with this dealer_id
      * @return - the list of all specials that match the values passed in
      */
-    @RequestMapping(value = "/special",method = RequestMethod.GET, params = {"title", "id", "type", "dealer"})
+    @RequestMapping(value = "/special",method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List> getMatchingSpecials(@RequestParam(value = "title", required = false) String title,
                                                    @RequestParam(value = "id", required = false) String id,
                                                    @RequestParam(value = "type", required = false) String type,
                                                    @RequestParam(value = "dealer", required = false) String dealer){
+
+        if(title == null && id == null && type == null && dealer == null){
+            return new ResponseEntity<List>(specialRepository.findAll() ,HttpStatus.OK);
+        }
+
         //Create a special using the data passed in as a variable
         Special test = new Special();
         test.setId(id);

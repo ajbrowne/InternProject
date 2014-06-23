@@ -226,11 +226,13 @@ public class HomeActivity extends FragmentActivity {
     public ArrayList<Card> getDealerSpecials(String dealer, View homeView) throws JSONException {
 
         final View view = homeView;
-        params.put("dealer", dealer);
+        HashMap<String, String> param = new HashMap<String, String>();
+        param.put("dealer", "that guy");
+        params = new RequestParams(param);
 
         SpecialsRestClient.get("special", params, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(JSONArray request) {
+            public void onSuccess(int statusCode, Header[] headers,JSONArray request) {
                 for (int i = 0; i < request.length(); i++) {
                     try {
                         JSONObject content = ((JSONObject) request.get(i));
@@ -268,7 +270,7 @@ public class HomeActivity extends FragmentActivity {
 
         SpecialsRestClient.get("dealers", params, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(JSONArray request) {
+            public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
                 for (int i = 0; i < request.length(); i++) {
                     try {
                         JSONObject content = (JSONObject) ((JSONObject) request.get(i)).get("content");

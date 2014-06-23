@@ -18,6 +18,7 @@ import com.example.specialsapp.app.R;
 import com.example.specialsapp.app.Rest.SpecialsRestClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,7 +86,7 @@ public class MainActivity extends FragmentActivity {
             StringEntity entity = new StringEntity(auth.toString());
             SpecialsRestClient.post(this, "login", entity, "application/json", new JsonHttpResponseHandler() {
                 @Override
-                public void onSuccess(JSONObject request) {
+                public void onSuccess(int statusCode, Header[] headers,JSONObject request) {
                     try {
                         String response = request.getString("response");
                         if (response.compareTo("Login Success") == 0) {
@@ -126,8 +127,8 @@ public class MainActivity extends FragmentActivity {
             StringEntity entity = new StringEntity(auth.toString());
             SpecialsRestClient.post(this, "register", entity, "application/json", new JsonHttpResponseHandler() {
                 @Override
-                public void onSuccess(int status, JSONObject request) {
-                    if (status == 201) {
+                public void onSuccess(int statusCode, Header[] headers, JSONObject request) {
+                    if (statusCode == 201) {
                         savePreferences("stored", true);
                         savePreferences("User", user);
                         savePreferences("Password", pass);

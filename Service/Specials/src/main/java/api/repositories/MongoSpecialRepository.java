@@ -33,11 +33,24 @@ public class MongoSpecialRepository implements SpecialRepository {
     @Override
     public List<Special> findMatching(Special special) {
         Query query = new Query();
-        Criteria criteria = new Criteria().andOperator(Criteria.where("title").is(special.getTitle()),
-                Criteria.where("type").is(special.getType()),
-                Criteria.where("id").is(special.getId()),
-                Criteria.where("dealer").is(special.getDealer()));
-        query.addCriteria(criteria);
+
+        Criteria criteria1 = Criteria.where("dealer").is(special.getDealer());
+        Criteria criteria2 = Criteria.where("id").is(special.getId());
+        Criteria criteria3 = Criteria.where("type").is(special.getType());
+        Criteria criteria4 = Criteria.where("title").is(special.getTitle());
+        if(special.getDealer() != null){
+            query.addCriteria(criteria1);
+        }
+        if(special.getId() != null){
+            query.addCriteria(criteria2);
+        }
+        if(special.getType() != null){
+            query.addCriteria(criteria3);
+        }
+        if(special.getTitle() != null){
+            query.addCriteria(criteria4);
+        }
+
         return mongoTemplate.find(query, Special.class);
     }
 }
