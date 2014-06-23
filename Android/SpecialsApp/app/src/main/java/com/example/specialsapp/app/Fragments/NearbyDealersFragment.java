@@ -47,7 +47,7 @@ public class NearbyDealersFragment extends Fragment {
         getActivity().setTitle("Dealers");
 
         ActionBar actionBar = ((HomeActivity)getActivity()).getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
         // Get location upon opening app, returning to Dealers
