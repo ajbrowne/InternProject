@@ -9,11 +9,26 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="spinnerPrompt1">Select Category</string>
+    <string name="location">Current Location</string>
 
     <string-array name="list_items">
         <item>Dealers Near You</item>
         <item>Specials Near You</item>
         <item>Search</item>
+    </string-array>
+
+    <string-array name="location_array">
+        <item>Current Location</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="search_array">
+        <item>Dealer</item>
+        <item>Make</item>
+        <item>Model</item>
+        <item>Year</item>
+        <item>Type</item>
     </string-array>
 
     <string name="title_activity_specials">SpecialsActivity</string>
