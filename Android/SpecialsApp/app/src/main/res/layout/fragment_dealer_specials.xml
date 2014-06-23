@@ -18,6 +18,13 @@
             android:textColor="#000"
             android:layout_weight="1"/>
 
+        <View
+            android:id="@+id/view1"
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0"
+            android:background="#d3d3d3" />
+
         <Spinner
             android:id="@+id/spinnerLocation"
             android:layout_width="wrap_content"
