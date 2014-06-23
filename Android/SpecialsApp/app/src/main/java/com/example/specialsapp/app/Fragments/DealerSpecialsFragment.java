@@ -38,7 +38,7 @@ public class DealerSpecialsFragment extends Fragment {
         homeView = inflater.inflate(R.layout.fragment_dealer_specials, container, false);
 
         ActionBar actionBar = getActivity().getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);
 
         getActivity().setTitle("Specials");
 

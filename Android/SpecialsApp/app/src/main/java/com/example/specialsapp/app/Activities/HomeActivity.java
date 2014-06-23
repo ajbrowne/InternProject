@@ -53,11 +53,8 @@ import it.gmariotti.cardslib.library.view.CardListView;
 public class HomeActivity extends FragmentActivity {
 
     private Menu menu;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
     private CardListView cardListView;
-    private String[] mMenuList;
-    private ActionBarDrawerToggle mDrawerToggle;
+
     private ArrayList<Dealer> dealers;
     private ArrayList<Special> specials;
     private ArrayList<Card> cards;
@@ -70,10 +67,6 @@ public class HomeActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mMenuList = getResources().getStringArray(R.array.list_items);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
         dealers = new ArrayList<Dealer>();
         specials = new ArrayList<Special>();
         cards = new ArrayList<Card>();
@@ -81,26 +74,6 @@ public class HomeActivity extends FragmentActivity {
         params = new RequestParams();
         dealer = new Dealer();
 
-        // set a custom shadow that overlays the main content when the drawer opens
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mMenuList));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-        // ActionBarDrawerToggle ties together the the proper interactions
-        // between the sliding drawer and the action bar app icon
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        );
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        // enable ActionBar app icon to behave as action to toggle nav drawer
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
         // Show NearbyDealersFragment
         DealerSpecialsFragment nearbyDealersFragment = new DealerSpecialsFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -164,9 +137,7 @@ public class HomeActivity extends FragmentActivity {
             Intent intent = new Intent(HomeActivity.this, MainActivity.class);
             startActivity(intent);
         }
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -183,30 +154,6 @@ public class HomeActivity extends FragmentActivity {
         }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
-    }
-
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
-
-    private void selectItem(int position) {
-
-    }
-
     public ArrayList<Dealer> getDealers() {
         return dealers;
     }
@@ -215,13 +162,6 @@ public class HomeActivity extends FragmentActivity {
         this.dealers = dealers;
     }
 
-    public void toggleDrawerOff() {
-        mDrawerToggle.setDrawerIndicatorEnabled(false);
-    }
-
-    public void toggleDrawerOn() {
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-    }
 
     public ArrayList<Card> getDealerSpecials(String dealer, View homeView) throws JSONException {
 

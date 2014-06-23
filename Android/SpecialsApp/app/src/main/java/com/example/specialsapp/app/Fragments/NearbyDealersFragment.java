@@ -43,7 +43,6 @@ public class NearbyDealersFragment extends Fragment {
         // Inflate the layout for this fragment
         homeView = inflater.inflate(R.layout.fragment_nearby_dealers_, container, false);
         inflater.inflate(R.layout.dealer_card, container, false);
-        ((HomeActivity) getActivity()).toggleDrawerOn();
         getActivity().setTitle("Dealers");
 
         ActionBar actionBar = ((HomeActivity)getActivity()).getActionBar();
@@ -69,7 +68,6 @@ public class NearbyDealersFragment extends Fragment {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.remove(NearbyDealersFragment.this);
                     fragmentTransaction.addToBackStack("nearby");
-                    ((HomeActivity) getActivity()).toggleDrawerOff();
                     fragmentTransaction.replace(R.id.fragmentContainer2, dealerSpecialsFragment);
                     fragmentTransaction.commit();
                 }
