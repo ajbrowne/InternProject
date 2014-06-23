@@ -30,3 +30,4 @@ Service/Specials/target/
 *.jar
 .idea/
 .idea/workspace.xml
+Android/SpecialsApp/app/src/main/java/com/example/specialsapp/app/Rest/SpecialsRestClient.java
