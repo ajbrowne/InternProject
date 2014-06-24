@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.GPS.GPS;
@@ -41,6 +43,15 @@ public class DealerSpecialsFragment extends Fragment {
         actionBar.setDisplayHomeAsUpEnabled(false);
 
         getActivity().setTitle("Specials");
+
+        Spinner spinner = (Spinner) homeView.findViewById(R.id.spinnerSearch);
+        Spinner spinner2 = (Spinner) homeView.findViewById(R.id.spinnerLocation);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.search_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.location_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner2.setAdapter(adapter2);
 
         // Get location upon opening app, returning to Dealers
         dealers = new ArrayList<Dealer>();
