@@ -1,6 +1,7 @@
 package api.controllers;
 
 import api.models.Dealer;
+import api.models.MergerObj;
 import api.models.Special;
 import api.repositories.DealerRepository;
 import api.repositories.SpecialRepository;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,24 +49,25 @@ public class CombineController {
      */
     @RequestMapping(value="/special", produces = "application/json", params = {"lng", "lat"})
     @ResponseBody
-    public ResponseEntity<HashMap<String, List<Special>>> specialLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat){
+    public ResponseEntity<List<MergerObj>> specialLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat){
         //Create point object with the latitude and longitude of the user
         Point point = new Point(lng, lat);
         log.info("Location received from app: " + point);
         //Query and return the nearest dealers
         List<GeoResult> newDealer = dealerRepository.getDealerByLocation(point);
-        HashMap<String, List<Special>> specials = new HashMap<String, List<Special>>();
+        List<MergerObj> specials = new ArrayList<MergerObj>();
         for(int i = 0; i < newDealer.size();i++){
             Dealer tempDealer = (Dealer)newDealer.get(i).getContent();
             Special tempSpecial = new Special();
             tempSpecial.setDealer(tempDealer.getId());
             List<Special> temp = specialRepository.findMatching(tempSpecial);
-            if(temp.size() != 0){
-                specials.put(tempDealer.getName(), temp);
+            if(temp.size() != 0) {
+                specials.add(new MergerObj(tempDealer.getName(), temp));
             }
+     
 
         }
         log.info("Number of specials: " + specials.size());
-        return new ResponseEntity<HashMap<String, List<Special>>>(specials, HttpStatus.OK);
+        return new ResponseEntity<List<MergerObj>>(specials, HttpStatus.OK);
     }
 }
