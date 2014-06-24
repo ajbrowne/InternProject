@@ -12,7 +12,7 @@ import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
 /**
  * Created by brownea on 6/23/14.
  */
-public class TabsPagerAdapter extends FragmentStatePagerAdapter {
+public class TabsPagerAdapter extends FragmentPagerAdapter {
 
     public TabsPagerAdapter(FragmentManager fm){
         super(fm);
