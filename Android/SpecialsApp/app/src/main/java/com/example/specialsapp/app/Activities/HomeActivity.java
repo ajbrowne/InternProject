@@ -123,7 +123,7 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-                actionBar.setSelectedNavigationItem(tab.getPosition());
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
