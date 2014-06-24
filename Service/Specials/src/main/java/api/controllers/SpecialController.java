@@ -80,6 +80,7 @@ public class SpecialController {
                                                    @RequestParam(value = "dealer", required = false) String dealer){
 
         if(title == null && id == null && type == null && dealer == null){
+            log.info("All specials returned");
             return new ResponseEntity<List>(specialRepository.findAll() ,HttpStatus.OK);
         }
 
