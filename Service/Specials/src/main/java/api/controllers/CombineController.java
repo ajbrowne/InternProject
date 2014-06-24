@@ -40,7 +40,7 @@ public class CombineController {
     public CombineController(){}
 
     /**
-     * This function is used to get dealers by location.
+     * This function is used to get specials by location.
      * Mapped to /v1/specials/special
      *
      * @param lng - longitude of users position
@@ -64,8 +64,6 @@ public class CombineController {
             if(temp.size() != 0) {
                 specials.add(new MergerObj(tempDealer.getName(), temp));
             }
-     
-
         }
         log.info("Number of specials: " + specials.size());
         return new ResponseEntity<List<MergerObj>>(specials, HttpStatus.OK);
