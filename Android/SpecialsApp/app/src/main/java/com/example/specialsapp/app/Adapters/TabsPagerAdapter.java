@@ -8,6 +8,9 @@ import com.example.specialsapp.app.Fragments.BlankFragment;
 import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
 
 /**
+ *
+ * Adapter used for switching tabs in HomeActivity
+ *
  * Created by brownea on 6/23/14.
  */
 public class TabsPagerAdapter extends FragmentPagerAdapter {

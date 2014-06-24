@@ -18,6 +18,9 @@ import com.example.specialsapp.app.R;
 import java.util.Locale;
 
 /**
+ *
+ * Fragment used for when users want to log in to the app
+ *
  * Created by brownea on 6/11/14.
  */
 public class LoginFragment extends Fragment {

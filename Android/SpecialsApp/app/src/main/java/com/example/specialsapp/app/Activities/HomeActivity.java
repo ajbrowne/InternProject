@@ -40,7 +40,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
 /**
  * Hosts all fragments that display dealers and their specials
  */
-public class HomeActivity extends FragmentActivity implements ActionBar.TabListener {
+public class HomeActivity extends FragmentActivity {
 
     private Menu menu;
     private CardListView cardListView;
@@ -54,20 +54,6 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
 
     // ActionBar tab implementation
 
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-        viewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +83,7 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
                 }
         );
 
+        // Listener for tab changes
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
@@ -114,6 +101,7 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
             }
         };
 
+        // Add tabs to action bar
         for (String tab : tabs) {
             actionBar.addTab(actionBar.newTab().setText(tab).setTabListener(tabListener));
         }

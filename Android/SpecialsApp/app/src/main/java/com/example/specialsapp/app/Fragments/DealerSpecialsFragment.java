@@ -21,6 +21,10 @@ import java.util.ArrayList;
 import it.gmariotti.cardslib.library.internal.Card;
 
 /**
+ *
+ * Currently the home view that displays all specials from the dealer
+ * that is closest to your current location.
+ *
  * Created by brownea on 6/12/14.
  */
 public class DealerSpecialsFragment extends Fragment {
@@ -40,6 +44,7 @@ public class DealerSpecialsFragment extends Fragment {
 
         getActivity().setTitle("Specials");
 
+        // Intialize spinners and link to array that populates them
         Spinner spinner = (Spinner) homeView.findViewById(R.id.spinnerSearch);
         Spinner spinner2 = (Spinner) homeView.findViewById(R.id.spinnerLocation);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.search_array, android.R.layout.simple_spinner_item);
@@ -55,6 +60,7 @@ public class DealerSpecialsFragment extends Fragment {
         Double latitiude = gps.getLatitude();
         Double longitude = gps.getLongitude();
 
+        // Call to retrieve specials to display
         try {
             ((HomeActivity)getActivity()).getDealerSpecials(longitude, latitiude, homeView);
         } catch (JSONException e) {

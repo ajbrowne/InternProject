@@ -38,6 +38,7 @@ public class SignupEmailFragment extends Fragment {
         email = (EditText)view.findViewById(R.id.flow3_email);
         signin = (TextView)view.findViewById(R.id.flow3_signin);
 
+//        Gets email from logged in Google account to populate field (use this or ???)
 //        Account[] accounts = AccountManager.get(getActivity()).getAccountsByType("com.google");
 //        String e = accounts[0].name;
 //        email.setText(e);

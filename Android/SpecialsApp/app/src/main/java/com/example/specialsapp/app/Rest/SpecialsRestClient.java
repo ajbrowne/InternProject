@@ -6,6 +6,10 @@ import com.loopj.android.http.*;
 import org.apache.http.entity.StringEntity;
 
 /**
+ *
+ * Centralizes all rest call to the api using Android Async HTTP Library
+ * Used by Pinterest/Instagram and based off of Apache
+ *
  * Created by brownea on 6/21/14.
  */
 

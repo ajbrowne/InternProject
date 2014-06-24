@@ -10,7 +10,8 @@ import com.example.specialsapp.app.R;
 import it.gmariotti.cardslib.library.internal.Card;
 
 /**
- * This class provides a simple Google Play card
+ * This class provides a simple Google Play card to display
+ * dealers (may not be needed later)
  *
  * @author brownea
  */

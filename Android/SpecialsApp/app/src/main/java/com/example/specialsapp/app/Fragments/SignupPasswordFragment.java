@@ -48,6 +48,7 @@ public class SignupPasswordFragment extends Fragment {
         confirm = (EditText) view.findViewById(R.id.flow4_verify);
         signin = (TextView) view.findViewById(R.id.flow4_signin);
 
+        // Link listeners to identify matching passwords
         confirm.addTextChangedListener(new MyTextWatcher());
         password.addTextChangedListener(new MyTextWatcher());
 
@@ -70,7 +71,7 @@ public class SignupPasswordFragment extends Fragment {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(userPassword);
 
                     ((MainActivity) getActivity()).setPassword(encrypted);
-                    ((MainActivity)getActivity()).register(email, encrypted, phone, zip, first, last);
+                    ((MainActivity)getActivity()).register(email, encrypted, phone, zip, first, last); // Async call to register
                 }
             }
         });
@@ -95,6 +96,7 @@ public class SignupPasswordFragment extends Fragment {
         return view;
     }
 
+    // Text watcher that see that there are matching passwords and turns the boxes green
     private class MyTextWatcher implements TextWatcher {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {

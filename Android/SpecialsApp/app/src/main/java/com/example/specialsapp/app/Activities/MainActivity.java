@@ -73,6 +73,13 @@ public class MainActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     *
+     * Http/Async call used for logging in with provided username and password
+     *
+     * @param username - email address entered
+     * @param password - password entered
+     */
     public void login(String username, String password) {
 
         final Boolean loggedIn;
@@ -80,6 +87,7 @@ public class MainActivity extends FragmentActivity {
         final String user = username;
         JSONObject auth = new JSONObject();
 
+        // Async call using Async HTTP Android client posting JSON for login
         try {
             auth.put("username", username);
             auth.put("password", password);
@@ -88,6 +96,7 @@ public class MainActivity extends FragmentActivity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers,JSONObject request) {
                     try {
+                        // Check response for success and cache user login
                         String response = request.getString("response");
                         if (response.compareTo("Login Success") == 0) {
                             savePreferences("stored", true);
@@ -109,6 +118,17 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    /**
+     *
+     * Http/Async call used for registering with provided user credentials
+     *
+     * @param username
+     * @param password
+     * @param phone
+     * @param zip
+     * @param first
+     * @param last
+     */
     public void register(String username, String password, String phone, String zip, String first, String last) {
 
         final Boolean loggedIn;
