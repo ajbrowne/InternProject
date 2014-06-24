@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -48,24 +48,24 @@ public class CombineController {
      */
     @RequestMapping(value="/special", produces = "application/json", params = {"lng", "lat"})
     @ResponseBody
-    public ResponseEntity<List<Special>> specialLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat){
+    public ResponseEntity<HashMap<String, List<Special>>> specialLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat){
         //Create point object with the latitude and longitude of the user
         Point point = new Point(lng, lat);
         log.info("Location received from app: " + point);
         //Query and return the nearest dealers
         List<GeoResult> newDealer = dealerRepository.getDealerByLocation(point);
-        List<Special> specials = new ArrayList<Special>();
+        HashMap<String, List<Special>> specials = new HashMap<String, List<Special>>();
         for(int i = 0; i < newDealer.size();i++){
             Dealer tempDealer = (Dealer)newDealer.get(i).getContent();
             Special tempSpecial = new Special();
             tempSpecial.setDealer(tempDealer.getId());
             List<Special> temp = specialRepository.findMatching(tempSpecial);
             if(temp.size() != 0){
-               specials.addAll(temp);
+                specials.put(tempDealer.getName(), temp);
             }
 
         }
         log.info("Number of specials: " + specials.size());
-        return new ResponseEntity<List<Special>>(specials, HttpStatus.OK);
+        return new ResponseEntity<HashMap<String, List<Special>>>(specials, HttpStatus.OK);
     }
 }
