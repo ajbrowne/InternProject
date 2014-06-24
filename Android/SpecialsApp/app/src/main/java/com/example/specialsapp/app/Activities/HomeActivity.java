@@ -5,50 +5,33 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewParent;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.example.specialsapp.app.Adapters.TabsPagerAdapter;
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.Cards.SpecialCard;
-import com.example.specialsapp.app.Fragments.BlankFragment;
-import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
 import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.R;
 import com.example.specialsapp.app.Rest.SpecialsRestClient;
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
@@ -67,7 +50,6 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
     private String[] tabs = {"Nearby", "Test", "Test"};
 
     private ArrayList<Dealer> dealers;
-    private Dealer dealer;
     private RequestParams params;
 
     // ActionBar tab implementation
@@ -96,7 +78,6 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
 
         dealers = new ArrayList<Dealer>();
         params = new RequestParams();
-        dealer = new Dealer();
 
         viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
         mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
@@ -245,7 +226,7 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
                 try {
                     JSONObject dealer = (JSONObject) request.get(0);
                     JSONArray specialArray = (JSONArray) dealer.get("specials");
-                    for (int i = 0; i < specialArray.length(); i++){
+                    for (int i = 0; i < specialArray.length(); i++) {
                         Special special = new Special();
                         JSONObject spec = (JSONObject) specialArray.get(i);
                         special.setTitle(spec.getString("title"));

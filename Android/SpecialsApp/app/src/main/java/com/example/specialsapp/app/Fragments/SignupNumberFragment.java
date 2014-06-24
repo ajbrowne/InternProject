@@ -1,7 +1,5 @@
 package com.example.specialsapp.app.Fragments;
 
-
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,10 +15,6 @@ import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.MainActivity;
 import com.example.specialsapp.app.R;
-
-import org.w3c.dom.Text;
-
-import java.util.EmptyStackException;
 
 /**
  * A simple {@link Fragment} subclass.

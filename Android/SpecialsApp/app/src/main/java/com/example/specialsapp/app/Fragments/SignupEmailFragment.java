@@ -1,9 +1,5 @@
 package com.example.specialsapp.app.Fragments;
 
-
-
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

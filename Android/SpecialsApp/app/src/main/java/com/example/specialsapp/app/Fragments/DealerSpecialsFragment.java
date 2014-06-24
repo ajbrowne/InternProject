@@ -12,17 +12,13 @@ import android.widget.Spinner;
 import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Dealer;
-import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.R;
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 
 import java.util.ArrayList;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-import it.gmariotti.cardslib.library.view.CardListView;
 
 /**
  * Created by brownea on 6/12/14.
