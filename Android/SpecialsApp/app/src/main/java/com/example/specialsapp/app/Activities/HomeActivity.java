@@ -67,8 +67,6 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
     private String[] tabs = {"Nearby", "Test", "Test"};
 
     private ArrayList<Dealer> dealers;
-    private ArrayList<Special> specials;
-    private ArrayList<Card> cards;
     private Dealer dealer;
     private RequestParams params;
 
@@ -97,8 +95,6 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
         final ActionBar actionBar = getActionBar();
 
         dealers = new ArrayList<Dealer>();
-        specials = new ArrayList<Special>();
-        cards = new ArrayList<Card>();
         params = new RequestParams();
         dealer = new Dealer();
 
@@ -245,7 +241,7 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
         SpecialsRestClient.get("special", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
-
+                ArrayList<Special> specials = new ArrayList<Special>();
                 try {
                     JSONObject dealer = (JSONObject) request.get(0);
                     JSONArray specialArray = (JSONArray) dealer.get("specials");
@@ -261,8 +257,8 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                cards = createSpecials(specials);
+                ArrayList<Card> cards = new ArrayList<Card>();
+                cards = createSpecials(specials, cards);
                 CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(HomeActivity.this, cards);
 
                 cardListView = (CardListView) homeView.findViewById(R.id.myList1);
@@ -279,7 +275,7 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
      * @param specials - Specials that will have cards created for them
      * @return Arraylist of created cards
      */
-    public ArrayList<Card> createSpecials(ArrayList<Special> specials) {
+    public ArrayList<Card> createSpecials(ArrayList<Special> specials, ArrayList<Card> cards) {
         for (int i = 0; i < specials.size(); i++) {
             SpecialCard card = new SpecialCard(HomeActivity.this, R.layout.special_card);
             card.setTitle(specials.get(i).getTitle());
