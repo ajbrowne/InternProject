@@ -3,6 +3,9 @@ package api.models;
 import java.util.List;
 
 /**
+ * This object is used to merge some dealer data and special data for
+ * use in the android card layouts.
+ *
  * Created by maharb on 6/24/14.
  */
 public class MergerObj {

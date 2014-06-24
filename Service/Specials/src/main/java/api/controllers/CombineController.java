@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This controller is used for any api calls that are not specifically accessing
+ * the dealer or special collections, but may be accessing both.
+ *
  * Created by maharb on 6/24/14.
  */
 
@@ -56,11 +59,14 @@ public class CombineController {
         //Query and return the nearest dealers
         List<GeoResult> newDealer = dealerRepository.getDealerByLocation(point);
         List<MergerObj> specials = new ArrayList<MergerObj>();
+        //loop over the dealers to find the dealers specials
         for(int i = 0; i < newDealer.size();i++){
             Dealer tempDealer = (Dealer)newDealer.get(i).getContent();
             Special tempSpecial = new Special();
             tempSpecial.setDealer(tempDealer.getId());
             List<Special> temp = specialRepository.findMatching(tempSpecial);
+            //store the dealers name and the special in an object to pass to the app
+            //dealer name is for the cards in the app.
             if(temp.size() != 0) {
                 specials.add(new MergerObj(tempDealer.getName(), temp));
             }
