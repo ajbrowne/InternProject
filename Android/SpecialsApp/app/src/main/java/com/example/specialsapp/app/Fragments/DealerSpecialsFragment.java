@@ -60,7 +60,7 @@ public class DealerSpecialsFragment extends Fragment {
         Double longitude = gps.getLongitude();
 
         try {
-            dealers = ((HomeActivity)getActivity()).getDealers(longitude, latitiude, homeView);
+            ((HomeActivity)getActivity()).getDealerSpecials(longitude, latitiude, homeView);
         } catch (JSONException e) {
             e.printStackTrace();
         }

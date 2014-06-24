@@ -25,6 +25,7 @@ import android.widget.ListView;
 import com.example.specialsapp.app.Adapters.TabsPagerAdapter;
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.Cards.SpecialCard;
+import com.example.specialsapp.app.Fragments.BlankFragment;
 import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
 import com.example.specialsapp.app.Models.Dealer;
@@ -62,12 +63,11 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
 
-    private String[] tabs = {"Nearby", "Test", "Nearby"};
+    private String[] tabs = {"Nearby", "Test", "Test"};
 
     private ArrayList<Dealer> dealers;
     private ArrayList<Special> specials;
     private ArrayList<Card> cards;
-    private Special special;
     private Dealer dealer;
     private RequestParams params;
 
@@ -96,7 +96,6 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
         dealers = new ArrayList<Dealer>();
         specials = new ArrayList<Special>();
         cards = new ArrayList<Card>();
-        special = new Special();
         params = new RequestParams();
         dealer = new Dealer();
 
@@ -108,31 +107,36 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
         actionBar.setHomeButtonEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        viewPager.setOnPageChangeListener( new ViewPager.OnPageChangeListener(){
+        viewPager.setOnPageChangeListener(
+                new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        // When swiping between pages, select the
+                        // corresponding tab.
+                        getActionBar().setSelectedNavigationItem(position);
+                    }
+                });
+
+        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
             @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
+            public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+
             }
 
             @Override
-            public void onPageScrollStateChanged(int arg0) {
+            public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+
             }
-        });
+        };
 
         for (String tab: tabs){
             actionBar.addTab(actionBar.newTab().setText(tab).setTabListener(this));
         }
-
-        // Show NearbyDealersFragment
-//        DealerSpecialsFragment nearbyDealersFragment = new DealerSpecialsFragment();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
-//        fragmentTransaction.commit();
     }
 
 
@@ -215,42 +219,17 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
         this.dealers = dealers;
     }
 
-
-    public ArrayList<Card> getDealerSpecials(String dealer, View homeView) throws JSONException {
-
-        final View view = homeView;
-        HashMap<String, String> param = new HashMap<String, String>();
-        param.put("dealer", "that guy");
-        params = new RequestParams(param);
-
-        SpecialsRestClient.get("special", params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers,JSONArray request) {
-                for (int i = 0; i < request.length(); i++) {
-                    try {
-                        JSONObject content = ((JSONObject) request.get(i));
-                        special.setTitle(content.getString("title"));
-                        special.setDealer(content.getString("dealer"));
-                        special.setDescription(content.getString("description"));
-                        special.setType(content.getString("type"));
-                        specials.add(special);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                createSpecials(specials);
-                CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(HomeActivity.this, cards);
-
-                cardListView = (CardListView) view.findViewById(R.id.myList1);
-                if (cardListView != null) {
-                    cardListView.setAdapter(mCardArrayAdapter);
-                }
-            }
-        });
-        return cards;
-    }
-
-    public ArrayList<Dealer> getDealers(Double lng, Double lat, View view) throws JSONException {
+    /**
+     *
+     * Finds nearest dealers (x determined in api) to given lat and long
+     *
+     * @param lng - longitude
+     * @param lat - latitude
+     * @param view - view passed to getDealerSpecials
+     * @return ArrayList of dealers found
+     * @throws JSONException
+     */
+    public void getDealerSpecials(Double lng, Double lat, View view) throws JSONException {
 
         String latt = String.valueOf(lat);
         String longg = String.valueOf(lng);
@@ -261,34 +240,40 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
         param.put("lat", latt);
         params = new RequestParams(param);
 
-        SpecialsRestClient.get("dealers", params, new JsonHttpResponseHandler() {
+        SpecialsRestClient.get("special", params, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
+            public void onSuccess(int statusCode, Header[] headers,JSONArray request) {
                 for (int i = 0; i < request.length(); i++) {
                     try {
-                        JSONObject content = (JSONObject) ((JSONObject) request.get(i)).get("content");
-                        JSONObject distance = (JSONObject) ((JSONObject) request.get(i)).get("distance");
-                        dealer.setName(content.getString("name"));
-                        dealer.setCity(content.getString("city"));
-                        dealer.setState(content.getString("state"));
-                        //dealer.setNumSpecials(content.getInt("numSpecials"));
-                        //dealer.setDistanceFrom(distance.getDouble());
-                        dealers.add(i, dealer);
+                        JSONObject content = ((JSONObject) request.get(i));
+                        Special special = new Special();
+                        special.setTitle(content.getString("title"));
+                        special.setDealer(content.getString("dealer"));
+                        special.setDescription(content.getString("description"));
+                        special.setType(content.getString("type"));
+                        specials.add(special);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-                try{
-                    getDealerSpecials(dealers.get(0).getName(), homeView);
-                } catch (JSONException e){
-                    e.printStackTrace();
-                }
+                cards = createSpecials(specials);
+                CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(HomeActivity.this, cards);
 
+                cardListView = (CardListView) homeView.findViewById(R.id.myList1);
+                if (cardListView != null) {
+                    cardListView.setAdapter(mCardArrayAdapter);
+                }
             }
         });
-        return dealers;
     }
 
+    /**
+     *
+     * Creates cards for a given ArrayList of specials
+     *
+     * @param specials - Specials that will have cards created for them
+     * @return Arraylist of created cards
+     */
     public ArrayList<Card> createSpecials(ArrayList<Special> specials) {
         for (int i = 0; i < specials.size(); i++) {
             SpecialCard card = new SpecialCard(HomeActivity.this, R.layout.special_card);
@@ -297,6 +282,9 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
             card.setDealer(specials.get(i).getDealer());
             card.setSpecialType(specials.get(i).getType());
             cards.add(card);
+        }
+        for (Card card: cards){
+            System.out.println(card.toString());
         }
         return cards;
     }
