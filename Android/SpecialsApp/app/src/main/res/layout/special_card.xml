@@ -29,7 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
         android:layout_toRightOf="@id/thumbnail"
-        android:gravity="center"
         android:paddingLeft="5dp"
         android:paddingTop="2dp"
         android:text="Get $5000 instant cash back now!"

@@ -5,45 +5,84 @@
     android:background="#fff"
     tools:context=".Fragments.SearchFragment">
 
-    <Spinner
-        android:id="@+id/makeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_margin="25dp"
-        android:layout_height="wrap_content"></Spinner>
-
-    <Spinner
-        android:id="@+id/modelSpinner"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/topSpinners"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-        android:layout_below="@id/makeSpinner"></Spinner>
+        android:layout_marginTop="70dp">
+
+        <Spinner
+            android:id="@+id/makeSpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:layout_weight="1"
+            android:prompt="@string/make_prompt"
+            android:spinnerMode="dialog"></Spinner>
+
+        <Spinner
+            android:id="@+id/modelSpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/makeSpinner"
+            android:layout_margin="25dp"
+            android:layout_weight="1"
+            android:prompt="@string/model_prompt"
+            android:spinnerMode="dialog"></Spinner>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
-        android:layout_below="@id/modelSpinner">
+        android:layout_below="@id/topSpinners"
+        android:background="#fff">
 
         <Spinner
-            android:id="@+id/spinnerSearch"
+            android:id="@+id/typeSpinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="25dp"
-            android:prompt="@string/spinnerPrompt1"
+            android:layout_weight="1"
+            android:prompt="@string/type_prompt"
+            android:spinnerMode="dialog"
             android:textColor="#000" />
 
         <Spinner
-            android:id="@+id/spinnerLocation"
+            android:id="@+id/yearSpinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="25dp"
-            android:prompt="@string/location"
+            android:layout_weight="1"
+            android:prompt="@string/year_prompt"
+            android:spinnerMode="dialog"
             android:textColor="#000" />
 
     </LinearLayout>
+
+    <Spinner
+        android:id="@+id/priceSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear"
+        android:layout_margin="25dp"
+        android:prompt="@string/price_prompt"
+        android:spinnerMode="dialog"
+        android:textColor="#000" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/priceSpinner"
+        android:layout_margin="25dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_button"
+        android:text="Search"
+        android:textColor="#FFF" />
 
 
 </RelativeLayout>

@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -48,7 +49,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
 /**
  * Hosts all fragments that display dealers and their specials
  */
-public class HomeActivity extends FragmentActivity {
+public class HomeActivity extends FragmentActivity implements AbsListView.OnScrollListener {
 
     private Menu menu;
     private CardListView cardListView;
@@ -56,12 +57,32 @@ public class HomeActivity extends FragmentActivity {
     private TabsPagerAdapter mAdapter;
 
     private String[] tabs = {"Nearby", "Search", "Test"};
+    private int currIndex, returnSize;
 
     private ArrayList<Dealer> dealers;
+    private ArrayList<Special> specialList;
+    private ArrayList<Card> cardList;
     private RequestParams params;
+    private CardArrayAdapter mCardArrayAdapter;
 
     // ActionBar tab implementation
 
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
+
+        if (loadMore && currIndex < returnSize-1){
+            System.out.println(currIndex + " " + returnSize);
+            createSpecials(currIndex, specialList, cardList);
+            mCardArrayAdapter.notifyDataSetChanged();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +92,8 @@ public class HomeActivity extends FragmentActivity {
         final ActionBar actionBar = getActionBar();
 
         dealers = new ArrayList<Dealer>();
+        specialList = new ArrayList<Special>();
+        cardList = new ArrayList<Card>();
         params = new RequestParams();
 
         viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
@@ -126,7 +149,7 @@ public class HomeActivity extends FragmentActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =  (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        //setSearchTextColour(searchView);
+        setSearchTextColour(searchView);
 
         // Check login status, change menu appropriately
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
@@ -262,13 +285,17 @@ public class HomeActivity extends FragmentActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                returnSize = specials.size();
+                specialList = specials;
                 ArrayList<Card> cards = new ArrayList<Card>();
-                cards = createSpecials(specials, cards);
-                CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(HomeActivity.this, cards);
+                cards = createSpecials(0, specials, cards);
+                cardList = cards;
+                mCardArrayAdapter = new CardArrayAdapter(HomeActivity.this, cards);
 
                 cardListView = (CardListView) homeView.findViewById(R.id.myList1);
                 if (cardListView != null) {
                     cardListView.setAdapter(mCardArrayAdapter);
+                    cardListView.setOnScrollListener(HomeActivity.this);
                 }
             }
         });
@@ -280,17 +307,15 @@ public class HomeActivity extends FragmentActivity {
      * @param specials - Specials that will have cards created for them
      * @return Arraylist of created cards
      */
-    public ArrayList<Card> createSpecials(ArrayList<Special> specials, ArrayList<Card> cards) {
-        for (int i = 0; i < specials.size(); i++) {
+    public ArrayList<Card> createSpecials(int index, ArrayList<Special> specials, ArrayList<Card> cards) {
+        for (int i = index; i < index+10 && i < returnSize; i++) {
             SpecialCard card = new SpecialCard(HomeActivity.this, R.layout.special_card);
             card.setTitle(specials.get(i).getTitle());
             card.setDescription(specials.get(i).getDescription());
             card.setDealer(specials.get(i).getDealer());
             card.setSpecialType(specials.get(i).getType());
             cards.add(card);
-        }
-        for (Card card : cards) {
-            System.out.println(card.toString());
+            currIndex = i;
         }
         return cards;
     }
