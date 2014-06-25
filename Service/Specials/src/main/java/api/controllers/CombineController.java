@@ -3,6 +3,7 @@ package api.controllers;
 import api.models.Dealer;
 import api.models.MergerObj;
 import api.models.Special;
+import api.models.SpecialsDealers;
 import api.repositories.DealerRepository;
 import api.repositories.SpecialRepository;
 import org.apache.log4j.Logger;
@@ -73,5 +74,16 @@ public class CombineController {
         }
         log.info("Number of specials: " + specials.size());
         return new ResponseEntity<List<MergerObj>>(specials, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/keyword", produces = "application/json", params = {"keyword"})
+    @ResponseBody
+    public ResponseEntity<SpecialsDealers> keyword(@RequestParam("keyword")String word){
+        SpecialsDealers total = new SpecialsDealers();
+        List<Special> theSpecials = specialRepository.findMatching(new Special(word));
+        List<Dealer> theDealers = dealerRepository.getMatchingDealers(new Dealer(word));
+        total.setDealers(theDealers);
+        total.setSpecials(theSpecials);
+        return new ResponseEntity<SpecialsDealers>(total, HttpStatus.OK);
     }
 }

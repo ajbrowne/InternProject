@@ -103,6 +103,14 @@ public class Special{
                 '}';
     }
 
+    public Special(String keyword){
+        this.title = keyword;
+        this.dealer = keyword;
+        this.type = keyword;
+        this.amount = keyword;
+        this.description = keyword;
+    }
+
 
     private String title;
     private String dealer;
