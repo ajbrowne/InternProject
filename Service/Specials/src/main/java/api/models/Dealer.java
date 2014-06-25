@@ -65,6 +65,13 @@ public class Dealer {
         this.location = location;
     }
 
+    public Dealer(String keyword){
+        this.name = keyword;
+        this.admin = keyword;
+        this.city = keyword;
+        this.state = keyword;
+    }
+
     @Override
     public String toString() {
         return "Dealer{" +

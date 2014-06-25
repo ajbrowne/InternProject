@@ -11,4 +11,5 @@ import java.util.List;
 public interface DealerRepository {
     public List getDealerByLocation(Point point);
     public Dealer save(Dealer dealer);
+    public List getMatchingDealers(Dealer dealer);
 }

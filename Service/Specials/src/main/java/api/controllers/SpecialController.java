@@ -77,9 +77,11 @@ public class SpecialController {
     public ResponseEntity<List> getMatchingSpecials(@RequestParam(value = "title", required = false) String title,
                                                    @RequestParam(value = "id", required = false) String id,
                                                    @RequestParam(value = "type", required = false) String type,
-                                                   @RequestParam(value = "dealer", required = false) String dealer){
+                                                   @RequestParam(value = "dealer", required = false) String dealer,
+                                                   @RequestParam(value = "description", required = false) String description,
+                                                   @RequestParam(value = "amount", required = false) String amount){
 
-        if(title == null && id == null && type == null && dealer == null){
+        if(title == null && id == null && type == null && dealer == null && description == null && amount == null){
             log.info("All specials returned");
             return new ResponseEntity<List>(specialRepository.findAll() ,HttpStatus.OK);
         }
@@ -90,7 +92,10 @@ public class SpecialController {
         test.setTitle(title);
         test.setType(type);
         test.setDealer(dealer);
+        test.setDescription(description);
+        test.setAmount(amount);
         List special = specialRepository.findMatching(test);
+        System.out.println(special);
         //If no specials were found let the app know so the user can be notified
         if(special.size() == 0){
             log.info("No Specials found");
