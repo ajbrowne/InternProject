@@ -24,4 +24,12 @@
         <item name="android:background">@drawable/tab_indicator_ab_example</item>
     </style>
 
+    <style name="Refresh.Text.Color" parent="android:Widget">
+        <item name="ptrHeaderTitleTextAppearance">@style/title_color</item>
+    </style>
+
+    <style name="title_color">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>

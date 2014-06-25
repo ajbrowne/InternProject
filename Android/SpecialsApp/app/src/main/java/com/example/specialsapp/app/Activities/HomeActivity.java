@@ -44,6 +44,7 @@ import java.util.HashMap;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 
 /**
  * Hosts all fragments that display dealers and their specials
@@ -56,7 +57,7 @@ public class HomeActivity extends FragmentActivity {
     private TabsPagerAdapter mAdapter;
 
     private String[] tabs = {"Nearby", "Search", "Test"};
-
+    private PullToRefreshLayout mPullToRefreshLayout;
     private ArrayList<Dealer> dealers;
     private RequestParams params;
 
@@ -232,11 +233,12 @@ public class HomeActivity extends FragmentActivity {
      * @return ArrayList of dealers found
      * @throws JSONException
      */
-    public void getDealerSpecials(Double lng, Double lat, View view) throws JSONException {
+    public void getDealerSpecials(Double lng, Double lat, View view, PullToRefreshLayout pullToRefreshLayout) throws JSONException {
 
         String latt = String.valueOf(lat);
         String longg = String.valueOf(lng);
 
+        mPullToRefreshLayout = pullToRefreshLayout;
         final View homeView = view;
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("lng", longg);
@@ -270,7 +272,12 @@ public class HomeActivity extends FragmentActivity {
                 if (cardListView != null) {
                     cardListView.setAdapter(mCardArrayAdapter);
                 }
+
+                if(mPullToRefreshLayout != null){
+                    mPullToRefreshLayout.setRefreshComplete();
+                }
             }
+
         });
     }
 
