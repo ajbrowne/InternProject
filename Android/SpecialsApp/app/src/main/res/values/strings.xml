@@ -11,6 +11,11 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="spinnerPrompt1">Select Category</string>
     <string name="location">Current Location</string>
+    <string name="make_prompt">Make</string>
+    <string name="model_prompt">Model</string>
+    <string name="type_prompt">Type</string>
+    <string name="year_prompt">Year</string>
+    <string name="price_prompt">Maximum Price</string>
 
     <string-array name="list_items">
         <item>Dealers Near You</item>
@@ -31,12 +36,46 @@
         <item>Type</item>
     </string-array>
 
-    <string-array name="Makes">
-        <item>Dealer</item>
-        <item>Make</item>
-        <item>Model</item>
-        <item>Year</item>
-        <item>Type</item>
+    <string-array name="makes">
+        <item>Audi</item>
+        <item>Chevy</item>
+        <item>Ford</item>
+        <item>Jeep</item>
+        <item>Oldsmobile</item>
+    </string-array>
+
+    <string-array name="models_Ford">
+        <item>Escape</item>
+        <item>Focus</item>
+    </string-array>
+
+    <string-array name="priceRange">
+        <item>No Maximum Price</item>
+        <item>$1,000</item>
+        <item>$2,000</item>
+        <item>$3,000</item>
+        <item>$4,000</item>
+        <item>$5,000</item>
+        <item>$6,000</item>
+        <item>$7,000</item>
+        <item>$8,000</item>
+        <item>$9,000</item>
+        <item>$10,000</item>
+        <item>$15,000</item>
+        <item>$20,000</item>
+        <item>$30,000</item>
+        <item>$40,000</item>
+        <item>$50,000</item>
+    </string-array>
+
+    <string-array name="type">
+        <item>New</item>
+        <item>Used</item>
+        <item>Certified</item>
+    </string-array>
+
+    <string-array name="year">
+        <item></item>
     </string-array>
 
     <string name="title_activity_specials">SpecialsActivity</string>
