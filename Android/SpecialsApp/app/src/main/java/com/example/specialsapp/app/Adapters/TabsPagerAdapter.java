@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.specialsapp.app.Fragments.BlankFragment;
 import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
+import com.example.specialsapp.app.Fragments.SearchFragment;
 
 /**
  *
@@ -25,7 +26,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new DealerSpecialsFragment();
             case 1:
-                return new BlankFragment();
+                return new SearchFragment();
             case 2:
                 return new BlankFragment();
         }

@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".Fragments.SearchFragment">
+
+    <Spinner
+        android:id="@+id/makeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_margin="25dp"
+        android:layout_height="wrap_content"></Spinner>
+
+    <Spinner
+        android:id="@+id/modelSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:layout_below="@id/makeSpinner"></Spinner>
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:layout_below="@id/modelSpinner">
+
+        <Spinner
+            android:id="@+id/spinnerSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="25dp"
+            android:prompt="@string/spinnerPrompt1"
+            android:textColor="#000" />
+
+        <Spinner
+            android:id="@+id/spinnerLocation"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="25dp"
+            android:prompt="@string/location"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

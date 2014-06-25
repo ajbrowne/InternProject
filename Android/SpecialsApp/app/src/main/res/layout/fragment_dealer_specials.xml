@@ -17,8 +17,7 @@
             android:layout_height="wrap_content"
             android:prompt="@string/spinnerPrompt1"
             android:textColor="#000"
-            android:layout_weight="1"
-            android:background="@drawable/apptheme_spinner_background_holo_light"/>
+            android:layout_weight="1"/>
 
         <View
             android:id="@+id/view1"

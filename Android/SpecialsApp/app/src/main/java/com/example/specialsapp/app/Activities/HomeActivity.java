@@ -1,6 +1,9 @@
 package com.example.specialsapp.app.Activities;
 
 import android.app.ActionBar;
+import android.app.SearchManager;
+import android.content.Context;
+import android.media.Image;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
@@ -13,6 +16,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.SearchView;
 
 import com.example.specialsapp.app.Adapters.TabsPagerAdapter;
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
@@ -30,6 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -47,7 +55,7 @@ public class HomeActivity extends FragmentActivity {
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
 
-    private String[] tabs = {"Nearby", "Test", "Test"};
+    private String[] tabs = {"Nearby", "Search", "Test"};
 
     private ArrayList<Dealer> dealers;
     private RequestParams params;
@@ -115,6 +123,11 @@ public class HomeActivity extends FragmentActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
 
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =  (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        //setSearchTextColour(searchView);
+
         // Check login status, change menu appropriately
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
         boolean status = shared.getBoolean("stored", true);
@@ -128,6 +141,29 @@ public class HomeActivity extends FragmentActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    private void setSearchTextColour(SearchView searchView) {
+        try{
+            Field searchClose = SearchView.class.getDeclaredField("mCloseButton");
+            searchClose.setAccessible(true);
+            ImageView closeBtn = (ImageView) searchClose.get(searchView);
+            closeBtn.setImageResource(R.drawable.ic_action_cancel);
+
+            Field searchButton = SearchView.class.getDeclaredField("mSearchButton");
+            searchButton.setAccessible(true);
+            ImageView sButton = (ImageView) searchButton.get(searchView);
+            sButton.setImageResource(R.drawable.ic_action_search);
+        } catch (NoSuchFieldException e){
+            e.printStackTrace();
+        } catch (IllegalAccessException e){
+            e.printStackTrace();
+        }
+
+        int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        EditText searchPlate = (EditText) searchView.findViewById(searchPlateId);
+        searchPlate.setTextColor(getResources().getColor(R.color.white));
+        searchPlate.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        searchPlate.setHintTextColor(getResources().getColor(R.color.white));
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
