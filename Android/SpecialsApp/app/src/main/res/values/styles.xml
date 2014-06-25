@@ -9,6 +9,7 @@
         <item name="android:actionBarTabStyle">@style/MyActionBarTabs</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionBarDivider">@null</item>
+        <item name="ptrHeaderStyle">@style/Refresh.Text.Color</item>
     </style>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +20,9 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 import it.gmariotti.cardslib.library.internal.Card;
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 /**
  *
@@ -27,11 +31,12 @@ import it.gmariotti.cardslib.library.internal.Card;
  *
  * Created by brownea on 6/12/14.
  */
-public class DealerSpecialsFragment extends Fragment {
+public class DealerSpecialsFragment extends Fragment implements OnRefreshListener{
 
     private View homeView;
     private ArrayList<Card> cards = new ArrayList<Card>();
     private ArrayList<Dealer> dealers;
+    private PullToRefreshLayout mPullToRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +48,11 @@ public class DealerSpecialsFragment extends Fragment {
         actionBar.setDisplayHomeAsUpEnabled(false);
 
         getActivity().setTitle("Specials");
+        mPullToRefreshLayout = (PullToRefreshLayout)homeView.findViewById(R.id.carddemo_extra_ptr_layout);
+        ActionBarPullToRefresh.from(this.getActivity())
+                .allChildrenArePullable()
+                .listener(this)
+                .setup(mPullToRefreshLayout);
 
         // Intialize spinners and link to array that populates them
         Spinner spinner = (Spinner) homeView.findViewById(R.id.spinnerSearch);
@@ -62,7 +72,7 @@ public class DealerSpecialsFragment extends Fragment {
 
         // Call to retrieve specials to display
         try {
-            ((HomeActivity)getActivity()).getDealerSpecials(longitude, latitiude, homeView);
+            ((HomeActivity)getActivity()).getDealerSpecials(longitude, latitiude, homeView, null);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -70,4 +80,16 @@ public class DealerSpecialsFragment extends Fragment {
     }
 
 
+    @Override
+    public void onRefreshStarted(View view) {
+        final GPS gps = new GPS(getActivity());
+        Double latitiude = gps.getLatitude();
+        Double longitude = gps.getLongitude();
+        // Call to retrieve specials to display
+        try {
+            ((HomeActivity)getActivity()).getDealerSpecials(longitude, latitiude, homeView, mPullToRefreshLayout);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
