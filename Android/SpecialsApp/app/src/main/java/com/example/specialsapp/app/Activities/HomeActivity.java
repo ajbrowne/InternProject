@@ -57,7 +57,7 @@ public class HomeActivity extends FragmentActivity implements AbsListView.OnScro
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
 
-    private String[] tabs = {"Nearby", "Search", "Test"};
+    private String[] tabs = {"Home", "Vehicles", "Specials", "Dealers"};
     private int currIndex, returnSize;
 
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -150,7 +150,7 @@ public class HomeActivity extends FragmentActivity implements AbsListView.OnScro
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =  (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setQueryHint("Search....");
+        searchView.setQueryHint("i.e. 2014 Chevy Silverado");
         setSearchTextColour(searchView);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
@@ -198,9 +198,10 @@ public class HomeActivity extends FragmentActivity implements AbsListView.OnScro
 
         int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         EditText searchPlate = (EditText) searchView.findViewById(searchPlateId);
+        searchPlate.setTextSize(16);
         searchPlate.setTextColor(getResources().getColor(R.color.white));
         searchPlate.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        searchPlate.setHintTextColor(getResources().getColor(R.color.white));
+        searchPlate.setHintTextColor(getResources().getColor(R.color.hint));
     }
 
     @Override

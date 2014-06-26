@@ -4,8 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.specialsapp.app.Fragments.BlankFragment;
 import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
+import com.example.specialsapp.app.Fragments.HomeFragment;
+import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
 import com.example.specialsapp.app.Fragments.SearchFragment;
 
 /**
@@ -24,17 +25,19 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new DealerSpecialsFragment();
+                return new HomeFragment();
             case 1:
                 return new SearchFragment();
             case 2:
-                return new BlankFragment();
+                return new DealerSpecialsFragment();
+            case 3:
+                return new NearbyDealersFragment();
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 }

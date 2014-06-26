@@ -35,7 +35,7 @@ public class MongoSpecialRepository implements SpecialRepository {
         Query query = new Query();
 
         if(special.getDealer() != null){
-            Criteria criteria1 = Criteria.where("dealer").regex(special.getDealer(), "i");
+            Criteria criteria1 = Criteria.where("dealer").regex(".*" + special.getDealer() + ".*", "i");
             query.addCriteria(criteria1);
         }
         if(special.getId() != null){
@@ -43,22 +43,22 @@ public class MongoSpecialRepository implements SpecialRepository {
             query.addCriteria(criteria2);
         }
         if(special.getType() != null){
-            Criteria criteria3 = Criteria.where("type").regex(special.getType(), "i");
+            Criteria criteria3 = Criteria.where("type").regex(".*" + special.getType() + ".*", "i");
             query.addCriteria(criteria3);
         }
         if(special.getTitle() != null){
-            Criteria criteria4 = Criteria.where("title").regex(special.getTitle(), "i");
+            Criteria criteria4 = Criteria.where("title").regex(".*" + special.getTitle() + ".*", "i");
             query.addCriteria(criteria4);
         }
         if(special.getDescription() != null){
-            Criteria criteria6 = Criteria.where("description").regex(special.getDescription(), "i");
+            Criteria criteria6 = Criteria.where("description").regex(".*" + special.getDescription() + ".*", "i");
             query.addCriteria(criteria6);
         }
         if(special.getAmount() != null){
-            Criteria criteria5 = Criteria.where("amount").regex(special.getAmount(), "i");
+            Criteria criteria5 = Criteria.where("amount").regex(".*" + special.getAmount() + ".*", "i");
             query.addCriteria(criteria5);
         }
-
+        
         return mongoTemplate.find(query, Special.class);
     }
 }
