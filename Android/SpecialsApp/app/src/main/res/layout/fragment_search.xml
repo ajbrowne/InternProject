@@ -25,7 +25,6 @@
             android:id="@+id/modelSpinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/makeSpinner"
             android:layout_margin="25dp"
             android:layout_weight="1"
             android:entries="@array/models_Ford"
@@ -59,7 +58,7 @@
             android:layout_margin="25dp"
             android:layout_weight="1"
             android:entries="@array/priceRange"
-            android:prompt="@string/year_prompt"
+            android:prompt="@string/price_prompt"
             android:spinnerMode="dialog"
             android:textColor="#000" />
 
