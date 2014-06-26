@@ -150,8 +150,9 @@ public class HomeActivity extends FragmentActivity implements AbsListView.OnScro
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =  (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setQueryHint("Search....");
         setSearchTextColour(searchView);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         // Check login status, change menu appropriately
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
@@ -177,11 +178,23 @@ public class HomeActivity extends FragmentActivity implements AbsListView.OnScro
             searchButton.setAccessible(true);
             ImageView sButton = (ImageView) searchButton.get(searchView);
             sButton.setImageResource(R.drawable.ic_action_search);
+
+
+
+//            Field searchHint = SearchView.class.getDeclaredField("mSearchHintIcon");
+//            searchHint.setAccessible(true);
+//            ImageView hintBtn = (ImageView) searchView.findViewById();
+//            hintBtn.setImageResource(R.drawable.ic_action_cancel);
+
         } catch (NoSuchFieldException e){
             e.printStackTrace();
         } catch (IllegalAccessException e){
             e.printStackTrace();
         }
+
+        int searchHintId = searchView.getContext().getResources().getIdentifier("android:id/search_mag_icon", null, null);
+        ImageView hintBtn = (ImageView) searchView.findViewById(searchHintId);
+        hintBtn.setImageResource(R.drawable.ic_action_cancel);
 
         int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         EditText searchPlate = (EditText) searchView.findViewById(searchPlateId);

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#EFEFEF"
     tools:context=".Fragments.SearchFragment">
 
     <LinearLayout
@@ -36,8 +36,7 @@
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/topSpinners"
-        android:background="#fff">
+        android:layout_below="@id/topSpinners">
 
         <Spinner
             android:id="@+id/typeSpinner"

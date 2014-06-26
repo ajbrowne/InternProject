@@ -32,4 +32,8 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="DropDownList">
+        <item name="android:listSelector">@color/grey</item>
+    </style>
+
 </resources>
