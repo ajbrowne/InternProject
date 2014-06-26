@@ -86,8 +86,8 @@ public class SearchFragment extends Fragment {
 
     public void search(){
         HashMap<String, String> param = new HashMap<String, String>();
-        param.put("lng", longg);
-        param.put("lat", latt);
+        //param.put("lng", longg);
+        //param.put("lat", latt);
         parameters = new RequestParams(param);
 
         SpecialsRestClient.get("special", parameters, new JsonHttpResponseHandler() {
