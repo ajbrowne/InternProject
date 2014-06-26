@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             android:layout_weight="1"
+            android:entries="@array/makes"
             android:prompt="@string/make_prompt"
             android:spinnerMode="dialog"></Spinner>
 
@@ -24,9 +25,9 @@
             android:id="@+id/modelSpinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/makeSpinner"
             android:layout_margin="25dp"
             android:layout_weight="1"
+            android:entries="@array/models_Ford"
             android:prompt="@string/model_prompt"
             android:spinnerMode="dialog"></Spinner>
 
@@ -37,6 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/topSpinners">
+        android:layout_below="@id/topSpinners"
+        android:background="#efefef">
 
         <Spinner
             android:id="@+id/typeSpinner"
@@ -44,39 +47,31 @@
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             android:layout_weight="1"
+            android:entries="@array/type"
             android:prompt="@string/type_prompt"
             android:spinnerMode="dialog"
             android:textColor="#000" />
 
         <Spinner
-            android:id="@+id/yearSpinner"
+            android:id="@+id/priceSpinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             android:layout_weight="1"
-            android:prompt="@string/year_prompt"
+            android:entries="@array/priceRange"
+            android:prompt="@string/price_prompt"
             android:spinnerMode="dialog"
             android:textColor="#000" />
 
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/priceSpinner"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linear"
-        android:layout_margin="25dp"
-        android:prompt="@string/price_prompt"
-        android:spinnerMode="dialog"
-        android:textColor="#000" />
-
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/searchButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/priceSpinner"
+        android:layout_below="@+id/linear"
         android:layout_margin="25dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/custom_button"

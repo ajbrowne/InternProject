@@ -2,6 +2,10 @@
 <pre-dex-items>
 
     <item
+<<<<<<< HEAD
+        dex="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-758f18d039e1b88d4591c1e7eb389fed34763c4a.jar"
+        jar="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.github.castorflex.smoothprogressbar/library/0.4.0/classes.jar"
+=======
         dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-c14aeca506af8cf08fbcc035c4f9a4a47571fdf7.jar"
         jar="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.7.0/classes.jar"
         jumboMode="false"
@@ -10,10 +14,18 @@
     <item
         dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/jasypt-1.9.2-c46cb51f40d89e90373262461ffe49e42c6894dc.jar"
         jar="/Users/maharb/.gradle/caches/modules-2/files-2.1/org.jasypt/jasypt/1.9.2/91eee489a389faba9fc57bfee75c87c615c19cd7/jasypt-1.9.2.jar"
+>>>>>>> 20e801353bf0739c11e3624b4cee5c2415b919ef
         jumboMode="false"
         revision="19.1.0"
-        sha1="91eee489a389faba9fc57bfee75c87c615c19cd7"/>
+        sha1="6ca319f998430aa20c4dde97ba6df213d6cf3dd0"/>
     <item
+<<<<<<< HEAD
+        dex="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-4f9df054e7219699a83f11e1a0bf2adfb2ba13f6.jar"
+        jar="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.github.chrisbanes.actionbarpulltorefresh/library/0.9.9/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="06ca4ea902f14efb76284d918edb085df33cc365"/>
+=======
         dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-6e71301f8a5929f68c4e0d04bc576e692dc7759e.jar"
         jar="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.github.castorflex.smoothprogressbar/library/0.4.0/classes.jar"
         jumboMode="false"
@@ -37,5 +49,6 @@
         jumboMode="false"
         revision="19.1.0"
         sha1="587da9a481ffd341d2fa091704489b89845ddacd"/>
+>>>>>>> 20e801353bf0739c11e3624b4cee5c2415b919ef
 
 </pre-dex-items>
