@@ -15,30 +15,32 @@ import it.gmariotti.cardslib.library.internal.Card;
  *
  * @author brownea
  */
-public class DealerCard extends Card {
+public class HomeVehicleCard extends Card {
 
     protected TextView mDealer;
     protected TextView mCityState;
     protected String dealer;
     protected String cityState;
 
-    public DealerCard(Context context) {
-        this(context, R.layout.special_card);
+    public HomeVehicleCard(Context context) {
+        this(context, R.layout.h_vehicle_card);
     }
 
-    public DealerCard(Context context, int innerLayout) {
+    public HomeVehicleCard(Context context, int innerLayout) {
         super(context, innerLayout);
     }
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
-        mDealer = (TextView) parent.findViewById(R.id.dealer);
-        mCityState = (TextView) parent.findViewById(R.id.city);
-        mDealer.setText(dealer);
-        mCityState.setText(cityState);
+//        mDealer = (TextView) parent.findViewById(R.id.dealer);
+//        mCityState = (TextView) parent.findViewById(R.id.city);
+//        mDealer.setText(this.dealer);
+//        mCityState.setText(this.cityState);
     }
 
-    public void setDealer(String dealer){ this.dealer = dealer; }
+    public void setDealer(String dealer){
+        this.dealer = dealer;
+    }
 
     public void setCityState(String cityState){
         this.cityState = cityState;

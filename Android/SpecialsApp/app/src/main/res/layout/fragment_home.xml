@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".Fragments.HomeFragment">
+
+    <RelativeLayout
+        android:id="@+id/topRel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#efefef">
+
+        <TextView
+            android:id="@+id/newVehicles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Newest Vehicles"
+            android:paddingRight="115dp"
+            style="@android:style/TextAppearance.DeviceDefault.Large"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="MORE"
+            android:layout_centerVertical="true"
+            android:background="@drawable/play_button"
+            android:textColor="#fff"/>
+
+    </RelativeLayout>
+
+    <it.gmariotti.cardslib.library.view.CardGridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnWidth="190dp"
+        android:numColumns="3"
+        android:verticalSpacing="3dp"
+        android:horizontalSpacing="2dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:id="@+id/newGrid"
+        android:layout_below="@id/topRel"/>
+
+
+</RelativeLayout>
