@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#efefef"
     tools:context=".Fragments.SearchFragment">
 
     <LinearLayout
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/topSpinners"
-        android:background="#fff">
+        android:background="#efefef">
 
         <Spinner
             android:id="@+id/typeSpinner"
@@ -53,28 +53,17 @@
             android:textColor="#000" />
 
         <Spinner
-            android:id="@+id/yearSpinner"
+            android:id="@+id/priceSpinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             android:layout_weight="1"
-            android:entries="@array/year"
+            android:entries="@array/priceRange"
             android:prompt="@string/year_prompt"
             android:spinnerMode="dialog"
             android:textColor="#000" />
 
     </LinearLayout>
-
-    <Spinner
-        android:id="@+id/priceSpinner"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linear"
-        android:layout_margin="25dp"
-        android:entries="@array/priceRange"
-        android:prompt="@string/price_prompt"
-        android:spinnerMode="dialog"
-        android:textColor="#000" />
 
     <Button
         android:id="@+id/searchButton"
@@ -82,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/priceSpinner"
+        android:layout_below="@+id/linear"
         android:layout_margin="25dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/custom_button"

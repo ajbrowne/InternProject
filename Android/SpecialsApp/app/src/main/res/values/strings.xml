@@ -37,11 +37,51 @@
     </string-array>
 
     <string-array name="makes">
+        <item>All Makes</item>
+        <item>Acura</item>
+        <item>Aston Martin</item>
         <item>Audi</item>
-        <item>Chevy</item>
+        <item>Bentley</item>
+        <item>BMW</item>
+        <item>Buick</item>
+        <item>Cadillac</item>
+        <item>Chevrolet</item>
+        <item>Chrysler</item>
+        <item>Dodge</item>
+        <item>Ferrari</item>
+        <item>Fiat</item>
         <item>Ford</item>
+        <item>GMC</item>
+        <item>Honda</item>
+        <item>Hyundai</item>
+        <item>Infiniti</item>
+        <item>Jaguar</item>
         <item>Jeep</item>
-        <item>Oldsmobile</item>
+        <item>Kia</item>
+        <item>Lamborghini</item>
+        <item>Land Rover</item>
+        <item>Lexus</item>
+        <item>Lincoln</item>
+        <item>Lotus</item>
+        <item>Maserati</item>
+        <item>Mazda</item>
+        <item>McLaren</item>
+        <item>Mercedes-Benz</item>
+        <item>MINI</item>
+        <item>Mitsubishi</item>
+        <item>Nissan</item>
+        <item>Porsche</item>
+        <item>RAM</item>
+        <item>Rolls-Royce</item>
+        <item>Scion</item>
+        <item>Smart</item>
+        <item>Subaru</item>
+        <item>Tesla</item>
+        <item>Toyota</item>
+        <item>Volkswagen</item>
+        <item>Volvo</item>
+
+
     </string-array>
 
     <string-array name="models_Ford">
@@ -61,21 +101,42 @@
         <item>$8,000</item>
         <item>$9,000</item>
         <item>$10,000</item>
+        <item>$11,000</item>
+        <item>$12,000</item>
+        <item>$13,000</item>
+        <item>$14,000</item>
         <item>$15,000</item>
+        <item>$16,000</item>
+        <item>$17,000</item>
+        <item>$18,000</item>
+        <item>$19,000</item>
         <item>$20,000</item>
+        <item>$21,000</item>
+        <item>$22,000</item>
+        <item>$23,000</item>
+        <item>$24,000</item>
+        <item>$25,000</item>
         <item>$30,000</item>
+        <item>$35,000</item>
         <item>$40,000</item>
+        <item>$45,000</item>
         <item>$50,000</item>
+        <item>$55,000</item>
+        <item>$60,000</item>
+        <item>$65,000</item>
+        <item>$70,000</item>
+        <item>$75,000</item>
+        <item>$80,000</item>
+        <item>$85,000</item>
+        <item>$90,000</item>
+        <item>$95,000</item>
+        <item>$100,000</item>
     </string-array>
 
     <string-array name="type">
         <item>New</item>
         <item>Used</item>
         <item>Certified</item>
-    </string-array>
-
-    <string-array name="year">
-        <item></item>
     </string-array>
 
     <string name="title_activity_specials">SpecialsActivity</string>

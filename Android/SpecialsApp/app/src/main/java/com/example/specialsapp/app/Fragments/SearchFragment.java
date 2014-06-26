@@ -57,7 +57,6 @@ public class SearchFragment extends Fragment {
         submitSearch = (Button) searchView.findViewById(R.id.searchButton);
         makeSpinner = (Spinner) searchView.findViewById(R.id.makeSpinner);
         modelSpinner = (Spinner) searchView.findViewById(R.id.modelSpinner);
-        yearSpinner = (Spinner) searchView.findViewById(R.id.yearSpinner);
         priceSpinner = (Spinner) searchView.findViewById(R.id.priceSpinner);
         typeSpinner = (Spinner) searchView.findViewById(R.id.typeSpinner);
 
