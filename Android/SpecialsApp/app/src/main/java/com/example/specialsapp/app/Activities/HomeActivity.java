@@ -57,7 +57,7 @@ public class HomeActivity extends FragmentActivity implements AbsListView.OnScro
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
 
-    private String[] tabs = {"Nearby", "Search", "Test"};
+    private String[] tabs = {"Home", "Vehicles", "Specials", "Dealers"};
     private int currIndex, returnSize;
 
     private PullToRefreshLayout mPullToRefreshLayout;
