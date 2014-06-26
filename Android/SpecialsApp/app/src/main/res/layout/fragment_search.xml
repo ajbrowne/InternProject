@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             android:layout_weight="1"
+            android:entries="@array/makes"
             android:prompt="@string/make_prompt"
             android:spinnerMode="dialog"></Spinner>
 
@@ -27,6 +28,7 @@
             android:layout_below="@id/makeSpinner"
             android:layout_margin="25dp"
             android:layout_weight="1"
+            android:entries="@array/models_Ford"
             android:prompt="@string/model_prompt"
             android:spinnerMode="dialog"></Spinner>
 
@@ -45,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             android:layout_weight="1"
+            android:entries="@array/type"
             android:prompt="@string/type_prompt"
             android:spinnerMode="dialog"
             android:textColor="#000" />
@@ -55,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             android:layout_weight="1"
+            android:entries="@array/year"
             android:prompt="@string/year_prompt"
             android:spinnerMode="dialog"
             android:textColor="#000" />
@@ -67,12 +71,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/linear"
         android:layout_margin="25dp"
+        android:entries="@array/priceRange"
         android:prompt="@string/price_prompt"
         android:spinnerMode="dialog"
         android:textColor="#000" />
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/searchButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
