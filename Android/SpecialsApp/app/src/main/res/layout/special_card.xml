@@ -9,7 +9,8 @@
     <ImageView
         android:id="@+id/thumbnail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:src="@drawable/silverado"/>
 
     <TextView
         android:id="@+id/title"
@@ -26,7 +27,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
-        android:layout_toRightOf="@id/thumbnail"
         android:paddingLeft="5dp"
         android:paddingTop="2dp"
         android:text="Get $5000 instant cash back now!"
@@ -37,7 +37,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/subTitle"
-        android:layout_toRightOf="@id/thumbnail"
         android:paddingLeft="5dp"
         android:paddingTop="2dp"
         android:text="Shaver Autos - Ford Escape" />

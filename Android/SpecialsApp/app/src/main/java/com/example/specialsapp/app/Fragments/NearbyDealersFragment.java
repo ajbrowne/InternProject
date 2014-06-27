@@ -34,11 +34,14 @@ import java.util.HashMap;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 /**
  * Created by brownea on 6/12/14.
  */
-public class NearbyDealersFragment extends Fragment {
+public class NearbyDealersFragment extends Fragment implements OnRefreshListener{
 
     private View homeView;
     private ArrayList<Card> cards = new ArrayList<Card>();
@@ -46,6 +49,7 @@ public class NearbyDealersFragment extends Fragment {
     private TextView dealerName;
     private Double lat;
     private Double longi;
+    private PullToRefreshLayout mPullToRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +58,12 @@ public class NearbyDealersFragment extends Fragment {
         homeView = inflater.inflate(R.layout.fragment_nearby_dealers_, container, false);
         inflater.inflate(R.layout.dealer_card, container, false);
         getActivity().setTitle("Dealers");
+
+        mPullToRefreshLayout = (PullToRefreshLayout)homeView.findViewById(R.id.carddemo_extra_ptr_layout1);
+        ActionBarPullToRefresh.from(this.getActivity())
+                .allChildrenArePullable()
+                .listener(this)
+                .setup(mPullToRefreshLayout);
 
         ActionBar actionBar = ((HomeActivity) getActivity()).getActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -111,6 +121,10 @@ public class NearbyDealersFragment extends Fragment {
                 if (cardListView != null) {
                     cardListView.setAdapter(mCardArrayAdapter);
                 }
+
+                if(mPullToRefreshLayout != null){
+                    mPullToRefreshLayout.setRefreshComplete();
+                }
             }
 
         });
@@ -125,5 +139,14 @@ public class NearbyDealersFragment extends Fragment {
             cards.add(card);
         }
         return cards;
+    }
+
+    @Override
+    public void onRefreshStarted(View view) {
+        final GPS gps = new GPS(getActivity());
+        Double latitiude = gps.getLatitude();
+        Double longitude = gps.getLongitude();
+        // Call to retrieve dealers to display
+        getDealers();
     }
 }
