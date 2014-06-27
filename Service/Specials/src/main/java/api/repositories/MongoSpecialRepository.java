@@ -1,11 +1,14 @@
 package api.repositories;
 
 import api.models.Special;
+import helpers.RunnableQuery;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by maharb on 6/18/14.
@@ -32,33 +35,24 @@ public class MongoSpecialRepository implements SpecialRepository {
 
     @Override
     public List<Special> findMatching(Special special) {
-        Query query = new Query();
-
-        if(special.getDealer() != null){
-            Criteria criteria1 = Criteria.where("dealer").regex(".*" + special.getDealer() + ".*", "i");
-            query.addCriteria(criteria1);
+        final List<Special> specials = new ArrayList<Special>();
+        RunnableQuery t1 = new RunnableQuery("id", mongoTemplate, special, specials);
+        RunnableQuery t2 = new RunnableQuery("title", mongoTemplate, special, specials);
+        RunnableQuery t3 = new RunnableQuery("type", mongoTemplate, special, specials);
+        RunnableQuery t4 = new RunnableQuery("description", mongoTemplate, special, specials);
+        RunnableQuery t5 = new RunnableQuery("amount", mongoTemplate, special, specials);
+        RunnableQuery t6 = new RunnableQuery("dealer", mongoTemplate, special, specials);
+        RunnableQuery[] list = new RunnableQuery[]{t1,t2,t3,t4,t5,t6};
+        ExecutorService es = Executors.newCachedThreadPool();
+        for(int i= 0; i < 6; i++){
+            es.execute(list[i]);
         }
-        if(special.getId() != null){
-            Criteria criteria2 = Criteria.where("id").is(special.getId());
-            query.addCriteria(criteria2);
+        es.shutdown();
+        try {
+            es.awaitTermination(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        if(special.getType() != null){
-            Criteria criteria3 = Criteria.where("type").regex(".*" + special.getType() + ".*", "i");
-            query.addCriteria(criteria3);
-        }
-        if(special.getTitle() != null){
-            Criteria criteria4 = Criteria.where("title").regex(".*" + special.getTitle() + ".*", "i");
-            query.addCriteria(criteria4);
-        }
-        if(special.getDescription() != null){
-            Criteria criteria6 = Criteria.where("description").regex(".*" + special.getDescription() + ".*", "i");
-            query.addCriteria(criteria6);
-        }
-        if(special.getAmount() != null){
-            Criteria criteria5 = Criteria.where("amount").regex(".*" + special.getAmount() + ".*", "i");
-            query.addCriteria(criteria5);
-        }
-        
-        return mongoTemplate.find(query, Special.class);
+        return specials;
     }
 }

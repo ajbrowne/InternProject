@@ -95,7 +95,6 @@ public class SpecialController {
         test.setDescription(description);
         test.setAmount(amount);
         List special = specialRepository.findMatching(test);
-        System.out.println(special);
         //If no specials were found let the app know so the user can be notified
         if(special.size() == 0){
             log.info("No Specials found");
