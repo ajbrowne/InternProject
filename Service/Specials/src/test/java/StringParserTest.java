@@ -8,7 +8,7 @@ public class StringParserTest {
 
     @Test
     public void parserTest(){
-        String test = "2014 428 Gran Coupe BMW";
+        String test = "2014 Mini Cooper S";
         System.out.println(StringParser.mapValues(StringParser.parseString(test)));
     }
 }
