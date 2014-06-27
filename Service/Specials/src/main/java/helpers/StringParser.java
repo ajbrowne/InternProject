@@ -70,7 +70,7 @@ public class StringParser {
                 parsed.put("model", token);
             }else{
                 if(parsed.get("model") != null) {
-                    parsed.replace("model", parsed.get("model").concat(" " + token));
+                    parsed.put("model", parsed.get("model").concat(" " + token));
                 }
             }
         }
