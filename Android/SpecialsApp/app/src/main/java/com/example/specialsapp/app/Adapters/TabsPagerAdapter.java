@@ -27,10 +27,8 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new HomeFragment();
             case 1:
-                return new SearchFragment();
-            case 2:
                 return new DealerSpecialsFragment();
-            case 3:
+            case 2:
                 return new NearbyDealersFragment();
         }
         return null;
@@ -38,6 +36,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 }

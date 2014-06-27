@@ -16,6 +16,7 @@
     <string name="type_prompt">Type</string>
     <string name="year_prompt">Year</string>
     <string name="price_prompt">Maximum Price</string>
+    <string name="strikethrough"><strike>$16,000</strike></string>
 
     <string-array name="list_items">
         <item>Dealers Near You</item>

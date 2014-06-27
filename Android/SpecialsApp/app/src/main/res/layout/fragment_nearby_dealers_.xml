@@ -7,8 +7,7 @@
     <uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout
         android:id="@+id/carddemo_extra_ptr_layout1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/linear">
+        android:layout_height="match_parent">
 
         <it.gmariotti.cardslib.library.view.CardListView
             android:id="@+id/myList"

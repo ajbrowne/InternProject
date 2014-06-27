@@ -5,43 +5,10 @@
     android:layout_height="match_parent"
     android:background="#EFEFEF">
 
-
-    <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/linear_top">
-
-        <Spinner
-            android:id="@+id/spinnerSearch"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:prompt="@string/spinnerPrompt1"
-            android:textColor="#000" />
-
-        <View
-            android:id="@+id/view1"
-            android:layout_width="1dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="0"
-            android:background="#ccc" />
-
-        <Spinner
-            android:id="@+id/spinnerLocation"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:prompt="@string/location"
-            android:textColor="#000" />
-
-    </LinearLayout>
-
     <uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout
         android:id="@+id/carddemo_extra_ptr_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/linear">
+        android:layout_height="match_parent">
 
         <it.gmariotti.cardslib.library.view.CardListView
             android:id="@+id/myList1"

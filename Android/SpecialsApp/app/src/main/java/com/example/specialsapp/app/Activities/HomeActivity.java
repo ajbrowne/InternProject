@@ -50,41 +50,13 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 /**
  * Hosts all fragments that display dealers and their specials
  */
-public class HomeActivity extends FragmentActivity implements AbsListView.OnScrollListener {
+public class HomeActivity extends FragmentActivity {
 
     private Menu menu;
-    private CardListView cardListView;
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
-
-    private String[] tabs = {"Home", "Vehicles", "Specials", "Dealers"};
-    private int currIndex, returnSize;
-
-    private PullToRefreshLayout mPullToRefreshLayout;
+    private String[] tabs = {"Home", "Specials", "Dealers"};
     private ArrayList<Dealer> dealers;
-    private ArrayList<Special> specialList;
-    private ArrayList<Card> cardList;
-    private RequestParams params;
-    private CardArrayAdapter mCardArrayAdapter;
-
-    // ActionBar tab implementation
-
-
-    @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-    }
-
-    @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
-
-        if (loadMore && currIndex < returnSize-1){
-            System.out.println(currIndex + " " + returnSize);
-            createSpecials(currIndex, specialList, cardList);
-            mCardArrayAdapter.notifyDataSetChanged();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +66,6 @@ public class HomeActivity extends FragmentActivity implements AbsListView.OnScro
         final ActionBar actionBar = getActionBar();
 
         dealers = new ArrayList<Dealer>();
-        specialList = new ArrayList<Special>();
-        cardList = new ArrayList<Card>();
-        params = new RequestParams();
-
         viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
         mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
@@ -179,13 +147,6 @@ public class HomeActivity extends FragmentActivity implements AbsListView.OnScro
             ImageView sButton = (ImageView) searchButton.get(searchView);
             sButton.setImageResource(R.drawable.ic_action_search);
 
-
-
-//            Field searchHint = SearchView.class.getDeclaredField("mSearchHintIcon");
-//            searchHint.setAccessible(true);
-//            ImageView hintBtn = (ImageView) searchView.findViewById();
-//            hintBtn.setImageResource(R.drawable.ic_action_cancel);
-
         } catch (NoSuchFieldException e){
             e.printStackTrace();
         } catch (IllegalAccessException e){
@@ -262,83 +223,8 @@ public class HomeActivity extends FragmentActivity implements AbsListView.OnScro
         this.dealers = dealers;
     }
 
-    /**
-     * Finds nearest dealers (x determined in api) to given lat and long
-     *
-     * @param lng  - longitude
-     * @param lat  - latitude
-     * @param view - view passed to getDealerSpecials
-     * @return ArrayList of dealers found
-     * @throws JSONException
-     */
-    public void getDealerSpecials(Double lng, Double lat, View view, PullToRefreshLayout pullToRefreshLayout) throws JSONException {
-
-        String latt = String.valueOf(lat);
-        String longg = String.valueOf(lng);
-
-        mPullToRefreshLayout = pullToRefreshLayout;
-        final View homeView = view;
-        HashMap<String, String> param = new HashMap<String, String>();
-        param.put("lng", longg);
-        param.put("lat", latt);
-        params = new RequestParams(param);
-
-        SpecialsRestClient.get("special", params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
-                ArrayList<Special> specials = new ArrayList<Special>();
-                try {
-                    JSONObject dealer = (JSONObject) request.get(0);
-                    JSONArray specialArray = (JSONArray) dealer.get("specials");
-                    for (int i = 0; i < specialArray.length(); i++) {
-                        Special special = new Special();
-                        JSONObject spec = (JSONObject) specialArray.get(i);
-                        special.setTitle(spec.getString("title"));
-                        special.setDealer(dealer.getString("dealerName"));
-                        special.setDescription(spec.getString("description"));
-                        special.setType(spec.getString("type"));
-                        specials.add(special);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                returnSize = specials.size();
-                specialList = specials;
-                ArrayList<Card> cards = new ArrayList<Card>();
-                cards = createSpecials(0, specials, cards);
-                cardList = cards;
-                mCardArrayAdapter = new CardArrayAdapter(HomeActivity.this, cards);
-
-                cardListView = (CardListView) homeView.findViewById(R.id.myList1);
-                if (cardListView != null) {
-                    cardListView.setAdapter(mCardArrayAdapter);
-                    cardListView.setOnScrollListener(HomeActivity.this);
-                }
-
-                if(mPullToRefreshLayout != null){
-                    mPullToRefreshLayout.setRefreshComplete();
-                }
-            }
-
-        });
+    public Menu getMenu(){
+        return this.menu;
     }
 
-    /**
-     * Creates cards for a given ArrayList of specials
-     *
-     * @param specials - Specials that will have cards created for them
-     * @return Arraylist of created cards
-     */
-    public ArrayList<Card> createSpecials(int index, ArrayList<Special> specials, ArrayList<Card> cards) {
-        for (int i = index; i < index+10 && i < returnSize; i++) {
-            SpecialCard card = new SpecialCard(HomeActivity.this, R.layout.special_card);
-            card.setTitle(specials.get(i).getTitle());
-            card.setDescription(specials.get(i).getDescription());
-            card.setDealer(specials.get(i).getDealer());
-            card.setSpecialType(specials.get(i).getType());
-            cards.add(card);
-            currIndex = i;
-        }
-        return cards;
-    }
 }

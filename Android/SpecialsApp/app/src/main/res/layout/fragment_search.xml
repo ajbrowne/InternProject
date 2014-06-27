@@ -6,6 +6,30 @@
     tools:context=".Fragments.SearchFragment">
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/search_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/TextAppearance.DeviceDefault.Medium"
+            android:text="Your Location or: "
+            />
+
+        <EditText
+            android:id="@+id/search_zip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Zip Code"/>
+
+
+        </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/topSpinners"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +61,6 @@
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/topSpinners">
         android:layout_below="@id/topSpinners"
         android:background="#efefef">
 

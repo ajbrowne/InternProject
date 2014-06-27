@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/thumbnail"
         android:paddingLeft="5dp"
-        android:text="$5000 Cashback on Escapes" />
+        android:text="$5000 Cashback on Silverados" />
 
     <TextView
         android:id="@+id/subTitle"
@@ -39,7 +39,26 @@
         android:layout_below="@id/subTitle"
         android:paddingLeft="5dp"
         android:paddingTop="2dp"
-        android:text="Shaver Autos - Ford Escape" />
+        android:text="Shaver Autos - Chevy Silverado" />
+
+    <TextView
+        android:id="@+id/oldPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dealerName"
+        android:layout_marginTop="15dp"
+        android:textColor="#ff0000"
+        android:text="@string/strikethrough"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$11,000"
+        android:textColor="#00ff00"
+        android:layout_toRightOf="@id/oldPrice"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@id/dealerName"/>
 
     <TextView
         android:id="@+id/type"
@@ -49,6 +68,7 @@
         android:layout_alignParentRight="true"
         android:textColor="#534CE6"
         android:paddingRight="5dp"
+        android:layout_marginTop="15dp"
         android:text="USED"/>
 
 </RelativeLayout>
