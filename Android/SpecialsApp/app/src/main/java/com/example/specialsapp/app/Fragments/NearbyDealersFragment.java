@@ -101,9 +101,9 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
                         JSONObject outer = (JSONObject) request.get(i);
                         JSONObject dealerObject = (JSONObject) outer.get("content");
                         Dealer dealer = new Dealer();
-                        dealer.setCity((String)dealerObject.get("city"));
-                        dealer.setState((String)dealerObject.get("state"));
-                        dealer.setName((String) dealerObject.get("name"));
+                        dealer.setCity(dealerObject.get("city").toString());
+                        dealer.setState(dealerObject.get("state").toString());
+                        dealer.setName(dealerObject.get("name").toString());
                         dealers.add(dealer);
                     }
 
