@@ -3,11 +3,14 @@ package com.example.specialsapp.app.Fragments;
 import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -16,6 +19,7 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 
 import com.example.specialsapp.app.Activities.HomeActivity;
+import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Cards.SpecialCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Special;
@@ -67,6 +71,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         actionBar.setTitle("Specials");
 
         this.menu = ((HomeActivity)getActivity()).getMenu();
+        setHasOptionsMenu(true);
 
         getActivity().setTitle("Specials");
         mPullToRefreshLayout = (PullToRefreshLayout)homeView.findViewById(R.id.carddemo_extra_ptr_layout);
@@ -172,6 +177,14 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
             card.setDescription(specials.get(i).getDescription());
             card.setDealer(specials.get(i).getDealer());
             card.setSpecialType(specials.get(i).getType());
+
+            card.setOnClickListener(new Card.OnCardClickListener() {
+                @Override
+                public void onClick(Card card, View view) {
+
+                }
+            });
+
             cards.add(card);
             currIndex = i;
         }
@@ -192,6 +205,23 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
             createSpecials(currIndex, specials, cards);
             mCardArrayAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if (id == R.id.search){
+            SearchActivity searchActivity = new SearchActivity();
+            Intent intent = new Intent(getActivity(), SearchActivity.class);
+            intent.putExtra("tab", 1);
+            startActivity(intent);
+        }
+        return true;
     }
 
 }

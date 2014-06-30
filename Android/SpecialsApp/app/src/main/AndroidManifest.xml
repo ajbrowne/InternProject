@@ -26,6 +26,9 @@
         <activity
             android:name=".Activities.SearchActivity"
             android:label="@string/title_activity_search" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.specialsapp.app.Activities.HomeActivity" />
         </activity>
     </application>
 

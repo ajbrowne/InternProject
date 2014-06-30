@@ -28,7 +28,7 @@ import java.util.HashMap;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchFragment extends Fragment {
+public class VehicleSearchFragment extends Fragment {
 
     private Spinner makeSpinner;
     private Spinner modelSpinner;
@@ -41,7 +41,7 @@ public class SearchFragment extends Fragment {
     private RequestParams parameters;
 
 
-    public SearchFragment() {
+    public VehicleSearchFragment() {
         // Required empty public constructor
     }
 
@@ -50,7 +50,7 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View searchView = inflater.inflate(R.layout.fragment_search, container, false);
+        View searchView = inflater.inflate(R.layout.fragment_special_search, container, false);
 
         submitSearch = (Button) searchView.findViewById(R.id.searchButton);
         makeSpinner = (Spinner) searchView.findViewById(R.id.makeSpinner);

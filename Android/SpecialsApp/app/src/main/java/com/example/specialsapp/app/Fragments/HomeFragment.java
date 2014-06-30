@@ -98,10 +98,11 @@ public class HomeFragment extends Fragment {
         if (id == R.id.search){
             SearchActivity searchActivity = new SearchActivity();
             Intent intent = new Intent(getActivity(), SearchActivity.class);
+            intent.putExtra("tab", 0);
             startActivity(intent);
 
         }
-        return false;
+        return true;
     }
 
 

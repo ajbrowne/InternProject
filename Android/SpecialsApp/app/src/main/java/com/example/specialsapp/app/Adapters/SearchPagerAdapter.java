@@ -4,10 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
-import com.example.specialsapp.app.Fragments.HomeFragment;
-import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
-import com.example.specialsapp.app.Fragments.SearchFragment;
+import com.example.specialsapp.app.Fragments.DealerSearchFragment;
+import com.example.specialsapp.app.Fragments.GeneralSearchFragment;
+import com.example.specialsapp.app.Fragments.VehicleSearchFragment;
 
 /**
  *
@@ -25,11 +24,11 @@ public class SearchPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new SearchFragment();
+                return new GeneralSearchFragment();
             case 1:
-                return new SearchFragment();
+                return new VehicleSearchFragment();
             case 2:
-                return new SearchFragment();
+                return new DealerSearchFragment();
         }
         return null;
     }

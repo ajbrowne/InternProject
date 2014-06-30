@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,12 +30,14 @@ public class SearchActivity extends FragmentActivity {
     private Menu menu;
     private ViewPager viewPager;
     private SearchPagerAdapter mAdapter;
-    private String[] tabs = {"General", "Specials", "Dealers"};
+    private String[] tabs = {"General", "Vehicles", "Dealers"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        int tabIndex = getIntent().getIntExtra("tab", 3);
 
         final ActionBar actionBar = getActionBar();
 
@@ -43,6 +46,8 @@ public class SearchActivity extends FragmentActivity {
 
         viewPager.setAdapter(mAdapter);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Search");
 
         viewPager.setOnPageChangeListener(
                 new ViewPager.SimpleOnPageChangeListener() {
@@ -77,6 +82,11 @@ public class SearchActivity extends FragmentActivity {
         for (String tab : tabs) {
             actionBar.addTab(actionBar.newTab().setText(tab).setTabListener(tabListener));
         }
+
+        if (tabIndex != 3){
+            actionBar.setSelectedNavigationItem(tabIndex);
+        }
+
     }
 
 
@@ -122,12 +132,8 @@ public class SearchActivity extends FragmentActivity {
             return true;
         }
         if (id == android.R.id.home) {
-            NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
-            fragmentTransaction.commit();
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
         }
         if (id == R.id.action_login) {
             Intent intent = new Intent(SearchActivity.this, MainActivity.class);

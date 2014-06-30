@@ -1,6 +1,7 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -8,11 +9,13 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.HomeActivity;
+import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Cards.DealerCard;
 import com.example.specialsapp.app.Cards.HomeVehicleCard;
 import com.example.specialsapp.app.GPS.GPS;
@@ -58,6 +61,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         homeView = inflater.inflate(R.layout.fragment_nearby_dealers_, container, false);
         inflater.inflate(R.layout.dealer_card, container, false);
         getActivity().setTitle("Dealers");
+        setHasOptionsMenu(true);
 
         mPullToRefreshLayout = (PullToRefreshLayout)homeView.findViewById(R.id.carddemo_extra_ptr_layout1);
         ActionBarPullToRefresh.from(this.getActivity())
@@ -79,8 +83,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.home, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+
     }
 
     public void getDealers() {
@@ -147,5 +150,17 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         Double longitude = gps.getLongitude();
         // Call to retrieve dealers to display
         getDealers();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if (id == R.id.search){
+            SearchActivity searchActivity = new SearchActivity();
+            Intent intent = new Intent(getActivity(), SearchActivity.class);
+            intent.putExtra("tab", 2);
+            startActivity(intent);
+        }
+        return true;
     }
 }

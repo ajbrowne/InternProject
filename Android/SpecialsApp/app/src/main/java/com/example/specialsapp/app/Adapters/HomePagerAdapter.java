@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
 import com.example.specialsapp.app.Fragments.HomeFragment;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
-import com.example.specialsapp.app.Fragments.SearchFragment;
 
 /**
  *
