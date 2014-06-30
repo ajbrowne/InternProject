@@ -15,9 +15,9 @@ import com.example.specialsapp.app.Fragments.SearchFragment;
  *
  * Created by brownea on 6/23/14.
  */
-public class TabsPagerAdapter extends FragmentPagerAdapter {
+public class SearchPagerAdapter extends FragmentPagerAdapter {
 
-    public TabsPagerAdapter(FragmentManager fm){
+    public SearchPagerAdapter(FragmentManager fm){
         super(fm);
     }
 
@@ -25,11 +25,11 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new HomeFragment();
+                return new SearchFragment();
             case 1:
-                return new DealerSpecialsFragment();
+                return new SearchFragment();
             case 2:
-                return new NearbyDealersFragment();
+                return new SearchFragment();
         }
         return null;
     }

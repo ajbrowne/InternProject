@@ -2,17 +2,22 @@ package com.example.specialsapp.app.Fragments;
 
 
 
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.HomeActivity;
+import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Cards.HomeVehicleCard;
 import com.example.specialsapp.app.R;
 
@@ -41,6 +46,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View homeView = inflater.inflate(R.layout.fragment_home, container, false);
+        setHasOptionsMenu(true);
         getActivity().setTitle("Home");
 
         ArrayList<Card> newVehicles = new ArrayList<Card>();
@@ -81,6 +87,22 @@ public class HomeFragment extends Fragment {
         return homeView;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if (id == R.id.search){
+            SearchActivity searchActivity = new SearchActivity();
+            Intent intent = new Intent(getActivity(), SearchActivity.class);
+            startActivity(intent);
+
+        }
+        return false;
+    }
 
 
 }

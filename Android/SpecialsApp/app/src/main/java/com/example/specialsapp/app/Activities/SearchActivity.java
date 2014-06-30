@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.specialsapp.app.Adapters.HomePagerAdapter;
+import com.example.specialsapp.app.Adapters.SearchPagerAdapter;
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
 import com.example.specialsapp.app.Models.Dealer;
@@ -23,24 +24,22 @@ import java.util.ArrayList;
 /**
  * Hosts all fragments that display dealers and their specials
  */
-public class HomeActivity extends FragmentActivity {
+public class SearchActivity extends FragmentActivity {
 
     private Menu menu;
     private ViewPager viewPager;
-    private HomePagerAdapter mAdapter;
-    private String[] tabs = {"Home", "Specials", "Dealers"};
-    private ArrayList<Dealer> dealers;
+    private SearchPagerAdapter mAdapter;
+    private String[] tabs = {"General", "Specials", "Dealers"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_search);
 
         final ActionBar actionBar = getActionBar();
 
-        dealers = new ArrayList<Dealer>();
-        viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
-        mAdapter = new HomePagerAdapter(getSupportFragmentManager());
+        viewPager = (ViewPager) findViewById(R.id.fragmentContainer3);
+        mAdapter = new SearchPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(mAdapter);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -86,7 +85,7 @@ public class HomeActivity extends FragmentActivity {
 
         this.menu = menu;
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.search, menu);
 
         // Check login status, change menu appropriately
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
@@ -131,23 +130,13 @@ public class HomeActivity extends FragmentActivity {
             fragmentTransaction.commit();
         }
         if (id == R.id.action_login) {
-            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+            Intent intent = new Intent(SearchActivity.this, MainActivity.class);
             startActivity(intent);
         } if (id == R.id.search){
             return false;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-
-    public ArrayList<Dealer> getDealers() {
-        return dealers;
-    }
-
-    public void setDealers(ArrayList<Dealer> dealers) {
-        this.dealers = dealers;
     }
 
     public Menu getMenu(){

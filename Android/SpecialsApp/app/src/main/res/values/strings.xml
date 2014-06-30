@@ -23,12 +23,10 @@
         <item>Specials Near You</item>
         <item>Search</item>
     </string-array>
-
     <string-array name="location_array">
         <item>Current Location</item>
         <item>Other</item>
     </string-array>
-
     <string-array name="search_array">
         <item>Dealer</item>
         <item>Make</item>
@@ -36,7 +34,6 @@
         <item>Year</item>
         <item>Type</item>
     </string-array>
-
     <string-array name="makes">
         <item>All Makes</item>
         <item>Acura</item>
@@ -81,15 +78,11 @@
         <item>Toyota</item>
         <item>Volkswagen</item>
         <item>Volvo</item>
-
-
     </string-array>
-
     <string-array name="models_Ford">
         <item>Escape</item>
         <item>Focus</item>
     </string-array>
-
     <string-array name="priceRange">
         <item>No Maximum Price</item>
         <item>$1,000</item>
@@ -133,7 +126,6 @@
         <item>$95,000</item>
         <item>$100,000</item>
     </string-array>
-
     <string-array name="type">
         <item>New</item>
         <item>Used</item>
@@ -147,5 +139,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
+    <string name="title_activity_search">SearchActivity</string>
 
 </resources>
