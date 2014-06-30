@@ -1,6 +1,9 @@
 package api.config;
 
 import api.repositories.*;
+import api.services.DealerService;
+import api.services.MergeService;
+import api.services.SpecialService;
 import com.mongodb.MongoClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +35,15 @@ public class DatabaseConfig {
     public DealerRepository dealerRepository() throws UnknownHostException {
         return new MongoDealerRepository(mongoTemplate());
     }
+
+    @Bean
+    public SpecialService specialService() throws UnknownHostException {return new SpecialService(specialRepository());}
+
+    @Bean
+    public DealerService dealerService() throws UnknownHostException {return new DealerService(dealerRepository());}
+
+    @Bean
+    public MergeService mergeService() throws UnknownHostException {return new MergeService(specialService(),dealerService());}
 
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {

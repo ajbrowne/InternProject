@@ -13,6 +13,14 @@ public class Special{
 
     @Id
     private String id;
+    private String title;
+    private String dealer;
+    private String type;
+    private String amount;
+    private String description;
+    private int status;
+    private Date startDate;
+    private Date endDate;
 
     public Special(){}
 
@@ -112,14 +120,6 @@ public class Special{
     }
 
 
-    private String title;
-    private String dealer;
-    private String type;
-    private String amount;
-    private String description;
-    private int status;
-    private Date startDate;
-
     public Special(String title, String dealer, String type, String amount, String description, int status, Date startDate, Date endDate) {
         this.title = title;
         this.dealer = dealer;
@@ -131,6 +131,5 @@ public class Special{
         this.endDate = endDate;
     }
 
-    private Date endDate;
 
 }

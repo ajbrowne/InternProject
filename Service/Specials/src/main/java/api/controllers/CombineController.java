@@ -1,14 +1,9 @@
 package api.controllers;
 
-import api.models.Dealer;
 import api.models.MergerObj;
-import api.models.Special;
-import api.models.SpecialsDealers;
-import api.repositories.DealerRepository;
-import api.repositories.SpecialRepository;
+import api.services.MergeService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.geo.GeoResult;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,15 +26,13 @@ import java.util.List;
 public class CombineController {
 
     @Autowired
-    private SpecialRepository specialRepository;
-    @Autowired
-    private DealerRepository dealerRepository;
+    private MergeService mergeService;
     private Logger log = Logger.getLogger(SpecialController.class.getName());
 
-    public CombineController(SpecialRepository specialRepository, DealerRepository dealerRepository){
-        this.specialRepository = specialRepository;
-        this.dealerRepository = dealerRepository;
+    public CombineController(MergeService mergeService){
+        this.mergeService = mergeService;
     }
+
     public CombineController(){}
 
     /**
@@ -58,32 +50,8 @@ public class CombineController {
         Point point = new Point(lng, lat);
         log.info("Location received from app: " + point);
         //Query and return the nearest dealers
-        List<GeoResult> newDealer = dealerRepository.getDealerByLocation(point);
-        List<MergerObj> specials = new ArrayList<MergerObj>();
-        //loop over the dealers to find the dealers specials
-        for(int i = 0; i < newDealer.size();i++){
-            Dealer tempDealer = (Dealer)newDealer.get(i).getContent();
-            Special tempSpecial = new Special();
-            tempSpecial.setDealer(tempDealer.getId());
-            List<Special> temp = specialRepository.findMatching(tempSpecial);
-            //store the dealers name and the special in an object to pass to the app
-            //dealer name is for the cards in the app.
-            if(temp.size() != 0) {
-                specials.add(new MergerObj(tempDealer.getName(), temp));
-            }
-        }
-        log.info("Number of specials: " + specials.size());
-        return new ResponseEntity<List<MergerObj>>(specials, HttpStatus.OK);
+        return new ResponseEntity<List<MergerObj>>(mergeService.getNearestSpecials(point), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/keyword", produces = "application/json", params = {"keyword"})
-    @ResponseBody
-    public ResponseEntity<SpecialsDealers> keyword(@RequestParam("keyword")String word){
-        SpecialsDealers total = new SpecialsDealers();
-        List<Special> theSpecials = specialRepository.findMatching(new Special(word));
-        List<Dealer> theDealers = dealerRepository.getMatchingDealers(new Dealer(word));
-        total.setDealers(theDealers);
-        total.setSpecials(theSpecials);
-        return new ResponseEntity<SpecialsDealers>(total, HttpStatus.OK);
-    }
+
 }

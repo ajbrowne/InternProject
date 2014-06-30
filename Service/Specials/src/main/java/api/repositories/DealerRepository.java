@@ -2,6 +2,7 @@ package api.repositories;
 
 import api.models.Dealer;
 import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ import java.util.List;
 public interface DealerRepository {
     public List getDealerByLocation(Point point);
     public Dealer save(Dealer dealer);
-    public List getMatchingDealers(Dealer dealer);
+    public List getMatchingDealers(Dealer dealer, Query query);
 }

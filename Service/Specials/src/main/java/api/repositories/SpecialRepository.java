@@ -1,6 +1,7 @@
 package api.repositories;
 
 import api.models.Special;
+import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ public interface SpecialRepository {
 
     public List findAll();
 
-    public List findMatching(Special special);
+    public List findMatching(Special special, Query query);
 }
