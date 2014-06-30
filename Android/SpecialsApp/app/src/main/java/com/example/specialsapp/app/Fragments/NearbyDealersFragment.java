@@ -66,7 +66,6 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
                 .setup(mPullToRefreshLayout);
 
         ActionBar actionBar = ((HomeActivity) getActivity()).getActionBar();
-        actionBar.setHomeButtonEnabled(true);
 
         // Get location upon opening app, returning to Dealers
         GPS gps = new GPS(getActivity());

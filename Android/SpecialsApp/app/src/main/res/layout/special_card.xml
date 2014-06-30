@@ -3,8 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="3dp"
-    android:padding="5dp">
+    android:paddingBottom="5dp">
 
     <ImageView
         android:id="@+id/thumbnail"
@@ -47,13 +46,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dealerName"
         android:layout_marginTop="15dp"
-        android:textColor="#ff0000"
+        android:textColor="#aaa"
+        android:paddingLeft="5dp"
         android:text="@string/strikethrough"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$11,000"
+        android:paddingLeft="5dp"
         android:textColor="#00ff00"
         android:layout_toRightOf="@id/oldPrice"
         android:layout_marginTop="15dp"
@@ -67,6 +68,7 @@
         android:layout_below="@id/dealerName"
         android:layout_alignParentRight="true"
         android:textColor="#534CE6"
+
         android:paddingRight="5dp"
         android:layout_marginTop="15dp"
         android:text="USED"/>

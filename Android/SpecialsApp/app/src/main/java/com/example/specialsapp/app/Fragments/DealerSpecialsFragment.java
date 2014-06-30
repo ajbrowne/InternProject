@@ -64,7 +64,6 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         homeView = inflater.inflate(R.layout.fragment_dealer_specials, container, false);
 
         ActionBar actionBar = getActivity().getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setTitle("Specials");
 
         this.menu = ((HomeActivity)getActivity()).getMenu();
