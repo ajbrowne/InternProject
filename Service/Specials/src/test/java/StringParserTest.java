@@ -1,4 +1,4 @@
-import helpers.StringParser;
+import com.api.helpers.StringParser;
 import org.junit.Test;
 
 /**
