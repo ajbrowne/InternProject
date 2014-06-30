@@ -2,8 +2,10 @@ package com.internproject.api.concurrency;
 
 import com.internproject.api.models.Dealer;
 import com.internproject.api.models.Special;
+import com.internproject.api.models.Vehicle;
 import com.internproject.api.repositories.DealerRepository;
 import com.internproject.api.repositories.SpecialRepository;
+import com.internproject.api.repositories.VehicleRepository;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -16,6 +18,9 @@ import java.util.concurrent.TimeUnit;
 public class RunnableQuery implements Runnable {
 
 
+    private VehicleRepository vehicleRepository;
+    private Vehicle vehicle;
+    private List<Vehicle> vehicles;
     private SpecialRepository specialRepository;
     private String name;
     private Special special;
@@ -39,49 +44,83 @@ public class RunnableQuery implements Runnable {
         this.dealers = dealers;
     }
 
+    public RunnableQuery(String name, VehicleRepository vehicleRepository, Vehicle vehicle, List<Vehicle> vehicles){
+        this.name = name;
+        this.vehicleRepository = vehicleRepository;
+        this.vehicle = vehicle;
+        this.vehicles = vehicles;
+    }
+
     @Override
     public void run() {
         if(name.equals("special")){
-            RunnableChild t1 = new RunnableChild("id", name,specialRepository, special, specials);
-            RunnableChild t2 = new RunnableChild("title", name,specialRepository, special, specials);
-            RunnableChild t3 = new RunnableChild("type", name,specialRepository, special, specials);
-            RunnableChild t4 = new RunnableChild("description", name,specialRepository, special, specials);
-            RunnableChild t5 = new RunnableChild("amount", name,specialRepository, special, specials);
-            RunnableChild t6 = new RunnableChild("dealer", name,specialRepository, special, specials);
-            RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5,t6};
-            ExecutorService es = Executors.newCachedThreadPool();
-            for(int i= 0; i < 6; i++){
-                es.execute(list[i]);
-            }
-            es.shutdown();
-            try {
-                es.awaitTermination(30, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            specialChildren();
         }else if(name.equals("dealer")){
-            RunnableChild t1 = new RunnableChild("id", name,dealerRepository, dealer, dealers);
-            RunnableChild t5 = new RunnableChild("name", name,dealerRepository, dealer, dealers);
-            RunnableChild t2 = new RunnableChild("admin", name,dealerRepository, dealer, dealers);
-            RunnableChild t3 = new RunnableChild("city", name,dealerRepository, dealer, dealers);
-            RunnableChild t4 = new RunnableChild("state", name,dealerRepository, dealer, dealers);
-
-            RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5};
-            ExecutorService es = Executors.newCachedThreadPool();
-            for(int i= 0; i < 5; i++){
-                es.execute(list[i]);
-            }
-            es.shutdown();
-            try {
-                es.awaitTermination(30, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            dealerChildren();
+        }else if(name.equals("vehicle")){
+            vehicleChildren();
         }
 
+    }
 
+    public void specialChildren(){
+        RunnableChild t1 = new RunnableChild("id", name,specialRepository, special, specials);
+        RunnableChild t2 = new RunnableChild("title", name,specialRepository, special, specials);
+        RunnableChild t3 = new RunnableChild("type", name,specialRepository, special, specials);
+        RunnableChild t4 = new RunnableChild("description", name,specialRepository, special, specials);
+        RunnableChild t5 = new RunnableChild("amount", name,specialRepository, special, specials);
+        RunnableChild t6 = new RunnableChild("dealer", name,specialRepository, special, specials);
+        RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5,t6};
+        ExecutorService es = Executors.newCachedThreadPool();
+        for(int i= 0; i < 6; i++){
+            es.execute(list[i]);
+        }
+        es.shutdown();
+        try {
+            es.awaitTermination(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void dealerChildren(){
+        RunnableChild t1 = new RunnableChild("id", name,dealerRepository, dealer, dealers);
+        RunnableChild t5 = new RunnableChild("name", name,dealerRepository, dealer, dealers);
+        RunnableChild t2 = new RunnableChild("admin", name,dealerRepository, dealer, dealers);
+        RunnableChild t3 = new RunnableChild("city", name,dealerRepository, dealer, dealers);
+        RunnableChild t4 = new RunnableChild("state", name,dealerRepository, dealer, dealers);
 
+        RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5};
+        ExecutorService es = Executors.newCachedThreadPool();
+        for(int i= 0; i < 5; i++){
+            es.execute(list[i]);
+        }
+        es.shutdown();
+        try {
+            es.awaitTermination(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void vehicleChildren(){
+        RunnableChild t1 = new RunnableChild("id", name, vehicleRepository, vehicle, vehicles);
+        RunnableChild t5 = new RunnableChild("year", name,dealerRepository, dealer, dealers);
+        RunnableChild t2 = new RunnableChild("make", name,dealerRepository, dealer, dealers);
+        RunnableChild t3 = new RunnableChild("model", name,dealerRepository, dealer, dealers);
+        RunnableChild t4 = new RunnableChild("trim", name,dealerRepository, dealer, dealers);
+
+        RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5};
+        ExecutorService es = Executors.newCachedThreadPool();
+        for(int i= 0; i < 5; i++){
+            es.execute(list[i]);
+        }
+        es.shutdown();
+        try {
+            es.awaitTermination(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

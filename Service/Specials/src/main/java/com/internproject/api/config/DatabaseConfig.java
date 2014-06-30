@@ -4,6 +4,7 @@ import com.internproject.api.repositories.*;
 import com.internproject.api.services.DealerService;
 import com.internproject.api.services.MergeService;
 import com.internproject.api.services.SpecialService;
+import com.internproject.api.services.VehicleService;
 import com.mongodb.MongoClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +45,12 @@ public class DatabaseConfig {
 
     @Bean
     public MergeService mergeService() throws UnknownHostException {return new MergeService(specialService(),dealerService());}
+
+    @Bean
+    public VehicleRepository vehicleRepository() throws UnknownHostException {return new MongoVehicleRepository(mongoTemplate());}
+
+    @Bean
+    public VehicleService vehicleService() throws UnknownHostException {return new VehicleService(vehicleRepository());}
 
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {

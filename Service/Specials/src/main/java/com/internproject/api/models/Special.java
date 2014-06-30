@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by maharb on 6/18/14.
@@ -21,6 +22,16 @@ public class Special{
     private int status;
     private Date startDate;
     private Date endDate;
+
+    private List<String> vehicleId;
+
+    public List<String> getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(List<String> vehicleId) {
+        this.vehicleId = vehicleId;
+    }
 
     public Special(){}
 
@@ -108,6 +119,7 @@ public class Special{
                 ", status=" + status +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", vehicleId="+vehicleId+
                 '}';
     }
 
@@ -117,8 +129,21 @@ public class Special{
         this.type = keyword;
         this.amount = keyword;
         this.description = keyword;
+        this.vehicleId.add(keyword);
     }
 
+
+    public Special(String title, String dealer, String type, String amount, String description, int status, Date startDate, Date endDate, List<String> vehicleId) {
+        this.title = title;
+        this.dealer = dealer;
+        this.type = type;
+        this.amount = amount;
+        this.description = description;
+        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.vehicleId = vehicleId;
+    }
 
     public Special(String title, String dealer, String type, String amount, String description, int status, Date startDate, Date endDate) {
         this.title = title;

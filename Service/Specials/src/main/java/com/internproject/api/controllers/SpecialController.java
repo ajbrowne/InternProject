@@ -57,9 +57,8 @@ public class SpecialController {
      */
     @RequestMapping(value = "/special",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<Special>> getMatchingSpecials(@RequestParam(value = "info", required = false) Special test){
-
-        if(test == null){
+    public ResponseEntity<List<Special>> getMatchingSpecials(@ModelAttribute Special test, @RequestParam(value = "all", required = false)String findAll){
+        if(findAll != null){
             log.info("All specials returned");
             return new ResponseEntity<List<Special>>(specialService.getAllSpecials() ,HttpStatus.OK);
         }
