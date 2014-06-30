@@ -48,7 +48,7 @@
     </dependencies>
 
     <properties>
-        <start-class>com.api.Application</start-class>
+        <start-class>com.internproject.api.Application</start-class>
     </properties>
 
     <build>
