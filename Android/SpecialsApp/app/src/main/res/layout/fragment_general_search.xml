@@ -6,11 +6,20 @@
     tools:context=".Fragments.GeneralSearchFragment">
 
     <EditText
+        android:id="@+id/general_zip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:hint="Zip Code"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
         android:id="@+id/keyword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="i.e. 2014 Chevy Silverado"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="24dp"
+        android:layout_below="@id/general_zip"
         android:layout_centerHorizontal="true"
         />
 

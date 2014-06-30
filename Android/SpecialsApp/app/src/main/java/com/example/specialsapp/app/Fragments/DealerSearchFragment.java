@@ -17,6 +17,7 @@ import com.example.specialsapp.app.R;
 public class DealerSearchFragment extends Fragment {
 
 
+
     public DealerSearchFragment() {
         // Required empty public constructor
     }
@@ -28,6 +29,4 @@ public class DealerSearchFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_dealer_search, container, false);
     }
-
-
 }

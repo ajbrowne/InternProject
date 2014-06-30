@@ -28,7 +28,7 @@ public class HomeActivity extends FragmentActivity {
     private Menu menu;
     private ViewPager viewPager;
     private HomePagerAdapter mAdapter;
-    private String[] tabs = {"Home", "Specials", "Dealers"};
+    private String[] tabs = {"Home", "Vehicles", "Dealers"};
     private ArrayList<Dealer> dealers;
 
     @Override
@@ -121,14 +121,6 @@ public class HomeActivity extends FragmentActivity {
             menu.findItem(R.id.action_login).setVisible(true);
             new CustomAlertDialog(this, "Logout", "You have been logged out. You can no longer send contact info to dealers").show();
             return true;
-        }
-        if (id == android.R.id.home) {
-            NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentContainer2, nearbyDealersFragment);
-            fragmentTransaction.commit();
         }
         if (id == R.id.action_login) {
             Intent intent = new Intent(HomeActivity.this, MainActivity.class);

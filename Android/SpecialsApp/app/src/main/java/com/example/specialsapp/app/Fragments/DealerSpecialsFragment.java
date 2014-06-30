@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -73,7 +75,6 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         this.menu = ((HomeActivity)getActivity()).getMenu();
         setHasOptionsMenu(true);
 
-        getActivity().setTitle("Specials");
         mPullToRefreshLayout = (PullToRefreshLayout)homeView.findViewById(R.id.carddemo_extra_ptr_layout);
         ActionBarPullToRefresh.from(this.getActivity())
                 .allChildrenArePullable()
@@ -181,7 +182,11 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
-
+                    SpecialDetailFragment specialDetailFragment = new SpecialDetailFragment();
+                    FragmentManager fm = ((HomeActivity)getActivity()).getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.fragmentContainer2, specialDetailFragment);
+                    ft.commit();
                 }
             });
 
