@@ -35,7 +35,13 @@ public class SpecialService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        int check = 4;
+        if(specials.size() < 4){
+            check = specials.size();
+        }
+        for(int i =0; i<check;i++){
+            specials.get(i).setTrending(true);
+        }
         return specials;
     }
 

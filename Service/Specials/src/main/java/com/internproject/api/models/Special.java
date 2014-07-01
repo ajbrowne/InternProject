@@ -23,6 +23,47 @@ public class Special{
     private Date startDate;
     private Date endDate;
 
+    public Special(String id, String title, String dealer, String type, String amount, String description, int status, Date startDate, Date endDate, boolean trending, List<String> vehicleId) {
+        this.id = id;
+        this.title = title;
+        this.dealer = dealer;
+        this.type = type;
+        this.amount = amount;
+        this.description = description;
+        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.trending = trending;
+        this.vehicleId = vehicleId;
+    }
+
+    public boolean isTrending() {
+        return trending;
+    }
+
+    public void setTrending(boolean trending) {
+        this.trending = trending;
+    }
+
+    @Override
+    public String toString() {
+        return "Special{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", dealer='" + dealer + '\'' +
+                ", type='" + type + '\'' +
+                ", amount='" + amount + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", trending=" + trending +
+                ", vehicleId=" + vehicleId +
+                '}';
+    }
+
+    private boolean trending;
+
     private List<String> vehicleId;
 
     public List<String> getVehicleId() {
@@ -105,22 +146,6 @@ public class Special{
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Special{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", dealer='" + dealer + '\'' +
-                ", type='" + type + '\'' +
-                ", amount='" + amount + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", vehicleId="+vehicleId+
-                '}';
     }
 
     public Special(String keyword){
