@@ -136,7 +136,7 @@ public class SearchActivity extends FragmentActivity {
             return true;
         }
         if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
+            onBackPressed();
             return true;
         }
         if (id == R.id.action_login) {
