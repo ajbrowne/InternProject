@@ -22,6 +22,7 @@ import android.widget.Spinner;
 
 import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SearchActivity;
+import com.example.specialsapp.app.Activities.SpecialDetail;
 import com.example.specialsapp.app.Cards.SpecialCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Special;
@@ -205,11 +206,9 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
-                    SpecialDetailFragment specialDetailFragment = new SpecialDetailFragment();
-                    FragmentManager fm = ((HomeActivity)getActivity()).getSupportFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.fragmentContainer2, specialDetailFragment);
-                    ft.commit();
+                    Intent intent = new Intent(getActivity(), SpecialDetail.class);
+                    getActivity().startActivity(intent);
+
                 }
             });
 

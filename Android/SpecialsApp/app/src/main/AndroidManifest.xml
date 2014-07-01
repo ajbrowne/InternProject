@@ -37,6 +37,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.specialsapp.app.Activities.SearchActivity" />
         </activity>
+        <activity android:name=".Activities.SpecialDetail"
+            android:label="SpecialDetail">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.specialsapp.app.Activities.HomeActivity" />
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

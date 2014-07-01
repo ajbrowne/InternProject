@@ -68,7 +68,6 @@ public class MergeService {
                 tempSpecial.setDealer(tempDealer.getId());
                 tempSpecial.setVehicleId(ids);
                 List<Special> temp = specialService.getSpecials(tempSpecial);
-
                 temp = vehicleHelper(temp, ids);
                 //store the dealers name and the special in an object to pass to the app
                 //dealer name is for the cards in the app.
@@ -78,7 +77,6 @@ public class MergeService {
             }
 
         return specials;
-
     }
 
     public List<Special> vehicleHelper(List<Special> specials, List<String> vehicleIds){
