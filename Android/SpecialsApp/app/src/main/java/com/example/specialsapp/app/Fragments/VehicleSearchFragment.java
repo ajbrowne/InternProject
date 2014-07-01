@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.specialsapp.app.Activities.HomeActivity;
+import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.R;
@@ -35,6 +38,7 @@ public class VehicleSearchFragment extends Fragment {
     private Spinner yearSpinner;
     private Spinner priceSpinner;
     private Spinner typeSpinner;
+    private View view;
     private EditText zip;
     private Button submitSearch;
     private String[] params = new String[5];
@@ -51,6 +55,7 @@ public class VehicleSearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View searchView = inflater.inflate(R.layout.fragment_special_search, container, false);
+        view = searchView;
 
         submitSearch = (Button) searchView.findViewById(R.id.searchButton);
         makeSpinner = (Spinner) searchView.findViewById(R.id.makeSpinner);
@@ -74,20 +79,28 @@ public class VehicleSearchFragment extends Fragment {
         return searchView;
     }
 
-    public void setSpinnerListener(final Spinner spinner, final int index){
+    public void setSpinnerListener(final Spinner spinner, final int index) {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selected = spinner.getSelectedItem().toString();
                 params[index] = selected;
+                if (index == 0){
+                    int identifier = getActivity().getResources().getIdentifier(spinner.getSelectedItem().toString(), "array", getActivity().getPackageName());
+                    String[] models = getActivity().getResources().getStringArray(identifier);
+                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models); //selected item will look like a spinner set from XML
+                    spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    modelSpinner.setAdapter(spinnerArrayAdapter);
+                }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 
-    public void search(){
+    public void search() {
         final GPS gps = new GPS(getActivity());
         Double latitiude = gps.getLatitude();
         Double longitude = gps.getLongitude();
@@ -95,12 +108,18 @@ public class VehicleSearchFragment extends Fragment {
         String longi = String.valueOf(longitude);
 
         HashMap<String, String> param = new HashMap<String, String>();
-        if (zip.getText().toString().compareTo(null) == 0){
+        if (zip.getText().toString().compareTo("") == 0) {
             param.put("lng", latt);
             param.put("lat", longi);
-        }
-        else{
-            param.put("zip", zip.getText().toString());
+        } else {
+            double[] location = ((SearchActivity)getActivity()).getLoc(zip.getText().toString());
+            if (location[0] != -1000){
+                latt = String.valueOf(location[0]);
+                longi = String.valueOf(location[1]);
+                param.put("lng", longi);
+                param.put("lat", latt);
+            }
+
         }
 
         param.put("make", params[0]);
@@ -109,25 +128,24 @@ public class VehicleSearchFragment extends Fragment {
         param.put("max", params[3]);
         parameters = new RequestParams(param);
 
-        SpecialsRestClient.get("special", parameters, new JsonHttpResponseHandler() {
+        SpecialsRestClient.get("vehicle", parameters, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
-                ArrayList<Special> specials = new ArrayList<Special>();
-                try {
-                    JSONObject dealer = (JSONObject) request.get(0);
-                    JSONArray specialArray = (JSONArray) dealer.get("specials");
-                    for (int i = 0; i < specialArray.length(); i++) {
-                        Special special = new Special();
-                        JSONObject spec = (JSONObject) specialArray.get(i);
-                        special.setTitle(spec.getString("title"));
-                        special.setDealer(dealer.getString("dealerName"));
-                        special.setDescription(spec.getString("description"));
-                        special.setType(spec.getString("type"));
-                        specials.add(special);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                //ArrayList<Special> specials = new ArrayList<Special>();
+
+                    System.out.println(request.toString());
+//                    JSONObject dealer = (JSONObject) request.get(0);
+//                    JSONArray specialArray = (JSONArray) dealer.get("specials");
+//                    for (int i = 0; i < specialArray.length(); i++) {
+//                        Special special = new Special();
+//                        JSONObject spec = (JSONObject) specialArray.get(i);
+//                        special.setTitle(spec.getString("title"));
+//                        special.setDealer(dealer.getString("dealerName"));
+//                        special.setDescription(spec.getString("description"));
+//                        special.setType(spec.getString("type"));
+//                        specials.add(special);
+//                    }
+
 
             }
 

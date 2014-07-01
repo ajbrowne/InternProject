@@ -23,10 +23,12 @@
         <item>Specials Near You</item>
         <item>Search</item>
     </string-array>
+
     <string-array name="location_array">
         <item>Current Location</item>
         <item>Other</item>
     </string-array>
+
     <string-array name="search_array">
         <item>Dealer</item>
         <item>Make</item>
@@ -34,8 +36,9 @@
         <item>Year</item>
         <item>Type</item>
     </string-array>
+
     <string-array name="makes">
-        <item>All Makes</item>
+        <item>All</item>
         <item>Acura</item>
         <item>Aston Martin</item>
         <item>Audi</item>
@@ -68,6 +71,7 @@
         <item>MINI</item>
         <item>Mitsubishi</item>
         <item>Nissan</item>
+        <item>Pontiac</item>
         <item>Porsche</item>
         <item>RAM</item>
         <item>Rolls-Royce</item>
@@ -79,10 +83,12 @@
         <item>Volkswagen</item>
         <item>Volvo</item>
     </string-array>
+
     <string-array name="models_Ford">
         <item>Escape</item>
         <item>Focus</item>
     </string-array>
+
     <string-array name="priceRange">
         <item>No Maximum Price</item>
         <item>$1,000</item>
@@ -126,10 +132,32 @@
         <item>$95,000</item>
         <item>$100,000</item>
     </string-array>
+
     <string-array name="type">
         <item>New</item>
         <item>Used</item>
         <item>Certified</item>
+    </string-array>
+
+    <string-array name="Pontiac">
+        <item>1000</item>
+        <item>6000</item>
+        <item>Aztek</item>
+        <item>Bonneville</item>
+        <item>Catalina</item>
+        <item>Fiero</item>
+        <item>Firebird</item>
+        <item>G3</item>
+        <item>G5</item>
+        <item>G6</item>
+        <item>G8</item>
+        <item>Grand Am</item>
+        <item>Grand Prix</item>
+        <item>GTO</item>
+    </string-array>
+
+    <string-array name="All">
+
     </string-array>
 
     <string name="title_activity_specials">SpecialsActivity</string>
