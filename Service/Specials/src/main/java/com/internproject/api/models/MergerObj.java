@@ -9,18 +9,16 @@ import java.util.List;
  * Created by maharb on 6/24/14.
  */
 public class MergerObj {
+    public MergerObj(String dealerName, List<Special> specials, List<Vehicle> vehicles) {
+        this.dealerName = dealerName;
+        this.specials = specials;
+        this.vehicles = vehicles;
+    }
     public MergerObj(String dealerName, List<Special> specials) {
         this.dealerName = dealerName;
         this.specials = specials;
     }
-
-    @Override
-    public String toString() {
-        return "MergerObj{" +
-                "dealerName='" + dealerName + '\'' +
-                ", specials=" + specials +
-                '}';
-    }
+    public MergerObj(){}
 
     public String getDealerName() {
         return dealerName;
@@ -40,4 +38,23 @@ public class MergerObj {
 
     private String dealerName;
     private List<Special> specials;
+
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    @Override
+    public String toString() {
+        return "MergerObj{" +
+                "dealerName='" + dealerName + '\'' +
+                ", specials=" + specials +
+                ", vehicles=" + vehicles +
+                '}';
+    }
+
+    private List<Vehicle> vehicles;
 }

@@ -4,6 +4,7 @@ import com.internproject.api.controllers.SpecialController;
 import com.internproject.api.models.Dealer;
 import com.internproject.api.models.MergerObj;
 import com.internproject.api.models.Special;
+import com.internproject.api.models.Vehicle;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.GeoResult;
@@ -21,11 +22,14 @@ public class MergeService {
     private SpecialService specialService;
     @Autowired
     private DealerService dealerService;
+    @Autowired
+    private VehicleService vehicleService;
     private Logger log = Logger.getLogger(SpecialController.class.getName());
 
-    public MergeService(SpecialService specialService, DealerService dealerService){
+    public MergeService(SpecialService specialService, DealerService dealerService, VehicleService vehicleService){
         this.specialService = specialService;
         this.dealerService = dealerService;
+        this.vehicleService = vehicleService;
     }
 
     public MergeService(){}
@@ -48,6 +52,36 @@ public class MergeService {
         log.info("Number of specials: " + specials.size());
 
         return specials;
+    }
+
+    public List getNearestVehicles(Point point, Vehicle vehicle){
+        List<MergerObj> specials = getNearestSpecials(point);
+
+        for(int i =0; i < specials.size(); i++){
+            List<Vehicle> theVehicles = vehicleHelper(specials.get(i).getSpecials(), vehicle);
+            specials.get(i).setVehicles(theVehicles);
+        }
+
+
+        return specials;
+
+    }
+
+    public List<Vehicle> vehicleHelper(List<Special> specials, Vehicle vehicle){
+        List<Vehicle> temp = new ArrayList<Vehicle>();
+        List<String> ids = new ArrayList<String>();
+        List<Vehicle> returnVehicle = new ArrayList<Vehicle>();
+        for(int i = 0; i < specials.size();i++){
+            ids = specials.get(i).getVehicleId();
+            for(int j = 0; j < ids.size(); j++){
+                vehicle.setId(ids.get(j));
+                temp = vehicleService.getVehicles(vehicle);
+                if(temp.size() != 0){
+                    returnVehicle.addAll(temp);
+                }
+            }
+        }
+        return returnVehicle;
     }
 
 }

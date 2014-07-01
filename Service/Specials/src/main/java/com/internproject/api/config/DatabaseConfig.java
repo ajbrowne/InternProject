@@ -44,7 +44,7 @@ public class DatabaseConfig {
     public DealerService dealerService() throws UnknownHostException {return new DealerService(dealerRepository());}
 
     @Bean
-    public MergeService mergeService() throws UnknownHostException {return new MergeService(specialService(),dealerService());}
+    public MergeService mergeService() throws UnknownHostException {return new MergeService(specialService(),dealerService(), vehicleService());}
 
     @Bean
     public VehicleRepository vehicleRepository() throws UnknownHostException {return new MongoVehicleRepository(mongoTemplate());}

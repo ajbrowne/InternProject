@@ -1,6 +1,7 @@
 package com.internproject.api.controllers;
 
 import com.internproject.api.models.MergerObj;
+import com.internproject.api.models.Vehicle;
 import com.internproject.api.services.MergeService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,6 +53,13 @@ public class CombineController {
         log.info("Location received from app: " + point);
         //Query and return the nearest dealers
         return new ResponseEntity<List<MergerObj>>(mergeService.getNearestSpecials(point), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/vehicle", produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<List<MergerObj>> vehicleLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat, @ModelAttribute Vehicle vehicle){
+        Point point = new Point(lng, lat);
+        return new ResponseEntity<List<MergerObj>>(mergeService.getNearestVehicles(point, vehicle), HttpStatus.OK);
     }
 
 
