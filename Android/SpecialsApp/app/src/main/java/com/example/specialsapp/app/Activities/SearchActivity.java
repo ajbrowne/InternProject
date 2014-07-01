@@ -153,20 +153,4 @@ public class SearchActivity extends FragmentActivity {
         return this.menu;
     }
 
-    public double[] getLoc(String zip){
-        final Geocoder geocoder = new Geocoder(this);
-        double [] location = {-1000, -1000};
-        try{
-            List<Address> addresses = geocoder.getFromLocationName(zip, 1);
-            if (addresses != null && !addresses.isEmpty()){
-                Address address = addresses.get(0);
-                location[0] = address.getLatitude();
-                location[1] = address.getLongitude();
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        return location;
-    }
-
 }

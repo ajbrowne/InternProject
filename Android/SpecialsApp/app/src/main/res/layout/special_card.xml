@@ -51,6 +51,7 @@
         android:text="@string/strikethrough"/>
 
     <TextView
+        android:id="@+id/newPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$11,000"

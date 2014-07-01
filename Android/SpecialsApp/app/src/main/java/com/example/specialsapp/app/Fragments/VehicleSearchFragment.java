@@ -1,7 +1,10 @@
 package com.example.specialsapp.app.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,8 @@ import android.widget.Spinner;
 
 import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SearchActivity;
+import com.example.specialsapp.app.Activities.VehicleResultsActivity;
+import com.example.specialsapp.app.Cards.SpecialCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.R;
@@ -27,6 +32,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
+import it.gmariotti.cardslib.library.view.CardListView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +52,9 @@ public class VehicleSearchFragment extends Fragment {
     private Button submitSearch;
     private String[] params = new String[5];
     private RequestParams parameters;
+    private CardArrayAdapter mCardArrayAdapter;
+    private ArrayList<Card> cards;
+    private CardListView cardListView;
 
 
     public VehicleSearchFragment() {
@@ -72,7 +84,15 @@ public class VehicleSearchFragment extends Fragment {
         submitSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                search();
+                Intent intent = new Intent(getActivity(), VehicleResultsActivity.class);
+                intent.putExtra("params", params);
+                if (zip.getText().toString().compareTo("") != 0){
+                    intent.putExtra("zip", zip.getText().toString());
+                }
+                else{
+                    intent.putExtra("zip", "nope");
+                }
+                startActivity(intent);
             }
         });
 
@@ -85,7 +105,7 @@ public class VehicleSearchFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selected = spinner.getSelectedItem().toString();
                 params[index] = selected;
-                if (index == 0){
+                if (index == 0) {
                     int identifier = getActivity().getResources().getIdentifier(spinner.getSelectedItem().toString(), "array", getActivity().getPackageName());
                     String[] models = getActivity().getResources().getStringArray(identifier);
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models); //selected item will look like a spinner set from XML
@@ -100,55 +120,4 @@ public class VehicleSearchFragment extends Fragment {
         });
     }
 
-    public void search() {
-        final GPS gps = new GPS(getActivity());
-        Double latitiude = gps.getLatitude();
-        Double longitude = gps.getLongitude();
-        String latt = String.valueOf(latitiude);
-        String longi = String.valueOf(longitude);
-
-        HashMap<String, String> param = new HashMap<String, String>();
-        if (zip.getText().toString().compareTo("") == 0) {
-            param.put("lng", latt);
-            param.put("lat", longi);
-        } else {
-            double[] location = ((SearchActivity)getActivity()).getLoc(zip.getText().toString());
-            if (location[0] != -1000){
-                latt = String.valueOf(location[0]);
-                longi = String.valueOf(location[1]);
-                param.put("lng", longi);
-                param.put("lat", latt);
-            }
-
-        }
-
-        param.put("make", params[0]);
-        param.put("model", params[1]);
-        param.put("type", params[2]);
-        param.put("max", params[3]);
-        parameters = new RequestParams(param);
-        System.out.println(parameters);
-        SpecialsRestClient.get("vehicle", parameters, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
-                //ArrayList<Special> specials = new ArrayList<Special>();
-
-                    System.out.println(request.toString());
-//                    JSONObject dealer = (JSONObject) request.get(0);
-//                    JSONArray specialArray = (JSONArray) dealer.get("specials");
-//                    for (int i = 0; i < specialArray.length(); i++) {
-//                        Special special = new Special();
-//                        JSONObject spec = (JSONObject) specialArray.get(i);
-//                        special.setTitle(spec.getString("title"));
-//                        special.setDealer(dealer.getString("dealerName"));
-//                        special.setDescription(spec.getString("description"));
-//                        special.setType(spec.getString("type"));
-//                        specials.add(special);
-//                    }
-
-
-            }
-
-        });
-    }
 }

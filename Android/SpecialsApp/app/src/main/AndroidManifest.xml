@@ -30,6 +30,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.specialsapp.app.Activities.HomeActivity" />
         </activity>
+        <activity
+            android:name=".Activities.VehicleResultsActivity"
+            android:label="@string/title_activity_vehicle_results" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.specialsapp.app.Activities.SearchActivity" />
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

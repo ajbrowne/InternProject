@@ -127,22 +127,37 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         param.put("lat", latt);
         RequestParams params = new RequestParams(param);
 
-        SpecialsRestClient.get("special", params, new JsonHttpResponseHandler() {
+        SpecialsRestClient.get("vehicle", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
-                specials = new ArrayList<Special>();
+                ArrayList<Special> specials = new ArrayList<Special>();
                 try {
                     JSONObject dealer = (JSONObject) request.get(0);
                     JSONArray specialArray = (JSONArray) dealer.get("specials");
                     for (int i = 0; i < specialArray.length(); i++) {
                         Special special = new Special();
                         JSONObject spec = (JSONObject) specialArray.get(i);
+                        JSONArray vehicles = (JSONArray) spec.get(("vehicleId"));
+                        if (vehicles.length() == 1) {
+                            JSONArray vehicles2 = (JSONArray) dealer.get("vehicles");
+                            for (int j = 0; j < vehicles2.length(); j++) {
+                                JSONObject vehicle = (JSONObject) vehicles2.get(i);
+                                JSONArray ids = (JSONArray) spec.get("vehicleId");
+                                if (vehicle.getString("id").compareTo((String) ids.get(0)) == 0) {
+                                    special.setPrice(vehicle.getInt("price"));
+                                    special.setAmount(spec.getString("amount"));
+                                }
+                            }
+                        } else {
+                            special.setAmount("Multiple Vehicles");
+                        }
                         special.setTitle(spec.getString("title"));
                         special.setDealer(dealer.getString("dealerName"));
                         special.setDescription(spec.getString("description"));
                         special.setType(spec.getString("type"));
                         specials.add(special);
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -161,7 +176,6 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                     mPullToRefreshLayout.setRefreshComplete();
                 }
             }
-
         });
     }
 
@@ -178,6 +192,14 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
             card.setDescription(specials.get(i).getDescription());
             card.setDealer(specials.get(i).getDealer());
             card.setSpecialType(specials.get(i).getType());
+            if (specials.get(i).getPrice() != -1000){
+                int old = Integer.parseInt(specials.get(i).getAmount());
+                card.setNewPrice(String.valueOf(specials.get(i).getPrice() - old));
+                card.setOldPrice(String.valueOf(specials.get(i).getPrice()));
+            }
+            else{
+                card.setOldPrice(specials.get(i).getAmount());
+            }
 
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override

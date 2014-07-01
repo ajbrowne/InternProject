@@ -23,12 +23,10 @@
         <item>Specials Near You</item>
         <item>Search</item>
     </string-array>
-
     <string-array name="location_array">
         <item>Current Location</item>
         <item>Other</item>
     </string-array>
-
     <string-array name="search_array">
         <item>Dealer</item>
         <item>Make</item>
@@ -36,7 +34,6 @@
         <item>Year</item>
         <item>Type</item>
     </string-array>
-
     <string-array name="makes">
         <item>All</item>
         <item>Acura</item>
@@ -83,12 +80,10 @@
         <item>Volkswagen</item>
         <item>Volvo</item>
     </string-array>
-
     <string-array name="models_Ford">
         <item>Escape</item>
         <item>Focus</item>
     </string-array>
-
     <string-array name="priceRange">
         <item>No Maximum Price</item>
         <item>$1,000</item>
@@ -132,13 +127,11 @@
         <item>$95,000</item>
         <item>$100,000</item>
     </string-array>
-
     <string-array name="type">
         <item>New</item>
         <item>Used</item>
         <item>Certified</item>
     </string-array>
-
     <string-array name="Pontiac">
         <item>1000</item>
         <item>6000</item>
@@ -155,10 +148,7 @@
         <item>Grand Prix</item>
         <item>GTO</item>
     </string-array>
-
-    <string-array name="All">
-
-    </string-array>
+    <string-array name="All"></string-array>
 
     <string name="title_activity_specials">SpecialsActivity</string>
     <string name="title_section1">Section 1</string>
@@ -168,5 +158,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_vehicle_results">VehicleResultsActivity</string>
 
 </resources>

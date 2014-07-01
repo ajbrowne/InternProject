@@ -9,14 +9,17 @@ public class Special {
     private String description;
     private String type;
     private String dealer;
+    private int price = -1000;
+    private String amount;
 
     public Special(){}
 
-    public Special(String title, String description, String type, String dealer){
+    public Special(String title, String description, String type, String dealer, String amount){
         this.title = title;
         this.description = description;
         this.type = type;
         this.dealer = dealer;
+        this.amount = amount;
     }
 
     public String getTitle() {
@@ -49,6 +52,22 @@ public class Special {
 
     public void setDealer(String dealer) {
         this.dealer = dealer;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Override
