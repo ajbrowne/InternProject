@@ -18,7 +18,8 @@ android:orientation="horizontal">
     android:id="@+id/price_old"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/strikethrough"/>
+    android:text="@string/strikethrough"
+    android:textColor="#aaa"/>
 
 <TextView
     android:id="@+id/price_new"

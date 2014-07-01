@@ -213,6 +213,8 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                     SpecialCard temp = (SpecialCard) card;
                     intent.putExtra("title",  temp.getTitle());
                     intent.putExtra("description", temp.getDescription());
+                    intent.putExtra("oldP", temp.getOldPrice());
+                    intent.putExtra("newP", temp.getNewPrice());
                     getActivity().startActivity(intent);
 
                 }
