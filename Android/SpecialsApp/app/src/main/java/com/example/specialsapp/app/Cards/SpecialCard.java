@@ -54,11 +54,13 @@ public class SpecialCard extends Card {
         mTitle.setText(title);
         mDescription.setText(description);
         mSpecialType.setText(type);
-        mOldPrice.setText("$" + oldPrice);
-        mNewPrice.setText("$" + newPrice);
         if (mOldPrice.getText().toString().compareTo("Multiple Vehicles") != 0){
             mOldPrice.setPaintFlags(mOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             mNewPrice.setText("$" + newPrice);
+            mOldPrice.setText("$" + oldPrice);
+        }
+        else{
+            mOldPrice.setText(oldPrice);
         }
     }
 

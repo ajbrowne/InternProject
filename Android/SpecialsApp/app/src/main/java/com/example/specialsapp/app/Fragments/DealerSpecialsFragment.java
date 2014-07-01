@@ -244,7 +244,6 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
         if (id == R.id.search){
-            SearchActivity searchActivity = new SearchActivity();
             Intent intent = new Intent(getActivity(), SearchActivity.class);
             intent.putExtra("tab", 1);
             startActivity(intent);
