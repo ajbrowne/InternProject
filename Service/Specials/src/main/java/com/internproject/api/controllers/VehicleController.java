@@ -39,11 +39,11 @@ public class VehicleController {
     public ResponseEntity<List<Vehicle>> getVehicles(@ModelAttribute Vehicle vehicle){
         List<Vehicle> vehicles = vehicleService.getVehicles(vehicle);
         if(vehicles.size() == 0){
-            log.info("No Specials found");
+            log.info("No Vehicles found");
             return new ResponseEntity<List<Vehicle>>(vehicles , HttpStatus.BAD_REQUEST);
         }
         //Successfully found specials
-        log.info(vehicles.size() + " Specials were found that matched the criteria");
+        log.info(vehicles.size() + " Vehicles were found that matched the criteria");
         return new ResponseEntity<List<Vehicle>>(vehicles ,HttpStatus.OK);
     }
 }

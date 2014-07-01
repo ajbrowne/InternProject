@@ -71,15 +71,15 @@ public class RunnableChild implements Runnable {
     private void vehicleSearch() {
         Query query = new Query();
         List<Vehicle> temp = new ArrayList<Vehicle>();
-        if(vehicle.getId() != null && name.equals("id")){
-            temp = runQuery(name, dealer.getId(), query,0);
-        }else if(vehicle.getYear() != 0 && name.equals("year")){
+        if(name.equals("id") && vehicle.getId() != null){
+            temp = runQuery(name, vehicle.getId(), query,0);
+        }else if(name.equals("year") && vehicle.getYear() != 0){
             temp = runQuery(name, null, query, vehicle.getYear());
-        }else if(vehicle.getMake() != null && name.equals("make")){
+        }else if(name.equals("make") && vehicle.getMake() != null){
             temp = runQuery(name, vehicle.getMake(), query, 0);
-        }else if(vehicle.getModel() != null && name.equals("model")){
+        }else if(name.equals("model") && vehicle.getModel() != null){
             temp = runQuery(name, vehicle.getModel(), query,0);
-        }else if(vehicle.getTrim() != null && name.equals("trim")){
+        }else if(name.equals("trim") && vehicle.getTrim() != null){
             temp = runQuery(name, vehicle.getTrim(), query,0);
         }
 

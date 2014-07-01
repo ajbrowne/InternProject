@@ -29,6 +29,6 @@ public class MongoVehicleRepository implements VehicleRepository {
 
     @Override
     public List<Vehicle> getVehicles(Vehicle vehicle, Query query) {
-        return mongoTemplate.find(query, Vehicle.class);
+        return mongoTemplate.find(query, Vehicle.class, "vehicles");
     }
 }

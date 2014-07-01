@@ -105,10 +105,10 @@ public class RunnableQuery implements Runnable {
 
     public void vehicleChildren(){
         RunnableChild t1 = new RunnableChild("id", name, vehicleRepository, vehicle, vehicles);
-        RunnableChild t5 = new RunnableChild("year", name,dealerRepository, dealer, dealers);
-        RunnableChild t2 = new RunnableChild("make", name,dealerRepository, dealer, dealers);
-        RunnableChild t3 = new RunnableChild("model", name,dealerRepository, dealer, dealers);
-        RunnableChild t4 = new RunnableChild("trim", name,dealerRepository, dealer, dealers);
+        RunnableChild t5 = new RunnableChild("year", name,vehicleRepository, vehicle, vehicles);
+        RunnableChild t2 = new RunnableChild("make", name,vehicleRepository, vehicle, vehicles);
+        RunnableChild t3 = new RunnableChild("model", name,vehicleRepository, vehicle, vehicles);
+        RunnableChild t4 = new RunnableChild("trim", name,vehicleRepository, vehicle, vehicles);
 
         RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5};
         ExecutorService es = Executors.newCachedThreadPool();
