@@ -210,6 +210,9 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                 @Override
                 public void onClick(Card card, View view) {
                     Intent intent = new Intent(getActivity(), SpecialDetail.class);
+                    SpecialCard temp = (SpecialCard) card;
+                    intent.putExtra("title",  temp.getTitle());
+                    intent.putExtra("description", temp.getDescription());
                     getActivity().startActivity(intent);
 
                 }

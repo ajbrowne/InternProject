@@ -17,6 +17,7 @@
             android:scaleType="fitXY"
             android:id="@+id/title_image"/>
         <TextView
+            android:id="@+id/title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Special Title"
@@ -53,7 +54,8 @@
             android:layout_gravity="center_horizontal"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/description"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="This is the default description information for this special. Thanks have a nice day."
             android:background="@drawable/card_background"
@@ -87,11 +89,13 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/see_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="See More"
                 android:clickable="true"
-                android:textColor="@color/text_select"/>
+                android:textColor="@color/text_select"
+                android:visibility="gone"/>
             </LinearLayout>
 
 
