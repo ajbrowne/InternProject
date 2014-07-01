@@ -127,7 +127,7 @@ public class VehicleSearchFragment extends Fragment {
         param.put("type", params[2]);
         param.put("max", params[3]);
         parameters = new RequestParams(param);
-
+        System.out.println(parameters);
         SpecialsRestClient.get("vehicle", parameters, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray request) {

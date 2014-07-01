@@ -72,16 +72,30 @@ public class MergeService {
         List<String> ids = new ArrayList<String>();
         List<Vehicle> returnVehicle = new ArrayList<Vehicle>();
         for(int i = 0; i < specials.size();i++){
-            ids = specials.get(i).getVehicleId();
-            for(int j = 0; j < ids.size(); j++){
-                vehicle.setId(ids.get(j));
-                temp = vehicleService.getVehicles(vehicle);
-                if(temp.size() != 0){
-                    returnVehicle.addAll(temp);
+            if(specials.get(i).getVehicleId().size() != 0){
+                ids = specials.get(i).getVehicleId();
+                for(int j = 0; j < ids.size(); j++){
+                    vehicle.setId(ids.get(j));
+                    temp = vehicleService.getVehicles(vehicle);
+                    if(temp.size() != 0){
+                        returnVehicle.addAll(temp);
+                    }
+                }
+            }
+
+        }
+        duplicateCheckVehicles(returnVehicle);
+        return returnVehicle;
+    }
+
+    private void duplicateCheckVehicles(List<Vehicle> vehiclesCheck){
+        for(int i=0;i<vehiclesCheck.size();i++){
+            for(int j=i+1;j<vehiclesCheck.size();j++){
+                if(vehiclesCheck.get(i).getId().equals(vehiclesCheck.get(j).getId())){
+                    vehiclesCheck.remove(j);
                 }
             }
         }
-        return returnVehicle;
     }
 
 }
