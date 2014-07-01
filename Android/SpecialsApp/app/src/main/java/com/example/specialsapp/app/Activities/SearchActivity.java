@@ -1,6 +1,8 @@
 package com.example.specialsapp.app.Activities;
 
 import android.app.ActionBar;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
@@ -20,7 +22,9 @@ import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
 import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Hosts all fragments that display dealers and their specials
@@ -147,6 +151,22 @@ public class SearchActivity extends FragmentActivity {
 
     public Menu getMenu(){
         return this.menu;
+    }
+
+    public double[] getLoc(String zip){
+        final Geocoder geocoder = new Geocoder(this);
+        double [] location = {-1000, -1000};
+        try{
+            List<Address> addresses = geocoder.getFromLocationName(zip, 1);
+            if (addresses != null && !addresses.isEmpty()){
+                Address address = addresses.get(0);
+                location[0] = address.getLatitude();
+                location[1] = address.getLongitude();
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return location;
     }
 
 }
