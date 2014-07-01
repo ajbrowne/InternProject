@@ -70,9 +70,10 @@ public class RunnableQuery implements Runnable {
         RunnableChild t4 = new RunnableChild("description", name,specialRepository, special, specials);
         RunnableChild t5 = new RunnableChild("amount", name,specialRepository, special, specials);
         RunnableChild t6 = new RunnableChild("dealer", name,specialRepository, special, specials);
-        RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5,t6};
+        RunnableChild t7 = new RunnableChild("vehicleId", name, specialRepository, special, specials);
+        RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5,t6, t7};
         ExecutorService es = Executors.newCachedThreadPool();
-        for(int i= 0; i < 6; i++){
+        for(int i= 0; i < 7; i++){
             es.execute(list[i]);
         }
         es.shutdown();

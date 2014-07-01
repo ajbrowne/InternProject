@@ -55,47 +55,43 @@ public class MergeService {
     }
 
     public List getNearestVehicles(Point point, Vehicle vehicle){
-        List<MergerObj> specials = getNearestSpecials(point);
-
-        for(int i =0; i < specials.size(); i++){
-            List<Vehicle> theVehicles = vehicleHelper(specials.get(i).getSpecials(), vehicle);
-            specials.get(i).setVehicles(theVehicles);
+        List<GeoResult> newDealer = dealerService.getDealerLocation(point);
+        List<MergerObj> specials = new ArrayList<MergerObj>();
+        List<Vehicle> tempVehicles = vehicleService.getVehicles(vehicle);
+        List<String> ids = new ArrayList<String>();
+        for(int j=0;j<tempVehicles.size();j++){
+            ids.add(tempVehicles.get(j).getId());
         }
+            for(int i =0; i < newDealer.size(); i++){
+                Dealer tempDealer = (Dealer)newDealer.get(i).getContent();
+                Special tempSpecial = new Special();
+                tempSpecial.setDealer(tempDealer.getId());
+                tempSpecial.setVehicleId(ids);
+                List<Special> temp = specialService.getSpecials(tempSpecial);
 
+                temp = vehicleHelper(temp, ids);
+                //store the dealers name and the special in an object to pass to the app
+                //dealer name is for the cards in the app.
+                if(temp.size() != 0) {
+                    specials.add(new MergerObj(tempDealer.getName(), temp, tempVehicles));
+                }
+            }
 
         return specials;
 
     }
 
-    public List<Vehicle> vehicleHelper(List<Special> specials, Vehicle vehicle){
-        List<Vehicle> temp = new ArrayList<Vehicle>();
-        List<String> ids = new ArrayList<String>();
-        List<Vehicle> returnVehicle = new ArrayList<Vehicle>();
-        for(int i = 0; i < specials.size();i++){
-            if(specials.get(i).getVehicleId().size() != 0){
-                ids = specials.get(i).getVehicleId();
-                for(int j = 0; j < ids.size(); j++){
-                    vehicle.setId(ids.get(j));
-                    temp = vehicleService.getVehicles(vehicle);
-                    if(temp.size() != 0){
-                        returnVehicle.addAll(temp);
-                    }
-                }
-            }
+    public List<Special> vehicleHelper(List<Special> specials, List<String> vehicleIds){
 
-        }
-        duplicateCheckVehicles(returnVehicle);
-        return returnVehicle;
-    }
-
-    private void duplicateCheckVehicles(List<Vehicle> vehiclesCheck){
-        for(int i=0;i<vehiclesCheck.size();i++){
-            for(int j=i+1;j<vehiclesCheck.size();j++){
-                if(vehiclesCheck.get(i).getId().equals(vehiclesCheck.get(j).getId())){
-                    vehiclesCheck.remove(j);
+        for(int i =0; i<specials.size();i++){
+            for(int j=0;j<vehicleIds.size();j++){
+                if(!specials.get(i).getVehicleId().contains(vehicleIds.get(j))){
+                    specials.remove(i);
                 }
             }
         }
+
+        return specials;
     }
 
 }

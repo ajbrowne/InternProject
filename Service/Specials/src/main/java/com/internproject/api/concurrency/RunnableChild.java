@@ -111,16 +111,19 @@ public class RunnableChild implements Runnable {
 
     }
 
-    private List runQuery(String queryType, String value, Query query, int optional){
+    private List runQuery(String queryType, String value, Query query, int optional) {
         Criteria criteria;
-        if(queryType.equals("id") || queryType.equals("year")){
-            if(optional != 0){
+        if (queryType.equals("id") || queryType.equals("year")) {
+            if (optional != 0) {
                 criteria = Criteria.where(queryType).is(optional);
                 query.addCriteria(criteria);
-            }else {
+            } else {
                 criteria = Criteria.where(queryType).is(value);
                 query.addCriteria(criteria);
             }
+        }else if(queryType.equals("vehicleId")){
+            criteria = Criteria.where(value).in("vehicleId");
+            query.addCriteria(criteria);
         }else{
             criteria = Criteria.where(queryType).regex(".*" + value + ".*", "i");
             query.addCriteria(criteria);
@@ -184,6 +187,11 @@ public class RunnableChild implements Runnable {
         }
         if(special.getAmount() != null && name == "amount"){
             temp = runQuery(name, special.getAmount(), query,0);
+        }
+        if(special.getVehicleId() != null && name.equals("vehicleId")){
+            for(int i = 0; i < special.getVehicleId().size();i++){
+                temp.addAll(runQuery(name, special.getVehicleId().get(i), query, 0));
+            }
         }
 
         synchronized (RunnableChild.class){
