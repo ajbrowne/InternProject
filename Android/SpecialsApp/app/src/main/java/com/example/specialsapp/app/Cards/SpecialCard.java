@@ -50,17 +50,16 @@ public class SpecialCard extends Card {
         mOldPrice = (TextView) parent.findViewById(R.id.oldPrice);
 
 
-        mDealer.setText(this.dealer);
+        mDealer.setText(dealer);
         mTitle.setText(title);
         mDescription.setText(description);
         mSpecialType.setText(type);
+        mOldPrice.setText(oldPrice);
+
         if (mOldPrice.getText().toString().compareTo("Multiple Vehicles") != 0){
+            mOldPrice.setText("$" + oldPrice);
             mOldPrice.setPaintFlags(mOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             mNewPrice.setText("$" + newPrice);
-            mOldPrice.setText("$" + oldPrice);
-        }
-        else{
-            mOldPrice.setText(oldPrice);
         }
     }
 

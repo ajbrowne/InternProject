@@ -126,7 +126,10 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("lng", longg);
         param.put("lat", latt);
+        param.put("make", "");
         RequestParams params = new RequestParams(param);
+
+        System.out.println(params);
 
         SpecialsRestClient.get("vehicle", params, new JsonHttpResponseHandler() {
             @Override
