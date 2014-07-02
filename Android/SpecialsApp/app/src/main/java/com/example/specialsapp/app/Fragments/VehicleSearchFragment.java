@@ -84,6 +84,15 @@ public class VehicleSearchFragment extends Fragment {
         submitSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (makeSpinner.getSelectedItem().toString().compareTo("All") == 0){
+                    params[0] = "";
+                }
+                if (typeSpinner.getSelectedItem().toString().compareTo("Any") == 0){
+                    params[2] = "";
+                }
+                if (priceSpinner.getSelectedItem().toString().compareTo("None") == 0){
+                    params[3] = "";
+                }
                 Intent intent = new Intent(getActivity(), VehicleResultsActivity.class);
                 intent.putExtra("params", params);
                 if (zip.getText().toString().compareTo("") != 0){

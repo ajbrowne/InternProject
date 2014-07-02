@@ -108,6 +108,8 @@ public class HomeActivity extends FragmentActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
         if (id == R.id.action_logout) {

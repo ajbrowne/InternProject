@@ -37,11 +37,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.specialsapp.app.Activities.SearchActivity" />
         </activity>
-        <activity android:name=".Activities.SpecialDetail"
-            android:label="SpecialDetail">
+        <activity
+            android:name=".Activities.SpecialDetail"
+            android:label="SpecialDetail" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.specialsapp.app.Activities.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".Activities.SettingsActivity"
+            android:label="@string/title_activity_settings" >
         </activity>
     </application>
 
