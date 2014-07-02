@@ -1,4 +1,4 @@
-package com.example.specialsapp.app.Fragments;
+package com.example.specialsapp.app.SignUpFragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.MainActivity;
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
+import com.example.specialsapp.app.Fragments.LoginFragment;
 import com.example.specialsapp.app.R;
 
 /**
@@ -57,11 +58,11 @@ public class SignupPasswordFragment extends Fragment {
             public void onClick(View v) {
                 userPassword = password.getText().toString();
                 confirmPassword = confirm.getText().toString();
-                email = ((MainActivity) getActivity()).getEmail();
-                first = ((MainActivity) getActivity()).getFirstName();
-                last = ((MainActivity) getActivity()).getLastName();
-                zip = ((MainActivity) getActivity()).getZip();
-                phone = ((MainActivity) getActivity()).getPhoneNumber();
+                email = ((MainActivity) getActivity()).getUser().getEmail();
+                first = ((MainActivity) getActivity()).getUser().getFirstName();
+                last = ((MainActivity) getActivity()).getUser().getLastName();
+                zip = ((MainActivity) getActivity()).getUser().getZip();
+                phone = ((MainActivity) getActivity()).getUser().getPhoneNumber();
 
                 if (userPassword.compareTo(confirmPassword) != 0) {
                     new CustomAlertDialog(getActivity(), "Passwords do not match", "Please enter your password correctly both times.").show();
@@ -70,7 +71,7 @@ public class SignupPasswordFragment extends Fragment {
                 } else {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(userPassword);
 
-                    ((MainActivity) getActivity()).setPassword(encrypted);
+                    ((MainActivity) getActivity()).getUser().setPassword(encrypted);
                     ((MainActivity)getActivity()).register(email, encrypted, phone, zip, first, last); // Async call to register
                 }
             }

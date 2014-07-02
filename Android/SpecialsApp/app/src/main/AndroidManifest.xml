@@ -48,6 +48,10 @@
             android:name=".Activities.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name=".Activities.BaseActivity"
+            android:label="@string/title_activity_base" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

@@ -84,12 +84,12 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
 
         // Get location upon opening app, returning to Dealers
         final GPS gps = new GPS(getActivity());
-        Double latitiude = gps.getLatitude();
+        Double latitude = gps.getLatitude();
         Double longitude = gps.getLongitude();
 
         // Call to retrieve specials to display
         try {
-            getDealerSpecials(longitude, latitiude);
+            getDealerSpecials(longitude, latitude);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -100,11 +100,11 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
     @Override
     public void onRefreshStarted(View view) {
         final GPS gps = new GPS(getActivity());
-        Double latitiude = gps.getLatitude();
+        Double latitude = gps.getLatitude();
         Double longitude = gps.getLongitude();
         // Call to retrieve specials to display
         try {
-           getDealerSpecials(longitude, latitiude);
+           getDealerSpecials(longitude, latitude);
         } catch (JSONException e) {
             e.printStackTrace();
         }

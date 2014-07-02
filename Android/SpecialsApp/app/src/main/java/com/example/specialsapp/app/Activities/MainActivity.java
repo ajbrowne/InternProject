@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.specialsapp.app.Fragments.LoginFragment;
+import com.example.specialsapp.app.Models.User;
 import com.example.specialsapp.app.R;
 import com.example.specialsapp.app.Rest.SpecialsRestClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -32,19 +33,35 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Hosts all fragments that deal with logging in and signing up
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
-    private String zip;
-    private String phoneNumber;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
+    private static final String Username = "username";
+    private static final String Password = "password";
+    private User user;
+
+    /**
+     * @param data
+     * @return
+     * @throws java.io.IOException
+     */
+    private static String convertToHex(byte[] data) throws java.io.IOException {
+
+        StringBuffer sb = new StringBuffer();
+        String hex = null;
+
+        hex = Base64.encodeToString(data, 0, data.length, Base64.NO_CLOSE);
+
+        sb.append(hex);
+
+        return sb.toString();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        user = new User();
 
         // Create and show login fragment
         LoginFragment fragment = new LoginFragment();
@@ -58,23 +75,15 @@ public class MainActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
     /**
-     *
      * Http/Async call used for logging in with provided username and password
      *
      * @param username - email address entered
@@ -82,26 +91,25 @@ public class MainActivity extends FragmentActivity {
      */
     public void login(String username, String password) {
 
-        final Boolean loggedIn;
-        final String pass = password;
-        final String user = username;
+        final String Pass = password;
+        final String User = username;
         JSONObject auth = new JSONObject();
 
         // Async call using Async HTTP Android client posting JSON for login
         try {
-            auth.put("username", username);
-            auth.put("password", password);
+            auth.put(Username, username);
+            auth.put(Password, password);
             StringEntity entity = new StringEntity(auth.toString());
             SpecialsRestClient.post(this, "login", entity, "application/json", new JsonHttpResponseHandler() {
                 @Override
-                public void onSuccess(int statusCode, Header[] headers,JSONObject request) {
+                public void onSuccess(int statusCode, Header[] headers, JSONObject request) {
                     try {
                         // Check response for success and cache user login
                         String response = request.getString("response");
                         if (response.compareTo("Login Success") == 0) {
                             savePreferences("stored", true);
-                            savePreferences("User", user);
-                            savePreferences("Password", pass);
+                            savePreferences("User", User);
+                            savePreferences("Password", Pass);
                             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();
@@ -119,7 +127,6 @@ public class MainActivity extends FragmentActivity {
     }
 
     /**
-     *
      * Http/Async call used for registering with provided user credentials
      *
      * @param username
@@ -137,8 +144,8 @@ public class MainActivity extends FragmentActivity {
         JSONObject auth = new JSONObject();
 
         try {
-            auth.put("username", username);
-            auth.put("password", password);
+            auth.put(Username, username);
+            auth.put(Password, password);
             auth.put("role", 1);
             auth.put("phone", phone);
             auth.put("zip", zip);
@@ -191,23 +198,10 @@ public class MainActivity extends FragmentActivity {
         return SHAHash;
     }
 
-    // Converts to hex for encryption
-    private static String convertToHex(byte[] data) throws java.io.IOException {
-
-        StringBuffer sb = new StringBuffer();
-        String hex = null;
-
-        hex = Base64.encodeToString(data, 0, data.length, Base64.NO_CLOSE);
-
-        sb.append(hex);
-
-        return sb.toString();
-    }
-
     /*
         Used to check for login and allow login caching
      */
-    public void loadSavedPreferences() {
+    private void loadSavedPreferences() {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
         String sUser = shared.getString("User", "");
         String sPass = shared.getString("Password", "");
@@ -220,7 +214,7 @@ public class MainActivity extends FragmentActivity {
     /*
         Stores user for cached login
      */
-    public void savePreferences(String key, String value) {
+    private void savePreferences(String key, String value) {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = shared.edit();
         edit.putString(key, value);
@@ -230,7 +224,7 @@ public class MainActivity extends FragmentActivity {
     /*
         Stores user for cached login
      */
-    public void savePreferences(String key, boolean value) {
+    private void savePreferences(String key, boolean value) {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = shared.edit();
         edit.putBoolean(key, value);
@@ -252,52 +246,11 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    // Getters and setters used for signup
-    public void setZip(String zip) {
-        this.zip = zip;
+    public User getUser() {
+        return user;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -1,11 +1,9 @@
-package com.example.specialsapp.app.Fragments;
+package com.example.specialsapp.app.SignUpFragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,20 +12,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.MainActivity;
+import com.example.specialsapp.app.Fragments.LoginFragment;
 import com.example.specialsapp.app.R;
 
 /**
  * A simple {@link Fragment} subclass.
  *
  */
-public class SignupNumberFragment extends Fragment {
+public class SignupEmailFragment extends Fragment {
 
     private Button next;
-    private EditText number;
-    private String phoneNumber;
     private TextView signin;
+    private EditText email;
+    private String emailAddress;
 
-    public SignupNumberFragment() {
+    public SignupEmailFragment() {
         // Required empty public constructor
     }
 
@@ -35,29 +34,27 @@ public class SignupNumberFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_signup_number, container, false);
-        next = (Button)view.findViewById(R.id.flow_button);
-        number = (EditText)view.findViewById(R.id.flow_number);
-        signin = (TextView)view.findViewById(R.id.flow_signin);
+        View view = inflater.inflate(R.layout.fragment_signup_email, container, false);
+        next = (Button)view.findViewById(R.id.flow3_button);
+        email = (EditText)view.findViewById(R.id.flow3_email);
+        signin = (TextView)view.findViewById(R.id.flow3_signin);
 
-        TelephonyManager tMgr = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-        if (tMgr.getLine1Number() != null){
-            String num = tMgr.getLine1Number();
-            num = ("(" + num.substring(0,3) + ") "  +num.substring(3,6) + "-" + num.substring(6,10));
-            number.setText(num);
-        }
+//        Gets email from logged in Google account to populate field (use this or ???)
+//        Account[] accounts = AccountManager.get(getActivity()).getAccountsByType("com.google");
+//        String e = accounts[0].name;
+//        email.setText(e);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phoneNumber = number.getText().toString();
-                ((MainActivity)getActivity()).setPhoneNumber(phoneNumber);
-                SignupZipFragment fragment = new SignupZipFragment();
+                emailAddress = email.getText().toString();
+                ((MainActivity)getActivity()).getUser().setEmail(emailAddress);
+                SignupPasswordFragment fragment = new SignupPasswordFragment();
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
-                fragmentTransaction.replace(R.id.fragmentContainer, fragment).addToBackStack(null);
+                fragmentTransaction.replace(R.id.fragmentContainer, fragment, "signupEmailFragment").addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });

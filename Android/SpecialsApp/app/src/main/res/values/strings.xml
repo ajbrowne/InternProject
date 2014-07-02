@@ -149,7 +149,7 @@
         <item>Grand Prix</item>
         <item>GTO</item>
     </string-array>
-    <string-array name="All"></string-array>
+    <string-array name="All" />
 
     <string name="title_activity_specials">SpecialsActivity</string>
     <string name="title_section1">Section 1</string>
@@ -160,5 +160,6 @@
     <string name="action_example">Example action</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="title_activity_vehicle_results">VehicleResultsActivity</string>
+    <string name="title_activity_base">BaseActivity</string>
 
 </resources>

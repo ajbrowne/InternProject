@@ -1,4 +1,4 @@
-package com.example.specialsapp.app.Fragments;
+package com.example.specialsapp.app.SignUpFragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.MainActivity;
+import com.example.specialsapp.app.Fragments.LoginFragment;
 import com.example.specialsapp.app.R;
 
 /**
@@ -42,7 +43,7 @@ public class SignupZipFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 zipCode = zip.getText().toString();
-                ((MainActivity)getActivity()).setZip(zipCode);
+                ((MainActivity)getActivity()).getUser().setZip(zipCode);
                 SignupNameFragment fragment = new SignupNameFragment();
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -70,15 +71,6 @@ public class SignupZipFragment extends Fragment {
         });
         // Inflate the layout for this fragment
         return view;
-    }
-
-    public static SignupZipFragment newInstance(String text) {
-        SignupZipFragment zip = new SignupZipFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("message", text);
-
-        zip.setArguments(bundle);
-        return zip;
     }
 
 }

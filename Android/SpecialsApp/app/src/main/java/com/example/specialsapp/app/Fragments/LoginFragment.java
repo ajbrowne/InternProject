@@ -14,6 +14,7 @@ import android.widget.EditText;
 import com.example.specialsapp.app.Activities.MainActivity;
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.R;
+import com.example.specialsapp.app.SignUpFragments.SignupNumberFragment;
 
 import java.util.Locale;
 
@@ -27,29 +28,25 @@ public class LoginFragment extends Fragment {
 
     private EditText username;
     private EditText password;
-    private Button login;
-    private Button signup;
-    private View loginView;
-    private String clear;
-    private FragmentManager fm;
-    int stack;
+    private FragmentManager fragmentManager;
+    int stackVar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        loginView = inflater.inflate(R.layout.fragment_login, container, false);
-        fm = ((MainActivity)getActivity()).getSupportFragmentManager();
+        View loginView = inflater.inflate(R.layout.fragment_login, container, false);
+        fragmentManager = getActivity().getSupportFragmentManager();
 
-        stack = fm.getBackStackEntryCount();
-        for (int i = 0; i < stack; i++) {
+        stackVar = fragmentManager.getBackStackEntryCount();
+        for (int i = 0; i < stackVar; i++) {
                 Log.i("MainActivity", "popping backstack");
-                fm.popBackStack();
+                fragmentManager.popBackStack();
         }
 
         // Link elements from xml
-        login = (Button) loginView.findViewById(R.id.loginButton);
-        signup = (Button) loginView.findViewById(R.id.signUpButton);
+        Button login = (Button) loginView.findViewById(R.id.loginButton);
+        Button signup = (Button) loginView.findViewById(R.id.signUpButton);
         username = (EditText) loginView.findViewById(R.id.email);
         password = (EditText) loginView.findViewById(R.id.password);
 
@@ -60,7 +57,6 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 SignupNumberFragment fragment = new SignupNumberFragment();
 
-                FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
                 fragmentTransaction.replace(R.id.fragmentContainer, fragment, "number").addToBackStack(null);

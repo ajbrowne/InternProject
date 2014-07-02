@@ -38,7 +38,7 @@ import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
 
-public class VehicleResultsActivity extends FragmentActivity {
+public class VehicleResultsActivity extends BaseActivity {
 
     private String[] params = new String[5];
     private RequestParams parameters;
@@ -47,6 +47,8 @@ public class VehicleResultsActivity extends FragmentActivity {
     private CardListView cardListView;
     private String zip;
     private Menu menu;
+
+    private static final int defaultLocation = -1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,46 +67,17 @@ public class VehicleResultsActivity extends FragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.vehicle_results, menu);
-        return true;
+        getMenuInflater().inflate(R.menu.search, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.action_logout) {
-            SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor edit = shared.edit();
-            edit.putString("User", "");
-            edit.putString("Password", "");
-            edit.putBoolean("stored", false);
-            edit.commit();
-            menu.findItem(R.id.action_logout).setVisible(false);
-            menu.findItem(R.id.action_login).setVisible(true);
-            new CustomAlertDialog(this, "Logout", "You have been logged out. You can no longer send contact info to dealers").show();
-            return true;
-        }
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        if (id == R.id.action_login) {
-            Intent intent = new Intent(VehicleResultsActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
-    public void search() {
+    private void search() {
         final GPS gps = new GPS(this);
         Double latitiude = gps.getLatitude();
         Double longitude = gps.getLongitude();
@@ -173,7 +146,6 @@ public class VehicleResultsActivity extends FragmentActivity {
                 cardListView = (CardListView)findViewById(R.id.myList2);
                 if (cardListView != null) {
                     cardListView.setAdapter(mCardArrayAdapter);
-                    //cardListView.setOnScrollListener(VehicleSearchFragment.this);
                 }
             }
         });
@@ -184,20 +156,21 @@ public class VehicleResultsActivity extends FragmentActivity {
      * @param specials - Specials that will have cards created for them
      * @return Arraylist of created cards
      */
-    public ArrayList<Card> createSpecials(int index, ArrayList<Special> specials, ArrayList<Card> cards) {
+    private ArrayList<Card> createSpecials(int index, ArrayList<Special> specials, ArrayList<Card> cards) {
         for (int i = index; i < specials.size(); i++) {
             SpecialCard card = new SpecialCard(this, R.layout.special_card);
-            card.setTitle(specials.get(i).getTitle());
-            card.setDescription(specials.get(i).getDescription());
-            card.setDealer(specials.get(i).getDealer());
-            card.setSpecialType(specials.get(i).getType());
-            if (specials.get(i).getPrice() != -1000){
+            Special special = specials.get(i);
+            card.setTitle(special.getTitle());
+            card.setDescription(special.getDescription());
+            card.setDealer(special.getDealer());
+            card.setSpecialType(special.getType());
+            if (special.getPrice() != defaultLocation){
                 int old = Integer.parseInt(specials.get(i).getAmount());
-                card.setNewPrice(String.valueOf(specials.get(i).getPrice() - old));
-                card.setOldPrice(String.valueOf(specials.get(i).getPrice()));
+                card.setNewPrice(String.valueOf(special.getPrice() - old));
+                card.setOldPrice(String.valueOf(special.getPrice()));
             }
             else{
-                card.setOldPrice(specials.get(i).getAmount());
+                card.setOldPrice(special.getAmount());
             }
 
             card.setOnClickListener(new Card.OnCardClickListener() {
@@ -216,9 +189,9 @@ public class VehicleResultsActivity extends FragmentActivity {
         return cards;
     }
 
-    public double[] getLoc(String zip){
+    private double[] getLoc(String zip){
         final Geocoder geocoder = new Geocoder(this);
-        double [] location = {-1000, -1000};
+        double [] location = {defaultLocation, defaultLocation};
         try{
             List<Address> addresses = geocoder.getFromLocationName(zip, 1);
             if (addresses != null && !addresses.isEmpty()){

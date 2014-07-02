@@ -17,10 +17,10 @@ import it.gmariotti.cardslib.library.internal.Card;
  */
 public class DealerCard extends Card {
 
-    protected TextView mDealer;
-    protected TextView mCityState;
-    protected String dealer;
-    protected String cityState;
+    private TextView mDealer;
+    private TextView mCityState;
+    private String dealer;
+    private String cityState;
 
     public DealerCard(Context context) {
         this(context, R.layout.special_card);

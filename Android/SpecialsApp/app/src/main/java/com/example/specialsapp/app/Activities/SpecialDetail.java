@@ -16,7 +16,7 @@ import com.example.specialsapp.app.R;
 import org.w3c.dom.Text;
 
 
-public class SpecialDetail extends Activity {
+public class SpecialDetail extends BaseActivity {
 
 
     private TextView mTitle;
@@ -48,52 +48,13 @@ public class SpecialDetail extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-
-        // Check login status, change menu appropriately
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean status = shared.getBoolean("stored", true);
-        if (status) {
-            menu.findItem(R.id.action_logout).setVisible(true);
-            menu.findItem(R.id.action_login).setVisible(false);
-        } else {
-            menu.findItem(R.id.action_logout).setVisible(false);
-            menu.findItem(R.id.action_login).setVisible(true);
-        }
+        getMenuInflater().inflate(R.menu.search, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.action_logout) {
-            SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor edit = shared.edit();
-            edit.putString("User", "");
-            edit.putString("Password", "");
-            edit.putBoolean("stored", false);
-            edit.commit();
-            menu.findItem(R.id.action_logout).setVisible(false);
-            menu.findItem(R.id.action_login).setVisible(true);
-            new CustomAlertDialog(this, "Logout", "You have been logged out. You can no longer send contact info to dealers").show();
-            return true;
-        }
-        if (id == R.id.action_login) {
-            Intent intent = new Intent(SpecialDetail.this, MainActivity.class);
-            startActivity(intent);
-        }
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 }

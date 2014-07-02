@@ -47,9 +47,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 public class NearbyDealersFragment extends Fragment implements OnRefreshListener{
 
     private View homeView;
-    private ArrayList<Card> cards = new ArrayList<Card>();
     private CardListView cardListView;
-    private TextView dealerName;
     private Double lat;
     private Double longi;
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -68,8 +66,6 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
                 .allChildrenArePullable()
                 .listener(this)
                 .setup(mPullToRefreshLayout);
-
-        ActionBar actionBar = ((HomeActivity) getActivity()).getActionBar();
 
         // Get location upon opening app, returning to Dealers
         GPS gps = new GPS(getActivity());
@@ -134,10 +130,10 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
     }
 
     public ArrayList<Card> createDealers(ArrayList<Dealer> dealers, ArrayList<Card> cards){
-        for (int i = 0; i <dealers.size(); i++){
+        for (Dealer dealer: dealers){
             DealerCard card = new DealerCard(getActivity(), R.layout.dealer_card);
-            card.setDealer(dealers.get(i).getName());
-            card.setCityState(dealers.get(i).getCity() + ", " + dealers.get(i).getState());
+            card.setDealer(dealer.getName());
+            card.setCityState(dealer.getCity() + ", " + dealer.getState());
             cards.add(card);
         }
         return cards;
@@ -146,8 +142,8 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
     @Override
     public void onRefreshStarted(View view) {
         final GPS gps = new GPS(getActivity());
-        Double latitiude = gps.getLatitude();
-        Double longitude = gps.getLongitude();
+        lat = gps.getLatitude();
+        longi = gps.getLongitude();
         // Call to retrieve dealers to display
         getDealers();
     }
@@ -156,7 +152,6 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
         if (id == R.id.search){
-            SearchActivity searchActivity = new SearchActivity();
             Intent intent = new Intent(getActivity(), SearchActivity.class);
             intent.putExtra("tab", 2);
             startActivity(intent);

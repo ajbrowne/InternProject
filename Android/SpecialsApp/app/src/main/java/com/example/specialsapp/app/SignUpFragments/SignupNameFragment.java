@@ -1,4 +1,4 @@
-package com.example.specialsapp.app.Fragments;
+package com.example.specialsapp.app.SignUpFragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.MainActivity;
+import com.example.specialsapp.app.Fragments.LoginFragment;
 import com.example.specialsapp.app.R;
+import com.example.specialsapp.app.SignUpFragments.SignupEmailFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,8 +22,6 @@ import com.example.specialsapp.app.R;
  */
 public class SignupNameFragment extends Fragment {
 
-    private Button next;
-    private TextView signin;
     private EditText first;
     private EditText last;
     private String firstName;
@@ -37,18 +37,19 @@ public class SignupNameFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_signup_name, container, false);
-        next = (Button)view.findViewById(R.id.flow2_button);
+        Button next = (Button)view.findViewById(R.id.flow2_button);
+        TextView signin = (TextView)view.findViewById(R.id.flow2_signin);
         first = (EditText)view.findViewById(R.id.flow2_first);
         last = (EditText)view.findViewById(R.id.flow2_last);
-        signin = (TextView)view.findViewById(R.id.flow2_signin);
+
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 firstName = first.getText().toString();
                 lastName = last.getText().toString();
-                ((MainActivity) getActivity()).setFirstName(firstName);
-                ((MainActivity) getActivity()).setLastName(lastName);
+                ((MainActivity) getActivity()).getUser().setFirstName(firstName);
+                ((MainActivity) getActivity()).getUser().setLastName(lastName);
                 SignupEmailFragment fragment = new SignupEmailFragment();
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
