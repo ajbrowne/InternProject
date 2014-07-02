@@ -1,7 +1,9 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -48,7 +50,7 @@ public class VehicleSearchFragment extends Fragment {
     private Spinner priceSpinner;
     private Spinner typeSpinner;
     private View view;
-    private EditText zip;
+    private String zip;
     private Button submitSearch;
     private String[] params = new String[5];
     private RequestParams parameters;
@@ -69,12 +71,14 @@ public class VehicleSearchFragment extends Fragment {
         View searchView = inflater.inflate(R.layout.fragment_special_search, container, false);
         view = searchView;
 
+        final SharedPreferences sharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+
         submitSearch = (Button) searchView.findViewById(R.id.searchButton);
         makeSpinner = (Spinner) searchView.findViewById(R.id.makeSpinner);
         modelSpinner = (Spinner) searchView.findViewById(R.id.modelSpinner);
         priceSpinner = (Spinner) searchView.findViewById(R.id.priceSpinner);
         typeSpinner = (Spinner) searchView.findViewById(R.id.typeSpinner);
-        zip = (EditText) searchView.findViewById(R.id.search_zip);
 
         setSpinnerListener(makeSpinner, 0);
         setSpinnerListener(modelSpinner, 1);
@@ -95,10 +99,12 @@ public class VehicleSearchFragment extends Fragment {
                 }
                 Intent intent = new Intent(getActivity(), VehicleResultsActivity.class);
                 intent.putExtra("params", params);
-                if (zip.getText().toString().compareTo("") != 0){
-                    intent.putExtra("zip", zip.getText().toString());
+                if (sharedPrefs.getBoolean("use_location", false) == false){
+                    System.out.println(sharedPrefs.getString("zip", "FFFFFFFF"));
+                    intent.putExtra("zip", sharedPrefs.getString("zip", ""));
                 }
                 else{
+                    System.out.println("Use LOCATION");
                     intent.putExtra("zip", "nope");
                 }
                 startActivity(intent);
