@@ -3,6 +3,7 @@ package com.internproject.api.services;
 import com.internproject.api.models.Special;
 import com.internproject.api.repositories.SpecialRepository;
 import com.internproject.api.concurrency.RunnableQuery;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class SpecialService {
 
     @Autowired
     private SpecialRepository specialRepository;
+    private Logger log = Logger.getLogger(SpecialService.class.getName());
 
     public SpecialService(SpecialRepository specialRepository){
         this.specialRepository = specialRepository;
@@ -41,7 +43,7 @@ public class SpecialService {
         try {
             es.awaitTermination(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.warn(e);
         }
         //Set trending flag on first 4 or all of the specials to true
         //Used to demo trending feature of app

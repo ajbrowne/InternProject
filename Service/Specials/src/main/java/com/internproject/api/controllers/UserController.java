@@ -62,9 +62,9 @@ public class UserController {
                 return new ResponseEntity<String>(jsonHelper.jsonGen("Invalid Username or Password"), HttpStatus.UNAUTHORIZED);
             }
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            log.error(e);
         } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
+            log.error(e);
         } catch (NullPointerException e){
             log.info("No such user");
             return new ResponseEntity<String>(jsonHelper.jsonGen("Invalid Username or Password"), HttpStatus.UNAUTHORIZED);
@@ -90,9 +90,9 @@ public class UserController {
             String securePass = PasswordHash.generateStorngPasswordHash(user.getPassword());
             user.setPassword(securePass);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            log.error(e);
         } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
+            log.error(e);
         }
         User check = userRepository.save(user);
         if(check == null){

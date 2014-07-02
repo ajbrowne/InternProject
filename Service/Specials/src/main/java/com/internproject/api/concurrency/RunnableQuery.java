@@ -6,6 +6,7 @@ import com.internproject.api.models.Vehicle;
 import com.internproject.api.repositories.DealerRepository;
 import com.internproject.api.repositories.SpecialRepository;
 import com.internproject.api.repositories.VehicleRepository;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -29,6 +30,7 @@ public class RunnableQuery implements Runnable {
     private DealerRepository dealerRepository;
     private Dealer dealer;
     private List<Dealer> dealers;
+    private Logger log = Logger.getLogger(RunnableQuery.class.getName());
 
     /*
      * Constructor for specials
@@ -100,7 +102,7 @@ public class RunnableQuery implements Runnable {
         try {
             es.awaitTermination(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.warn(e);
         }
     }
 
@@ -127,7 +129,7 @@ public class RunnableQuery implements Runnable {
         try {
             es.awaitTermination(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.warn(e);
         }
     }
 
@@ -154,7 +156,7 @@ public class RunnableQuery implements Runnable {
         try {
             es.awaitTermination(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.warn(e);
         }
     }
 

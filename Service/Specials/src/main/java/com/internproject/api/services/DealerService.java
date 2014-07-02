@@ -3,6 +3,7 @@ package com.internproject.api.services;
 import com.internproject.api.concurrency.RunnableQuery;
 import com.internproject.api.models.Dealer;
 import com.internproject.api.repositories.DealerRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
 
@@ -21,7 +22,7 @@ public class DealerService {
 
     @Autowired
     private DealerRepository dealerRepository;
-
+    private Logger log = Logger.getLogger(DealerService.class.getName());
     public DealerService(DealerRepository dealerRepository){
         this.dealerRepository = dealerRepository;
     }
@@ -64,7 +65,7 @@ public class DealerService {
         try {
             es.awaitTermination(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.warn(e);
         }
 
         return dealers;

@@ -3,6 +3,7 @@ package com.internproject.api.services;
 import com.internproject.api.concurrency.RunnableQuery;
 import com.internproject.api.models.Vehicle;
 import com.internproject.api.repositories.VehicleRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class VehicleService {
 
     @Autowired
     private VehicleRepository vehicleRepository;
-
+    private Logger log = Logger.getLogger(VehicleService.class.getName());
     public VehicleService(){}
     public VehicleService(VehicleRepository vehicleRepository){
         this.vehicleRepository = vehicleRepository;
@@ -52,7 +53,7 @@ public class VehicleService {
         try {
             es.awaitTermination(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.warn(e);
         }
         return vehicles;
     }
