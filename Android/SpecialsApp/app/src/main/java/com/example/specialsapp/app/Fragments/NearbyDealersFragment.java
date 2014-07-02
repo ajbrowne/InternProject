@@ -91,6 +91,11 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         param.put("lat", latt);
         RequestParams params = new RequestParams(param);
 
+        dealersAsync(params);
+
+    }
+
+    private void dealersAsync(RequestParams params) {
         SpecialsRestClient.get("dealers", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
@@ -110,23 +115,26 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
                     e.printStackTrace();
                 }
 
-                ArrayList<Card> cards = new ArrayList<Card>();
-                cards = createDealers(dealers, cards);
-
-                CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
-
-                cardListView = (CardListView) homeView.findViewById(R.id.myList);
-                if (cardListView != null) {
-                    cardListView.setAdapter(mCardArrayAdapter);
-                }
-
-                if(mPullToRefreshLayout != null){
-                    mPullToRefreshLayout.setRefreshComplete();
-                }
+                addCards(dealers);
             }
 
         });
+    }
 
+    private void addCards(ArrayList<Dealer> dealers) {
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards = createDealers(dealers, cards);
+
+        CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
+
+        cardListView = (CardListView) homeView.findViewById(R.id.myList);
+        if (cardListView != null) {
+            cardListView.setAdapter(mCardArrayAdapter);
+        }
+
+        if (mPullToRefreshLayout != null) {
+            mPullToRefreshLayout.setRefreshComplete();
+        }
     }
 
     public ArrayList<Card> createDealers(ArrayList<Dealer> dealers, ArrayList<Card> cards){

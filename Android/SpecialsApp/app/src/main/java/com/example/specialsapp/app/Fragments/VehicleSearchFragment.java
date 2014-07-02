@@ -5,39 +5,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.specialsapp.app.Activities.HomeActivity;
-import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Activities.VehicleResultsActivity;
-import com.example.specialsapp.app.Cards.SpecialCard;
-import com.example.specialsapp.app.GPS.GPS;
-import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.R;
-import com.example.specialsapp.app.Rest.SpecialsRestClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-import it.gmariotti.cardslib.library.view.CardListView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,17 +23,9 @@ public class VehicleSearchFragment extends Fragment {
 
     private Spinner makeSpinner;
     private Spinner modelSpinner;
-    private Spinner yearSpinner;
     private Spinner priceSpinner;
     private Spinner typeSpinner;
-    private View view;
-    private String zip;
-    private Button submitSearch;
     private String[] params = new String[5];
-    private RequestParams parameters;
-    private CardArrayAdapter mCardArrayAdapter;
-    private ArrayList<Card> cards;
-    private CardListView cardListView;
 
 
     public VehicleSearchFragment() {
@@ -69,12 +38,11 @@ public class VehicleSearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View searchView = inflater.inflate(R.layout.fragment_special_search, container, false);
-        view = searchView;
 
         final SharedPreferences sharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
 
-        submitSearch = (Button) searchView.findViewById(R.id.searchButton);
+        Button submitSearch = (Button) searchView.findViewById(R.id.searchButton);
         makeSpinner = (Spinner) searchView.findViewById(R.id.makeSpinner);
         modelSpinner = (Spinner) searchView.findViewById(R.id.modelSpinner);
         priceSpinner = (Spinner) searchView.findViewById(R.id.priceSpinner);
@@ -97,14 +65,13 @@ public class VehicleSearchFragment extends Fragment {
                 if (priceSpinner.getSelectedItem().toString().compareTo("None") == 0){
                     params[3] = "";
                 }
+
                 Intent intent = new Intent(getActivity(), VehicleResultsActivity.class);
                 intent.putExtra("params", params);
-                if (sharedPrefs.getBoolean("use_location", false) == false){
-                    System.out.println(sharedPrefs.getString("zip", "FFFFFFFF"));
+                if (sharedPrefs.getBoolean("use_location", false)){
                     intent.putExtra("zip", sharedPrefs.getString("zip", ""));
                 }
                 else{
-                    System.out.println("Use LOCATION");
                     intent.putExtra("zip", "nope");
                 }
                 startActivity(intent);

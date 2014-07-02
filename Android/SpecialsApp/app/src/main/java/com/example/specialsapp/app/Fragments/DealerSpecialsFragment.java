@@ -131,6 +131,10 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
 
         System.out.println(params);
 
+        specialsAsync(params);
+    }
+
+    private void specialsAsync(RequestParams params) {
         SpecialsRestClient.get("vehicle", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
@@ -160,28 +164,31 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                         special.setDescription(spec.getString("description"));
                         special.setType(spec.getString("type"));
                         specials.add(special);
-                        System.out.println("SIZE" + specials.size());
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                returnSize = specials.size();
-                cards = new ArrayList<Card>();
-                cards = createSpecials(0, specials, cards);
-                mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
-
-                cardListView = (CardListView) homeView.findViewById(R.id.myList1);
-                if (cardListView != null) {
-                    cardListView.setAdapter(mCardArrayAdapter);
-                    cardListView.setOnScrollListener(DealerSpecialsFragment.this);
-                }
-
-                if (mPullToRefreshLayout != null) {
-                    mPullToRefreshLayout.setRefreshComplete();
-                }
+                addCards(specials);
             }
         });
+    }
+
+    private void addCards(ArrayList<Special> specials) {
+        returnSize = specials.size();
+        cards = new ArrayList<Card>();
+        cards = createSpecials(0, specials, cards);
+        mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
+
+        cardListView = (CardListView) homeView.findViewById(R.id.myList1);
+        if (cardListView != null) {
+            cardListView.setAdapter(mCardArrayAdapter);
+            cardListView.setOnScrollListener(this);
+        }
+
+        if (mPullToRefreshLayout != null) {
+            mPullToRefreshLayout.setRefreshComplete();
+        }
     }
 
     /**

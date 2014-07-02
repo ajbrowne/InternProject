@@ -1,20 +1,14 @@
 package com.example.specialsapp.app.Activities;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.Cards.SpecialCard;
 import com.example.specialsapp.app.Fragments.SpecialDetailFragment;
 import com.example.specialsapp.app.GPS.GPS;
@@ -41,12 +35,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
 public class VehicleResultsActivity extends BaseActivity {
 
     private String[] params = new String[5];
-    private RequestParams parameters;
-    private CardArrayAdapter mCardArrayAdapter;
-    private ArrayList<Card> cards;
-    private CardListView cardListView;
     private String zip;
-    private Menu menu;
 
     private static final int defaultLocation = -1000;
 
@@ -79,9 +68,9 @@ public class VehicleResultsActivity extends BaseActivity {
 
     private void search() {
         final GPS gps = new GPS(this);
-        Double latitiude = gps.getLatitude();
+        Double latitude = gps.getLatitude();
         Double longitude = gps.getLongitude();
-        String latt = String.valueOf(latitiude);
+        String latt = String.valueOf(latitude);
         String longi = String.valueOf(longitude);
 
         HashMap<String, String> param = new HashMap<String, String>();
@@ -90,7 +79,7 @@ public class VehicleResultsActivity extends BaseActivity {
             param.put("lat", longi);
         } else {
             double[] location = getLoc(zip);
-            if (location[0] != -1000) {
+            if (location[0] != defaultLocation) {
                 latt = String.valueOf(location[0]);
                 longi = String.valueOf(location[1]);
                 param.put("lng", longi);
@@ -103,8 +92,12 @@ public class VehicleResultsActivity extends BaseActivity {
         param.put("model", params[1]);
         param.put("type", params[2]);
         param.put("max", params[3]);
-        parameters = new RequestParams(param);
-        System.out.println(parameters);
+        RequestParams parameters = new RequestParams(param);
+
+        vehicleAsync(parameters);
+    }
+
+    private void vehicleAsync(RequestParams parameters) {
         SpecialsRestClient.get("vehicle", parameters, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
@@ -139,17 +132,25 @@ public class VehicleResultsActivity extends BaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                cards = new ArrayList<Card>();
-                cards = createSpecials(0, specials, cards);
-                mCardArrayAdapter = new CardArrayAdapter(VehicleResultsActivity.this, cards);
-
-                cardListView = (CardListView)findViewById(R.id.myList2);
-                if (cardListView != null) {
-                    cardListView.setAdapter(mCardArrayAdapter);
-                }
+                addCards(specials);
             }
         });
     }
+
+    private void addCards(ArrayList<Special> specials) {
+        CardArrayAdapter mCardArrayAdapter;
+        ArrayList<Card> cards;
+        CardListView cardListView;
+        cards = new ArrayList<Card>();
+        cards = createSpecials(0, specials, cards);
+        mCardArrayAdapter = new CardArrayAdapter(this, cards);
+
+        cardListView = (CardListView) findViewById(R.id.myList2);
+        if (cardListView != null) {
+            cardListView.setAdapter(mCardArrayAdapter);
+        }
+    }
+
     /**
      * Creates cards for a given ArrayList of specials
      *

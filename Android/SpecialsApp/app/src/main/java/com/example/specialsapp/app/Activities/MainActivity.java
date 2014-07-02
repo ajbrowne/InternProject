@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -40,20 +39,20 @@ public class MainActivity extends BaseActivity {
     private User user;
 
     /**
-     * @param data
-     * @return
+     * @param data -
+     * @return -
      * @throws java.io.IOException
      */
     private static String convertToHex(byte[] data) throws java.io.IOException {
 
-        StringBuffer sb = new StringBuffer();
-        String hex = null;
+        StringBuilder stringBuilder = new StringBuilder();
+        String hex;
 
         hex = Base64.encodeToString(data, 0, data.length, Base64.NO_CLOSE);
 
-        sb.append(hex);
+        stringBuilder.append(hex);
 
-        return sb.toString();
+        return stringBuilder.toString();
     }
 
     @Override
@@ -129,18 +128,17 @@ public class MainActivity extends BaseActivity {
     /**
      * Http/Async call used for registering with provided user credentials
      *
-     * @param username
-     * @param password
-     * @param phone
-     * @param zip
-     * @param first
-     * @param last
+     * @param username -
+     * @param password -
+     * @param phone -
+     * @param zip -
+     * @param first -
+     * @param last -
      */
     public void register(String username, String password, String phone, String zip, String first, String last) {
 
-        final Boolean loggedIn;
-        final String pass = password;
-        final String user = username;
+        final String Pass = password;
+        final String User = username;
         JSONObject auth = new JSONObject();
 
         try {
@@ -157,8 +155,8 @@ public class MainActivity extends BaseActivity {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject request) {
                     if (statusCode == 201) {
                         savePreferences("stored", true);
-                        savePreferences("User", user);
-                        savePreferences("Password", pass);
+                        savePreferences("User", User);
+                        savePreferences("Password", Pass);
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
@@ -248,9 +246,5 @@ public class MainActivity extends BaseActivity {
 
     public User getUser() {
         return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
