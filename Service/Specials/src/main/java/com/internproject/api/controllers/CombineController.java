@@ -55,9 +55,18 @@ public class CombineController {
         return new ResponseEntity<List<MergerObj>>(mergeService.getNearestSpecials(point), HttpStatus.OK);
     }
 
+    /**
+     * The endpoint for doing vehicle search.
+     * /v1/specials/vehicle
+     *
+     * @param lng - longitude of users position
+     * @param lat - latitude of users position
+     * @param vehicle - the vehicle attributes we are searching by
+     * @return - HttpStatus with a list of the specials and vehicles with the dealers name
+     */
     @RequestMapping(value = "/vehicle", produces = "application/json", params = {"lng", "lat"})
     @ResponseBody
-    public ResponseEntity<List<MergerObj>> vehicleLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat, @ModelAttribute Vehicle vehicle){
+    public ResponseEntity<List<MergerObj>> vehicleLoc(@RequestParam(value = "lng", required = false) double lng, @RequestParam(value = "lat", required = false) double lat, @ModelAttribute Vehicle vehicle){
         Point point = new Point(lng, lat);
         log.info("Vehicle Location received from app: " + point);
         return new ResponseEntity<List<MergerObj>>(mergeService.getNearestVehicles(point, vehicle), HttpStatus.OK);

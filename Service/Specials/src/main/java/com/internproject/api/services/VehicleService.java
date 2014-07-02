@@ -12,6 +12,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Service to handle the logic of vehicle search and creation
+ *
  * Created by maharb on 6/30/14.
  */
 public class VehicleService {
@@ -24,10 +26,23 @@ public class VehicleService {
         this.vehicleRepository = vehicleRepository;
     }
 
+    /**
+     * Logic needed to store the vehicles
+     *
+     * @param vehicle - vehicle being stored
+     * @return - Vehicle that was just stored
+     */
     public Vehicle store(Vehicle vehicle){
         return vehicleRepository.save(vehicle);
     }
 
+    /**
+     * Logic needed to get vehicles based on given criteria.
+     * Creation of appropriate thread to find vehicles concurrently
+     *
+     * @param vehicle - vehicle criteria being searched for
+     * @return - List of matching vehicles
+     */
     public List<Vehicle> getVehicles(Vehicle vehicle){
         List<Vehicle> vehicles = new ArrayList<Vehicle>();
         RunnableQuery mainThread = new RunnableQuery("vehicle", vehicleRepository, vehicle, vehicles);
