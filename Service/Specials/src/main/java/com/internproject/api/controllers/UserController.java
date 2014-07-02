@@ -62,9 +62,9 @@ public class UserController {
                 return new ResponseEntity<String>(jsonHelper.jsonGen("Invalid Username or Password"), HttpStatus.UNAUTHORIZED);
             }
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            log.error(e);
         } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
+            log.error(e);
         } catch (NullPointerException e){
             log.info("No such user");
             return new ResponseEntity<String>(jsonHelper.jsonGen("Invalid Username or Password"), HttpStatus.UNAUTHORIZED);
@@ -86,14 +86,13 @@ public class UserController {
     @RequestMapping(value="/register", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public ResponseEntity<User> register(@RequestBody User user){
-        User temp = user;
         try {
             String securePass = PasswordHash.generateStorngPasswordHash(user.getPassword());
             user.setPassword(securePass);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            log.error(e);
         } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
+            log.error(e);
         }
         User check = userRepository.save(user);
         if(check == null){
@@ -101,6 +100,6 @@ public class UserController {
             return new ResponseEntity<User>(check, HttpStatus.BAD_REQUEST);
         }
         log.info(user.getUsername() + " has registered as a new user.");
-        return new ResponseEntity<User>(temp, HttpStatus.CREATED);
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 }

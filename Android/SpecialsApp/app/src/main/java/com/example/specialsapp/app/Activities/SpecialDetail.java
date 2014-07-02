@@ -19,10 +19,6 @@ import org.w3c.dom.Text;
 public class SpecialDetail extends BaseActivity {
 
 
-    private TextView mTitle;
-    private TextView mDescription;
-    private TextView mOldPrice;
-    private TextView mNewPrice;
     private Menu menu;
 
     @Override
@@ -30,16 +26,18 @@ public class SpecialDetail extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_special_detail);
         Bundle extras = getIntent().getExtras();
-        mTitle = (TextView)findViewById(R.id.title_text);
-        mDescription = (TextView)findViewById(R.id.description);
-        mOldPrice = (TextView)findViewById(R.id.price_old);
-        mNewPrice = (TextView)findViewById(R.id.price_new);
+        TextView mTitle = (TextView) findViewById(R.id.title_text);
+        TextView mDescription = (TextView) findViewById(R.id.description);
+        TextView mOldPrice = (TextView) findViewById(R.id.price_old);
+        TextView mNewPrice = (TextView) findViewById(R.id.price_new);
 
-        mTitle.setText(extras.getString("title"));
-        mDescription.setText(extras.getString("description"));
-        mOldPrice.setText("$"+extras.getString("oldP"));
-        mOldPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        mNewPrice.setText("$"+extras.getString("newP"));
+        if (extras != null) {
+            mTitle.setText(extras.getString("title"));
+            mDescription.setText(extras.getString("description"));
+            mOldPrice.setText("$" + extras.getString("oldP"));
+            mOldPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            mNewPrice.setText("$" + extras.getString("newP"));
+        }
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setTitle("Details");

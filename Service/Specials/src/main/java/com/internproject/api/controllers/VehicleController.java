@@ -28,12 +28,24 @@ public class VehicleController {
 
     public VehicleController(){}
 
+    /**
+     * Api endpoint for the creation of vehicles
+     *
+     * @param vehicle - vehicle to be stored
+     * @return - the vehicle that we just stored
+     */
     @RequestMapping(value = "/vehicleTest", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Vehicle> storeVehicle(@RequestBody Vehicle vehicle){
         return new ResponseEntity<Vehicle>(vehicleService.store(vehicle) ,HttpStatus.OK);
     }
 
+    /**
+     * Api endpoint for querying for vehicles
+     *
+     * @param vehicle - criteria to find vehicle
+     * @return - List of matching vehicles
+     */
     @RequestMapping(value = "/vehicle")
     @ResponseBody
     public ResponseEntity<List<Vehicle>> getVehicles(@ModelAttribute Vehicle vehicle){

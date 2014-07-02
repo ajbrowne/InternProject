@@ -21,12 +21,25 @@ public class MongoVehicleRepository implements VehicleRepository {
 
     public MongoVehicleRepository(){}
 
+
+    /**
+     * Create new vehicles in the mongodb. For test purposes only
+     * @param vehicle - vehicle to be stored
+     * @return - the vehicle that was saved
+     */
     @Override
     public Vehicle save(Vehicle vehicle) {
         mongoTemplate.insert(vehicle, "vehicles");
         return vehicle;
     }
 
+    /**
+     * Search for vehicles based on the given vehicle criteria
+     *
+     * @param vehicle - vehicle to be searched for
+     * @param query - created query object
+     * @return - List of matching vehicles
+     */
     @Override
     public List<Vehicle> getVehicles(Vehicle vehicle, Query query) {
         return mongoTemplate.find(query, Vehicle.class, "vehicles");
