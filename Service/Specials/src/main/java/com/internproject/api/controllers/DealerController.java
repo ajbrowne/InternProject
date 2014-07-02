@@ -57,13 +57,13 @@ public class DealerController {
      */
     @RequestMapping(value="/dealers", produces = "application/json", params = {"lng", "lat"})
     @ResponseBody
-    public ResponseEntity<List<Dealer>> dealerLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat){
+    public ResponseEntity<List> dealerLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat){
         //Create point object with the latitude and longitude of the user
         Point point = new Point(lng, lat);
         log.info("Location received from app: " + point);
         //Query and return the nearest dealers
-        List<Dealer> newDealer = dealerService.getDealerLocation(point);
+        List newDealer = dealerService.getDealerLocation(point);
         log.info("Number of dealers returned: " + newDealer.size());
-        return new ResponseEntity<List<Dealer>>(newDealer, HttpStatus.OK);
+        return new ResponseEntity<List>(newDealer, HttpStatus.OK);
     }
 }

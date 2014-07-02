@@ -1,6 +1,5 @@
 package com.internproject.api.controllers;
 
-import com.internproject.api.models.MergerObj;
 import com.internproject.api.models.Vehicle;
 import com.internproject.api.services.MergeService;
 import org.apache.log4j.Logger;
@@ -47,12 +46,12 @@ public class CombineController {
      */
     @RequestMapping(value="/special", produces = "application/json", params = {"lng", "lat"})
     @ResponseBody
-    public ResponseEntity<List<MergerObj>> specialLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat){
+    public ResponseEntity<List> specialLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat){
         //Create point object with the latitude and longitude of the user
         Point point = new Point(lng, lat);
         log.info("Location received from app: " + point);
         //Query and return the nearest dealers
-        return new ResponseEntity<List<MergerObj>>(mergeService.getNearestSpecials(point), HttpStatus.OK);
+        return new ResponseEntity<List>(mergeService.getNearestSpecials(point), HttpStatus.OK);
     }
 
     /**
@@ -66,10 +65,10 @@ public class CombineController {
      */
     @RequestMapping(value = "/vehicle", produces = "application/json", params = {"lng", "lat"})
     @ResponseBody
-    public ResponseEntity<List<MergerObj>> vehicleLoc(@RequestParam(value = "lng", required = false) double lng, @RequestParam(value = "lat", required = false) double lat, @ModelAttribute Vehicle vehicle){
+    public ResponseEntity<List> vehicleLoc(@RequestParam(value = "lng", required = false) double lng, @RequestParam(value = "lat", required = false) double lat, @ModelAttribute Vehicle vehicle){
         Point point = new Point(lng, lat);
         log.info("Vehicle Location received from app: " + point);
-        return new ResponseEntity<List<MergerObj>>(mergeService.getNearestVehicles(point, vehicle), HttpStatus.OK);
+        return new ResponseEntity<List>(mergeService.getNearestVehicles(point, vehicle), HttpStatus.OK);
     }
 
 

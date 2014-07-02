@@ -29,7 +29,6 @@ public class MongoUserRepository implements UserRepository {
 
     @Override
     public User getUser(User user) {
-        User temp = mongoTemplate.findOne(Query.query(Criteria.where("username").is(user.getUsername())) ,User.class);
-        return temp;
+        return mongoTemplate.findOne(Query.query(Criteria.where("username").is(user.getUsername())) ,User.class);
     }
 }

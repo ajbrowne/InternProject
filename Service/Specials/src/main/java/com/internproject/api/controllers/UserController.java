@@ -86,7 +86,6 @@ public class UserController {
     @RequestMapping(value="/register", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public ResponseEntity<User> register(@RequestBody User user){
-        User temp = user;
         try {
             String securePass = PasswordHash.generateStorngPasswordHash(user.getPassword());
             user.setPassword(securePass);
@@ -101,6 +100,6 @@ public class UserController {
             return new ResponseEntity<User>(check, HttpStatus.BAD_REQUEST);
         }
         log.info(user.getUsername() + " has registered as a new user.");
-        return new ResponseEntity<User>(temp, HttpStatus.CREATED);
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 }

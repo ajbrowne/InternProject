@@ -71,7 +71,7 @@ public class SpecialService {
      *
      * @return - a list of all specials
      */
-    public List<Special> getAllSpecials(){
+    public List getAllSpecials(){
         return specialRepository.findAll();
     }
 

@@ -87,7 +87,7 @@ public class RunnableChild implements Runnable {
      */
     private void vehicleSearch() {
         Query query = new Query();
-        List<Vehicle> temp = new ArrayList<Vehicle>();
+        List<? extends Vehicle> temp = new ArrayList<Vehicle>();
         //Queries are created differently for the different kind of
         //search
         if(name.equals("id") && vehicle.getId() != null){
@@ -117,7 +117,7 @@ public class RunnableChild implements Runnable {
      */
     private void dealerSearch() {
         Query query = new Query();
-        List<Dealer> temp = new ArrayList<Dealer>();
+        List<? extends Dealer> temp = new ArrayList<Dealer>();
         //run query based on kind of query needed for each field
         if(dealer.getId() != null && name.equals("id")){
             temp = runQuery(name, dealer.getId(), query, 0);
@@ -228,24 +228,24 @@ public class RunnableChild implements Runnable {
      */
     private void specialSearch(){
         Query query = new Query();
-        List<Special> temp = new ArrayList<Special>();
+        List<? extends Special> temp = new ArrayList<Special>();
         //create each query based on kind of query needed for each field
-        if(special.getDealer() != null && name == "dealer"){
+        if(special.getDealer() != null && name.equals("dealer")){
             temp = runQuery(name, special.getDealer(), query,0);
         }
-        if(special.getId() != null && name == "id"){
+        if(special.getId() != null && name.equals("id")){
             temp = runQuery(name, special.getId(), query,0);
         }
-        if(special.getType() != null && name == "type"){
+        if(special.getType() != null && name.equals("type")){
             temp = runQuery(name, special.getType(), query,0);
         }
-        if(special.getTitle() != null && name == "title"){
+        if(special.getTitle() != null && name.equals("title")){
             temp = runQuery(name, special.getTitle(), query,0);
         }
-        if(special.getDescription() != null && name == "description"){
+        if(special.getDescription() != null && name.equals("description")){
             temp = runQuery(name, special.getDescription(), query,0);
         }
-        if(special.getAmount() != null && name == "amount"){
+        if(special.getAmount() != null && name.equals("amount")){
             temp = runQuery(name, special.getAmount(), query,0);
         }
         if(special.getVehicleId() != null && name.equals("vehicleId")){

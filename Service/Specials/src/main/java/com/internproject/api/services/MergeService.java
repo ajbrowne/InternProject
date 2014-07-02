@@ -106,8 +106,8 @@ public class MergeService {
     public List<Special> vehicleHelper(List<Special> specials, List<String> vehicleIds){
 
         for(int i =0; i<specials.size();i++){
-            for(int j=0;j<vehicleIds.size();j++){
-                if(!specials.get(i).getVehicleId().contains(vehicleIds.get(j))){
+            for (String vehicleId : vehicleIds) {
+                if (!specials.get(i).getVehicleId().contains(vehicleId)) {
                     specials.remove(i);
                 }
             }

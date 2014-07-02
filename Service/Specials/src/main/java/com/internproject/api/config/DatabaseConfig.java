@@ -59,8 +59,7 @@ public class DatabaseConfig {
 
     @Bean
     public MongoTemplate mongoTemplate() throws UnknownHostException {
-        MongoTemplate template = new MongoTemplate(mongoDbFactory());
-        return template;
+        return new MongoTemplate(mongoDbFactory());
     }
 
 
