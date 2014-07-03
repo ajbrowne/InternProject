@@ -26,8 +26,13 @@ import it.gmariotti.cardslib.library.view.CardGridView;
  */
 public class HomeFragment extends Fragment {
 
+    private static final String Trending = "See What's Trending";
+    private static final String TrendingDescription = "Most Popular Deals";
     private static final String TopDiscounts = "Top Discounts";
+    private static final String TopDescription = "Best Deals Available";
     private static final String NewArrivals = "New Arrivals";
+    private static final String NewDecscription = "Fresh On The Lot";
+    private ArrayList<Card> newVehicles;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -42,40 +47,16 @@ public class HomeFragment extends Fragment {
         setHasOptionsMenu(true);
         getActivity().setTitle("Home");
 
-        ArrayList<Card> newVehicles = new ArrayList<Card>();
+        newVehicles = new ArrayList<Card>();
         HomeVehicleCard card = new HomeVehicleCard(getActivity());
 
         for (int i = 0; i < 3; i++){
             newVehicles.add(card);
         }
 
-        View trending = homeView.findViewById(R.id.firstWidget);
-
-        View topDiscounts = homeView.findViewById(R.id.secondWidget);
-        TextView title2 = (TextView)topDiscounts.findViewById(R.id.newVehicles);
-        title2.setText(TopDiscounts);
-
-        View newArrivals = homeView.findViewById(R.id.thirdWidget);
-        TextView title3 = (TextView)newArrivals.findViewById(R.id.newVehicles);
-        title3.setText(NewArrivals);
-
-        CardGridArrayAdapter  cardGridArrayAdapter = new CardGridArrayAdapter(getActivity(), newVehicles);
-        CardGridView gridView = (CardGridView) trending.findViewById(R.id.newGrid);
-        if (gridView != null){
-            gridView.setAdapter(cardGridArrayAdapter);
-        }
-
-        CardGridArrayAdapter  cardGridArrayAdapter2 = new CardGridArrayAdapter(getActivity(), newVehicles);
-        CardGridView gridView2 = (CardGridView) topDiscounts.findViewById(R.id.newGrid);
-        if (gridView2 != null){
-            gridView2.setAdapter(cardGridArrayAdapter2);
-        }
-
-        CardGridArrayAdapter  cardGridArrayAdapter3 = new CardGridArrayAdapter(getActivity(), newVehicles);
-        CardGridView gridView3 = (CardGridView) newArrivals.findViewById(R.id.newGrid);
-        if (gridView3 != null){
-            gridView3.setAdapter(cardGridArrayAdapter3);
-        }
+        createCards(homeView.findViewById(R.id.firstWidget), Trending, TrendingDescription);
+        createCards(homeView.findViewById(R.id.secondWidget), TopDiscounts, TopDescription);
+        createCards(homeView.findViewById(R.id.thirdWidget), NewArrivals, NewDecscription);
 
         return homeView;
     }
@@ -97,5 +78,17 @@ public class HomeFragment extends Fragment {
         return true;
     }
 
+    private void createCards(View view, String title, String description){
+        TextView theTitle = (TextView)view.findViewById(R.id.newVehicles);
+        TextView theDescription = (TextView)view.findViewById(R.id.descrip);
+        theTitle.setText(title);
+        theDescription.setText(description);
+
+        CardGridArrayAdapter  cardGridArrayAdapter = new CardGridArrayAdapter(getActivity(), newVehicles);
+        CardGridView gridView = (CardGridView) view.findViewById(R.id.newGrid);
+        if (gridView != null){
+            gridView.setAdapter(cardGridArrayAdapter);
+        }
+    }
 
 }

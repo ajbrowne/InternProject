@@ -3,14 +3,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="1dp"
+    android:layout_marginBottom="5dp"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/gridCar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/aztek" />
+        android:src="@drawable/aztek"
+        android:layout_marginBottom="7dp"/>
 
     <TextView
         android:id="@+id/smallCar"
@@ -19,7 +23,7 @@
         android:layout_below="@id/gridCar"
         android:layout_marginTop="5dp"
         android:text="2004 Aztek"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/smallPrice"

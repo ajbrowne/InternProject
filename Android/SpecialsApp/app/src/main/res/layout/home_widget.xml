@@ -16,9 +16,16 @@
             android:id="@+id/newVehicles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Trending"
+            android:text="See What's Trending"
             android:paddingRight="115dp"
             style="@android:style/TextAppearance.DeviceDefault.Large"/>
+
+        <TextView
+            android:id="@+id/descrip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Most Popular Deals"
+            android:layout_below="@id/newVehicles"/>
 
         <TextView
             android:layout_width="wrap_content"

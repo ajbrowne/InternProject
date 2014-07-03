@@ -37,7 +37,7 @@ public class VehicleResultsActivity extends BaseActivity {
     private String[] params = new String[5];
     private String zip;
 
-    private static final int defaultLocation = -1000;
+    private static final double defaultLocation = -1000.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +82,7 @@ public class VehicleResultsActivity extends BaseActivity {
             param.put("lat", longi);
         } else {
             double[] location = getLoc(zip);
+            System.out.println(location[0]);
             if (location[0] != defaultLocation) {
                 latt = String.valueOf(location[0]);
                 longi = String.valueOf(location[1]);
@@ -96,6 +97,7 @@ public class VehicleResultsActivity extends BaseActivity {
         param.put("type", params[2]);
         param.put("max", params[3]);
         RequestParams parameters = new RequestParams(param);
+        System.out.println("PARAMS: " + parameters);
         vehicleAsync(parameters);
     }
 
