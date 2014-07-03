@@ -3,10 +3,13 @@ package com.example.specialsapp.app.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -27,9 +30,17 @@ public class SettingsActivity extends PreferenceActivity implements
         addPreferencesFromResource(R.xml.pref_general);
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
         EditTextPreference editTextPref = (EditTextPreference) findPreference("zip_code");
-        editTextPref
-                .setSummary(sharedPreferences.getString("zip_code", "Some Default Text"));
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("use_location", false)){
+            editTextPref.setEnabled(false);
+            editTextPref.setSelectable(true);
+        } else {
+            editTextPref.setEnabled(true);
+            editTextPref.setSelectable(true);
+        }
+
+
     }
 
     @Override
@@ -38,6 +49,17 @@ public class SettingsActivity extends PreferenceActivity implements
         if (pref instanceof EditTextPreference) {
             EditTextPreference etp = (EditTextPreference) pref;
             pref.setSummary(etp.getText());
+        }
+        if (pref instanceof CheckBoxPreference){
+            EditTextPreference editTextPref = (EditTextPreference) findPreference("zip_code");
+            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("use_location", false)){
+                editTextPref.setEnabled(false);
+                editTextPref.setSelectable(true);
+            } else {
+                editTextPref.setEnabled(true);
+                editTextPref.setSelectable(true);
+            }
+
         }
     }
 

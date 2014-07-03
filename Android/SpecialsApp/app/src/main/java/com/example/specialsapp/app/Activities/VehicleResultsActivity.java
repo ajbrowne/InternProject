@@ -1,16 +1,16 @@
 package com.example.specialsapp.app.Activities;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.example.specialsapp.app.Cards.SpecialCard;
-import com.example.specialsapp.app.Fragments.SpecialDetailFragment;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.R;
@@ -44,6 +44,8 @@ public class VehicleResultsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_results);
 
+
+
         zip = getIntent().getStringExtra("zip");
         params = getIntent().getStringArrayExtra("params");
 
@@ -67,6 +69,7 @@ public class VehicleResultsActivity extends BaseActivity {
     }
 
     private void search() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         final GPS gps = new GPS(this);
         Double latitude = gps.getLatitude();
         Double longitude = gps.getLongitude();
@@ -74,7 +77,7 @@ public class VehicleResultsActivity extends BaseActivity {
         String longi = String.valueOf(longitude);
 
         HashMap<String, String> param = new HashMap<String, String>();
-        if (zip.compareTo("nope") == 0) {
+        if (sharedPreferences.getBoolean("use_location", false)) {
             param.put("lng", latt);
             param.put("lat", longi);
         } else {
@@ -93,7 +96,6 @@ public class VehicleResultsActivity extends BaseActivity {
         param.put("type", params[2]);
         param.put("max", params[3]);
         RequestParams parameters = new RequestParams(param);
-
         vehicleAsync(parameters);
     }
 
@@ -177,11 +179,8 @@ public class VehicleResultsActivity extends BaseActivity {
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
-                    SpecialDetailFragment specialDetailFragment = new SpecialDetailFragment();
-                    FragmentManager fm = getSupportFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.fragmentContainer2, specialDetailFragment);
-                    ft.commit();
+                    Intent intent = new Intent(VehicleResultsActivity.this, SpecialDetail.class);
+                    startActivity(intent);
                 }
             });
 
