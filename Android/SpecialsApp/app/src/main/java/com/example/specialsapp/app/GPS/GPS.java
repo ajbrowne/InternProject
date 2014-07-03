@@ -15,7 +15,7 @@ import android.util.Log;
 
 /**
  * Created by brownea on 6/12/14.
- */
+ **/
 public class GPS extends Service implements LocationListener {
 
     private Context context;
@@ -49,10 +49,6 @@ public class GPS extends Service implements LocationListener {
 
             if (!isGPSEnabled){
                 showSettingsAlert();
-            }
-
-            if (!isGPSEnabled && !isNetworkEnabled){
-                // no network provider enabled
             }
             else{
                 this.canGetLocation = true;

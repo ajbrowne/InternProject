@@ -23,10 +23,8 @@ import com.example.specialsapp.app.R;
  */
 public class SignupNumberFragment extends Fragment {
 
-    private Button next;
     private EditText number;
     private String phoneNumber;
-    private TextView signin;
 
     public SignupNumberFragment() {
         // Required empty public constructor
@@ -37,9 +35,9 @@ public class SignupNumberFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_signup_number, container, false);
-        next = (Button)view.findViewById(R.id.flow_button);
+        Button next = (Button)view.findViewById(R.id.flow_button);
+        TextView signIn = (TextView)view.findViewById(R.id.flow_signin);
         number = (EditText)view.findViewById(R.id.flow_number);
-        signin = (TextView)view.findViewById(R.id.flow_signin);
 
         TelephonyManager tMgr = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (tMgr.getLine1Number() != null){
@@ -63,7 +61,7 @@ public class SignupNumberFragment extends Fragment {
             }
         });
 
-        signin.setOnClickListener(new View.OnClickListener() {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoginFragment fragment = new LoginFragment();

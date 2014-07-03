@@ -1,17 +1,12 @@
 package com.example.specialsapp.app.Activities;
 
 import android.app.ActionBar;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.specialsapp.app.Adapters.HomePagerAdapter;
-import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.R;
 
@@ -22,7 +17,6 @@ import java.util.ArrayList;
  */
 public class HomeActivity extends BaseActivity {
 
-    private Menu menu;
     private ViewPager viewPager;
     private String[] tabs = {"Home", "Vehicles", "Dealers"};
     private ArrayList<Dealer> dealers;
@@ -95,10 +89,6 @@ public class HomeActivity extends BaseActivity {
 
     public void setDealers(ArrayList<Dealer> dealers) {
         this.dealers = dealers;
-    }
-
-    public Menu getMenu() {
-        return this.menu;
     }
 
 }

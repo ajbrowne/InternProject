@@ -23,10 +23,8 @@ import com.example.specialsapp.app.R;
  */
 public class SignupPasswordFragment extends Fragment {
 
-    private Button next;
     private EditText password;
     private EditText confirm;
-    private TextView signin;
     private String userPassword;
     private String confirmPassword;
     private String email;
@@ -44,10 +42,10 @@ public class SignupPasswordFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_signup_password, container, false);
-        next = (Button) view.findViewById(R.id.flow4_button);
+        Button next = (Button) view.findViewById(R.id.flow4_button);
+        TextView signin = (TextView) view.findViewById(R.id.flow4_signin);
         password = (EditText) view.findViewById(R.id.flow4_password);
         confirm = (EditText) view.findViewById(R.id.flow4_verify);
-        signin = (TextView) view.findViewById(R.id.flow4_signin);
 
         // Link listeners to identify matching passwords
         confirm.addTextChangedListener(new MyTextWatcher());

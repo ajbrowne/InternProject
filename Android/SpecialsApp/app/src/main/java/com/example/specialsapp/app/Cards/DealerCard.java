@@ -17,8 +17,6 @@ import it.gmariotti.cardslib.library.internal.Card;
  */
 public class DealerCard extends Card {
 
-    private TextView mDealer;
-    private TextView mCityState;
     private String dealer;
     private String cityState;
 
@@ -32,8 +30,8 @@ public class DealerCard extends Card {
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
-        mDealer = (TextView) parent.findViewById(R.id.dealer);
-        mCityState = (TextView) parent.findViewById(R.id.city);
+        TextView mDealer = (TextView) parent.findViewById(R.id.dealer);
+        TextView mCityState = (TextView) parent.findViewById(R.id.city);
         mDealer.setText(dealer);
         mCityState.setText(cityState);
     }

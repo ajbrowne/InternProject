@@ -2,7 +2,7 @@ package com.example.specialsapp.app.Models;
 
 /**
  * Created by brownea on 7/2/14.
- */
+ **/
 public class User {
 
     private String zip;

@@ -197,19 +197,6 @@ public class MainActivity extends BaseActivity {
     }
 
     /*
-        Used to check for login and allow login caching
-     */
-    private void loadSavedPreferences() {
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
-        String sUser = shared.getString("User", "");
-        String sPass = shared.getString("Password", "");
-        boolean check = shared.getBoolean("stored", false);
-        if (check) {
-            login(sUser, sPass);
-        }
-    }
-
-    /*
         Stores user for cached login
      */
     private void savePreferences(String key, String value) {

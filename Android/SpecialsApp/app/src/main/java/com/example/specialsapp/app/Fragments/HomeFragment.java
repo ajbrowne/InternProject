@@ -1,13 +1,8 @@
 package com.example.specialsapp.app.Fragments;
 
-
-
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,19 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Cards.HomeVehicleCard;
 import com.example.specialsapp.app.R;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardGridArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardGridView;
-import it.gmariotti.cardslib.library.view.CardView;
 
 /**
  * A simple {@link Fragment} subclass.

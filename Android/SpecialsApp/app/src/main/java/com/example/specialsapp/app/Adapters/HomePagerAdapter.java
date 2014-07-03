@@ -3,12 +3,10 @@ package com.example.specialsapp.app.Adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 
 import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
 import com.example.specialsapp.app.Fragments.HomeFragment;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
-import com.example.specialsapp.app.R;
 
 /**
  *

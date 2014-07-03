@@ -1,14 +1,9 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,11 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
-import android.widget.SearchView;
-import android.widget.Spinner;
 
-import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Activities.SpecialDetail;
 import com.example.specialsapp.app.Cards.SpecialCard;
@@ -60,9 +51,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
     private CardArrayAdapter mCardArrayAdapter;
     private ArrayList<Special> specials;
     private ArrayList<Card> cards;
-    private CardListView cardListView;
     private int currIndex, returnSize;
-    private Menu menu;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,7 +62,6 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setTitle("Specials");
 
-        this.menu = ((HomeActivity)getActivity()).getMenu();
         setHasOptionsMenu(true);
 
         mPullToRefreshLayout = (PullToRefreshLayout)homeView.findViewById(R.id.carddemo_extra_ptr_layout);
@@ -115,7 +103,6 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
      *
      * @param lng  - longitude
      * @param lat  - latitude
-     * @return ArrayList of dealers found
      * @throws JSONException
      */
     public void getDealerSpecials(Double lng, Double lat) throws JSONException {
@@ -180,7 +167,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         cards = createSpecials(0, specials, cards);
         mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
 
-        cardListView = (CardListView) homeView.findViewById(R.id.myList1);
+        CardListView cardListView = (CardListView) homeView.findViewById(R.id.myList1);
         if (cardListView != null) {
             cardListView.setAdapter(mCardArrayAdapter);
             cardListView.setOnScrollListener(this);

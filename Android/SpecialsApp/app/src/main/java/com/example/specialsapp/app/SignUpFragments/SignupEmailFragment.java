@@ -21,8 +21,6 @@ import com.example.specialsapp.app.R;
  */
 public class SignupEmailFragment extends Fragment {
 
-    private Button next;
-    private TextView signin;
     private EditText email;
     private String emailAddress;
 
@@ -35,9 +33,9 @@ public class SignupEmailFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_signup_email, container, false);
-        next = (Button)view.findViewById(R.id.flow3_button);
+        Button next = (Button)view.findViewById(R.id.flow3_button);
+        TextView signIn = (TextView)view.findViewById(R.id.flow3_signin);
         email = (EditText)view.findViewById(R.id.flow3_email);
-        signin = (TextView)view.findViewById(R.id.flow3_signin);
 
 //        Gets email from logged in Google account to populate field (use this or ???)
 //        Account[] accounts = AccountManager.get(getActivity()).getAccountsByType("com.google");
@@ -59,7 +57,7 @@ public class SignupEmailFragment extends Fragment {
             }
         });
 
-        signin.setOnClickListener(new View.OnClickListener() {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoginFragment fragment = new LoginFragment();

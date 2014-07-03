@@ -20,10 +20,8 @@ import com.example.specialsapp.app.R;
  */
 public class SignupZipFragment extends Fragment {
 
-    private Button next;
     private EditText zip;
     private String zipCode;
-    private TextView signin;
 
     public SignupZipFragment() {
         // Required empty public constructor
@@ -35,9 +33,9 @@ public class SignupZipFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_signup_zip, container, false);
-        next = (Button)view.findViewById(R.id.flow1_button);
+        Button next = (Button)view.findViewById(R.id.flow1_button);
+        TextView signIn = (TextView)view.findViewById(R.id.flow1_signin);
         zip = (EditText)view.findViewById(R.id.flow1_zip);
-        signin = (TextView)view.findViewById(R.id.flow1_signin);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +52,7 @@ public class SignupZipFragment extends Fragment {
             }
         });
 
-        signin.setOnClickListener(new View.OnClickListener() {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoginFragment fragment = new LoginFragment();

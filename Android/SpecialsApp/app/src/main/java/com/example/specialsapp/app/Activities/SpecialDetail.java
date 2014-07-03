@@ -1,25 +1,14 @@
 package com.example.specialsapp.app.Activities;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.R;
 
-import org.w3c.dom.Text;
-
-
 public class SpecialDetail extends BaseActivity {
-
-
-    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.example.specialsapp.app.Activities.MainActivity;
 import com.example.specialsapp.app.Fragments.LoginFragment;
 import com.example.specialsapp.app.R;
-import com.example.specialsapp.app.SignUpFragments.SignupEmailFragment;
 
 /**
  * A simple {@link Fragment} subclass.

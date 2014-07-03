@@ -34,7 +34,6 @@ public class GeneralSearchFragment extends Fragment {
 
     private EditText searchPhrase;
     private EditText zip;
-    private Button search;
     private RequestParams parameters;
 
     public GeneralSearchFragment() {
@@ -47,9 +46,9 @@ public class GeneralSearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_general_search, container, false);
+        Button search = (Button)view.findViewById(R.id.keyword_button);
         searchPhrase = (EditText)view.findViewById(R.id.keyword);
         zip = (EditText)view.findViewById(R.id.general_zip);
-        search = (Button)view.findViewById(R.id.keyword_button);
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +93,7 @@ public class GeneralSearchFragment extends Fragment {
     }
 
     public void async(RequestParams theParams){
-        SpecialsRestClient.get("special", parameters, new JsonHttpResponseHandler() {
+        SpecialsRestClient.get("special", theParams, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
                 ArrayList<Special> specials = new ArrayList<Special>();
