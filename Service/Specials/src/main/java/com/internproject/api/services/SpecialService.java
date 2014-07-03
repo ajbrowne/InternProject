@@ -47,8 +47,8 @@ public class SpecialService {
         }
         //Set trending flag on first 4 or all of the specials to true
         //Used to demo trending feature of app
-        int check = 4;
-        if(specials.size() < 4){
+        int check = 3;
+        if(specials.size() < check){
             check = specials.size();
         }
         for(int i =0; i<check;i++){

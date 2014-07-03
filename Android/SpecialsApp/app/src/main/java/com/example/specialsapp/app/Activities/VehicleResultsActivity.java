@@ -182,6 +182,11 @@ public class VehicleResultsActivity extends BaseActivity {
                 @Override
                 public void onClick(Card card, View view) {
                     Intent intent = new Intent(VehicleResultsActivity.this, SpecialDetail.class);
+                    SpecialCard temp = (SpecialCard) card;
+                    intent.putExtra("title",  temp.getTitle());
+                    intent.putExtra("description", temp.getDescription());
+                    intent.putExtra("oldP", temp.getOldPrice());
+                    intent.putExtra("newP", temp.getNewPrice());
                     startActivity(intent);
                 }
             });
