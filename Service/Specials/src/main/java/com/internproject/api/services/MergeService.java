@@ -44,14 +44,14 @@ public class MergeService {
         List<GeoResult> newDealer = dealerService.getDealerLocation(point);
         List<MergerObj> specials = new ArrayList<MergerObj>();
         //loop over the dealers to find the dealers specials
-        for(int i = 0; i < newDealer.size();i++){
-            Dealer tempDealer = (Dealer)newDealer.get(i).getContent();
+        for (GeoResult aNewDealer : newDealer) {
+            Dealer tempDealer = (Dealer) aNewDealer.getContent();
             Special tempSpecial = new Special();
             tempSpecial.setDealer(tempDealer.getId());
             List<Special> temp = specialService.getSpecials(tempSpecial);
             //store the dealers name and the special in an object to pass to the app
             //dealer name is for the cards in the app.
-            if(temp.size() != 0) {
+            if (temp.size() != 0) {
                 specials.add(new MergerObj(tempDealer.getName(), temp));
             }
         }
@@ -73,13 +73,13 @@ public class MergeService {
         List<Vehicle> tempVehicles = vehicleService.getVehicles(vehicle);
         List<String> ids = new ArrayList<String>();
         //Loop over the vehicles that match the given description and store their ids
-        for(int j=0;j<tempVehicles.size();j++){
-            ids.add(tempVehicles.get(j).getId());
+        for (Vehicle tempVehicle : tempVehicles) {
+            ids.add(tempVehicle.getId());
         }
         //loop over the dealers that are closest to the point to find
         //the specials for that dealer
-        for(int i =0; i < newDealer.size(); i++){
-            Dealer tempDealer = (Dealer)newDealer.get(i).getContent();
+        for (GeoResult aNewDealer : newDealer) {
+            Dealer tempDealer = (Dealer) aNewDealer.getContent();
             Special tempSpecial = new Special();
             tempSpecial.setDealer(tempDealer.getId());
             tempSpecial.setVehicleId(ids);
@@ -88,7 +88,7 @@ public class MergeService {
             temp = vehicleHelper(temp, ids);
             //store the dealers name and the special in an object to pass to the app
             //dealer name is for the cards in the app.
-            if(temp.size() != 0) {
+            if (temp.size() != 0) {
                 specials.add(new MergerObj(tempDealer.getName(), temp, tempVehicles));
             }
         }

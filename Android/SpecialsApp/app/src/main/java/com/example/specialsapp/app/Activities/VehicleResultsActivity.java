@@ -1,5 +1,6 @@
 package com.example.specialsapp.app.Activities;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.specialsapp.app.Cards.SpecialCard;
-import com.example.specialsapp.app.Fragments.SpecialDetailFragment;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.R;
@@ -177,11 +177,13 @@ public class VehicleResultsActivity extends BaseActivity {
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
-                    SpecialDetailFragment specialDetailFragment = new SpecialDetailFragment();
-                    FragmentManager fm = getSupportFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.fragmentContainer2, specialDetailFragment);
-                    ft.commit();
+                    Intent intent = new Intent(VehicleResultsActivity.this, SpecialDetail.class);
+                    SpecialCard temp = (SpecialCard) card;
+                    intent.putExtra("title",  temp.getTitle());
+                    intent.putExtra("description", temp.getDescription());
+                    intent.putExtra("oldP", temp.getOldPrice());
+                    intent.putExtra("newP", temp.getNewPrice());
+                    startActivity(intent);
                 }
             });
 
