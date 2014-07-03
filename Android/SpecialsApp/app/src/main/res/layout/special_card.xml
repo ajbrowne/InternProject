@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/thumbnail"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:text="$5000 Cashback on Silverados" />
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:paddingTop="2dp"
         android:text="Get $5000 instant cash back now!"
         android:textColor="#aaa" />
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/subTitle"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:paddingTop="2dp"
         android:text="Shaver Autos - Chevy Silverado" />
 
@@ -48,7 +48,7 @@
         android:layout_below="@id/dealerName"
         android:layout_marginTop="15dp"
         android:textColor="#aaa"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:text="@string/strikethrough"/>
 
     <TextView
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$11,000"
-        android:paddingLeft="5dp"
+        android:paddingLeft="3dp"
         android:textColor="@android:color/holo_green_dark"
         android:layout_toRightOf="@id/oldPrice"
         android:layout_marginTop="15dp"
@@ -71,7 +71,7 @@
         android:layout_alignParentRight="true"
         android:textColor="#534CE6"
 
-        android:paddingRight="5dp"
+        android:paddingRight="10dp"
         android:layout_marginTop="15dp"
         android:text="USED"/>
 
