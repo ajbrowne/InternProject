@@ -61,7 +61,8 @@ public class SignupZipFragment extends Fragment {
                 fragment.setArguments(bundle);
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();fragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragment.setArguments(bundle);
                 fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_right);
                 fragmentTransaction.replace(R.id.fragmentContainer, fragment);
                 fragmentTransaction.commit();

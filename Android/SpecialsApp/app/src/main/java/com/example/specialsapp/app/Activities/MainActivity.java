@@ -221,14 +221,7 @@ public class MainActivity extends BaseActivity {
      */
     @Override
     public void onBackPressed() {
-        FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() > 0) {
-            Log.i("MainActivity", "popping backstack");
-            fm.popBackStack();
-        } else {
-            Log.i("MainActivity", "nothing on backstack, calling super");
-            super.onBackPressed();
-        }
+        super.onBackPressed();
     }
 
     public User getUser() {

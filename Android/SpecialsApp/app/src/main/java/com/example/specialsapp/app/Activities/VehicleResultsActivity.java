@@ -78,8 +78,8 @@ public class VehicleResultsActivity extends BaseActivity {
 
         HashMap<String, String> param = new HashMap<String, String>();
         if (sharedPreferences.getBoolean("use_location", false)) {
-            param.put("lng", latt);
-            param.put("lat", longi);
+            param.put("lng", longi);
+            param.put("lat", latt);
         } else {
             double[] location = getLoc(zip);
             System.out.println(location[0]);

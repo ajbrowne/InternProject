@@ -33,6 +33,19 @@ public class SearchPagerAdapter extends FragmentPagerAdapter {
         return null;
     }
 
+    public CharSequence getPageTitle(int position) {
+
+        switch(position){
+            case 0:
+                return "General";
+            case 1:
+                return "Vehicles";
+            case 2:
+                return "Dealers";
+        }
+        return null;
+    }
+
     @Override
     public int getCount() {
         return 3;

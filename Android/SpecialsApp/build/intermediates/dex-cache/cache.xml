@@ -2,10 +2,10 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/support-v13-19.0.1-5756409d079947dbd07aa2197bcf182109c7247e.jar"
-        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v13/19.0.1/support-v13-19.0.1.jar"
+        dex="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-dea3d89443f8ac02db8cb765209d84d8dc38ebb7.jar"
+        jar="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.astuetz/pagerslidingtabstrip/1.0.1/classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="a4d00c1fa39c05a544fc2221af40bbf76e07c7df"/>
+        sha1="7912610ed96381c25c36d986eba422731b9641b6"/>
 
 </pre-dex-items>
