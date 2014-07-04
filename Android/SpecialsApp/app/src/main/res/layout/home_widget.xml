@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="See What's Trending"
+            android:paddingLeft="5dp"
             android:paddingRight="115dp"
             style="@android:style/TextAppearance.DeviceDefault.Large"/>
 
@@ -24,6 +25,7 @@
             android:id="@+id/descrip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
             android:text="Most Popular Deals"
             android:layout_below="@id/newVehicles"/>
 
