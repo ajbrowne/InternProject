@@ -84,6 +84,9 @@
         <item>Escape</item>
         <item>Focus</item>
     </string-array>
+    <string-array name="any">
+        <item>Any</item>
+    </string-array>
     <string-array name="priceRange">
         <item>None</item>
         <item>$1,000</item>

@@ -5,64 +5,94 @@
     android:background="#EFEFEF"
     tools:context=".Fragments.SearchFragment">
 
-    <LinearLayout
-        android:id="@+id/topSpinners"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/make_label"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp">
+        android:layout_centerHorizontal="true"
+        android:text="Make: "
+        android:layout_marginTop="40dp"
+        android:textSize="15sp" />
 
-        <Spinner
-            android:id="@+id/makeSpinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="25dp"
-            android:layout_weight="1"
-            android:entries="@array/makes"
-            android:prompt="@string/make_prompt"
-            android:spinnerMode="dialog"></Spinner>
-
-        <Spinner
-            android:id="@+id/modelSpinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="25dp"
-            android:layout_weight="1"
-            android:entries="@array/models_Ford"
-            android:prompt="@string/model_prompt"
-            android:spinnerMode="dialog"></Spinner>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="match_parent"
+    <Spinner
+        android:id="@+id/makeSpinner"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/topSpinners"
-        android:background="#efefef">
+        android:layout_below="@id/make_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:entries="@array/makes"
+        android:minWidth="200dp"
+        android:prompt="@string/make_prompt"
+        android:spinnerMode="dialog" />
 
-        <Spinner
-            android:id="@+id/typeSpinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="25dp"
-            android:layout_weight="1"
-            android:entries="@array/type"
-            android:prompt="@string/type_prompt"
-            android:spinnerMode="dialog"
-            android:textColor="#000" />
+    <TextView
+        android:id="@+id/model_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/makeSpinner"
+        android:layout_centerHorizontal="true"
+        android:text="Model: "
+        android:textSize="15sp" />
 
-        <Spinner
-            android:id="@+id/priceSpinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="25dp"
-            android:layout_weight="1"
-            android:entries="@array/priceRange"
-            android:prompt="@string/price_prompt"
-            android:spinnerMode="dialog"
-            android:textColor="#000" />
+    <Spinner
+        android:id="@+id/modelSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/model_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:entries="@array/any"
+        android:minWidth="200dp"
+        android:prompt="@string/model_prompt"
+        android:spinnerMode="dialog" />
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/type_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modelSpinner"
+        android:layout_centerHorizontal="true"
+        android:text="Type: "
+        android:textSize="15sp" />
+
+    <Spinner
+        android:id="@+id/typeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/type_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:layout_weight="1"
+        android:entries="@array/type"
+        android:minWidth="200dp"
+        android:prompt="@string/type_prompt"
+        android:spinnerMode="dialog"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/price_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/typeSpinner"
+        android:layout_centerHorizontal="true"
+        android:text="Maximum Price: "
+        android:textSize="15sp" />
+
+    <Spinner
+        android:id="@+id/priceSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/price_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:layout_weight="1"
+        android:entries="@array/priceRange"
+        android:minWidth="200dp"
+        android:prompt="@string/price_prompt"
+        android:spinnerMode="dialog"
+        android:textColor="#000" />
+
 
     <Button
         android:id="@+id/searchButton"
@@ -70,7 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/linear"
+        android:layout_below="@+id/priceSpinner"
+        android:layout_centerHorizontal="true"
         android:layout_margin="25dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/custom_button"

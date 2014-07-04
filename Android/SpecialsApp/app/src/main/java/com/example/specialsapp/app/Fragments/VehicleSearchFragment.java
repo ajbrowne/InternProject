@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import com.example.specialsapp.app.Activities.VehicleResultsActivity;
 import com.example.specialsapp.app.R;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -98,6 +100,12 @@ public class VehicleSearchFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                if (index == 1){
+                    String[] models = getActivity().getResources().getStringArray(R.array.any);
+                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
+                    spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    modelSpinner.setAdapter(spinnerArrayAdapter);
+                }
             }
         });
     }
