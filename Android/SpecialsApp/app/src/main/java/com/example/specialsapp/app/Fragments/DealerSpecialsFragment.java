@@ -117,7 +117,6 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         RequestParams params = new RequestParams(param);
 
         System.out.println(params);
-
         specialsAsync(params);
     }
 
@@ -139,6 +138,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                                 JSONObject vehicle = (JSONObject) vehicles2.get(j);
                                 JSONArray ids = (JSONArray) spec.get("vehicleId");
                                 if (vehicle.getString("id").compareTo((String) ids.get(0)) == 0) {
+                                    System.out.println("PRICE:" + vehicle.getInt("price"));
                                     special.setPrice(vehicle.getInt("price"));
                                     special.setAmount(spec.getString("amount"));
                                 }

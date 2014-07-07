@@ -85,7 +85,7 @@ public class MergeService {
             tempSpecial.setVehicleId(ids);
             List<Special> temp = specialService.getSpecials(tempSpecial);
             //return only specials with the matching vehicles
-            temp = vehicleHelper(temp, ids);
+            //temp = vehicleHelper(temp, ids);
             //store the dealers name and the special in an object to pass to the app
             //dealer name is for the cards in the app.
             if (temp.size() != 0) {
