@@ -15,6 +15,24 @@ public class Vehicle {
     private String trim;
     private int price;
 
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
+
+    public Vehicle(String id, int year, String make, String model, String trim, int price, String urlImage) {
+        this.id = id;
+        this.year = year;
+        this.make = make;
+        this.model = model;
+        this.trim = trim;
+        this.price = price;
+        this.urlImage = urlImage;
+    }
+
     @Override
     public String toString() {
         return "Vehicle{" +
@@ -24,8 +42,11 @@ public class Vehicle {
                 ", model='" + model + '\'' +
                 ", trim='" + trim + '\'' +
                 ", price=" + price +
+                ", urlImage='" + urlImage + '\'' +
                 '}';
     }
+
+    private String urlImage;
 
     public Vehicle(int year, String make, String model, String trim, int price) {
         this.year = year;
