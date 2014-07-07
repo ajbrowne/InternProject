@@ -5,6 +5,8 @@ import com.loopj.android.http.*;
 
 import org.apache.http.entity.StringEntity;
 
+import java.io.File;
+
 /**
  *
  * Centralizes all rest call to the api using Android Async HTTP Library
@@ -26,6 +28,12 @@ public class SpecialsRestClient {
     public static void post(Context context, String url, StringEntity entity, String type, AsyncHttpResponseHandler responseHandler) {
         client.setProxy("192.168.169.112", 8080);
         client.post(context, getAbsoluteUrl(url), entity, type, responseHandler);
+    }
+
+    public static void get(String url, BinaryHttpResponseHandler responseHandler){
+        client.setProxy("192.168.169.112", 8080);
+        System.out.println(url);
+        client.get(url, responseHandler);
     }
 
     private static String getAbsoluteUrl(String relativeUrl) {

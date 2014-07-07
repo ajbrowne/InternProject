@@ -1,5 +1,7 @@
 package com.example.specialsapp.app.Models;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by brownea on 6/20/14.
  **/
@@ -11,6 +13,8 @@ public class Special {
     private String dealer;
     private int price = -1000;
     private String amount;
+
+    private String url;
 
     public Special(){}
 
@@ -68,6 +72,14 @@ public class Special {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override

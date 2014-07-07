@@ -46,7 +46,7 @@
         android:columnWidth="190dp"
         android:numColumns="3"
         android:verticalSpacing="3dp"
-        android:horizontalSpacing="2dp"
+        android:horizontalSpacing="-8dp"
         android:stretchMode="columnWidth"
         android:gravity="center"
         android:id="@+id/newGrid"

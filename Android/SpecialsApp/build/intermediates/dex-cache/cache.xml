@@ -7,5 +7,17 @@
         jumboMode="false"
         revision="19.1.0"
         sha1="7912610ed96381c25c36d986eba422731b9641b6"/>
+    <item
+        dex="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/android-smart-image-view-1.0.0-f51429e3297a510aba7d2957d5b0032e6276ca79.jar"
+        jar="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/app/libs/android-smart-image-view-1.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="d76ea8c3e9a60101244d6d04aff8cc75888570f0"/>
+    <item
+        dex="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/picasso-2.3.2-11d86373061506be862b524cc4a331955da2e396.jar"
+        jar="/Users/brownea/Documents/Project/InternProject/Android/SpecialsApp/app/libs/picasso-2.3.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27"/>
 
 </pre-dex-items>

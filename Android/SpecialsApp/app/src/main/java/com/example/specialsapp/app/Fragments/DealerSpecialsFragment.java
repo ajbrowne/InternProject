@@ -1,7 +1,11 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,6 +31,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -129,7 +137,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                     JSONObject dealer = (JSONObject) request.get(0);
                     JSONArray specialArray = (JSONArray) dealer.get("specials");
                     for (int i = 0; i < specialArray.length(); i++) {
-                        Special special = new Special();
+                        final Special special = new Special();
                         JSONObject spec = (JSONObject) specialArray.get(i);
                         JSONArray vehicles = (JSONArray) spec.get(("vehicleId"));
                         if (vehicles.length() == 1) {
@@ -138,9 +146,9 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                                 JSONObject vehicle = (JSONObject) vehicles2.get(j);
                                 JSONArray ids = (JSONArray) spec.get("vehicleId");
                                 if (vehicle.getString("id").compareTo((String) ids.get(0)) == 0) {
-                                    System.out.println("PRICE:" + vehicle.getInt("price"));
                                     special.setPrice(vehicle.getInt("price"));
                                     special.setAmount(spec.getString("amount"));
+                                    special.setUrl(vehicle.getString("urlImage"));
                                 }
                             }
                         } else {
@@ -150,6 +158,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                         special.setDealer(dealer.getString("dealerName"));
                         special.setDescription(spec.getString("description"));
                         special.setType(spec.getString("type"));
+
                         specials.add(special);
                     }
 
@@ -191,6 +200,8 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
             card.setDescription(specials.get(i).getDescription());
             card.setDealer(specials.get(i).getDealer());
             card.setSpecialType(specials.get(i).getType());
+            card.setActivity(getActivity());
+            card.setUrl(specials.get(i).getUrl());
             if (specials.get(i).getPrice() != -1000){
                 int old = Integer.parseInt(specials.get(i).getAmount());
                 card.setNewPrice(String.valueOf(specials.get(i).getPrice() - old));
@@ -251,5 +262,4 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         }
         return true;
     }
-
 }
