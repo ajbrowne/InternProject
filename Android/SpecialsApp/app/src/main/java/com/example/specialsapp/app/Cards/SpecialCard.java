@@ -61,6 +61,10 @@ public class SpecialCard extends Card {
             mOldPrice.setPaintFlags(mOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             mNewPrice.setText("$" + newPrice);
         }
+        else{
+            mOldPrice.setText(oldPrice);
+            mNewPrice.setText("");
+        }
     }
 
     public String getTitle() {
