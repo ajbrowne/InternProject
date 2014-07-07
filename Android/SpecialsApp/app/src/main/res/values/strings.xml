@@ -80,9 +80,145 @@
         <item>Volkswagen</item>
         <item>Volvo</item>
     </string-array>
-    <string-array name="models_Ford">
+    <string-array name="Ford">
         <item>Escape</item>
         <item>Focus</item>
+    </string-array>
+    <string-array name="Cadillac">
+        <item>ATS</item>
+        <item>Catera</item>
+        <item>CTS</item>
+        <item>DeVille</item>
+        <item>DTS</item>
+        <item>Eldorado</item>
+        <item>ELR</item>
+        <item>Escalade</item>
+        <item>Escalade ESV</item>
+        <item>Escalade EXT</item>
+        <item>Escalade Hybrid</item>
+        <item>Seville</item>
+        <item>SRX</item>
+        <item>STS</item>
+        <item>XLR</item>
+        <item>XTS</item>
+    </string-array>
+    <string-array name="AstonMartin">
+        <item>DB AR1 Zagato</item>
+        <item>DB7</item>
+        <item>DB7 Vantage</item>
+        <item>DB9</item>
+        <item>DBS</item>
+        <item>Rapide</item>
+        <item>Rapide S</item>
+        <item>V12 Vanquish</item>
+        <item>V12 Vantage</item>
+        <item>V8 Vantage</item>
+        <item>V8 Vantage S</item>
+        <item>Vanquish</item>
+        <item>Vantage</item>
+        <item>Virage</item>
+    </string-array>
+    <string-array name="Chevrolet">
+        <item>2500</item>
+        <item>3500</item>
+        <item>Astro</item>
+        <item>Avalanche</item>
+        <item>Aveo</item>
+        <item>Blazer</item>
+        <item>Camaro</item>
+        <item>Captiva Sport</item>
+        <item>Cavalier</item>
+        <item>Classic</item>
+        <item>Cobalt</item>
+        <item>Colorado</item>
+        <item>Corvette</item>
+        <item>Corvette Stingray</item>
+        <item>Cruze</item>
+        <item>Equinox</item>
+        <item>Express</item>
+        <item>Van</item>
+        <item>HHR</item>
+        <item>Impala</item>
+        <item>Impala Limited</item>
+        <item>Lumina</item>
+        <item>Malibu</item>
+        <item>Malibu Classic</item>
+        <item>Malibu Hybrid</item>
+        <item>Malibu Maxx</item>
+        <item>Metro</item>
+        <item>Monte Carlo</item>
+        <item>Pickup</item>
+        <item>Prizm</item>
+        <item>S-10</item>
+        <item>Silverado</item>
+        <item>Sonic</item>
+        <item>Spark</item>
+        <item>Spark EV</item>
+        <item>SS</item>
+        <item>SSR</item>
+        <item>Suburban</item>
+        <item>Tahoe</item>
+        <item>Tahoe Hybrid</item>
+        <item>Tracker</item>
+        <item>TrailBlazer</item>
+        <item>TrailBlazer EXT</item>
+        <item>Traverse</item>
+        <item>Uplander</item>
+        <item>Venture</item>
+        <item>Volt</item>
+    </string-array>
+    <string-array name="GMC">
+        <item>Acadia</item>
+        <item>Canyon</item>
+        <item>Envoy</item>
+        <item>Envoy XL</item>
+        <item>Envoy XUV</item>
+        <item>Jimmy</item>
+        <item>Safari</item>
+        <item>Savana</item>
+        <item>Sierra</item>
+        <item>Sonoma</item>
+        <item>Terrain</item>
+        <item>Yukon</item>
+        <item>Yukon Hybrid</item>
+        <item>Yukon XL</item>
+    </string-array>
+    <string-array name="Lamborghini">
+        <item>Aventador</item>
+        <item>Diablo</item>
+        <item>Gallardo</item>
+        <item>Murcielago</item>
+    </string-array>
+    <string-array name="MercedesBenz">
+        <item>C-Class</item>
+        <item>CL-Class</item>
+        <item>CLA-Class</item>
+        <item>CLK-Class</item>
+        <item>CLS-Class</item>
+        <item>E-Class</item>
+        <item>G-Class</item>
+        <item>GL-Class</item>
+        <item>GLK-Class</item>
+        <item>M-Class</item>
+        <item>R-Class</item>
+        <item>S-Class</item>
+        <item>SL-Class</item>
+        <item>SLK-Class</item>
+        <item>SLR McLaren</item>
+        <item>SLS AMG</item>
+        <item>SLS AMG Black Series</item>
+        <item>Sprinter</item>
+    </string-array>
+    <string-array name="MINI">
+        <item>Clubman</item>
+        <item>Convertible</item>
+        <item>Cooper</item>
+        <item>Cooper S</item>
+        <item>Countryman</item>
+        <item>Coupe</item>
+        <item>Hardtop</item>
+        <item>Paceman</item>
+        <item>Roadster</item>
     </string-array>
     <string-array name="any">
         <item>Any</item>

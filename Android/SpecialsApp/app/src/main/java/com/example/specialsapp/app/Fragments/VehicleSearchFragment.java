@@ -89,8 +89,12 @@ public class VehicleSearchFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selected = spinner.getSelectedItem().toString();
                 params[index] = selected;
+                String theStringField;
                 if (index == 0) {
-                    int identifier = getActivity().getResources().getIdentifier(spinner.getSelectedItem().toString(), "array", getActivity().getPackageName());
+                    theStringField = spinner.getSelectedItem().toString();
+                    theStringField = theStringField.replaceAll(" ", "").replaceAll("-", "");
+                    System.out.println(theStringField);
+                    int identifier = getActivity().getResources().getIdentifier(theStringField, "array", getActivity().getPackageName());
                     String[] models = getActivity().getResources().getStringArray(identifier);
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models); //selected item will look like a spinner set from XML
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
