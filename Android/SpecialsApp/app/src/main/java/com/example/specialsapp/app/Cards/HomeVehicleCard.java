@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.example.specialsapp.app.R;
 
+import org.w3c.dom.Text;
+
 import it.gmariotti.cardslib.library.internal.Card;
 
 /**
@@ -17,10 +19,12 @@ import it.gmariotti.cardslib.library.internal.Card;
  */
 public class HomeVehicleCard extends Card {
 
-    protected TextView mDealer;
-    protected TextView mCityState;
-    protected String dealer;
-    protected String cityState;
+    private TextView mName;
+    private TextView mPrice;
+    private TextView mType;
+    private String name = "";
+    private String price = "";
+    private String type = "";
 
     public HomeVehicleCard(Context context) {
         this(context, R.layout.h_vehicle_card);
@@ -32,25 +36,44 @@ public class HomeVehicleCard extends Card {
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
-//        mDealer = (TextView) parent.findViewById(R.id.dealer);
-//        mCityState = (TextView) parent.findViewById(R.id.city);
-//        mDealer.setText(this.dealer);
-//        mCityState.setText(this.cityState);
+        mName = (TextView) parent.findViewById(R.id.smallCar);
+        mPrice = (TextView) parent.findViewById(R.id.smallPrice);
+        mType = (TextView) parent.findViewById(R.id.smallType);
+
+        mName.setText(this.name);
+        mPrice.setText("$" + this.price);
+        mType.setText(this.type);
+
+        if (this.price.compareTo("") == 0){
+            mPrice.setText("$6000");
+            mName.setText("2004 Pontiac Aztek");
+            mType.setText("Used");
+
+        }
     }
 
-    public void setDealer(String dealer){
-        this.dealer = dealer;
+    public String getName() {
+        return name;
     }
 
-    public void setCityState(String cityState){
-        this.cityState = cityState;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCityState() {
-        return this.cityState;
+    public String getPrice() {
+        return price;
     }
 
-    public String getDealer() {
-        return this.dealer;
+    public void setPrice(String price) {
+        this.price = price;
     }
+
+    public String getVehicleType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }
