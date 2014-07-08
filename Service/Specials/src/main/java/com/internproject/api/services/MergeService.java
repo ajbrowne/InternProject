@@ -110,16 +110,16 @@ public class MergeService {
      * @return a modified list of specials
      */
     private List<Special> specialHelper(List<Special> specials, List<String> vehicleIds) {
-        List<Special> matches = new ArrayList<Special>();
         for (int i = 0; i < specials.size(); i++) {
             for (String vehicleId : vehicleIds) {
                 if (listCheck(specials.get(i).getVehicleId(), vehicleId)) {
-                    matches.add(specials.get(i));
+                    specials.remove(i);
+                    i--;
                 }
             }
         }
 
-        return matches;
+        return specials;
     }
 
     public List<Vehicle> vehicleHelper(List<Vehicle> vehicles, Vehicle match) {
