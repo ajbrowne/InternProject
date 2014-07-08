@@ -115,6 +115,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         param.put("lng", longg);
         param.put("lat", latt);
         param.put("make", "");
+        param.put("extra", "0");
         RequestParams params = new RequestParams(param);
 
         System.out.println(params);
