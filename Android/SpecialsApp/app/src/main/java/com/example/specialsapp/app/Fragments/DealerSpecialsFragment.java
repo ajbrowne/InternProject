@@ -118,7 +118,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         param.put("extra", "0");
         RequestParams params = new RequestParams(param);
 
-        System.out.println(params);
+        System.out.println("DSGDGDHHDAHAHADHAH" + params);
         vehicleAsync(params);
     }
 
@@ -131,7 +131,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                 Vehicle newVehicle = new Vehicle();
                 try {
                     JSONObject dealer = (JSONObject) request.get(0);
-                    JSONArray vehicleArray = (JSONArray) request.get(1);
+                    JSONArray vehicleArray = (JSONArray) dealer.get("vehicles");
                     for (int i = 0; i < vehicleArray.length(); i++) {
                         JSONObject vehicle = (JSONObject) vehicleArray.get(i);
                         String id = vehicle.getString("id");
@@ -140,15 +140,16 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                             JSONObject special = (JSONObject) specialArray.get(j);
                             JSONArray ids = (JSONArray) special.get("vehicleId");
                             for (int k = 0; k < ids.length(); k++) {
-                                if (ids.get(i).equals(id)) {
+                                if (ids.get(k).equals(id)) {
                                     Special specialObject = new Special();
                                     specialObject.setTitle(special.getString("title"));
+                                    specialObject.setAmount(special.getString("amount"));
                                     Vehicle vehicleObject = new Vehicle();
                                     vehicleObject.setMake(vehicle.getString("make"));
                                     vehicleObject.setModel(vehicle.getString("model"));
                                     vehicleObject.setYear(vehicle.getString("year"));
                                     vehicleObject.setPrice(vehicle.getString("price"));
-                                    vehicleObject.setUrl(vehicle.getString("url"));
+                                    vehicleObject.setUrl(vehicle.getString("urlImage"));
                                     vehicleObject.setVehicleType(vehicle.getString("type"));
                                     vehicleObject.setDealer(dealer.getString("dealerName"));
                                     ArrayList<Special> specs = vehicleObject.getSpecials();

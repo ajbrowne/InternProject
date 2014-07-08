@@ -191,7 +191,7 @@ public class HomeFragment extends Fragment {
                     addedVehicles.add((String) ids.get(k));
                     newVehicle.setPrice(String.valueOf(vehicle.getInt("price") - Integer.parseInt(spec.getString("amount"))));
                     newVehicle.setName(vehicle.getString("year") + " " + vehicle.getString("make") + " " + vehicle.getString("model"));
-                    newVehicle.setType(spec.getString("type"));
+                    //newVehicle.setVehicleType(spec.getString("type"));
                     newVehicle.setUrl(vehicle.getString("urlImage"));
                     vehicles.add(newVehicle);
                 }
@@ -215,7 +215,7 @@ public class HomeFragment extends Fragment {
             HomeVehicleCard card = new HomeVehicleCard(getActivity(), R.layout.h_vehicle_card);
             card.setName(vehicles.get(i).getName());
             card.setPrice(((HomeActivity)getActivity()).insertCommas(vehicles.get(i).getPrice()));
-            card.setType(vehicles.get(i).getType());
+            card.setType(vehicles.get(i).getVehicleType());
             card.setUrl(vehicles.get(i).getUrl());
 
             card.setOnClickListener(new Card.OnCardClickListener() {
