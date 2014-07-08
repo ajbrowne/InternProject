@@ -72,6 +72,9 @@ public class MergeService {
         List<MergerObj> specials = new ArrayList<MergerObj>();
         List<Vehicle> tempVehicles = vehicleService.getVehicles(vehicle);
         List<String> ids = new ArrayList<String>();
+        if(flag == 1){
+            tempVehicles = vehicleHelper(tempVehicles, vehicle);
+        }
         //Loop over the vehicles that match the given description and store their ids
         for (Vehicle tempVehicle : tempVehicles) {
             ids.add(tempVehicle.getId());
@@ -86,7 +89,7 @@ public class MergeService {
             List<Special> temp = specialService.getSpecials(tempSpecial);
             //return only specials with the matching vehicles
             if(flag == 1){
-                temp = vehicleHelper(temp, ids);
+                temp = specialHelper(temp, ids);
             }
             //store the dealers name and the special in an object to pass to the app
             //dealer name is for the cards in the app.
@@ -105,7 +108,7 @@ public class MergeService {
      * @param vehicleIds - a list of the vehicles we are looking through
      * @return a modified list of specials
      */
-    public List<Special> vehicleHelper(List<Special> specials, List<String> vehicleIds){
+    public List<Special> specialHelper(List<Special> specials, List<String> vehicleIds){
 
         for(int i =0; i<specials.size();i++){
             for (String vehicleId : vehicleIds) {
@@ -116,6 +119,20 @@ public class MergeService {
         }
 
         return specials;
+    }
+
+    public List<Vehicle> vehicleHelper(List<Vehicle> vehicles, Vehicle match){
+
+        for(Vehicle temp: vehicles){
+            if(!temp.getMake().equals(match.getMake())){
+                vehicles.remove(temp);
+            }
+            if(!temp.getModel().equals(match.getModel())){
+                vehicles.remove(temp);
+            }
+        }
+
+        return vehicles;
     }
 
 }
