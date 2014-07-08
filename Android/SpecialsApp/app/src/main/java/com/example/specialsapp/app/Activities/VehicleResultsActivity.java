@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,7 +97,7 @@ public class VehicleResultsActivity extends BaseActivity {
         param.put("model", params[1]);
         param.put("type", params[2]);
         param.put("max", params[3]);
-        param.put("extra", "1");
+        param.put("extra", params[4]);
         RequestParams parameters = new RequestParams(param);
         System.out.println("PARAMS: " + parameters);
         vehicleAsync(parameters);
@@ -122,6 +123,7 @@ public class VehicleResultsActivity extends BaseActivity {
                                 if (vehicle.getString("id").compareTo((String) ids.get(0)) == 0) {
                                     special.setPrice(vehicle.getInt("price"));
                                     special.setAmount(spec.getString("amount"));
+                                    special.setUrl(vehicle.getString("urlImage"));
                                 }
                             }
                         } else {
@@ -170,10 +172,11 @@ public class VehicleResultsActivity extends BaseActivity {
             card.setDescription(special.getDescription());
             card.setDealer(special.getDealer());
             card.setSpecialType(special.getType());
+            card.setUrl(specials.get(i).getUrl());
             if (special.getPrice() != defaultLocation){
                 int old = Integer.parseInt(specials.get(i).getAmount());
-                card.setNewPrice(String.valueOf(special.getPrice() - old));
-                card.setOldPrice(String.valueOf(special.getPrice()));
+                card.setNewPrice(insertCommas(String.valueOf(special.getPrice() - old)));
+                card.setOldPrice(insertCommas(String.valueOf(special.getPrice())));
             }
             else{
                 card.setOldPrice(special.getAmount());
@@ -213,4 +216,9 @@ public class VehicleResultsActivity extends BaseActivity {
         return location;
     }
 
+    public String insertCommas(String amount){
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        Double number = Double.parseDouble(amount);
+        return String.valueOf(formatter.format(number));
+    }
 }

@@ -54,6 +54,7 @@ public class VehicleSearchFragment extends Fragment {
         setSpinnerListener(modelSpinner, 1);
         setSpinnerListener(typeSpinner, 2);
         setSpinnerListener(priceSpinner, 3);
+        params[4] = "1";
 
         submitSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +67,9 @@ public class VehicleSearchFragment extends Fragment {
                 }
                 if (priceSpinner.getSelectedItem().toString().compareTo("None") == 0){
                     params[3] = "";
+                }
+                if (params[0].equals("") && params[2].equals("") && params[3].equals("")){
+                    params[4] = "0";
                 }
 
                 Intent intent = new Intent(getActivity(), VehicleResultsActivity.class);
