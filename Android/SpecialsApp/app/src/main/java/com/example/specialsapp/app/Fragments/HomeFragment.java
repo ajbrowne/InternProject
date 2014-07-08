@@ -125,6 +125,7 @@ public class HomeFragment extends Fragment {
         param.put("lng", longg);
         param.put("lat", latt);
         param.put("make", "");
+        param.put("extra", "0");
         RequestParams params = new RequestParams(param);
 
         trendingAsync(params);
