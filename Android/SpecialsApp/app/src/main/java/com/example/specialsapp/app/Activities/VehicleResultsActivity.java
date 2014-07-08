@@ -172,7 +172,7 @@ public class VehicleResultsActivity extends BaseActivity {
     private ArrayList<Card> createSpecials(int index, ArrayList<Card> cards, final ArrayList<Vehicle> newVehicles) {
         for (int i = index; i < newVehicles.size(); i++) {
             VehicleCard card = new VehicleCard(this, R.layout.vehicle_card);
-            Vehicle vehicle = newVehicles.get(i);
+            final Vehicle vehicle = newVehicles.get(i);
             card.setTitle(vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel());
             // Needs to be gas mileage!!!
             //card.setDescription(special.getDescription());
@@ -193,14 +193,14 @@ public class VehicleResultsActivity extends BaseActivity {
                 public void onClick(Card card, View view) {
                     Intent intent = new Intent(VehicleResultsActivity.this, SpecialDetail.class);
                     VehicleCard temp = (VehicleCard) card;
-//                    intent.putExtra("title", temp.getTitle());
-//                    intent.putExtra("description", temp.getDescription());
-//                    intent.putExtra("oldP", temp.getOldPrice());
-//                    intent.putExtra("newP", temp.getNewPrice());
-//                    intent.putExtra("imageUrl", temp.getUrl());
-//                    intent.putExtra("year", vehicle.getYear());
-//                    intent.putExtra("make", vehicle.getMake());
-//                    intent.putExtra("model", vehicle.getModel());
+                    intent.putExtra("title", temp.getTitle());
+                    //intent.putExtra("description", temp.getDescription());
+                    intent.putExtra("oldP", temp.getOldPrice());
+                    intent.putExtra("newP", temp.getNewPrice());
+                    intent.putExtra("imageUrl", temp.getUrl());
+                    intent.putExtra("year", vehicle.getYear());
+                    intent.putExtra("make", vehicle.getMake());
+                    intent.putExtra("model", vehicle.getModel());
                     startActivity(intent);
                 }
             });
