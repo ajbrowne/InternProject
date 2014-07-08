@@ -1,18 +1,13 @@
 package com.example.specialsapp.app.Cards;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.specialsapp.app.R;
-import com.loopj.android.image.SmartImageView;
 import com.squareup.picasso.Picasso;
 
 import it.gmariotti.cardslib.library.internal.Card;
@@ -25,23 +20,7 @@ import it.gmariotti.cardslib.library.internal.Card;
  */
 public class SpecialCard extends Card {
 
-    private TextView mTitle;
-    private TextView mDescription;
-    private TextView mSpecialType;
-    private TextView mDealer;
-    private TextView mOldPrice;
-    private TextView mNewPrice;
-    private ImageView mThumbnail;
-
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
-    }
-
-    private Activity activity;
+    private Context context;
 
     private String title;
     private String description;
@@ -53,6 +32,7 @@ public class SpecialCard extends Card {
 
     public SpecialCard(Context context) {
         this(context, R.layout.special_card);
+        this.context = context;
     }
 
     public SpecialCard(Context context, int innerLayout) {
@@ -61,13 +41,13 @@ public class SpecialCard extends Card {
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
-        mDealer = (TextView) parent.findViewById(R.id.dealerName);
-        mTitle = (TextView) parent.findViewById(R.id.title);
-        mSpecialType = (TextView) parent.findViewById(R.id.type);
-        mDescription = (TextView) parent.findViewById(R.id.subTitle);
-        mNewPrice = (TextView) parent.findViewById(R.id.newPrice);
-        mOldPrice = (TextView) parent.findViewById(R.id.oldPrice);
-        mThumbnail = (ImageView) parent.findViewById(R.id.thumbnail);
+        TextView mDealer = (TextView) parent.findViewById(R.id.dealerName);
+        TextView mTitle = (TextView) parent.findViewById(R.id.title);
+        TextView mSpecialType = (TextView) parent.findViewById(R.id.type);
+        TextView mDescription = (TextView) parent.findViewById(R.id.subTitle);
+        TextView mNewPrice = (TextView) parent.findViewById(R.id.newPrice);
+        TextView mOldPrice = (TextView) parent.findViewById(R.id.oldPrice);
+        ImageView mThumbnail = (ImageView) parent.findViewById(R.id.thumbnail);
 
         mDealer.setText(dealer);
         mTitle.setText(title);
@@ -86,7 +66,7 @@ public class SpecialCard extends Card {
             mOldPrice.setText("$" + oldPrice);
             mOldPrice.setPaintFlags(mOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             mNewPrice.setText("$" + newPrice);
-            Picasso.with(activity)
+            Picasso.with(context)
                     .load(url)
                     //.placeholder(R.drawable.silverado)
                     .resize(335, 600)

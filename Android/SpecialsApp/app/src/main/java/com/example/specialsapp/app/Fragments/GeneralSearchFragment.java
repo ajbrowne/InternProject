@@ -60,9 +60,9 @@ public class GeneralSearchFragment extends Fragment {
                 }
                 if (zipCode.compareTo("") == 0){
                     final GPS gps = new GPS(getActivity());
-                    Double latitiude = gps.getLatitude();
+                    Double latitude = gps.getLatitude();
                     Double longitude = gps.getLongitude();
-                    String latt = String.valueOf(latitiude);
+                    String latt = String.valueOf(latitude);
                     String longi = String.valueOf(longitude);
                     search(latt, longi, phrase);
                 }

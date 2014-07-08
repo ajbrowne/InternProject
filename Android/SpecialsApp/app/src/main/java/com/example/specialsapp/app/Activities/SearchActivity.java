@@ -7,12 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.example.specialsapp.app.Adapters.HomePagerAdapter;
 import com.example.specialsapp.app.Adapters.SearchPagerAdapter;
-import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.R;
-
-import java.util.ArrayList;
 
 
 /**
@@ -20,7 +16,6 @@ import java.util.ArrayList;
  */
 public class SearchActivity extends BaseActivity {
 
-    private ViewPager viewPager;
     private static final int numTabs = 3;
 
     @Override
@@ -33,7 +28,7 @@ public class SearchActivity extends BaseActivity {
         final ActionBar actionBar = getActionBar();
 
         SearchPagerAdapter mAdapter; mAdapter = new SearchPagerAdapter(getSupportFragmentManager());
-        viewPager = (ViewPager) findViewById(R.id.fragmentContainer3);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.fragmentContainer3);
 
         viewPager.setAdapter(mAdapter);
         actionBar.setDisplayHomeAsUpEnabled(true);

@@ -10,6 +10,7 @@ import com.example.specialsapp.app.Adapters.HomePagerAdapter;
 import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,6 @@ import java.util.ArrayList;
  */
 public class HomeActivity extends BaseActivity {
 
-    private ViewPager viewPager;
     private ArrayList<Dealer> dealers;
 
     @Override
@@ -29,7 +29,7 @@ public class HomeActivity extends BaseActivity {
         tabs.setBackgroundColor(getResources().getColor(android.R.color.white));
         tabs.setTextColor(getResources().getColor(android.R.color.black));
         dealers = new ArrayList<Dealer>();
-        viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
         HomePagerAdapter mAdapter = new HomePagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(mAdapter);
@@ -57,4 +57,9 @@ public class HomeActivity extends BaseActivity {
         this.dealers = dealers;
     }
 
+    public String insertCommas(String amount){
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        Double number = Double.parseDouble(amount);
+        return String.valueOf(formatter.format(number));
+    }
 }

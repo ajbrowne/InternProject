@@ -3,11 +3,11 @@ package com.example.specialsapp.app.Cards;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.specialsapp.app.R;
-
-import org.w3c.dom.Text;
+import com.squareup.picasso.Picasso;
 
 import it.gmariotti.cardslib.library.internal.Card;
 
@@ -19,15 +19,15 @@ import it.gmariotti.cardslib.library.internal.Card;
  */
 public class HomeVehicleCard extends Card {
 
-    private TextView mName;
-    private TextView mPrice;
-    private TextView mType;
     private String name = "";
     private String price = "";
     private String type = "";
+    private String url;
+    private Context context;
 
     public HomeVehicleCard(Context context) {
         this(context, R.layout.h_vehicle_card);
+        this.context = context;
     }
 
     public HomeVehicleCard(Context context, int innerLayout) {
@@ -36,13 +36,18 @@ public class HomeVehicleCard extends Card {
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
-        mName = (TextView) parent.findViewById(R.id.smallCar);
-        mPrice = (TextView) parent.findViewById(R.id.smallPrice);
-        mType = (TextView) parent.findViewById(R.id.smallType);
+        TextView mName = (TextView) parent.findViewById(R.id.smallCar);
+        TextView mPrice = (TextView) parent.findViewById(R.id.smallPrice);
+        TextView mType = (TextView) parent.findViewById(R.id.smallType);
+        ImageView thumbnail = (ImageView) parent.findViewById(R.id.gridCar);
 
         mName.setText(this.name);
         mPrice.setText("$" + this.price);
         mType.setText(this.type);
+        Picasso.with(context)
+                .load(url)
+                .resize(100, 80)
+                .into(thumbnail);
 
         if (this.price.compareTo("") == 0){
             mPrice.setText("$6000");
@@ -74,6 +79,14 @@ public class HomeVehicleCard extends Card {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 }

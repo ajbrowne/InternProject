@@ -1,11 +1,7 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 
+import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Activities.SpecialDetail;
 import com.example.specialsapp.app.Cards.SpecialCard;
@@ -31,10 +28,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -200,12 +193,14 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
             card.setDescription(specials.get(i).getDescription());
             card.setDealer(specials.get(i).getDealer());
             card.setSpecialType(specials.get(i).getType());
-            card.setActivity(getActivity());
             card.setUrl(specials.get(i).getUrl());
             if (specials.get(i).getPrice() != -1000){
                 int old = Integer.parseInt(specials.get(i).getAmount());
-                card.setNewPrice(String.valueOf(specials.get(i).getPrice() - old));
-                card.setOldPrice(String.valueOf(specials.get(i).getPrice()));
+                int finalPrice = specials.get(i).getPrice() - old;
+                String price = ((HomeActivity)getActivity()).insertCommas(String.valueOf(finalPrice));
+                card.setNewPrice(price);
+                String oldPrice = ((HomeActivity)getActivity()).insertCommas(String.valueOf(specials.get(i).getPrice()));
+                card.setOldPrice(oldPrice);
             }
             else{
                 card.setOldPrice(specials.get(i).getAmount());

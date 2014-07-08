@@ -11,12 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Activities.SpecialDetail;
 import com.example.specialsapp.app.Cards.HomeVehicleCard;
-import com.example.specialsapp.app.Cards.SpecialCard;
 import com.example.specialsapp.app.GPS.GPS;
-import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.Models.Vehicle;
 import com.example.specialsapp.app.R;
 import com.example.specialsapp.app.Rest.SpecialsRestClient;
@@ -36,7 +35,6 @@ import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.internal.CardGridArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardGridView;
 import it.gmariotti.cardslib.library.view.CardListView;
-import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,7 +49,6 @@ public class HomeFragment extends Fragment {
     private static final String NewDescription = "Fresh On The Lot";
 
     private ArrayList<Card> cards;
-    private ArrayList<Card> newVehicles;
     private View homeView;
     private ArrayList<String> addedVehicles = new ArrayList<String>();
     private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
@@ -73,7 +70,7 @@ public class HomeFragment extends Fragment {
         Double latitude = gps.getLatitude();
         Double longitude = gps.getLongitude();
 
-        newVehicles = new ArrayList<Card>();
+        ArrayList<Card>newVehicles = new ArrayList<Card>();
         HomeVehicleCard card = new HomeVehicleCard(getActivity());
 
         for (int i = 0; i < 3; i++) {
@@ -172,18 +169,19 @@ public class HomeFragment extends Fragment {
     private void trendingIdCheck(JSONObject spec, JSONObject vehicle, JSONArray ids) throws JSONException {
         for (int k = 0; k < ids.length(); k++){
             boolean add = false;
-            for (int l = 0; l < addedVehicles.size(); l++){
-                if (addedVehicles.get(l).compareTo((String) ids.get(k)) == 0){
+            for (String addedVehicle : addedVehicles) {
+                if (addedVehicle.compareTo((String) ids.get(k)) == 0) {
                     add = true;
                 }
             }
-            if (add == false){
+            if (!add){
                 if (vehicle.getString("id").compareTo((String) ids.get(k)) == 0) {
                     Vehicle newVehicle = new Vehicle();
                     addedVehicles.add((String) ids.get(k));
                     newVehicle.setPrice(String.valueOf(vehicle.getInt("price") - Integer.parseInt(spec.getString("amount"))));
                     newVehicle.setName(vehicle.getString("year") + " " + vehicle.getString("make") + " " + vehicle.getString("model"));
                     newVehicle.setType(spec.getString("type"));
+                    newVehicle.setUrl(vehicle.getString("urlImage"));
                     vehicles.add(newVehicle);
                 }
             }
@@ -205,8 +203,9 @@ public class HomeFragment extends Fragment {
         for (int i = index; i < vehicles.size(); i++) {
             HomeVehicleCard card = new HomeVehicleCard(getActivity(), R.layout.h_vehicle_card);
             card.setName(vehicles.get(i).getName());
-            card.setPrice(vehicles.get(i).getPrice());
+            card.setPrice(((HomeActivity)getActivity()).insertCommas(vehicles.get(i).getPrice()));
             card.setType(vehicles.get(i).getType());
+            card.setUrl(vehicles.get(i).getUrl());
 
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
