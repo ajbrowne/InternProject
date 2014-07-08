@@ -53,7 +53,11 @@ public class HomeVehicleCard extends Card {
             mPrice.setText("$6000");
             mName.setText("2004 Pontiac Aztek");
             mType.setText("Used");
-
+            Picasso.with(context)
+                    .load(url)
+                    .placeholder(R.drawable.tesla)
+                    .resize(100, 80)
+                    .into(thumbnail);
         }
     }
 
