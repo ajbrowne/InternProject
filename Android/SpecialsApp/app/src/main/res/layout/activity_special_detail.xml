@@ -131,7 +131,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/detail_button"
-            android:text="Inquire"
+            android:text="Buy"
             android:textColor="#fff"
             android:onClick="submitInfo"/>
 

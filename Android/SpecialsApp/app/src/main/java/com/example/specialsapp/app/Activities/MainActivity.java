@@ -67,7 +67,6 @@ public class MainActivity extends BaseActivity {
         if(check){
             SignupNumberFragment signupNumberFragment = new SignupNumberFragment();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
             fragmentTransaction.replace(R.id.fragmentContainer, signupNumberFragment, "number");
             fragmentTransaction.commit();
         }else {
