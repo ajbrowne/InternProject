@@ -129,9 +129,11 @@ public class MergeService {
             if (!vehicles.get(i).getMake().equals(match.getMake())) {
                 vehicles.remove(vehicles.get(i));
                 length--;
+                i--;
             } else if (!vehicles.get(i).getModel().equals(match.getModel())) {
                 vehicles.remove(vehicles.get(i));
                 length--;
+                i--;
                 if (i >= length) {
                     break;
                 }

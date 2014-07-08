@@ -96,7 +96,6 @@ public class VehicleResultsActivity extends BaseActivity {
         param.put("type", params[2]);
         param.put("max", params[3]);
         param.put("extra", params[4]);
-        param.put("trim", "");
         RequestParams parameters = new RequestParams(param);
         System.out.println("PARAMS: " + parameters);
         vehicleAsync(parameters);
