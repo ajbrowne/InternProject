@@ -60,6 +60,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         homeView = inflater.inflate(R.layout.fragment_dealer_specials, container, false);
+        newVehicles = new ArrayList<Vehicle>();
 
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setTitle("Specials");
@@ -126,8 +127,8 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         SpecialsRestClient.get("vehicle", parameters, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
+                ArrayList<String> added = new ArrayList<String>();
                 ArrayList<Special> specials = new ArrayList<Special>();
-                ArrayList<Vehicle> newVehicles = new ArrayList<Vehicle>();
                 Vehicle newVehicle = new Vehicle();
                 try {
                     JSONObject dealer = (JSONObject) request.get(0);
@@ -146,6 +147,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                                     specialObject.setAmount(special.getString("amount"));
                                     Vehicle vehicleObject = new Vehicle();
                                     vehicleObject.setMake(vehicle.getString("make"));
+                                    vehicleObject.setId(vehicle.getString("id"));
                                     vehicleObject.setModel(vehicle.getString("model"));
                                     vehicleObject.setYear(vehicle.getString("year"));
                                     vehicleObject.setPrice(vehicle.getString("price"));
@@ -155,7 +157,16 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                                     ArrayList<Special> specs = vehicleObject.getSpecials();
                                     specs.add(specialObject);
                                     vehicleObject.setSpecials(specs);
-                                    newVehicles.add(vehicleObject);
+                                    boolean duplicate = false;
+                                    for (String theId: added){
+                                        if (theId.equals(vehicleObject.getId())){
+                                            duplicate = true;
+                                        }
+                                    }
+                                    if (!duplicate){
+                                        newVehicles.add(vehicleObject);
+                                        added.add(vehicle.getString("id"));
+                                    }
                                 }
                             }
                         }
@@ -165,8 +176,6 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                System.out.println(specials.size());
-                System.out.println(newVehicles.size());
                 addCards(newVehicles);
             }
         });

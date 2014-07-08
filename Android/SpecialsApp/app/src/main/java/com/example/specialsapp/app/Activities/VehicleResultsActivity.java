@@ -96,6 +96,7 @@ public class VehicleResultsActivity extends BaseActivity {
         param.put("type", params[2]);
         param.put("max", params[3]);
         param.put("extra", params[4]);
+        param.put("trim", "");
         RequestParams parameters = new RequestParams(param);
         System.out.println("PARAMS: " + parameters);
         vehicleAsync(parameters);
@@ -105,6 +106,7 @@ public class VehicleResultsActivity extends BaseActivity {
         SpecialsRestClient.get("vehicle", parameters, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
+                ArrayList<String> added = new ArrayList<String>();
                 ArrayList<Special> specials = new ArrayList<Special>();
                 ArrayList<Vehicle> newVehicles = new ArrayList<Vehicle>();
                 Vehicle newVehicle = new Vehicle();
@@ -125,6 +127,7 @@ public class VehicleResultsActivity extends BaseActivity {
                                     specialObject.setAmount(special.getString("amount"));
                                     Vehicle vehicleObject = new Vehicle();
                                     vehicleObject.setMake(vehicle.getString("make"));
+                                    vehicleObject.setId(vehicle.getString("id"));
                                     vehicleObject.setModel(vehicle.getString("model"));
                                     vehicleObject.setYear(vehicle.getString("year"));
                                     vehicleObject.setPrice(vehicle.getString("price"));
@@ -134,7 +137,16 @@ public class VehicleResultsActivity extends BaseActivity {
                                     ArrayList<Special> specs = vehicleObject.getSpecials();
                                     specs.add(specialObject);
                                     vehicleObject.setSpecials(specs);
-                                    newVehicles.add(vehicleObject);
+                                    boolean duplicate = false;
+                                    for (String theId: added){
+                                        if (theId.equals(vehicleObject.getId())){
+                                            duplicate = true;
+                                        }
+                                    }
+                                    if (!duplicate){
+                                        newVehicles.add(vehicleObject);
+                                        added.add(vehicle.getString("id"));
+                                    }
                                 }
                             }
                         }

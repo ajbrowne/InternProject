@@ -61,6 +61,7 @@ public class VehicleSearchFragment extends Fragment {
             public void onClick(View v) {
                 if (makeSpinner.getSelectedItem().toString().compareTo("All") == 0){
                     params[0] = "";
+                    params[1] = "";
                 }
                 if (typeSpinner.getSelectedItem().toString().compareTo("Any") == 0){
                     params[2] = "";

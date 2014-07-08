@@ -12,6 +12,8 @@ public class Vehicle {
     private String model;
     private String type;
 
+    private String id;
+
     private String dealer;
 
     private ArrayList<Special> specials = new ArrayList<Special>();
@@ -94,5 +96,14 @@ public class Vehicle {
 
     public void setDealer(String dealer) {
         this.dealer = dealer;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
