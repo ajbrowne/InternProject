@@ -20,7 +20,6 @@ public class SpecialDetail extends BaseActivity {
         setContentView(R.layout.activity_special_detail);
         Bundle extras = getIntent().getExtras();
         TextView mTitle = (TextView) findViewById(R.id.title_text);
-        TextView mDescription = (TextView) findViewById(R.id.description);
         TextView mOldPrice = (TextView) findViewById(R.id.price_old);
         TextView mNewPrice = (TextView) findViewById(R.id.price_new);
         TextView mName = (TextView) findViewById(R.id.price_name);
@@ -28,7 +27,6 @@ public class SpecialDetail extends BaseActivity {
 
         if (extras != null) {
             mTitle.setText(extras.getString("title"));
-            mDescription.setText(extras.getString("description"));
             mOldPrice.setText("$" + extras.getString("oldP"));
             mOldPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             mNewPrice.setText("$" + extras.getString("newP"));
