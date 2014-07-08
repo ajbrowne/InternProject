@@ -147,7 +147,7 @@ public class RunnableQuery implements Runnable {
 
         //Executor service manages the running of all of the threads and then waiting for all of them
         //to finish before moving on.
-        RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5};
+        RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5, t6, t7};
         ExecutorService es = Executors.newCachedThreadPool();
         for(int i= 0; i < 7; i++){
             es.execute(list[i]);
