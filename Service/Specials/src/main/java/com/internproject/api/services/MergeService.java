@@ -122,13 +122,18 @@ public class MergeService {
     }
 
     public List<Vehicle> vehicleHelper(List<Vehicle> vehicles, Vehicle match){
-
-        for(Vehicle temp: vehicles){
-            if(!temp.getMake().equals(match.getMake())){
-                vehicles.remove(temp);
+        int length = vehicles.size();
+        for (int i = 0; i < vehicles.size(); i++){
+            if(!vehicles.get(i).getMake().equals(match.getMake())){
+                vehicles.remove(vehicles.get(i));
+                length--;
             }
-            if(!temp.getModel().equals(match.getModel())){
-                vehicles.remove(temp);
+            else if(!vehicles.get(i).getModel().equals(match.getModel())){
+                vehicles.remove(vehicles.get(i));
+                length--;
+            }
+            if (i >= length){
+                break;
             }
         }
 
