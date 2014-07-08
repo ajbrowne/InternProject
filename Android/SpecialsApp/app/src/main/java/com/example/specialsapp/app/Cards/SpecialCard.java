@@ -68,7 +68,7 @@ public class SpecialCard extends Card {
             mNewPrice.setText("$" + newPrice);
             Picasso.with(context)
                     .load(url)
-                    //.placeholder(R.drawable.silverado)
+                    .placeholder(R.drawable.tesla)
                     .resize(335, 600)
                     .into(mThumbnail);
             mThumbnail.setVisibility(View.VISIBLE);
