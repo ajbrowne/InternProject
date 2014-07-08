@@ -15,32 +15,33 @@
 
     <TextView
         android:id="@+id/title"
-        style="@android:style/TextAppearance.DeviceDefault.Medium"
+        style="@android:style/TextAppearance.DeviceDefault.Large"
         android:paddingTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/thumbnail"
         android:paddingLeft="10dp"
-        android:text="$5000 Cashback on Silverados" />
+        android:text="2004 Chevrolet Silverado" />
 
     <TextView
-        android:id="@+id/subTitle"
+        android:id="@+id/gasMileage"
         android:layout_width="wrap_content"
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
         android:paddingLeft="10dp"
         android:paddingTop="2dp"
-        android:text="Get $5000 instant cash back now!"
-        android:textColor="#aaa" />
+        android:text="22-27 MPG"
+        android:textColor="@android:color/holo_green_dark" />
 
     <TextView
         android:id="@+id/dealerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/subTitle"
+        android:layout_below="@id/gasMileage"
         android:paddingLeft="10dp"
         android:paddingTop="2dp"
-        android:text="Shaver Autos - Chevy Silverado" />
+        android:text="Shaver Autos" />
 
     <TextView
         android:id="@+id/oldPrice"

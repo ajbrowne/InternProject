@@ -19,17 +19,18 @@ import java.util.ArrayList;
 public class HomeActivity extends BaseActivity {
 
     private ArrayList<Dealer> dealers;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        dealers = new ArrayList<Dealer>();
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setBackgroundColor(getResources().getColor(android.R.color.white));
         tabs.setTextColor(getResources().getColor(android.R.color.black));
-        dealers = new ArrayList<Dealer>();
-        ViewPager viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
+        viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
         HomePagerAdapter mAdapter = new HomePagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(mAdapter);
@@ -61,5 +62,9 @@ public class HomeActivity extends BaseActivity {
         DecimalFormat formatter = new DecimalFormat("#,###");
         Double number = Double.parseDouble(amount);
         return String.valueOf(formatter.format(number));
+    }
+
+    public ViewPager getViewPager(){
+        return this.viewPager;
     }
 }

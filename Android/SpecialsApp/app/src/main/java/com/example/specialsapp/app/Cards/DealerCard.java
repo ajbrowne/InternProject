@@ -21,7 +21,7 @@ public class DealerCard extends Card {
     private String cityState;
 
     public DealerCard(Context context) {
-        this(context, R.layout.special_card);
+        this(context, R.layout.vehicle_card);
     }
 
     public DealerCard(Context context, int innerLayout) {

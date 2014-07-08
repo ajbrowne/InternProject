@@ -30,10 +30,12 @@
             android:layout_below="@id/newVehicles"/>
 
         <TextView
+            android:id="@+id/more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="MORE"
+            android:onClick="goHome"
             android:layout_centerVertical="true"
             android:background="@drawable/play_button"
             android:textColor="#fff"/>

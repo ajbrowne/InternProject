@@ -15,7 +15,7 @@ import android.widget.AbsListView;
 import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Activities.SpecialDetail;
-import com.example.specialsapp.app.Cards.SpecialCard;
+import com.example.specialsapp.app.Cards.VehicleCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.R;
@@ -77,11 +77,11 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         Double longitude = gps.getLongitude();
 
         // Call to retrieve specials to display
-        try {
-            getDealerSpecials(longitude, latitude);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            getDealerSpecials(longitude, latitude);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         return homeView;
     }
 
@@ -189,11 +189,11 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
      */
     public ArrayList<Card> createSpecials(int index, ArrayList<Special> specials, ArrayList<Card> cards) {
         for (int i = index; i < index+10 && i < returnSize; i++) {
-            SpecialCard card = new SpecialCard(getActivity(), R.layout.special_card);
+            VehicleCard card = new VehicleCard(getActivity(), R.layout.vehicle_card);
             card.setTitle(specials.get(i).getTitle());
-            card.setDescription(specials.get(i).getDescription());
+            //card.setDescription(specials.get(i).getDescription());
             card.setDealer(specials.get(i).getDealer());
-            card.setSpecialType(specials.get(i).getType());
+            //card.setSpecialType(specials.get(i).getType());
             card.setUrl(specials.get(i).getUrl());
             if (specials.get(i).getPrice() != -1000){
                 int old = Integer.parseInt(specials.get(i).getAmount());
@@ -211,9 +211,9 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                 @Override
                 public void onClick(Card card, View view) {
                     Intent intent = new Intent(getActivity(), SpecialDetail.class);
-                    SpecialCard temp = (SpecialCard) card;
+                    VehicleCard temp = (VehicleCard) card;
                     intent.putExtra("title",  temp.getTitle());
-                    intent.putExtra("description", temp.getDescription());
+                    //intent.putExtra("description", temp.getDescription());
                     intent.putExtra("oldP", temp.getOldPrice());
                     intent.putExtra("newP", temp.getNewPrice());
                     intent.putExtra("imageUrl", temp.getUrl());

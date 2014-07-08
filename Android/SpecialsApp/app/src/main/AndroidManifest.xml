@@ -25,20 +25,23 @@
         </activity>
         <activity
             android:name=".Activities.SearchActivity"
-            android:label="@string/title_activity_search" >
+            android:label="@string/title_activity_search"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.specialsapp.app.Activities.HomeActivity" />
         </activity>
         <activity
             android:name=".Activities.VehicleResultsActivity"
-            android:label="@string/title_activity_vehicle_results" >
+            android:label="@string/title_activity_vehicle_results"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.specialsapp.app.Activities.SearchActivity" />
         </activity>
         <activity
             android:name=".Activities.SpecialDetail"
+            android:screenOrientation="portrait"
             android:label="SpecialDetail" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -46,10 +49,12 @@
         </activity>
         <activity
             android:name=".Activities.SettingsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
             android:name=".Activities.BaseActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_base" >
         </activity>
     </application>

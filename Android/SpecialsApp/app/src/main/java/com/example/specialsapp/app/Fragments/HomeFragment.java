@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.HomeActivity;
@@ -107,6 +108,15 @@ public class HomeFragment extends Fragment {
     private void createCards(View view, String title, String description, ArrayList<Card> theCards) {
         TextView theTitle = (TextView) view.findViewById(R.id.newVehicles);
         TextView theDescription = (TextView) view.findViewById(R.id.descrip);
+        TextView more = (TextView) view.findViewById(R.id.more);
+
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((HomeActivity)getActivity()).getViewPager().setCurrentItem(1);
+            }
+        });
+
         theTitle.setText(title);
         theDescription.setText(description);
 

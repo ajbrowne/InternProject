@@ -18,25 +18,26 @@ import it.gmariotti.cardslib.library.internal.Card;
  *
  * @author brownea
  */
-public class SpecialCard extends Card {
+public class VehicleCard extends Card {
 
     private Context context;
 
     private String title;
-    private String description;
+    private String gasMileage;
     private String type;
     private String dealer;
     private String oldPrice;
     private String newPrice;
     private String url;
 
-    public SpecialCard(Context context) {
-        this(context, R.layout.special_card);
+    public VehicleCard(Context context) {
+        this(context, R.layout.vehicle_card);
         this.context = context;
     }
 
-    public SpecialCard(Context context, int innerLayout) {
+    public VehicleCard(Context context, int innerLayout) {
         super(context, innerLayout);
+        this.context = context;
     }
 
     @Override
@@ -44,35 +45,25 @@ public class SpecialCard extends Card {
         TextView mDealer = (TextView) parent.findViewById(R.id.dealerName);
         TextView mTitle = (TextView) parent.findViewById(R.id.title);
         TextView mSpecialType = (TextView) parent.findViewById(R.id.type);
-        TextView mDescription = (TextView) parent.findViewById(R.id.subTitle);
+        TextView mGasMileage = (TextView) parent.findViewById(R.id.gasMileage);
         TextView mNewPrice = (TextView) parent.findViewById(R.id.newPrice);
         TextView mOldPrice = (TextView) parent.findViewById(R.id.oldPrice);
         ImageView mThumbnail = (ImageView) parent.findViewById(R.id.thumbnail);
 
         mDealer.setText(dealer);
         mTitle.setText(title);
-        mDescription.setText(description);
+        mGasMileage.setText(gasMileage);
         mSpecialType.setText(type);
-        mOldPrice.setText(oldPrice);
 
-
-        if (mOldPrice.getText().toString().equals("Multiple Vehicles")){
-            mOldPrice.setText(oldPrice);
-            mOldPrice.setPaintFlags(0);
-            mNewPrice.setText("");
-            mThumbnail.setVisibility(View.GONE);
-        }
-        else{
-            mOldPrice.setText("$" + oldPrice);
-            mOldPrice.setPaintFlags(mOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            mNewPrice.setText("$" + newPrice);
-            Picasso.with(context)
-                    .load(url)
-                    .placeholder(R.drawable.tesla)
-                    .resize(335, 600)
-                    .into(mThumbnail);
-            mThumbnail.setVisibility(View.VISIBLE);
-        }
+        mOldPrice.setText("$" + oldPrice);
+        mOldPrice.setPaintFlags(mOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        mNewPrice.setText("$" + newPrice);
+        Picasso.with(context)
+                .load(url)
+                .placeholder(R.drawable.tesla)
+                .resize(335, 600)
+                .into(mThumbnail);
+        mThumbnail.setVisibility(View.VISIBLE);
     }
 
     public String getTitle() {
@@ -91,20 +82,20 @@ public class SpecialCard extends Card {
         this.dealer = dealer;
     }
 
-    public String getSpecialType() {
+    public String geVehicleType() {
         return type;
     }
 
-    public void setSpecialType(String type) {
+    public void setVehicleType(String type) {
         this.type = type;
     }
 
-    public String getDescription() {
-        return description;
+    public String getGasMileage() {
+        return gasMileage;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setGasMileage(String gasMileage) {
+        this.gasMileage = gasMileage;
     }
 
     public String getOldPrice() {

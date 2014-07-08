@@ -1,5 +1,7 @@
 package com.example.specialsapp.app.Models;
 
+import java.util.ArrayList;
+
 /**
  * Created by brownea on 7/7/14.
  */
@@ -9,6 +11,10 @@ public class Vehicle {
     private String make;
     private String model;
     private String type;
+
+    private String dealer;
+
+    private ArrayList<Special> specials = new ArrayList<Special>();
 
     private String url;
 
@@ -42,11 +48,11 @@ public class Vehicle {
         this.model = model;
     }
 
-    public String getType() {
+    public String getVehicleType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setVehicleType(String type) {
         this.type = type;
     }
 
@@ -72,5 +78,21 @@ public class Vehicle {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public ArrayList<Special> getSpecials() {
+        return specials;
+    }
+
+    public void setSpecials(ArrayList<Special> specials) {
+        this.specials = specials;
+    }
+
+    public String getDealer() {
+        return dealer;
+    }
+
+    public void setDealer(String dealer) {
+        this.dealer = dealer;
     }
 }
