@@ -12,6 +12,16 @@ public class Vehicle {
     private String model;
     private String type;
 
+    public ArrayList<String> getSpecs() {
+        return specs;
+    }
+
+    public void setSpecs(ArrayList<String> specs) {
+        this.specs = specs;
+    }
+
+    private ArrayList<String> specs = new ArrayList<String>();
+
     private String id;
 
     private String dealer;
@@ -24,7 +34,8 @@ public class Vehicle {
 
     private String price;
 
-    public Vehicle(){}
+    public Vehicle() {
+    }
 
     public String getYear() {
         return year;
