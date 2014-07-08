@@ -101,7 +101,7 @@ public class RunnableChild implements Runnable {
         }else if(name.equals("trim") && vehicle.getTrim() != null){
             temp = runQuery(name, vehicle.getTrim(), query,0);
         }else if(name.equals("specs") && vehicle.getSpecs() != null){
-            for(int i = 0; i < special.getVehicleId().size();i++){
+            for(int i = 0; i < vehicle.getSpecs().size();i++){
                 temp.addAll(runQuery(name, vehicle.getSpecs().get(i), query, 0));
             }
         }else if(name.equals("type") && vehicle.getType() != null){

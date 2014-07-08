@@ -31,63 +31,80 @@
     </RelativeLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PRICING INFORMATION"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/see_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="See More"
-                android:clickable="true"
-                android:textColor="@color/text_select"
-                android:visibility="gone"/>
-            </LinearLayout>
-
-
-
-        <View
-            android:id="@+id/div1"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="7dp"
-            android:layout_marginTop="5dp"
-            android:background="#ccc"
-            android:layout_gravity="center_horizontal"/>
-
-        <include
-            android:id="@+id/price1"
-            layout="@layout/price_widget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
-
-    </LinearLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/pricing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PRICING INFORMATION"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/see_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See More"
+                    android:clickable="true"
+                    android:textColor="@color/text_select"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+
+
+            <View
+                android:id="@+id/div1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="5dp"
+                android:background="#ccc"
+                android:layout_gravity="center_horizontal"/>
+
+            <include
+                android:id="@+id/price1"
+                layout="@layout/price_widget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SPECS"
+                android:layout_marginTop="@dimen/activity_vertical_margin"/>
+            <View
+                android:id="@+id/div2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="5dp"
+                android:background="#ccc"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/specs_list"
+            android:layout_below="@id/pricing"/>
+
 
         <Button
             android:layout_width="match_parent"

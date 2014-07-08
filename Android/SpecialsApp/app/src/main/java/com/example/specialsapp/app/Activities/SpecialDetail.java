@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.specialsapp.app.R;
@@ -24,6 +26,9 @@ public class SpecialDetail extends BaseActivity {
         TextView mNewPrice = (TextView) findViewById(R.id.price_new);
         TextView mName = (TextView) findViewById(R.id.price_name);
         ImageView mTitleImage = (ImageView)findViewById(R.id.title_image);
+        ListView mSpecsList = (ListView)findViewById(R.id.specs_list);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Cadillac)); //selected item will look like a spinner set from XML
+        mSpecsList.setAdapter(spinnerArrayAdapter);
 
         if (extras != null) {
             mTitle.setText(extras.getString("title"));
