@@ -85,17 +85,15 @@ public class RunnableQuery implements Runnable {
         //Children created with their name being the field that thread will search in
         RunnableChild t1 = new RunnableChild("id", name,specialRepository, special, specials);
         RunnableChild t2 = new RunnableChild("title", name,specialRepository, special, specials);
-        RunnableChild t3 = new RunnableChild("type", name,specialRepository, special, specials);
-        RunnableChild t4 = new RunnableChild("description", name,specialRepository, special, specials);
         RunnableChild t5 = new RunnableChild("amount", name,specialRepository, special, specials);
         RunnableChild t6 = new RunnableChild("dealer", name,specialRepository, special, specials);
         RunnableChild t7 = new RunnableChild("vehicleId", name, specialRepository, special, specials);
 
         //Executor service manages the running of all of the threads and then waiting for all of them
         //to finish before moving on.
-        RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5,t6, t7};
+        RunnableChild[] list = new RunnableChild[]{t1,t2,t5,t6, t7};
         ExecutorService es = Executors.newCachedThreadPool();
-        for(int i= 0; i < 7; i++){
+        for(int i= 0; i < 5; i++){
             es.execute(list[i]);
         }
         es.shutdown();
@@ -144,12 +142,14 @@ public class RunnableQuery implements Runnable {
         RunnableChild t2 = new RunnableChild("make", name,vehicleRepository, vehicle, vehicles);
         RunnableChild t3 = new RunnableChild("model", name,vehicleRepository, vehicle, vehicles);
         RunnableChild t4 = new RunnableChild("trim", name,vehicleRepository, vehicle, vehicles);
+        RunnableChild t6 = new RunnableChild("type", name, vehicleRepository, vehicle, vehicles);
+        RunnableChild t7 = new RunnableChild("specs", name, vehicleRepository, vehicle, vehicles);
 
         //Executor service manages the running of all of the threads and then waiting for all of them
         //to finish before moving on.
         RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5};
         ExecutorService es = Executors.newCachedThreadPool();
-        for(int i= 0; i < 5; i++){
+        for(int i= 0; i < 7; i++){
             es.execute(list[i]);
         }
         es.shutdown();

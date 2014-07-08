@@ -2,6 +2,8 @@ package com.internproject.api.models;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
 /**
  * Created by maharb on 6/30/14.
  */
@@ -14,6 +16,9 @@ public class Vehicle {
     private String model;
     private String trim;
     private int price;
+    private String urlImage;
+    private String type;
+    private List<String> specs;
 
     public String getUrlImage() {
         return urlImage;
@@ -33,6 +38,35 @@ public class Vehicle {
         this.urlImage = urlImage;
     }
 
+
+    public Vehicle(String id, int year, String make, String model, String trim, int price, String urlImage, String type, List<String> specs) {
+        this.id = id;
+        this.year = year;
+        this.make = make;
+        this.model = model;
+        this.trim = trim;
+        this.price = price;
+        this.urlImage = urlImage;
+        this.type = type;
+        this.specs = specs;
+    }
+
+    public List<String> getSpecs() {
+        return specs;
+    }
+
+    public void setSpecs(List<String> specs) {
+        this.specs = specs;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Vehicle{" +
@@ -43,10 +77,10 @@ public class Vehicle {
                 ", trim='" + trim + '\'' +
                 ", price=" + price +
                 ", urlImage='" + urlImage + '\'' +
+                ", type='" + type + '\'' +
+                ", specs=" + specs +
                 '}';
     }
-
-    private String urlImage;
 
     public Vehicle(int year, String make, String model, String trim, int price) {
         this.year = year;

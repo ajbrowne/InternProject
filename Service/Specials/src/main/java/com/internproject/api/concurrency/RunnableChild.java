@@ -100,6 +100,12 @@ public class RunnableChild implements Runnable {
             temp = runQuery(name, vehicle.getModel(), query,0);
         }else if(name.equals("trim") && vehicle.getTrim() != null){
             temp = runQuery(name, vehicle.getTrim(), query,0);
+        }else if(name.equals("specs") && vehicle.getSpecs() != null){
+            for(int i = 0; i < special.getVehicleId().size();i++){
+                temp.addAll(runQuery(name, vehicle.getSpecs().get(i), query, 0));
+            }
+        }else if(name.equals("type") && vehicle.getType() != null){
+            temp = runQuery(name, vehicle.getType(), query,0);
         }
 
 
@@ -167,6 +173,9 @@ public class RunnableChild implements Runnable {
             criteria = Criteria.where(value).in("vehicleId");
             query.addCriteria(criteria);
         //create query for all other cases that looks for a keyword
+        }else if(queryType.equals("specs")){
+            criteria = Criteria.where(value).in("specs");
+            query.addCriteria(criteria);
         }else{
             criteria = Criteria.where(queryType).regex(".*" + value + ".*", "i");
             query.addCriteria(criteria);
@@ -236,14 +245,8 @@ public class RunnableChild implements Runnable {
         if(special.getId() != null && name.equals("id")){
             temp = runQuery(name, special.getId(), query,0);
         }
-        if(special.getType() != null && name.equals("type")){
-            temp = runQuery(name, special.getType(), query,0);
-        }
         if(special.getTitle() != null && name.equals("title")){
             temp = runQuery(name, special.getTitle(), query,0);
-        }
-        if(special.getDescription() != null && name.equals("description")){
-            temp = runQuery(name, special.getDescription(), query,0);
         }
         if(special.getAmount() != null && name.equals("amount")){
             temp = runQuery(name, special.getAmount(), query,0);

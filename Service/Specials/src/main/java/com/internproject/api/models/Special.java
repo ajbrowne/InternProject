@@ -16,33 +16,21 @@ public class Special{
     private String id;
     private String title;
     private String dealer;
-    private String type;
     private String amount;
-    private String description;
     private int status;
     private Date startDate;
     private Date endDate;
 
-    public Special(String id, String title, String dealer, String type, String amount, String description, int status, Date startDate, Date endDate, boolean trending, List<String> vehicleId) {
+    public Special(String id, String title, String dealer, String amount, int status, Date startDate, Date endDate, boolean trending, List<String> vehicleId) {
         this.id = id;
         this.title = title;
         this.dealer = dealer;
-        this.type = type;
         this.amount = amount;
-        this.description = description;
         this.status = status;
         this.startDate = startDate;
         this.endDate = endDate;
         this.trending = trending;
         this.vehicleId = vehicleId;
-    }
-
-    public boolean isTrending() {
-        return trending;
-    }
-
-    public void setTrending(boolean trending) {
-        this.trending = trending;
     }
 
     @Override
@@ -51,15 +39,21 @@ public class Special{
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", dealer='" + dealer + '\'' +
-                ", type='" + type + '\'' +
                 ", amount='" + amount + '\'' +
-                ", description='" + description + '\'' +
                 ", status=" + status +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", trending=" + trending +
                 ", vehicleId=" + vehicleId +
                 '}';
+    }
+
+    public boolean isTrending() {
+        return trending;
+    }
+
+    public void setTrending(boolean trending) {
+        this.trending = trending;
     }
 
     private boolean trending;
@@ -100,28 +94,12 @@ public class Special{
         this.dealer = dealer;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getAmount() {
         return amount;
     }
 
     public void setAmount(String amount) {
         this.amount = amount;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public int getStatus() {
@@ -148,38 +126,6 @@ public class Special{
         this.endDate = endDate;
     }
 
-    public Special(String keyword){
-        this.title = keyword;
-        this.dealer = keyword;
-        this.type = keyword;
-        this.amount = keyword;
-        this.description = keyword;
-        this.vehicleId.add(keyword);
-    }
-
-
-    public Special(String title, String dealer, String type, String amount, String description, int status, Date startDate, Date endDate, List<String> vehicleId) {
-        this.title = title;
-        this.dealer = dealer;
-        this.type = type;
-        this.amount = amount;
-        this.description = description;
-        this.status = status;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.vehicleId = vehicleId;
-    }
-
-    public Special(String title, String dealer, String type, String amount, String description, int status, Date startDate, Date endDate) {
-        this.title = title;
-        this.dealer = dealer;
-        this.type = type;
-        this.amount = amount;
-        this.description = description;
-        this.status = status;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
 
 
 }
