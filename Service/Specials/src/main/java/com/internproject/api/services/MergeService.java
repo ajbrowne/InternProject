@@ -108,11 +108,11 @@ public class MergeService {
      * @param vehicleIds - a list of the vehicles we are looking through
      * @return a modified list of specials
      */
-    public List<Special> specialHelper(List<Special> specials, List<String> vehicleIds){
+    private List<Special> specialHelper(List<Special> specials, List<String> vehicleIds){
 
         for(int i =0; i<specials.size();i++){
             for (String vehicleId : vehicleIds) {
-                if (!specials.get(i).getVehicleId().contains(vehicleId)) {
+                if (!listCheck(specials.get(i).getVehicleId(),vehicleId)) {
                     specials.remove(i);
                 }
             }
@@ -121,7 +121,7 @@ public class MergeService {
         return specials;
     }
 
-    public List<Vehicle> vehicleHelper(List<Vehicle> vehicles, Vehicle match){
+    private List<Vehicle> vehicleHelper(List<Vehicle> vehicles, Vehicle match){
 
         for(Vehicle temp: vehicles){
             if(!temp.getMake().equals(match.getMake())){
@@ -133,6 +133,17 @@ public class MergeService {
         }
 
         return vehicles;
+    }
+
+    private boolean listCheck(List<String> ids, String id){
+
+        for(String temp : ids){
+            if(temp.equals(id)){
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
