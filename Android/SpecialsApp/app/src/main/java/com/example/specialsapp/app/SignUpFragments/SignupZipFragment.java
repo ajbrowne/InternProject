@@ -36,6 +36,9 @@ public class SignupZipFragment extends Fragment {
         Button next = (Button)view.findViewById(R.id.flow1_button);
         TextView signIn = (TextView)view.findViewById(R.id.flow1_signin);
         zip = (EditText)view.findViewById(R.id.flow1_zip);
+        if(getActivity().getIntent().getBooleanExtra("submit", false)){
+            signIn.setVisibility(View.GONE);
+        }
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override

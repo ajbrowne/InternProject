@@ -46,6 +46,9 @@ public class SignupPasswordFragment extends Fragment {
         TextView signin = (TextView) view.findViewById(R.id.flow4_signin);
         password = (EditText) view.findViewById(R.id.flow4_password);
         confirm = (EditText) view.findViewById(R.id.flow4_verify);
+        if(getActivity().getIntent().getBooleanExtra("submit", false)){
+            signin.setVisibility(View.GONE);
+        }
 
         // Link listeners to identify matching passwords
         confirm.addTextChangedListener(new MyTextWatcher());

@@ -24,6 +24,7 @@
             android:background="#99000000"
             android:gravity="center"
             android:textColor="#ffff"
+            android:padding="3dp"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
 
@@ -118,6 +119,23 @@
 
 
     </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/detail_button"
+            android:text="Inquire"
+            android:textColor="#fff"
+            android:onClick="submitInfo"/>
+
+        </RelativeLayout>
 
 
 </LinearLayout>

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.specialsapp.app.Activities.MainActivity;
 import com.example.specialsapp.app.Fragments.LoginFragment;
@@ -36,27 +37,34 @@ public class SignupEmailFragment extends Fragment {
         Button next = (Button)view.findViewById(R.id.flow3_button);
         TextView signIn = (TextView)view.findViewById(R.id.flow3_signin);
         email = (EditText)view.findViewById(R.id.flow3_email);
-
+        if(getActivity().getIntent().getBooleanExtra("submit", false)){
+            next.setText("Submit");
+            signIn.setVisibility(View.GONE);
+        }
 //        Gets email from logged in Google account to populate field (use this or ???)
 //        Account[] accounts = AccountManager.get(getActivity()).getAccountsByType("com.google");
 //        String e = accounts[0].name;
 //        email.setText(e);
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                emailAddress = email.getText().toString();
-                ((MainActivity)getActivity()).getUser().setEmail(emailAddress);
-                SignupPasswordFragment fragment = new SignupPasswordFragment();
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
-                fragmentTransaction.replace(R.id.fragmentContainer, fragment, "signupEmailFragment").addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
+            next.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getActivity().getIntent().getBooleanExtra("submit", false)){
+                        Toast.makeText(getActivity().getApplicationContext(), "Info Submitted", Toast.LENGTH_LONG).show();
+                    }else {
+                        emailAddress = email.getText().toString();
+                        ((MainActivity) getActivity()).getUser().setEmail(emailAddress);
+                        SignupPasswordFragment fragment = new SignupPasswordFragment();
 
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
+                        fragmentTransaction.replace(R.id.fragmentContainer, fragment, "signupEmailFragment").addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                }
+            });
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

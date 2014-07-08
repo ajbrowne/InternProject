@@ -1,12 +1,16 @@
 package com.example.specialsapp.app.Activities;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.specialsapp.app.R;
+import com.squareup.picasso.Picasso;
 
 public class SpecialDetail extends BaseActivity {
 
@@ -19,6 +23,7 @@ public class SpecialDetail extends BaseActivity {
         TextView mDescription = (TextView) findViewById(R.id.description);
         TextView mOldPrice = (TextView) findViewById(R.id.price_old);
         TextView mNewPrice = (TextView) findViewById(R.id.price_new);
+        ImageView mTitleImage = (ImageView)findViewById(R.id.title_image);
 
         if (extras != null) {
             mTitle.setText(extras.getString("title"));
@@ -26,6 +31,11 @@ public class SpecialDetail extends BaseActivity {
             mOldPrice.setText("$" + extras.getString("oldP"));
             mOldPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             mNewPrice.setText("$" + extras.getString("newP"));
+            Picasso.with(this)
+                    .load(extras.getString("imageUrl"))
+                    .placeholder(R.drawable.tesla)
+                    .resize(335, 600)
+                    .into(mTitleImage);
         }
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -43,5 +53,11 @@ public class SpecialDetail extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    public void submitInfo(View view) {
+        Intent intent = new Intent(SpecialDetail.this, MainActivity.class);
+        intent.putExtra("submit", true);
+        startActivity(intent);
     }
 }

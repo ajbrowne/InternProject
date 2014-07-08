@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -16,6 +17,7 @@ import com.example.specialsapp.app.Fragments.LoginFragment;
 import com.example.specialsapp.app.Models.User;
 import com.example.specialsapp.app.R;
 import com.example.specialsapp.app.Rest.SpecialsRestClient;
+import com.example.specialsapp.app.SignUpFragments.SignupNumberFragment;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -59,15 +61,22 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        user = new User();
-
-        // Create and show login fragment
-        LoginFragment fragment = new LoginFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment, "initial");
-        fragmentTransaction.commit();
+        user = new User();
+        boolean check = getIntent().getBooleanExtra("submit", false);
+        if(check){
+            SignupNumberFragment signupNumberFragment = new SignupNumberFragment();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
+            fragmentTransaction.replace(R.id.fragmentContainer, signupNumberFragment, "number");
+            fragmentTransaction.commit();
+        }else {
+            // Create and show login fragment
+            LoginFragment fragment = new LoginFragment();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentContainer, fragment, "initial");
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
@@ -227,4 +236,6 @@ public class MainActivity extends BaseActivity {
     public User getUser() {
         return user;
     }
+
+
 }

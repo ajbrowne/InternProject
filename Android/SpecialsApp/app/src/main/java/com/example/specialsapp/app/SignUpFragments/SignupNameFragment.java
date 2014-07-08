@@ -40,6 +40,9 @@ public class SignupNameFragment extends Fragment {
         TextView signin = (TextView)view.findViewById(R.id.flow2_signin);
         first = (EditText)view.findViewById(R.id.flow2_first);
         last = (EditText)view.findViewById(R.id.flow2_last);
+        if(getActivity().getIntent().getBooleanExtra("submit", false)){
+            signin.setVisibility(View.GONE);
+        }
 
 
         next.setOnClickListener(new View.OnClickListener() {

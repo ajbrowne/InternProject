@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.telephony.TelephonyManager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,9 @@ public class SignupNumberFragment extends Fragment {
         Button next = (Button)view.findViewById(R.id.flow_button);
         TextView signIn = (TextView)view.findViewById(R.id.flow_signin);
         number = (EditText)view.findViewById(R.id.flow_number);
+        if(getActivity().getIntent().getBooleanExtra("submit", false)){
+            signIn.setVisibility(View.GONE);
+        }
 
         TelephonyManager tMgr = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (tMgr.getLine1Number() != null){
@@ -80,5 +84,6 @@ public class SignupNumberFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+
 
 }

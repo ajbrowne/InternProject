@@ -216,6 +216,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                     intent.putExtra("description", temp.getDescription());
                     intent.putExtra("oldP", temp.getOldPrice());
                     intent.putExtra("newP", temp.getNewPrice());
+                    intent.putExtra("imageUrl", temp.getUrl());
                     getActivity().startActivity(intent);
 
                 }
