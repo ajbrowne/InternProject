@@ -1,8 +1,10 @@
 package com.example.specialsapp.app.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.specialsapp.app.R;
 import com.squareup.picasso.Picasso;
@@ -64,8 +67,14 @@ public class SpecialDetail extends BaseActivity {
     }
 
     public void submitInfo(View view) {
-        Intent intent = new Intent(SpecialDetail.this, MainActivity.class);
-        intent.putExtra("submit", true);
-        startActivity(intent);
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
+        if (shared.getBoolean("stored", true)){
+            Toast.makeText(this.getApplicationContext(), "Info Submitted", Toast.LENGTH_LONG).show();
+        }
+        else{
+            Intent intent = new Intent(SpecialDetail.this, MainActivity.class);
+            intent.putExtra("submit", true);
+            startActivity(intent);
+        }
     }
 }

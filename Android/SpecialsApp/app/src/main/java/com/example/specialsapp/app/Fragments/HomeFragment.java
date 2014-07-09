@@ -191,7 +191,7 @@ public class HomeFragment extends Fragment {
                     addedVehicles.add((String) ids.get(k));
                     newVehicle.setPrice(String.valueOf(vehicle.getInt("price") - Integer.parseInt(spec.getString("amount"))));
                     newVehicle.setName(vehicle.getString("year") + " " + vehicle.getString("make") + " " + vehicle.getString("model"));
-                    //newVehicle.setVehicleType(spec.getString("type"));
+                    newVehicle.setVehicleType(vehicle.getString("type"));
                     newVehicle.setUrl(vehicle.getString("urlImage"));
                     vehicles.add(newVehicle);
                 }
@@ -211,7 +211,7 @@ public class HomeFragment extends Fragment {
     }
 
     public ArrayList<Card> createSpecials(int index, ArrayList<Vehicle> vehicles) {
-        for (int i = index; i < vehicles.size(); i++) {
+        for (int i = index; i < 3; i++) {
             HomeVehicleCard card = new HomeVehicleCard(getActivity(), R.layout.h_vehicle_card);
             card.setName(vehicles.get(i).getName());
             card.setPrice(((HomeActivity)getActivity()).insertCommas(vehicles.get(i).getPrice()));
