@@ -119,7 +119,7 @@ public class RunnableQuery implements Runnable {
 
         //Executor service manages the running of all of the threads and then waiting for all of them
         //to finish before moving on.
-        RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5, t6};
+        RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5,t6};
         ExecutorService es = Executors.newCachedThreadPool();
         for(int i= 0; i < 6; i++){
             es.execute(list[i]);
@@ -137,6 +137,7 @@ public class RunnableQuery implements Runnable {
      * and then run the query.
      */
     public void vehicleChildren(){
+        System.out.println(vehicle);
         //Children created with their name being the field that thread will search in
         RunnableChild t1 = new RunnableChild("id", name, vehicleRepository, vehicle, vehicles);
         RunnableChild t5 = new RunnableChild("year", name,vehicleRepository, vehicle, vehicles);

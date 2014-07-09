@@ -5,6 +5,7 @@ import com.internproject.api.models.Dealer;
 import com.internproject.api.repositories.DealerRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.GeoResult;
 import org.springframework.data.geo.Point;
 
 import java.util.ArrayList;
@@ -56,8 +57,13 @@ public class DealerService {
      * @return - a list of the dealers that match
      */
     public List<? extends Dealer> getDealers(Point point, Dealer dealer){
+        System.out.println(dealer);
         List<Dealer> dealers = new ArrayList<Dealer>();
-        List locDealers = dealerRepository.getDealerByLocation(point);
+        List<GeoResult> locResults = dealerRepository.getDealerByLocation(point);
+        List<Dealer> locDealers = new ArrayList<Dealer>();
+        for(GeoResult geoResult: locResults){
+            locDealers.add((Dealer)geoResult.getContent());
+        }
         RunnableQuery mainThread = new RunnableQuery("dealer", dealerRepository, dealer, dealers);
         ExecutorService es = Executors.newCachedThreadPool();
         es.execute(mainThread);
@@ -67,6 +73,7 @@ public class DealerService {
         } catch (InterruptedException e) {
             log.warn(e);
         }
+        System.out.println(dealers);
         dealers = dealerCheck(dealers, dealer);
         dealers = dealerSort(dealers, locDealers);
 

@@ -135,7 +135,7 @@ public class RunnableChild implements Runnable {
             temp = runQuery(name, dealer.getCity(), query,0);
         }else if(dealer.getAdmin() != null && name.equals("admin")){
             temp = runQuery(name, dealer.getAdmin(), query,0);
-        }else if(name.equals("make") && dealer.getMake() != null){
+        }else if(dealer.getMake() != null && name.equals("make")){
             for(int i = 0; i < dealer.getMake().size();i++){
                 temp.addAll(runQuery(name, dealer.getMake().get(i), query, 0));
             }
@@ -173,10 +173,18 @@ public class RunnableChild implements Runnable {
                 query.addCriteria(criteria);
             }
         //create query for searching in an array in the document
-        }else if(queryType.equals("vehicleId") || queryType.equals("specs") || queryType.equals("make")){
-            criteria = Criteria.where(value).in(queryType);
+        }else if(queryType.equals("specs")){
+            criteria = Criteria.where(value).in("specs");
             query.addCriteria(criteria);
         //create query for all other cases that looks for a keyword
+        }else if(queryType.equals("vehicleId")){
+            criteria = Criteria.where(value).in("vehicleId");
+            query.addCriteria(criteria);
+            //create query for all other cases that looks for a keyword
+        }else if(queryType.equals("make")){
+            criteria = Criteria.where("make").all(value);
+            query.addCriteria(criteria);
+            //create query for all other cases that looks for a keyword
         }else{
             criteria = Criteria.where(queryType).regex(".*" + value + ".*", "i");
             query.addCriteria(criteria);

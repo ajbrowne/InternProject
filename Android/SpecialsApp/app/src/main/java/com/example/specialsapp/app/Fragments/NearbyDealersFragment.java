@@ -89,6 +89,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("lng", longg);
         param.put("lat", latt);
+        param.put("extra", "0");
         RequestParams params = new RequestParams(param);
 
         dealersAsync(params);

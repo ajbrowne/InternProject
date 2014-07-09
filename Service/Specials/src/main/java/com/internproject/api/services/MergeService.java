@@ -71,9 +71,10 @@ public class MergeService {
     public List getNearestVehicles(Point point, Vehicle vehicle, int flag) {
         List<GeoResult> newDealer = dealerService.getDealerLocation(point);
         List<MergerObj> specials = new ArrayList<MergerObj>();
-        List<Vehicle> tempVehicles = vehicleService.getVehicles(vehicle);
+        List<Vehicle> tempVehicles = vehicleService.getAllVehicles();
         List<String> ids = new ArrayList<String>();
         if (flag == 1) {
+            tempVehicles = vehicleService.getVehicles(vehicle);
             tempVehicles = vehicleHelper(tempVehicles, vehicle);
         }
         //Loop over the vehicles that match the given description and store their ids

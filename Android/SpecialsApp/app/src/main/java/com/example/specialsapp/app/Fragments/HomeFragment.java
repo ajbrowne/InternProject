@@ -138,6 +138,7 @@ public class HomeFragment extends Fragment {
         param.put("extra", "0");
         RequestParams params = new RequestParams(param);
 
+        System.out.println(params);
         trendingAsync(params);
     }
 

@@ -57,4 +57,8 @@ public class VehicleService {
         }
         return vehicles;
     }
+
+    public List<Vehicle> getAllVehicles() {
+        return vehicleRepository.getAllVehicles();
+    }
 }

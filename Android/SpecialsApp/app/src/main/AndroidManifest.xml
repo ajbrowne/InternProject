@@ -26,7 +26,7 @@
         <activity
             android:name=".Activities.SearchActivity"
             android:label="@string/title_activity_search"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.specialsapp.app.Activities.HomeActivity" />
@@ -34,28 +34,32 @@
         <activity
             android:name=".Activities.VehicleResultsActivity"
             android:label="@string/title_activity_vehicle_results"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.specialsapp.app.Activities.SearchActivity" />
         </activity>
         <activity
             android:name=".Activities.SpecialDetail"
-            android:screenOrientation="portrait"
-            android:label="SpecialDetail" >
+            android:label="SpecialDetail"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.specialsapp.app.Activities.HomeActivity" />
         </activity>
         <activity
             android:name=".Activities.SettingsActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_settings" >
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Activities.BaseActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_base" >
+            android:label="@string/title_activity_base"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".Activities.DealerResultsActivity"
+            android:label="@string/title_activity_dealer_results" >
         </activity>
     </application>
 
