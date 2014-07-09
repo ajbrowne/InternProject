@@ -19,6 +19,7 @@ public class DealerCard extends Card {
 
     private String dealer;
     private String cityState;
+    private String distance;
 
     public DealerCard(Context context) {
         this(context, R.layout.vehicle_card);
@@ -32,8 +33,10 @@ public class DealerCard extends Card {
     public void setupInnerViewElements(ViewGroup parent, View view) {
         TextView mDealer = (TextView) parent.findViewById(R.id.dealer);
         TextView mCityState = (TextView) parent.findViewById(R.id.city);
+        TextView mDistance = (TextView) parent.findViewById(R.id.distance);
         mDealer.setText(dealer);
         mCityState.setText(cityState);
+        mDistance.setText(distance);
     }
 
     public void setDealer(String dealer){ this.dealer = dealer; }
@@ -49,4 +52,13 @@ public class DealerCard extends Card {
     public String getDealer() {
         return this.dealer;
     }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
 }

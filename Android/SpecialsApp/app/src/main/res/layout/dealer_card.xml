@@ -47,13 +47,13 @@
         android:text="10 deals currently running" />
 
     <TextView
-        android:id="@+id/type1"
+        android:id="@+id/distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/deals"
         android:layout_alignParentRight="true"
         android:textColor="#534CE6"
         android:paddingRight="5dp"
-        android:text="NEW/USED/SERVICE"/>
+        android:text="10.7 Miles"/>
 
 </RelativeLayout>
