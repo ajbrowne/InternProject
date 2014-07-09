@@ -20,6 +20,7 @@
     <string-array name="none">
         <item>No Vehicles</item>
     </string-array>
+    <string name="results">No Matches Found</string>
     <string-array name="list_items">
         <item>Dealers Near You</item>
         <item>Specials Near You</item>

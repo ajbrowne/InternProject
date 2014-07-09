@@ -3,6 +3,8 @@ package com.example.specialsapp.app.Activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.specialsapp.app.Cards.DealerCard;
 import com.example.specialsapp.app.GPS.GPS;
@@ -26,12 +28,16 @@ import it.gmariotti.cardslib.library.view.CardListView;
 
 public class DealerResultsActivity extends BaseActivity {
 
+
+    private TextView mResultsNone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dealer_results);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setTitle("Dealer Results");
+        mResultsNone = (TextView) findViewById(R.id.second_result);
 
         GPS gps = new GPS(this);
         final Double lat = gps.getLatitude();
@@ -61,7 +67,9 @@ public class DealerResultsActivity extends BaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                if(dealers.size() == 0){
+                    mResultsNone.setVisibility(View.VISIBLE);
+                }
                 addCards(dealers);
             }
 
