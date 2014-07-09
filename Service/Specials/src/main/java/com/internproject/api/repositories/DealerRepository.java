@@ -13,6 +13,6 @@ public interface DealerRepository {
     public List getDealerByLocation(Point point);
     public Dealer save(Dealer dealer);
     public List getMatchingDealers(Dealer dealer, Query query);
-
+    public void updateDealerSpecials(Dealer dealer);
     public List<Dealer> findAllDealers();
 }

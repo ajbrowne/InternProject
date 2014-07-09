@@ -65,6 +65,8 @@ public class SpecialService {
      */
     public Special store(Special special){
         specialRepository.save(special);
+        DealerService dealerService = new DealerService();
+        dealerService.updateSpecials(special.getDealer());
         return special;
     }
 

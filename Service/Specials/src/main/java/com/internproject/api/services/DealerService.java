@@ -121,4 +121,10 @@ public class DealerService {
         return tempDealers;
     }
 
+    public void updateSpecials(String id){
+        Dealer dealer = new Dealer();
+        dealer.setId(id);
+        dealerRepository.updateDealerSpecials(dealer);
+    }
+
 }

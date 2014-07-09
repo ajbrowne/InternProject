@@ -4,6 +4,7 @@ import com.internproject.api.models.Dealer;
 import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
 
@@ -41,6 +42,12 @@ public class MongoDealerRepository implements DealerRepository {
     @Override
     public List<Dealer> findAllDealers() {
         return mongoTemplate.findAll(Dealer.class, "dealers");
+    }
+
+    public void updateDealerSpecials(Dealer dealer){
+        Dealer temp = mongoTemplate.findOne(Query.query(Criteria.where("id").is(dealer.getId())), Dealer.class);
+        temp.setNumSpecials(temp.getNumSpecials()+1);
+        mongoTemplate.insert(temp);
     }
 
 

@@ -58,6 +58,43 @@ public class Dealer {
     private String admin;
     private Location loc;
 
+    public Dealer(String id, String name, String admin, Location loc, int numSpecials, List<String> make, String city, String state, Point location) {
+        this.id = id;
+        this.name = name;
+        this.admin = admin;
+        this.loc = loc;
+        this.numSpecials = numSpecials;
+        this.make = make;
+        this.city = city;
+        this.state = state;
+        this.location = location;
+    }
+
+    public int getNumSpecials() {
+        return numSpecials;
+    }
+
+    public void setNumSpecials(int numSpecials) {
+        this.numSpecials = numSpecials;
+    }
+
+    @Override
+    public String toString() {
+        return "Dealer{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", admin='" + admin + '\'' +
+                ", loc=" + loc +
+                ", numSpecials=" + numSpecials +
+                ", make=" + make +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", location=" + location +
+                '}';
+    }
+
+    private int numSpecials;
+
     public Dealer(String id, String name, String admin, Location loc, List<String> make, String city, String state, Point location) {
         this.id = id;
         this.name = name;
@@ -75,20 +112,6 @@ public class Dealer {
 
     public void setMake(List<String> make) {
         this.make = make;
-    }
-
-    @Override
-    public String toString() {
-        return "Dealer{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", admin='" + admin + '\'' +
-                ", loc=" + loc +
-                ", make=" + make +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", location=" + location +
-                '}';
     }
 
     private List<String> make;
