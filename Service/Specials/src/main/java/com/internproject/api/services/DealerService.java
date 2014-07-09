@@ -61,24 +61,40 @@ public class DealerService {
         List<Dealer> dealers = new ArrayList<Dealer>();
         List<GeoResult> locResults = dealerRepository.getDealerByLocation(point);
         List<Dealer> locDealers = new ArrayList<Dealer>();
+
         for(GeoResult geoResult: locResults){
             locDealers.add((Dealer)geoResult.getContent());
         }
-        RunnableQuery mainThread = new RunnableQuery("dealer", dealerRepository, dealer, dealers);
-        ExecutorService es = Executors.newCachedThreadPool();
-        es.execute(mainThread);
-        es.shutdown();
-        try {
-            es.awaitTermination(30, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            log.warn(e);
+        if(dealer.getMake() == null){
+            RunnableQuery mainThread = new RunnableQuery("dealer", dealerRepository, dealer, dealers);
+            ExecutorService es = Executors.newCachedThreadPool();
+            es.execute(mainThread);
+            es.shutdown();
+            try {
+                es.awaitTermination(30, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                log.warn(e);
+            }
+            dealers = dealerCheck(dealers, dealer);
+        }else{
+            dealers = dealerRepository.findAllDealers();
+            dealers = findMatch(dealers, dealer);
         }
         System.out.println(dealers);
-        dealers = dealerCheck(dealers, dealer);
         dealers = dealerSort(dealers, locDealers);
 
 
         return dealers;
+    }
+
+    private List<Dealer> findMatch(List<Dealer> dealers, Dealer dealer) {
+        List<Dealer> tempDealers = new ArrayList<Dealer>();
+        for(Dealer temp:dealers){
+            if(temp.getMake().contains(dealer.getMake().get(0))){
+                tempDealers.add(temp);
+            }
+        }
+        return tempDealers;
     }
 
     private List<Dealer> dealerSort(List<Dealer> dealers, List<Dealer> locDealers){

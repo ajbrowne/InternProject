@@ -37,4 +37,11 @@ public class MongoDealerRepository implements DealerRepository {
 
         return mongoTemplate.find(query, Dealer.class);
     }
+
+    @Override
+    public List<Dealer> findAllDealers() {
+        return mongoTemplate.findAll(Dealer.class, "dealers");
+    }
+
+
 }
