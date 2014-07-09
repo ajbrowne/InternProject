@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.specialsapp.app.Cards.VehicleCard;
 import com.example.specialsapp.app.GPS.GPS;
@@ -23,6 +24,7 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -38,12 +40,13 @@ public class VehicleResultsActivity extends BaseActivity {
 
     private static final double defaultLocation = -1000.0;
     private String[] params = new String[5];
+    private TextView mResultsNone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_results);
-
+        mResultsNone = (TextView) findViewById(R.id.first_result);
 
         String zip = getIntent().getStringExtra("zip");
         params = getIntent().getStringArrayExtra("params");
@@ -158,6 +161,9 @@ public class VehicleResultsActivity extends BaseActivity {
                 }
                 System.out.println(specials.size());
                 System.out.println(newVehicles.size());
+                if(newVehicles.size() == 0){
+                    mResultsNone.setVisibility(View.VISIBLE);
+                }
                 addCards(newVehicles);
             }
         });
