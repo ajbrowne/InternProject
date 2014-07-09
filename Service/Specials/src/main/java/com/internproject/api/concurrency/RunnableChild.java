@@ -173,16 +173,10 @@ public class RunnableChild implements Runnable {
                 query.addCriteria(criteria);
             }
         //create query for searching in an array in the document
-        }else if(queryType.equals("vehicleId")){
-            criteria = Criteria.where(value).in("vehicleId");
+        }else if(queryType.equals("vehicleId") || queryType.equals("specs") || queryType.equals("make")){
+            criteria = Criteria.where(value).in(queryType);
             query.addCriteria(criteria);
         //create query for all other cases that looks for a keyword
-        }else if(queryType.equals("specs")){
-            criteria = Criteria.where(value).in("specs");
-            query.addCriteria(criteria);
-        }else if(queryType.equals("make")){
-            criteria = Criteria.where(value).in("make");
-            query.addCriteria(criteria);
         }else{
             criteria = Criteria.where(queryType).regex(".*" + value + ".*", "i");
             query.addCriteria(criteria);
