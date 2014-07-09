@@ -135,6 +135,10 @@ public class RunnableChild implements Runnable {
             temp = runQuery(name, dealer.getCity(), query,0);
         }else if(dealer.getAdmin() != null && name.equals("admin")){
             temp = runQuery(name, dealer.getAdmin(), query,0);
+        }else if(name.equals("make") && dealer.getMake() != null){
+            for(int i = 0; i < dealer.getMake().size();i++){
+                temp.addAll(runQuery(name, dealer.getMake().get(i), query, 0));
+            }
         }
 
         //Store the results in a global arraylist
@@ -175,6 +179,9 @@ public class RunnableChild implements Runnable {
         //create query for all other cases that looks for a keyword
         }else if(queryType.equals("specs")){
             criteria = Criteria.where(value).in("specs");
+            query.addCriteria(criteria);
+        }else if(queryType.equals("make")){
+            criteria = Criteria.where(value).in("make");
             query.addCriteria(criteria);
         }else{
             criteria = Criteria.where(queryType).regex(".*" + value + ".*", "i");

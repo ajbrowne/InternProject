@@ -115,12 +115,13 @@ public class RunnableQuery implements Runnable {
         RunnableChild t2 = new RunnableChild("admin", name,dealerRepository, dealer, dealers);
         RunnableChild t3 = new RunnableChild("city", name,dealerRepository, dealer, dealers);
         RunnableChild t4 = new RunnableChild("state", name,dealerRepository, dealer, dealers);
+        RunnableChild t6 = new RunnableChild("make", name,dealerRepository, dealer, dealers);
 
         //Executor service manages the running of all of the threads and then waiting for all of them
         //to finish before moving on.
-        RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5};
+        RunnableChild[] list = new RunnableChild[]{t1,t2,t3,t4,t5, t6};
         ExecutorService es = Executors.newCachedThreadPool();
-        for(int i= 0; i < 5; i++){
+        for(int i= 0; i < 6; i++){
             es.execute(list[i]);
         }
         es.shutdown();

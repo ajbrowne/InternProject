@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.geo.Point;
 
+import java.util.List;
+
 /**
  * Created by maharb on 6/18/14.
  */
@@ -56,6 +58,41 @@ public class Dealer {
     private String admin;
     private Location loc;
 
+    public Dealer(String id, String name, String admin, Location loc, List<String> make, String city, String state, Point location) {
+        this.id = id;
+        this.name = name;
+        this.admin = admin;
+        this.loc = loc;
+        this.make = make;
+        this.city = city;
+        this.state = state;
+        this.location = location;
+    }
+
+    public List<String> getMake() {
+        return make;
+    }
+
+    public void setMake(List<String> make) {
+        this.make = make;
+    }
+
+    @Override
+    public String toString() {
+        return "Dealer{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", admin='" + admin + '\'' +
+                ", loc=" + loc +
+                ", make=" + make +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", location=" + location +
+                '}';
+    }
+
+    private List<String> make;
+
     public Dealer(String name, String admin, Location loc, String city, String state, Point location) {
         this.name = name;
         this.admin = admin;
@@ -70,19 +107,6 @@ public class Dealer {
         this.admin = keyword;
         this.city = keyword;
         this.state = keyword;
-    }
-
-    @Override
-    public String toString() {
-        return "Dealer{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", admin='" + admin + '\'' +
-                ", loc=" + loc +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", location=" + location +
-                '}';
     }
 
     private String city;

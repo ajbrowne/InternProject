@@ -55,9 +55,9 @@ public class DealerService {
      * @param dealer - dealer criteria we are searching for
      * @return - a list of the dealers that match
      */
-    public List getDealers(Dealer dealer){
+    public List<? extends Dealer> getDealers(Point point, Dealer dealer){
         List<Dealer> dealers = new ArrayList<Dealer>();
-
+        List locDealers = dealerRepository.getDealerByLocation(point);
         RunnableQuery mainThread = new RunnableQuery("dealer", dealerRepository, dealer, dealers);
         ExecutorService es = Executors.newCachedThreadPool();
         es.execute(mainThread);
@@ -67,8 +67,35 @@ public class DealerService {
         } catch (InterruptedException e) {
             log.warn(e);
         }
+        dealers = dealerCheck(dealers, dealer);
+        dealers = dealerSort(dealers, locDealers);
+
 
         return dealers;
+    }
+
+    private List<Dealer> dealerSort(List<Dealer> dealers, List<Dealer> locDealers){
+        List<Dealer> temp = new ArrayList<Dealer>();
+        for(Dealer dealer : locDealers){
+            for(Dealer tempDealer:dealers){
+                if(dealer.getId().equals(tempDealer.getId())){
+                    temp.add(dealer);
+                    break;
+                }
+            }
+        }
+
+        return temp;
+    }
+
+    private List<Dealer> dealerCheck(List<Dealer> dealers, Dealer dealer){
+        List<Dealer> tempDealers = new ArrayList<Dealer>();
+        for(Dealer temp:dealers){
+            if(dealer.getId().equals(temp.getId())){
+                tempDealers.add(temp);
+            }
+        }
+        return tempDealers;
     }
 
 }
