@@ -238,6 +238,9 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                     intent.putExtra("oldP", temp.getOldPrice());
                     intent.putExtra("newP", temp.getNewPrice());
                     intent.putExtra("imageUrl", temp.getUrl());
+                    intent.putExtra("year", vehicle.getYear());
+                    intent.putExtra("make", vehicle.getMake());
+                    intent.putExtra("model", vehicle.getModel());
                     ArrayList<String> tempSpecs = new ArrayList<String>();
                     for(int i = 0; i < vehicle.getSpecs().length();i++){
                         try {
@@ -246,7 +249,6 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                             e.printStackTrace();
                         }
                     }
-                    System.out.println(tempSpecs);
                     intent.putStringArrayListExtra("spec", tempSpecs);
                     getActivity().startActivity(intent);
 

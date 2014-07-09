@@ -133,6 +133,7 @@ public class VehicleResultsActivity extends BaseActivity {
                                     vehicleObject.setUrl(vehicle.getString("urlImage"));
                                     vehicleObject.setVehicleType(vehicle.getString("type"));
                                     vehicleObject.setDealer(dealer.getString("dealerName"));
+                                    vehicleObject.setSpecs((JSONArray)vehicle.get("specs"));
                                     ArrayList<Special> specs = vehicleObject.getSpecials();
                                     specs.add(specialObject);
                                     vehicleObject.setSpecials(specs);
@@ -206,13 +207,21 @@ public class VehicleResultsActivity extends BaseActivity {
                     Intent intent = new Intent(VehicleResultsActivity.this, SpecialDetail.class);
                     VehicleCard temp = (VehicleCard) card;
                     intent.putExtra("title", temp.getTitle());
-                    //intent.putExtra("description", temp.getDescription());
                     intent.putExtra("oldP", temp.getOldPrice());
                     intent.putExtra("newP", temp.getNewPrice());
                     intent.putExtra("imageUrl", temp.getUrl());
                     intent.putExtra("year", vehicle.getYear());
                     intent.putExtra("make", vehicle.getMake());
                     intent.putExtra("model", vehicle.getModel());
+                    ArrayList<String> tempSpecs = new ArrayList<String>();
+                    for(int i = 0; i < vehicle.getSpecs().length();i++){
+                        try {
+                            tempSpecs.add(vehicle.getSpecs().get(i).toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    intent.putStringArrayListExtra("spec", tempSpecs);
                     startActivity(intent);
                 }
             });

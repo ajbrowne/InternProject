@@ -27,7 +27,6 @@ public class SpecialDetail extends BaseActivity {
         TextView mTitle = (TextView) findViewById(R.id.title_text);
         TextView mOldPrice = (TextView) findViewById(R.id.price_old);
         TextView mNewPrice = (TextView) findViewById(R.id.price_new);
-        TextView mName = (TextView) findViewById(R.id.price_name);
         ImageView mTitleImage = (ImageView)findViewById(R.id.title_image);
         ListView mSpecsList = (ListView)findViewById(R.id.specs_list);
 
@@ -37,7 +36,6 @@ public class SpecialDetail extends BaseActivity {
             mOldPrice.setText("$" + extras.getString("oldP"));
             mOldPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             mNewPrice.setText("$" + extras.getString("newP"));
-            mName.setText(extras.getString("year") + " " + extras.getString("make") + " " + extras.getString("model"));
             Picasso.with(this)
                     .load(extras.getString("imageUrl"))
                     .placeholder(R.drawable.tesla)
