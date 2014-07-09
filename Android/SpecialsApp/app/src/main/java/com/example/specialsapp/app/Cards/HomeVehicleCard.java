@@ -50,7 +50,7 @@ public class HomeVehicleCard extends Card {
                 .into(thumbnail);
 
         if (this.price.compareTo("") == 0){
-            mPrice.setText("$6000");
+            mPrice.setText("$60,000");
             mName.setText("2004 Pontiac Aztek");
             mType.setText("Used");
             Picasso.with(context)

@@ -1,44 +1,16 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EFEFEF"
+    android:orientation="vertical"
     tools:context=".Fragments.DealerSearchFragment">
 
-    <EditText
-        android:id="@+id/dealer_search_zip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Zip Code"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        />
-
-    <Spinner
-        android:id="@+id/dealer_search_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-        android:entries="@array/makes"
-        android:prompt="@string/make_prompt"
-        android:layout_below="@id/dealer_search_zip"
-        android:spinnerMode="dialog"
-        android:textColor="#000"
-        android:layout_centerHorizontal="true"/>
-
-    <Button
-        android:id="@+id/dealer_search_button"
+    <ListView
+        android:id="@+id/dealer_search_listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/dealer_search_spinner"
-        android:layout_margin="25dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/custom_button"
-        android:text="Search"
-        android:textColor="#FFF" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fastScrollEnabled="true"/>
 
-
-
-</RelativeLayout>
+</LinearLayout>

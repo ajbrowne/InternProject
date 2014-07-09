@@ -7,6 +7,7 @@
     android:layout_marginRight="5dp"
     android:layout_marginTop="1dp"
     android:layout_marginBottom="5dp"
+    android:minHeight="140dp"
     android:orientation="vertical">
 
     <ImageView
@@ -33,7 +34,9 @@
         android:layout_below="@id/smallCar"
         android:layout_marginTop="10dp"
         android:text="$6,000"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"/>
 
     <TextView
         android:id="@+id/smallType"
@@ -45,7 +48,8 @@
         android:textSize="10sp"
         android:textColor="#00559A"
         android:layout_alignParentRight="true"
-        android:gravity="right"
+        android:layout_alignParentBottom="true"
+        android:gravity="right|bottom"
         android:layout_toRightOf="@id/smallPrice"/>
 
 
