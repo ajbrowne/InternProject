@@ -64,7 +64,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         newVehicles = new ArrayList<Vehicle>();
 
         ActionBar actionBar = getActivity().getActionBar();
-        actionBar.setTitle("Specials");
+        actionBar.setTitle("Cobalt Deals");
 
         setHasOptionsMenu(true);
 

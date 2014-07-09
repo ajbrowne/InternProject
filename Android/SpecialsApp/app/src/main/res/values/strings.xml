@@ -17,7 +17,9 @@
     <string name="year_prompt">Year</string>
     <string name="price_prompt">Maximum Price</string>
     <string name="strikethrough"><strike>$16,000</strike></string>
-
+    <string-array name="none">
+        <item>No Vehicles</item>
+    </string-array>
     <string-array name="list_items">
         <item>Dealers Near You</item>
         <item>Specials Near You</item>
