@@ -61,7 +61,7 @@ public class DealerController {
     public ResponseEntity<List> dealerLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat,@RequestParam(value = "extra", required = false) Integer flag, @ModelAttribute Dealer dealer){
         Point point = new Point(lng, lat);
         log.info("Location received from app: " + point);
-        if(flag == 1){
+        if(flag == 0){
             List newDealer = dealerService.getDealerLocation(point);
             log.info("Number of dealers returned: " + newDealer.size());
             return new ResponseEntity<List>(newDealer, HttpStatus.OK);
