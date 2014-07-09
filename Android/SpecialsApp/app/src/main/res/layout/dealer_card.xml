@@ -46,6 +46,15 @@
         android:paddingTop="2dp"
         android:text="10 deals currently running" />
 
+    <ImageView
+        android:id="@+id/mapButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_place"
+        android:paddingTop="7dp"
+        android:paddingRight="3dp"
+        android:layout_alignParentRight="true"/>
+
     <TextView
         android:id="@+id/distance"
         android:layout_width="wrap_content"

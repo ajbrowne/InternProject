@@ -145,7 +145,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
 
     public ArrayList<Card> createDealers(ArrayList<Dealer> dealers, ArrayList<Card> cards){
         for (Dealer dealer: dealers){
-            DealerCard card = new DealerCard(getActivity(), R.layout.dealer_card);
+            DealerCard card = new DealerCard(getActivity(), R.layout.dealer_card, dealer.getLatitude(), dealer.getLongitude());
             card.setDealer(dealer.getName());
             card.setCityState(dealer.getCity() + ", " + dealer.getState());
             Double distance = distance(dealer.getLatitude(), dealer.getLongitude(), lat, longi);
