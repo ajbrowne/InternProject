@@ -1,5 +1,7 @@
 package com.example.specialsapp.app.Models;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 /**
@@ -12,15 +14,15 @@ public class Vehicle {
     private String model;
     private String type;
 
-    public ArrayList<String> getSpecs() {
+    public JSONArray getSpecs() {
         return specs;
     }
 
-    public void setSpecs(ArrayList<String> specs) {
+    public void setSpecs(JSONArray specs) {
         this.specs = specs;
     }
 
-    private ArrayList<String> specs = new ArrayList<String>();
+    private JSONArray specs = new JSONArray();
 
     private String id;
 

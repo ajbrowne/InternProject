@@ -29,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -154,6 +155,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                                     vehicleObject.setUrl(vehicle.getString("urlImage"));
                                     vehicleObject.setVehicleType(vehicle.getString("type"));
                                     vehicleObject.setDealer(dealer.getString("dealerName"));
+                                    vehicleObject.setSpecs((JSONArray)vehicle.get("specs"));
                                     ArrayList<Special> specs = vehicleObject.getSpecials();
                                     specs.add(specialObject);
                                     vehicleObject.setSpecials(specs);
@@ -206,10 +208,14 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
     public ArrayList<Card> createSpecials(int index, ArrayList<Vehicle> newVehicles, ArrayList<Card> cards) {
         for (int i = index; i < index+10 && i < returnSize; i++) {
             VehicleCard card = new VehicleCard(getActivity(), R.layout.vehicle_card);
-            Vehicle vehicle = newVehicles.get(i);
+            final Vehicle vehicle = newVehicles.get(i);
             card.setTitle(vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel());
             // Needs to be gas mileage!!!
-            //card.setDescription(special.getDescription());
+            try {
+                card.setGasMileage((String) vehicle.getSpecs().get(0));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             card.setDealer(vehicle.getDealer());
             card.setVehicleType(vehicle.getVehicleType());
@@ -232,6 +238,16 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                     intent.putExtra("oldP", temp.getOldPrice());
                     intent.putExtra("newP", temp.getNewPrice());
                     intent.putExtra("imageUrl", temp.getUrl());
+                    ArrayList<String> tempSpecs = new ArrayList<String>();
+                    for(int i = 0; i < vehicle.getSpecs().length();i++){
+                        try {
+                            tempSpecs.add(vehicle.getSpecs().get(i).toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    System.out.println(tempSpecs);
+                    intent.putStringArrayListExtra("spec", tempSpecs);
                     getActivity().startActivity(intent);
 
                 }

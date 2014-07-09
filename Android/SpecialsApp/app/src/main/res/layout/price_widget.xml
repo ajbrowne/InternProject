@@ -9,7 +9,8 @@ android:orientation="horizontal">
     android:id="@+id/price_name"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Chevrolet Silverado"/>
+    android:text="Chevrolet Silverado"
+    style="@android:style/TextAppearance.DeviceDefault"/>
 <View
     android:layout_width="0dp"
     android:layout_height="0dp"
@@ -19,7 +20,8 @@ android:orientation="horizontal">
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/strikethrough"
-    android:textColor="#aaa"/>
+    android:textColor="#aaa"
+    style="@android:style/TextAppearance.DeviceDefault"/>
 
 <TextView
     android:id="@+id/price_new"
@@ -27,5 +29,6 @@ android:orientation="horizontal">
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textColor="@android:color/holo_green_dark"
-    android:text="$11,000"/>
+    android:text="$11,000"
+    style="@android:style/TextAppearance.DeviceDefault"/>
 </LinearLayout>

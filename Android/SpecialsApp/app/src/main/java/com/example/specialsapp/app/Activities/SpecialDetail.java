@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.example.specialsapp.app.R;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class SpecialDetail extends BaseActivity {
 
     @Override
@@ -27,8 +30,7 @@ public class SpecialDetail extends BaseActivity {
         TextView mName = (TextView) findViewById(R.id.price_name);
         ImageView mTitleImage = (ImageView)findViewById(R.id.title_image);
         ListView mSpecsList = (ListView)findViewById(R.id.specs_list);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Cadillac)); //selected item will look like a spinner set from XML
-        mSpecsList.setAdapter(spinnerArrayAdapter);
+
 
         if (extras != null) {
             mTitle.setText(extras.getString("title"));
@@ -41,6 +43,9 @@ public class SpecialDetail extends BaseActivity {
                     .placeholder(R.drawable.tesla)
                     .resize(335, 600)
                     .into(mTitleImage);
+            ArrayList<String> specsTemp = (ArrayList<String>)extras.get("spec");
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.custom_item, specsTemp);
+            mSpecsList.setAdapter(spinnerArrayAdapter);
         }
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
