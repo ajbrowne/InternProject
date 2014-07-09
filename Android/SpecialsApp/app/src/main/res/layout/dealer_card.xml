@@ -54,6 +54,6 @@
         android:layout_alignParentRight="true"
         android:textColor="#534CE6"
         android:paddingRight="5dp"
-        android:text="10.7 Miles"/>
+        android:text="10.7 miles"/>
 
 </RelativeLayout>

@@ -30,6 +30,8 @@ public class DealerResultsActivity extends BaseActivity {
 
 
     private TextView mResultsNone;
+    private double lat;
+    private double longi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,8 @@ public class DealerResultsActivity extends BaseActivity {
         mResultsNone = (TextView) findViewById(R.id.second_result);
 
         GPS gps = new GPS(this);
-        final Double lat = gps.getLatitude();
-        final Double longi = gps.getLongitude();
+        lat = gps.getLatitude();
+        longi = gps.getLongitude();
 
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("lng", String.valueOf(longi));
@@ -61,6 +63,11 @@ public class DealerResultsActivity extends BaseActivity {
                         dealer.setCity(dealerObject.get("city").toString());
                         dealer.setState(dealerObject.get("state").toString());
                         dealer.setName(dealerObject.get("name").toString());
+                        JSONObject loc = (JSONObject) dealerObject.get("loc");
+                        JSONArray coords = (JSONArray) loc.get("coordinates");
+                        dealer.setLongitude(coords.getDouble(1));
+                        dealer.setLatitude(coords.getDouble(0));
+                        dealer.setNumSpecials(dealerObject.getInt("numSpecials"));
                         dealers.add(dealer);
                     }
 
@@ -95,6 +102,10 @@ public class DealerResultsActivity extends BaseActivity {
             DealerCard card = new DealerCard(this, R.layout.dealer_card);
             card.setDealer(dealer.getName());
             card.setCityState(dealer.getCity() + ", " + dealer.getState());
+            Double distance = distance(dealer.getLatitude(), dealer.getLongitude(), lat, longi);
+            distance = (double)Math.round(distance *10)/10;
+            card.setDistance(String.valueOf(distance) + " mi");
+            card.setNumSpecials(String.valueOf(dealer.getNumSpecials()) + " deals currently running");
             cards.add(card);
         }
         return cards;
@@ -111,5 +122,22 @@ public class DealerResultsActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        return (dist);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
     }
 }

@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.example.specialsapp.app.R;
 
+import org.w3c.dom.Text;
+
 import it.gmariotti.cardslib.library.internal.Card;
 
 /**
@@ -20,6 +22,7 @@ public class DealerCard extends Card {
     private String dealer;
     private String cityState;
     private String distance;
+    private String numSpecials;
 
     public DealerCard(Context context) {
         this(context, R.layout.vehicle_card);
@@ -34,9 +37,12 @@ public class DealerCard extends Card {
         TextView mDealer = (TextView) parent.findViewById(R.id.dealer);
         TextView mCityState = (TextView) parent.findViewById(R.id.city);
         TextView mDistance = (TextView) parent.findViewById(R.id.distance);
+        TextView mNumSpecials = (TextView) parent.findViewById(R.id.deals);
+
         mDealer.setText(dealer);
         mCityState.setText(cityState);
         mDistance.setText(distance);
+        mNumSpecials.setText(numSpecials);
     }
 
     public void setDealer(String dealer){ this.dealer = dealer; }
@@ -60,5 +66,15 @@ public class DealerCard extends Card {
     public void setDistance(String distance) {
         this.distance = distance;
     }
+
+    public String getNumSpecials() {
+        return numSpecials;
+    }
+
+    public void setNumSpecials(String numSpecials) {
+        this.numSpecials = numSpecials;
+    }
+
+
 
 }
