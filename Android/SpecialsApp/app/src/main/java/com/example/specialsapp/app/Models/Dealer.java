@@ -11,6 +11,9 @@ public class Dealer {
     private int numSpecials;
     private double distanceFrom;
 
+    private double latitude;
+    private double longitude;
+
     public Dealer() {
     }
 
@@ -60,6 +63,23 @@ public class Dealer {
 
     public void setDistanceFrom(double distanceFrom) {
         this.distanceFrom = distanceFrom;
+    }
+
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     @Override
