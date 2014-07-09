@@ -1,6 +1,5 @@
 package com.example.specialsapp.app.Activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,12 +24,14 @@ import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
 
-public class DealerResultsActivity extends Activity {
+public class DealerResultsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dealer_results);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setTitle("Dealer Results");
 
         GPS gps = new GPS(this);
         final Double lat = gps.getLatitude();
@@ -49,8 +50,7 @@ public class DealerResultsActivity extends Activity {
                 ArrayList<Dealer> dealers = new ArrayList<Dealer>();
                 try {
                     for (int i = 0; i < request.length(); i++) {
-                        JSONObject outer = (JSONObject) request.get(i);
-                        JSONObject dealerObject = (JSONObject) outer.get("content");
+                        JSONObject dealerObject = (JSONObject) request.get(i);
                         Dealer dealer = new Dealer();
                         dealer.setCity(dealerObject.get("city").toString());
                         dealer.setState(dealerObject.get("state").toString());
@@ -96,19 +96,12 @@ public class DealerResultsActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.dealer_results, menu);
-        return true;
+        getMenuInflater().inflate(R.menu.home, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 }
