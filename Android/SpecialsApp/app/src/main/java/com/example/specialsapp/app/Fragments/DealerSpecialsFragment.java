@@ -120,7 +120,6 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
         param.put("extra", "0");
         RequestParams params = new RequestParams(param);
 
-        System.out.println("DSGDGDHHDAHAHADHAH" + params);
         vehicleAsync(params);
     }
 
@@ -141,36 +140,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                         for (int j = 0; j < specialArray.length(); j++) {
                             JSONObject special = (JSONObject) specialArray.get(j);
                             JSONArray ids = (JSONArray) special.get("vehicleId");
-                            for (int k = 0; k < ids.length(); k++) {
-                                if (ids.get(k).equals(id)) {
-                                    Special specialObject = new Special();
-                                    specialObject.setTitle(special.getString("title"));
-                                    specialObject.setAmount(special.getString("amount"));
-                                    Vehicle vehicleObject = new Vehicle();
-                                    vehicleObject.setMake(vehicle.getString("make"));
-                                    vehicleObject.setId(vehicle.getString("id"));
-                                    vehicleObject.setModel(vehicle.getString("model"));
-                                    vehicleObject.setYear(vehicle.getString("year"));
-                                    vehicleObject.setPrice(vehicle.getString("price"));
-                                    vehicleObject.setUrl(vehicle.getString("urlImage"));
-                                    vehicleObject.setVehicleType(vehicle.getString("type"));
-                                    vehicleObject.setDealer(dealer.getString("dealerName"));
-                                    vehicleObject.setSpecs((JSONArray)vehicle.get("specs"));
-                                    ArrayList<Special> specs = vehicleObject.getSpecials();
-                                    specs.add(specialObject);
-                                    vehicleObject.setSpecials(specs);
-                                    boolean duplicate = false;
-                                    for (String theId: added){
-                                        if (theId.equals(vehicleObject.getId())){
-                                            duplicate = true;
-                                        }
-                                    }
-                                    if (!duplicate){
-                                        newVehicles.add(vehicleObject);
-                                        added.add(vehicle.getString("id"));
-                                    }
-                                }
-                            }
+                            createVehicle(added, dealer, vehicle, id, special, ids);
                         }
                     }
 
@@ -181,6 +151,39 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                 addCards(newVehicles);
             }
         });
+    }
+
+    private void createVehicle(ArrayList<String> added, JSONObject dealer, JSONObject vehicle, String id, JSONObject special, JSONArray ids) throws JSONException {
+        for (int k = 0; k < ids.length(); k++) {
+            if (ids.get(k).equals(id)) {
+                Special specialObject = new Special();
+                specialObject.setTitle(special.getString("title"));
+                specialObject.setAmount(special.getString("amount"));
+                Vehicle vehicleObject = new Vehicle();
+                vehicleObject.setMake(vehicle.getString("make"));
+                vehicleObject.setId(vehicle.getString("id"));
+                vehicleObject.setModel(vehicle.getString("model"));
+                vehicleObject.setYear(vehicle.getString("year"));
+                vehicleObject.setPrice(vehicle.getString("price"));
+                vehicleObject.setUrl(vehicle.getString("urlImage"));
+                vehicleObject.setVehicleType(vehicle.getString("type"));
+                vehicleObject.setDealer(dealer.getString("dealerName"));
+                vehicleObject.setSpecs((JSONArray)vehicle.get("specs"));
+                ArrayList<Special> specs = vehicleObject.getSpecials();
+                specs.add(specialObject);
+                vehicleObject.setSpecials(specs);
+                boolean duplicate = false;
+                for (String theId: added){
+                    if (theId.equals(vehicleObject.getId())){
+                        duplicate = true;
+                    }
+                }
+                if (!duplicate){
+                    newVehicles.add(vehicleObject);
+                    added.add(vehicle.getString("id"));
+                }
+            }
+        }
     }
 
     private void addCards(ArrayList<Vehicle> newVehicles) {
@@ -228,38 +231,41 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
             card.setNewPrice(((HomeActivity)getActivity()).insertCommas(String.valueOf(newPrice)));
             card.setOldPrice(((HomeActivity)getActivity()).insertCommas(String.valueOf(old)));
 
-            card.setOnClickListener(new Card.OnCardClickListener() {
-                @Override
-                public void onClick(Card card, View view) {
-                    Intent intent = new Intent(getActivity(), SpecialDetail.class);
-                    VehicleCard temp = (VehicleCard) card;
-                    intent.putExtra("title",  temp.getTitle());
-                    //intent.putExtra("description", temp.getDescription());
-                    intent.putExtra("oldP", temp.getOldPrice());
-                    intent.putExtra("newP", temp.getNewPrice());
-                    intent.putExtra("imageUrl", temp.getUrl());
-                    intent.putExtra("year", vehicle.getYear());
-                    intent.putExtra("make", vehicle.getMake());
-                    intent.putExtra("model", vehicle.getModel());
-                    ArrayList<String> tempSpecs = new ArrayList<String>();
-                    for(int i = 0; i < vehicle.getSpecs().length();i++){
-                        try {
-                            tempSpecs.add(vehicle.getSpecs().get(i).toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    intent.putStringArrayListExtra("spec", tempSpecs);
-                    getActivity().startActivity(intent);
-
-                }
-            });
+            card.setOnClickListener(getCardOnClickListener(vehicle));
 
             cards.add(card);
             currIndex = i;
         }
         currIndex++;
         return cards;
+    }
+
+    private Card.OnCardClickListener getCardOnClickListener(final Vehicle vehicle) {
+        return new Card.OnCardClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Intent intent = new Intent(getActivity(), SpecialDetail.class);
+                VehicleCard temp = (VehicleCard) card;
+                intent.putExtra("title",  temp.getTitle());
+                intent.putExtra("oldP", temp.getOldPrice());
+                intent.putExtra("newP", temp.getNewPrice());
+                intent.putExtra("imageUrl", temp.getUrl());
+                intent.putExtra("year", vehicle.getYear());
+                intent.putExtra("make", vehicle.getMake());
+                intent.putExtra("model", vehicle.getModel());
+                ArrayList<String> tempSpecs = new ArrayList<String>();
+                for(int i = 0; i < vehicle.getSpecs().length();i++){
+                    try {
+                        tempSpecs.add(vehicle.getSpecs().get(i).toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                intent.putStringArrayListExtra("spec", tempSpecs);
+                getActivity().startActivity(intent);
+
+            }
+        };
     }
 
     @Override
