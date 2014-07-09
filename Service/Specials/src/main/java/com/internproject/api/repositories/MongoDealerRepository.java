@@ -51,9 +51,4 @@ public class MongoDealerRepository implements DealerRepository {
         mongoTemplate.insert(temp);
     }
 
-    public synchronized void decDealerSpecials(Dealer dealer){
-        
-    }
-
-
 }
