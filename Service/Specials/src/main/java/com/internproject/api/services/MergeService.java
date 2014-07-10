@@ -164,7 +164,7 @@ public class MergeService {
         }
 
         List<Special> sortedSpecials = new ArrayList<Special>();
-        sortSpecialsList(specials, all, sortedSpecials);
+        sortedSpecials = sortSpecialsList(specials, all, sortedSpecials);
         List<Vehicle> vehicles = new ArrayList<Vehicle>();
         List<String> ids = new ArrayList<String>();
         ids = getTopVehicles(specials, ids);
@@ -174,7 +174,7 @@ public class MergeService {
             vehicles.addAll(vehicleService.getVehicles(vehicle));
         }
 
-        createMerger(mergerObjs, sortedSpecials, vehicles);
+        mergerObjs = createMerger(mergerObjs, sortedSpecials, vehicles);
 
         for(MergerObj mergerObj :mergerObjs){
             String dealerName = dealerService.getDealerById(mergerObj.getSpecials().get(0).getDealer()).getName();
@@ -185,7 +185,7 @@ public class MergeService {
         return mergerObjs;
     }
 
-    private void sortSpecialsList(List<Special> specials, Map<String, Integer> all, List<Special> sortedSpecials) {
+    private List<Special> sortSpecialsList(List<Special> specials, Map<String, Integer> all, List<Special> sortedSpecials) {
         Map<String, Integer> top = sortByValue(all);
         Set<String> specialIds = top.keySet();
         List<String> listIds = new ArrayList<String>();
@@ -201,9 +201,10 @@ public class MergeService {
                 sortedSpecials.add( special);
             }
         }
+        return sortedSpecials;
     }
 
-    private void createMerger(List<MergerObj> mergerObjs, List<Special> specials, List<Vehicle> vehicles) {
+    private List<MergerObj> createMerger(List<MergerObj> mergerObjs, List<Special> specials, List<Vehicle> vehicles) {
         for(Special special : specials){
             MergerObj mergerObj = new MergerObj();
             List tempSpecials = new ArrayList();
@@ -220,6 +221,7 @@ public class MergeService {
                 }
             }
         }
+        return mergerObjs;
     }
 
     private List<String> getTopVehicles(List<Special> specials, List<String> ids) {
