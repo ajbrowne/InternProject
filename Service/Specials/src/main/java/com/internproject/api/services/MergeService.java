@@ -247,12 +247,7 @@ public class MergeService {
     private Map<String, Integer> sortByValue(Map<String, Integer> all) {
         List list = new LinkedList(all.entrySet());
 
-        Collections.sort(list, new Comparator() {
-            public int compare(Object o1, Object o2) {
-                return ((Comparable) ((Map.Entry) (o1)).getValue())
-                        .compareTo(((Map.Entry) (o2)).getValue());
-            }
-        });
+        Collections.sort(list);
         Map sorted = new LinkedHashMap();
         for (Object aList : list) {
             Map.Entry entry = (Map.Entry) aList;
