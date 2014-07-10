@@ -194,11 +194,11 @@ public class MergeService {
         }
         for(Special special : specials){
             if(listIds.get(0).equals(special.getId())){
-                sortedSpecials.add(0, special);
+                sortedSpecials.add( special);
             }else if(listIds.get(1).equals(special.getId())){
-                sortedSpecials.add(1, special);
+                sortedSpecials.add( special);
             }else if(listIds.get(2).equals(special.getId())){
-                sortedSpecials.add(2, special);
+                sortedSpecials.add( special);
             }
         }
     }
