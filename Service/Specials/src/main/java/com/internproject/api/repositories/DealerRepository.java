@@ -15,4 +15,5 @@ public interface DealerRepository {
     public List getMatchingDealers(Dealer dealer, Query query);
     public void updateDealerSpecials(Dealer dealer);
     public List<Dealer> findAllDealers();
+    public Dealer getDealerById(String id);
 }

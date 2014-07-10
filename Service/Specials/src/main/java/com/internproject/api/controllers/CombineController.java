@@ -71,5 +71,11 @@ public class CombineController {
         return new ResponseEntity<List>(mergeService.getNearestVehicles(point, vehicle, flag), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/special/top")
+    @ResponseBody
+    public ResponseEntity<List> topDiscount(){
+        return new ResponseEntity<List>(mergeService.getTopDiscount(), HttpStatus.OK);
+    }
+
 
 }

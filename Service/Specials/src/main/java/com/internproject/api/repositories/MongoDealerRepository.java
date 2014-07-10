@@ -45,6 +45,11 @@ public class MongoDealerRepository implements DealerRepository {
     }
 
     @Override
+    public Dealer getDealerById(String id) {
+        return mongoTemplate.findOne(Query.query(Criteria.where("id").is(id)), Dealer.class);
+    }
+
+    @Override
     public synchronized void updateDealerSpecials(Dealer dealer){
         Dealer temp = mongoTemplate.findOne(Query.query(Criteria.where("id").is(dealer.getId())), Dealer.class);
         temp.setNumSpecials(temp.getNumSpecials()+1);

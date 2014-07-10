@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.GeoResult;
 import org.springframework.data.geo.Point;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by maharb on 6/30/14.
@@ -41,7 +40,7 @@ public class MergeService {
      * @param point - the location we want to search near
      * @return - a list of mergerobj that contains a list of the specials based on dealer name
      */
-    public List getNearestSpecials(Point point) {
+    public List<? extends MergerObj> getNearestSpecials(Point point) {
         List<GeoResult> newDealer = dealerService.getDealerLocation(point);
         List<MergerObj> specials = new ArrayList<MergerObj>();
         //loop over the dealers to find the dealers specials
@@ -68,7 +67,7 @@ public class MergeService {
      * @param vehicle - the vehicle information we are trying to find
      * @return - a list of mergerobj that contains a list of the specials and vehicles by dealer name
      */
-    public List getNearestVehicles(Point point, Vehicle vehicle, int flag) {
+    public List<? extends MergerObj> getNearestVehicles(Point point, Vehicle vehicle, int flag) {
         List<GeoResult> newDealer = dealerService.getDealerLocation(point);
         List<MergerObj> specials = new ArrayList<MergerObj>();
         List<Vehicle> tempVehicles = vehicleService.getAllVehicles();
@@ -112,10 +111,10 @@ public class MergeService {
      */
     private List<Special> specialHelper(List<Special> specials, List<String> vehicleIds) {
         List<Special> matches = new ArrayList<Special>();
-        for (int i = 0; i < specials.size(); i++) {
+        for (Special special : specials) {
             for (String vehicleId : vehicleIds) {
-                if (listCheck(specials.get(i).getVehicleId(), vehicleId)) {
-                    matches.add(specials.get(i));
+                if (listCheck(special.getVehicleId(), vehicleId)) {
+                    matches.add(special);
                     break;
                 }
             }
@@ -124,7 +123,7 @@ public class MergeService {
         return matches;
     }
 
-    public List<Vehicle> vehicleHelper(List<Vehicle> vehicles, Vehicle match) {
+    private List<Vehicle> vehicleHelper(List<Vehicle> vehicles, Vehicle match) {
         int length = vehicles.size();
         for (int i = 0; i < vehicles.size(); i++) {
             if (!vehicles.get(i).getMake().equals(match.getMake())) {
@@ -155,4 +154,103 @@ public class MergeService {
         return false;
     }
 
+    public List getTopDiscount() {
+        List<MergerObj> mergerObjs = new ArrayList<MergerObj>();
+        List<Special> specials = specialService.getAllSpecials();
+        Map<String, Integer> all = new HashMap<String, Integer>();
+
+        for(Special special: specials){
+            all.put(special.getId(), Integer.parseInt(special.getAmount()));
+        }
+
+        List<Special> sortedSpecials = new ArrayList<Special>();
+        sortSpecialsList(specials, all, sortedSpecials);
+        List<Vehicle> vehicles = new ArrayList<Vehicle>();
+        List<String> ids = new ArrayList<String>();
+        ids = getTopVehicles(specials, ids);
+        for(String id : ids){
+            Vehicle vehicle = new Vehicle();
+            vehicle.setId(id);
+            vehicles.addAll(vehicleService.getVehicles(vehicle));
+        }
+
+        createMerger(mergerObjs, specials, vehicles);
+
+        for(MergerObj mergerObj :mergerObjs){
+            String dealerName = dealerService.getDealerById(mergerObj.getSpecials().get(0).getDealer()).getName();
+            mergerObj.setDealerName(dealerName);
+        }
+
+
+        return mergerObjs;
+    }
+
+    private void sortSpecialsList(List<Special> specials, Map<String, Integer> all, List<Special> sortedSpecials) {
+        Map<String, Integer> top = sortByValue(all);
+        String[] specialIds = (String[])top.keySet().toArray();
+        for(Special special : specials){
+            if(specialIds[0].equals(special.getId())){
+                sortedSpecials.add(0, special);
+            }else if(specialIds[1].equals(special.getId())){
+                sortedSpecials.add(1, special);
+            }else if(specialIds[2].equals(special.getId())){
+                sortedSpecials.add(2, special);
+            }
+        }
+    }
+
+    private void createMerger(List<MergerObj> mergerObjs, List<Special> specials, List<Vehicle> vehicles) {
+        for(Special special : specials){
+            MergerObj mergerObj = new MergerObj();
+            List tempSpecials = new ArrayList();
+            for(int i =0;i<mergerObjs.size();i++) {
+                if (mergerObjs.get(i).getSpecials().get(0).getDealer().equals(special.getDealer())) {
+                    tempSpecials = mergerObjs.get(i).getSpecials();
+                    tempSpecials.add(special);
+                    mergerObjs.get(i).setSpecials(tempSpecials);
+                }else if((i+1)==mergerObjs.size()){
+                    tempSpecials.add(special);
+                    mergerObj.setSpecials(tempSpecials);
+                    mergerObj.setVehicles(vehicles);
+                    mergerObjs.add(mergerObj);
+                }
+            }
+        }
+    }
+
+    private List<String> getTopVehicles(List<Special> specials, List<String> ids) {
+        for(Special special: specials){
+            if(ids.size() >= 3){
+                break;
+            }
+            if(special.getVehicleId().size() > 3){
+                ids.addAll(special.getVehicleId().subList(0,2));
+                break;
+            }else if(special.getVehicleId().size() < 3){
+                ids.addAll(special.getVehicleId());
+            }else if(special.getVehicleId().size() == 3){
+                ids.addAll(special.getVehicleId());
+                break;
+            }
+        }
+        ids = ids.subList(0,2);
+        return ids;
+    }
+
+    private Map<String, Integer> sortByValue(Map<String, Integer> all) {
+        List list = new LinkedList(all.entrySet());
+
+        Collections.sort(list, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Comparable) ((Map.Entry) (o1)).getValue())
+                        .compareTo(((Map.Entry) (o2)).getValue());
+            }
+        });
+        Map sorted = new LinkedHashMap();
+        for (Object aList : list) {
+            Map.Entry entry = (Map.Entry) aList;
+            sorted.put(entry.getKey(), entry.getValue());
+        }
+        return sorted;
+    }
 }

@@ -87,6 +87,10 @@ public class DealerService {
         return dealers;
     }
 
+    public Dealer getDealerById(String id){
+        return dealerRepository.getDealerById(id);
+    }
+
     private List<Dealer> findMatch(List<Dealer> dealers, Dealer dealer) {
         List<Dealer> tempDealers = new ArrayList<Dealer>();
         for(Dealer temp:dealers){
