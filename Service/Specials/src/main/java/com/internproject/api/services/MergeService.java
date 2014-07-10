@@ -174,7 +174,7 @@ public class MergeService {
             vehicles.addAll(vehicleService.getVehicles(vehicle));
         }
 
-        createMerger(mergerObjs, specials, vehicles);
+        createMerger(mergerObjs, sortedSpecials, vehicles);
 
         for(MergerObj mergerObj :mergerObjs){
             String dealerName = dealerService.getDealerById(mergerObj.getSpecials().get(0).getDealer()).getName();
