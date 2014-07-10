@@ -5,20 +5,5 @@
     android:layout_height="match_parent"
     android:background="#EFEFEF">
 
-    <include
-        android:id="@+id/first_result"
-        layout="@layout/results_widget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"/>
-
-    <it.gmariotti.cardslib.library.view.CardListView
-        android:id="@+id/myList2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="12dp"
-        android:paddingTop="12dp" />
-
 
 </RelativeLayout>

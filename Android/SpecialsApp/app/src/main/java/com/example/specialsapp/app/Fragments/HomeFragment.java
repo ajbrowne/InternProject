@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -220,7 +221,7 @@ public class HomeFragment extends Fragment {
             final Vehicle vehicle = vehicles.get(i);
             card.setTitle(vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel());
             card.setName(vehicle.getName());
-            card.setPrice(((HomeActivity)getActivity()).insertCommas(vehicles.get(i).getNewPrice()));
+            card.setPrice(insertCommas(vehicles.get(i).getNewPrice()));
             card.setType(vehicle.getVehicleType());
             card.setUrl(vehicle.getUrl());
 
@@ -230,8 +231,8 @@ public class HomeFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), SpecialDetail.class);
                     HomeVehicleCard temp = (HomeVehicleCard) card;
                     intent.putExtra("title",  temp.getTitle());
-                    intent.putExtra("oldP", ((HomeActivity)getActivity()).insertCommas(vehicle.getOldPrice()));
-                    intent.putExtra("newP", ((HomeActivity) getActivity()).insertCommas(vehicle.getNewPrice()));
+                    intent.putExtra("oldP", insertCommas(vehicle.getOldPrice()));
+                    intent.putExtra("newP", insertCommas(vehicle.getNewPrice()));
                     intent.putExtra("imageUrl", temp.getUrl());
                     intent.putExtra("year", vehicle.getYear());
                     intent.putExtra("make", vehicle.getMake());
@@ -254,5 +255,11 @@ public class HomeFragment extends Fragment {
         }
         createCards(homeView.findViewById(R.id.firstWidget), Trending, TrendingDescription, cards);
         return cards;
+    }
+
+    public String insertCommas(String amount){
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        Double number = Double.parseDouble(amount);
+        return String.valueOf(formatter.format(number));
     }
 }

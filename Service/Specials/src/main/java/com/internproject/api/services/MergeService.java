@@ -158,9 +158,7 @@ public class MergeService {
         List<MergerObj> mergerObjs = new ArrayList<MergerObj>();
         List<Special> specials = specialService.getAllSpecials();
 
-        List<Special> sortedSpecials = new ArrayList<Special>();
-        //sortedSpecials = sortSpecialsList(specials, specials, sortedSpecials);
-        System.out.println(sortedSpecials);
+        List<Special> sortedSpecials = sortByValue(specials).subList(0,3);
         List<Vehicle> vehicles = new ArrayList<Vehicle>();
         List<String> ids = new ArrayList<String>();
         ids = getTopVehicles(specials, ids);
@@ -169,9 +167,7 @@ public class MergeService {
             vehicle.setId(id);
             vehicles.addAll(vehicleService.getVehicles(vehicle));
         }
-
         mergerObjs = createMerger(mergerObjs, sortedSpecials, vehicles);
-
         for(MergerObj mergerObj :mergerObjs){
             String dealerName = dealerService.getDealerById(mergerObj.getSpecials().get(0).getDealer()).getName();
             mergerObj.setDealerName(dealerName);
@@ -200,21 +196,34 @@ public class MergeService {
 //    }
 
     private List<MergerObj> createMerger(List<MergerObj> mergerObjs, List<Special> specials, List<Vehicle> vehicles) {
+        MergerObj mergerObj = new MergerObj();
         for(Special special : specials){
-            MergerObj mergerObj = new MergerObj();
+
             List tempSpecials = new ArrayList();
-            for(int i =0;i<mergerObjs.size();i++) {
-                if (mergerObjs.get(i).getSpecials().get(0).getDealer().equals(special.getDealer())) {
-                    tempSpecials = mergerObjs.get(i).getSpecials();
-                    tempSpecials.add(special);
-                    mergerObjs.get(i).setSpecials(tempSpecials);
-                }else if((i+1)==mergerObjs.size()){
-                    tempSpecials.add(special);
-                    mergerObj.setSpecials(tempSpecials);
-                    mergerObj.setVehicles(vehicles);
-                    mergerObjs.add(mergerObj);
+            if(mergerObjs.size() == 0){
+                tempSpecials.add(special);
+                mergerObj.setSpecials(tempSpecials);
+                mergerObj.setVehicles(vehicles);
+                mergerObjs.add(mergerObj);
+            }else{
+                for(int i =0;i<mergerObjs.size();i++) {
+//                    if(i==0){
+//                        continue;
+//                    }
+                    if (mergerObjs.get(i).getSpecials().get(0).getDealer().equals(special.getDealer())) {
+                        tempSpecials = mergerObjs.get(i).getSpecials();
+                        tempSpecials.add(special);
+                        mergerObjs.get(i).setSpecials(tempSpecials);
+                    }else if((i+1)==mergerObjs.size()){
+                        tempSpecials.add(special);
+                        mergerObj.setSpecials(tempSpecials);
+                        mergerObj.setVehicles(vehicles);
+                        mergerObjs.add(mergerObj);
+                    }
                 }
             }
+
+
         }
         return mergerObjs;
     }
@@ -234,24 +243,22 @@ public class MergeService {
                 break;
             }
         }
-        ids = ids.subList(0,2);
+        ids = ids.subList(0,3);
         return ids;
     }
 
     private List<Special> sortByValue(List<Special> all) {
-
         Collections.sort(all, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
-                Special first = (Special)o1;
-                Special second = (Special)o2;
-                if(Integer.parseInt(first.getAmount())>Integer.parseInt(second.getAmount())){
+                Special first = (Special) o1;
+                Special second = (Special) o2;
+                if (Integer.parseInt(first.getAmount()) < Integer.parseInt(second.getAmount())) {
                     return 1;
                 }
                 return 0;
             }
         });
-
         return all;
     }
 }

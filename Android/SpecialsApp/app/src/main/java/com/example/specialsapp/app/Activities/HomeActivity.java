@@ -58,12 +58,6 @@ public class HomeActivity extends BaseActivity {
         this.dealers = dealers;
     }
 
-    public String insertCommas(String amount){
-        DecimalFormat formatter = new DecimalFormat("#,###");
-        Double number = Double.parseDouble(amount);
-        return String.valueOf(formatter.format(number));
-    }
-
     public ViewPager getViewPager(){
         return this.viewPager;
     }
