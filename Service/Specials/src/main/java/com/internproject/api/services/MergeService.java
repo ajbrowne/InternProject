@@ -187,13 +187,17 @@ public class MergeService {
 
     private void sortSpecialsList(List<Special> specials, Map<String, Integer> all, List<Special> sortedSpecials) {
         Map<String, Integer> top = sortByValue(all);
-        String[] specialIds = (String[])top.keySet().toArray();
+        Set<String> specialIds = top.keySet();
+        List<String> listIds = new ArrayList<String>();
+        for(String id : specialIds){
+            listIds.add(id);
+        }
         for(Special special : specials){
-            if(specialIds[0].equals(special.getId())){
+            if(listIds.get(0).equals(special.getId())){
                 sortedSpecials.add(0, special);
-            }else if(specialIds[1].equals(special.getId())){
+            }else if(listIds.get(1).equals(special.getId())){
                 sortedSpecials.add(1, special);
-            }else if(specialIds[2].equals(special.getId())){
+            }else if(listIds.get(2).equals(special.getId())){
                 sortedSpecials.add(2, special);
             }
         }
