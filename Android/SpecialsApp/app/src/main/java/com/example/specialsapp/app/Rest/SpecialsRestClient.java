@@ -16,17 +16,17 @@ import java.io.File;
  */
 
 public class SpecialsRestClient {
-    private static final String BASE_URL = "http://192.168.169.243:8080/v1/specials/";
+    private static final String BASE_URL = "http://192.168.170.246:8080/v1/specials/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.setProxy("192.168.169.187", 8080);
+        client.setProxy("192.168.170.246", 8080);
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
     public static void post(Context context, String url, StringEntity entity, String type, AsyncHttpResponseHandler responseHandler) {
-        client.setProxy("192.168.169.187", 8080);
+        client.setProxy("192.168.170.246", 8080);
         client.post(context, getAbsoluteUrl(url), entity, type, responseHandler);
     }
 

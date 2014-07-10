@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.HomeActivity;
@@ -98,7 +97,6 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(getActivity(), SearchActivity.class);
             intent.putExtra("tab", 0);
             startActivity(intent);
-
         }
         return true;
     }
@@ -190,10 +188,15 @@ public class HomeFragment extends Fragment {
                 if (vehicle.getString("id").compareTo((String) ids.get(k)) == 0) {
                     Vehicle newVehicle = new Vehicle();
                     addedVehicles.add((String) ids.get(k));
-                    newVehicle.setPrice(String.valueOf(vehicle.getInt("price") - Integer.parseInt(spec.getString("amount"))));
+                    newVehicle.setNewPrice(String.valueOf(vehicle.getInt("price") - Integer.parseInt(spec.getString("amount"))));
+                    newVehicle.setOldPrice(String.valueOf(vehicle.getInt("price")));
                     newVehicle.setName(vehicle.getString("year") + " " + vehicle.getString("make") + " " + vehicle.getString("model"));
                     newVehicle.setVehicleType(vehicle.getString("type"));
                     newVehicle.setUrl(vehicle.getString("urlImage"));
+                    newVehicle.setSpecs(vehicle.getJSONArray("specs"));
+                    newVehicle.setMake(vehicle.getString("make"));
+                    newVehicle.setYear(vehicle.getString("year"));
+                    newVehicle.setModel(vehicle.getString("model"));
                     vehicles.add(newVehicle);
                 }
             }
@@ -214,15 +217,34 @@ public class HomeFragment extends Fragment {
     public ArrayList<Card> createSpecials(int index, ArrayList<Vehicle> vehicles) {
         for (int i = index; i < 3; i++) {
             HomeVehicleCard card = new HomeVehicleCard(getActivity(), R.layout.h_vehicle_card);
-            card.setName(vehicles.get(i).getName());
-            card.setPrice(((HomeActivity)getActivity()).insertCommas(vehicles.get(i).getPrice()));
-            card.setType(vehicles.get(i).getVehicleType());
-            card.setUrl(vehicles.get(i).getUrl());
+            final Vehicle vehicle = vehicles.get(i);
+            card.setTitle(vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel());
+            card.setName(vehicle.getName());
+            card.setPrice(((HomeActivity)getActivity()).insertCommas(vehicles.get(i).getNewPrice()));
+            card.setType(vehicle.getVehicleType());
+            card.setUrl(vehicle.getUrl());
 
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
                     Intent intent = new Intent(getActivity(), SpecialDetail.class);
+                    HomeVehicleCard temp = (HomeVehicleCard) card;
+                    intent.putExtra("title",  temp.getTitle());
+                    intent.putExtra("oldP", ((HomeActivity)getActivity()).insertCommas(vehicle.getOldPrice()));
+                    intent.putExtra("newP", ((HomeActivity) getActivity()).insertCommas(vehicle.getNewPrice()));
+                    intent.putExtra("imageUrl", temp.getUrl());
+                    intent.putExtra("year", vehicle.getYear());
+                    intent.putExtra("make", vehicle.getMake());
+                    intent.putExtra("model", vehicle.getModel());
+                    ArrayList<String> tempSpecs = new ArrayList<String>();
+                    for(int i = 0; i < vehicle.getSpecs().length();i++){
+                        try {
+                            tempSpecs.add(vehicle.getSpecs().get(i).toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    intent.putStringArrayListExtra("spec", tempSpecs);
                     getActivity().startActivity(intent);
 
                 }

@@ -13,6 +13,50 @@ public class Vehicle {
     private String make;
     private String model;
     private String type;
+    private JSONArray specs = new JSONArray();
+    private String id;
+    private String dealer;
+    private ArrayList<Special> specials = new ArrayList<Special>();
+    private String url;
+    private String name;
+    private String newPrice;
+    private String oldPrice;
+    private String discount;
+
+    public Vehicle(String year, String make, String model, String type, JSONArray specs, String id, String dealer, ArrayList<Special> specials, String name, String newPrice, String oldPrice, String url, String discount) {
+        this.year = year;
+        this.make = make;
+        this.model = model;
+        this.type = type;
+        this.specs = specs;
+        this.id = id;
+        this.dealer = dealer;
+        this.specials = specials;
+        this.name = name;
+        this.newPrice = newPrice;
+        this.oldPrice = oldPrice;
+        this.url = url;
+        this.discount = discount;
+    }
+
+    public Vehicle() {
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
+
+    public String getOldPrice() {
+        return oldPrice;
+    }
+
+    public void setOldPrice(String oldPrice) {
+        this.oldPrice = oldPrice;
+    }
 
     public JSONArray getSpecs() {
         return specs;
@@ -20,23 +64,6 @@ public class Vehicle {
 
     public void setSpecs(JSONArray specs) {
         this.specs = specs;
-    }
-
-    private JSONArray specs = new JSONArray();
-
-    private String id;
-
-    private String dealer;
-
-    private ArrayList<Special> specials = new ArrayList<Special>();
-
-    private String url;
-
-    private String name;
-
-    private String price;
-
-    public Vehicle() {
     }
 
     public String getYear() {
@@ -71,12 +98,12 @@ public class Vehicle {
         this.type = type;
     }
 
-    public String getPrice() {
-        return price;
+    public String getNewPrice() {
+        return newPrice;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setNewPrice(String newPrice) {
+        this.newPrice = newPrice;
     }
 
     public String getName() {
@@ -110,7 +137,6 @@ public class Vehicle {
     public void setDealer(String dealer) {
         this.dealer = dealer;
     }
-
 
     public String getId() {
         return id;

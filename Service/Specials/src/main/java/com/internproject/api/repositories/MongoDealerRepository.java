@@ -53,7 +53,8 @@ public class MongoDealerRepository implements DealerRepository {
     public synchronized void updateDealerSpecials(Dealer dealer){
         Dealer temp = mongoTemplate.findOne(Query.query(Criteria.where("id").is(dealer.getId())), Dealer.class);
         temp.setNumSpecials(temp.getNumSpecials()+1);
-        mongoTemplate.insert(temp);
+        System.out.println("SPECIALS: "  + temp);
+        mongoTemplate.insert(temp, "dealers");
     }
 
 }
