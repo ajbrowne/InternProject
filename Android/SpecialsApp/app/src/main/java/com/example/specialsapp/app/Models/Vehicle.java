@@ -13,6 +13,25 @@ public class Vehicle {
     private String make;
     private String model;
     private String type;
+    private JSONArray specs = new JSONArray();
+    private String id;
+    private String dealer;
+    private ArrayList<Special> specials = new ArrayList<Special>();
+    private String url;
+    private String name;
+    private String newPrice;
+    private String oldPrice;
+
+    public Vehicle() {
+    }
+
+    public String getOldPrice() {
+        return oldPrice;
+    }
+
+    public void setOldPrice(String oldPrice) {
+        this.oldPrice = oldPrice;
+    }
 
     public JSONArray getSpecs() {
         return specs;
@@ -20,23 +39,6 @@ public class Vehicle {
 
     public void setSpecs(JSONArray specs) {
         this.specs = specs;
-    }
-
-    private JSONArray specs = new JSONArray();
-
-    private String id;
-
-    private String dealer;
-
-    private ArrayList<Special> specials = new ArrayList<Special>();
-
-    private String url;
-
-    private String name;
-
-    private String price;
-
-    public Vehicle() {
     }
 
     public String getYear() {
@@ -71,12 +73,12 @@ public class Vehicle {
         this.type = type;
     }
 
-    public String getPrice() {
-        return price;
+    public String getNewPrice() {
+        return newPrice;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setNewPrice(String newPrice) {
+        this.newPrice = newPrice;
     }
 
     public String getName() {

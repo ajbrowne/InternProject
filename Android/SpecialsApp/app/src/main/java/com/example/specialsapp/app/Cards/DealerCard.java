@@ -58,8 +58,12 @@ public class DealerCard extends Card {
         mPin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", lat, longi);
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                String uriBegin = "geo:" + lat + "," + longi;
+                String query = dealer;
+                String encodedQuery = Uri.encode(query);
+                String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+                Uri uri = Uri.parse(uriString);
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
                 context.startActivity(intent);
             }
         });

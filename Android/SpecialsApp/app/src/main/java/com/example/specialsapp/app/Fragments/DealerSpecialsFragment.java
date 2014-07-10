@@ -29,7 +29,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -164,7 +163,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
                 vehicleObject.setId(vehicle.getString("id"));
                 vehicleObject.setModel(vehicle.getString("model"));
                 vehicleObject.setYear(vehicle.getString("year"));
-                vehicleObject.setPrice(vehicle.getString("price"));
+                vehicleObject.setNewPrice(vehicle.getString("price"));
                 vehicleObject.setUrl(vehicle.getString("urlImage"));
                 vehicleObject.setVehicleType(vehicle.getString("type"));
                 vehicleObject.setDealer(dealer.getString("dealerName"));
@@ -223,7 +222,7 @@ public class DealerSpecialsFragment extends Fragment implements OnRefreshListene
             card.setDealer(vehicle.getDealer());
             card.setVehicleType(vehicle.getVehicleType());
             card.setUrl(vehicle.getUrl());
-            int old = Integer.parseInt(vehicle.getPrice());
+            int old = Integer.parseInt(vehicle.getNewPrice());
             int newPrice = old;
             for (Special special : vehicle.getSpecials()) {
                 newPrice -= Integer.parseInt(special.getAmount());

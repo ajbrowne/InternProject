@@ -24,7 +24,6 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -151,7 +150,7 @@ public class VehicleResultsActivity extends BaseActivity {
                 vehicleObject.setId(vehicle.getString("id"));
                 vehicleObject.setModel(vehicle.getString("model"));
                 vehicleObject.setYear(vehicle.getString("year"));
-                vehicleObject.setPrice(vehicle.getString("price"));
+                vehicleObject.setNewPrice(vehicle.getString("price"));
                 vehicleObject.setUrl(vehicle.getString("urlImage"));
                 vehicleObject.setVehicleType(vehicle.getString("type"));
                 vehicleObject.setDealer(dealer.getString("dealerName"));
@@ -203,7 +202,7 @@ public class VehicleResultsActivity extends BaseActivity {
             card.setDealer(vehicle.getDealer());
             card.setVehicleType(vehicle.getVehicleType());
             card.setUrl(vehicle.getUrl());
-            int old = Integer.parseInt(vehicle.getPrice());
+            int old = Integer.parseInt(vehicle.getNewPrice());
             int newPrice = old;
             for (Special special : vehicle.getSpecials()) {
                 newPrice -= Integer.parseInt(special.getAmount());
