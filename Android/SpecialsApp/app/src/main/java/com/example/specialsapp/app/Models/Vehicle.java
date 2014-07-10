@@ -21,8 +21,33 @@ public class Vehicle {
     private String name;
     private String newPrice;
     private String oldPrice;
+    private String discount;
+
+    public Vehicle(String year, String make, String model, String type, JSONArray specs, String id, String dealer, ArrayList<Special> specials, String name, String newPrice, String oldPrice, String url, String discount) {
+        this.year = year;
+        this.make = make;
+        this.model = model;
+        this.type = type;
+        this.specs = specs;
+        this.id = id;
+        this.dealer = dealer;
+        this.specials = specials;
+        this.name = name;
+        this.newPrice = newPrice;
+        this.oldPrice = oldPrice;
+        this.url = url;
+        this.discount = discount;
+    }
 
     public Vehicle() {
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
     }
 
     public String getOldPrice() {
@@ -112,7 +137,6 @@ public class Vehicle {
     public void setDealer(String dealer) {
         this.dealer = dealer;
     }
-
 
     public String getId() {
         return id;

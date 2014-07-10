@@ -10,7 +10,6 @@ public class Dealer {
     private String state;
     private int numSpecials;
     private double distanceFrom;
-
     private double latitude;
     private double longitude;
 
