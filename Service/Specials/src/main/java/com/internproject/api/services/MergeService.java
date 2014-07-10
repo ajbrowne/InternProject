@@ -165,6 +165,7 @@ public class MergeService {
 
         List<Special> sortedSpecials = new ArrayList<Special>();
         sortedSpecials = sortSpecialsList(specials, all, sortedSpecials);
+        System.out.println(sortedSpecials);
         List<Vehicle> vehicles = new ArrayList<Vehicle>();
         List<String> ids = new ArrayList<String>();
         ids = getTopVehicles(specials, ids);
