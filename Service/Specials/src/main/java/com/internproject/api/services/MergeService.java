@@ -157,10 +157,10 @@ public class MergeService {
     public List getTopDiscount() {
         List<MergerObj> mergerObjs = new ArrayList<MergerObj>();
         List<Special> specials = specialService.getAllSpecials();
-        Map<String, Integer> all = new HashMap<String, Integer>();
+        Map<String, Special> all = new HashMap<String, Special>();
 
         for(Special special: specials){
-            all.put(special.getId(), Integer.parseInt(special.getAmount()));
+            all.put(special.getId(), special);
         }
 
         List<Special> sortedSpecials = new ArrayList<Special>();
@@ -186,8 +186,8 @@ public class MergeService {
         return mergerObjs;
     }
 
-    private List<Special> sortSpecialsList(List<Special> specials, Map<String, Integer> all, List<Special> sortedSpecials) {
-        Map<String, Integer> top = sortByValue(all);
+    private List<Special> sortSpecialsList(List<Special> specials, Map<String, Special> all, List<Special> sortedSpecials) {
+        Map<String, Special> top = sortByValue(all);
         Set<String> specialIds = top.keySet();
         List<String> listIds = new ArrayList<String>();
         for(String id : specialIds){
@@ -244,10 +244,20 @@ public class MergeService {
         return ids;
     }
 
-    private Map<String, Integer> sortByValue(Map<String, Integer> all) {
+    private Map<String, Special> sortByValue(Map<String, Special> all) {
         List list = new LinkedList(all.entrySet());
 
-        Collections.sort(list);
+        Collections.sort(list, new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                Special first = (Special)o1;
+                Special second = (Special)o2;
+                if(Integer.parseInt(first.getAmount())>Integer.parseInt(second.getAmount())){
+                    return 1;
+                }
+                return 0;
+            }
+        });
         Map sorted = new LinkedHashMap();
         for (Object aList : list) {
             Map.Entry entry = (Map.Entry) aList;
