@@ -157,14 +157,9 @@ public class MergeService {
     public List getTopDiscount() {
         List<MergerObj> mergerObjs = new ArrayList<MergerObj>();
         List<Special> specials = specialService.getAllSpecials();
-        Map<String, Special> all = new HashMap<String, Special>();
-
-        for(Special special: specials){
-            all.put(special.getId(), special);
-        }
 
         List<Special> sortedSpecials = new ArrayList<Special>();
-        sortedSpecials = sortSpecialsList(specials, all, sortedSpecials);
+        //sortedSpecials = sortSpecialsList(specials, specials, sortedSpecials);
         System.out.println(sortedSpecials);
         List<Vehicle> vehicles = new ArrayList<Vehicle>();
         List<String> ids = new ArrayList<String>();
@@ -186,24 +181,23 @@ public class MergeService {
         return mergerObjs;
     }
 
-    private List<Special> sortSpecialsList(List<Special> specials, Map<String, Special> all, List<Special> sortedSpecials) {
-        Map<String, Special> top = sortByValue(all);
-        Set<String> specialIds = top.keySet();
-        List<String> listIds = new ArrayList<String>();
-        for(String id : specialIds){
-            listIds.add(id);
-        }
-        for(Special special : specials){
-            if(listIds.get(0).equals(special.getId())){
-                sortedSpecials.add( special);
-            }else if(listIds.get(1).equals(special.getId())){
-                sortedSpecials.add( special);
-            }else if(listIds.get(2).equals(special.getId())){
-                sortedSpecials.add( special);
-            }
-        }
-        return sortedSpecials;
-    }
+//    private List<Special> sortSpecialsList(List<Special> specials, List<Special> all, List<Special> sortedSpecials) {
+//        List<Special> top = sortByValue(all);
+//        List<String> listIds = new ArrayList<String>();
+//        for(String id : specialIds){
+//            listIds.add(id);
+//        }
+//        for(Special special : specials){
+//            if(listIds.get(0).equals(special.getId())){
+//                sortedSpecials.add( special);
+//            }else if(listIds.get(1).equals(special.getId())){
+//                sortedSpecials.add( special);
+//            }else if(listIds.get(2).equals(special.getId())){
+//                sortedSpecials.add( special);
+//            }
+//        }
+//        return sortedSpecials;
+//    }
 
     private List<MergerObj> createMerger(List<MergerObj> mergerObjs, List<Special> specials, List<Vehicle> vehicles) {
         for(Special special : specials){
@@ -244,10 +238,9 @@ public class MergeService {
         return ids;
     }
 
-    private Map<String, Special> sortByValue(Map<String, Special> all) {
-        List list = new LinkedList(all.entrySet());
+    private List<Special> sortByValue(List<Special> all) {
 
-        Collections.sort(list, new Comparator() {
+        Collections.sort(all, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
                 Special first = (Special)o1;
@@ -258,11 +251,7 @@ public class MergeService {
                 return 0;
             }
         });
-        Map sorted = new LinkedHashMap();
-        for (Object aList : list) {
-            Map.Entry entry = (Map.Entry) aList;
-            sorted.put(entry.getKey(), entry.getValue());
-        }
-        return sorted;
+
+        return all;
     }
 }
