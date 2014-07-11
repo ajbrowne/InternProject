@@ -79,6 +79,7 @@ public class HomeFragment extends Fragment {
         }
 
         getTrending(latitude, longitude);
+        getDiscounts(latitude, longitude);
 
         createCards(homeView.findViewById(R.id.secondWidget), TopDiscounts, TopDescription, newVehicles);
         createCards(homeView.findViewById(R.id.thirdWidget), NewArrivals, NewDescription, newVehicles);
@@ -139,6 +140,10 @@ public class HomeFragment extends Fragment {
 
         System.out.println(params);
         trendingAsync(params);
+    }
+
+    private void getDiscounts(Double latitude, double longitude){
+
     }
 
     private void trendingAsync(RequestParams params) {
