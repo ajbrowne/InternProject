@@ -22,6 +22,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -73,11 +74,23 @@ public class DealerDetail extends BaseActivity {
         mDistance = (TextView)findViewById(R.id.dealer_distance);
     }
 
-    private void configureMap(Bundle extras, float ZOOM) {
+    private void configureMap(final Bundle extras, float ZOOM) {
         mMarkerOptions = new MarkerOptions().position(new LatLng(extras.getDouble("lat"), extras.getDouble("long"))).title(extras.getString("name"));
-        googleMap.addMarker(mMarkerOptions);
+        Marker marker = googleMap.addMarker(mMarkerOptions);
+        marker.showInfoWindow();
         CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(extras.getDouble("lat"), extras.getDouble("long"))).zoom(ZOOM).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                String uriBegin = "geo:" + extras.getDouble("lat") + "," + extras.getDouble("long");
+                String encodedQuery = Uri.encode(extras.getString("name"));
+                String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+                Uri uri = Uri.parse(uriString);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -118,7 +131,7 @@ public class DealerDetail extends BaseActivity {
 
     public void sendToDialer(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:"+phoneNumber));
+        intent.setData(Uri.parse("tel:" + phoneNumber));
         startActivity(intent);
     }
 
@@ -145,7 +158,8 @@ public class DealerDetail extends BaseActivity {
         protected void onPostExecute(String result) {
             mAddress.setText(result);
             googleMap.clear();
-            googleMap.addMarker(mMarkerOptions.snippet(result));
+            Marker marker = googleMap.addMarker(mMarkerOptions.snippet(result));
+            marker.showInfoWindow();
         }
     }
 }
