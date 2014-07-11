@@ -32,6 +32,7 @@ public class HomeVehicleCard extends Card {
 
     public HomeVehicleCard(Context context, int innerLayout) {
         super(context, innerLayout);
+        this.context = context;
     }
 
     @Override

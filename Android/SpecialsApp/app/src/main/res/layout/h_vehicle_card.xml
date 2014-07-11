@@ -3,10 +3,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="5dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginTop="1dp"
-    android:layout_marginBottom="5dp"
     android:minHeight="140dp"
     android:orientation="vertical">
 
@@ -14,43 +14,44 @@
         android:id="@+id/gridCar"
         android:layout_width="100dp"
         android:layout_height="82dp"
-        android:scaleType="fitXY"
         android:layout_marginTop="3dp"
-        android:src="@drawable/aztek"/>
+        android:scaleType="fitXY"
+        android:src="@drawable/aztek" />
 
     <TextView
         android:id="@+id/smallCar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/gridCar"
+        android:maxWidth="100dp"
         android:text="2004 Chevrolet Silverado"
-        android:textSize="12sp"
-        android:maxWidth="100dp"/>
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/smallPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_below="@id/smallCar"
         android:layout_marginTop="10dp"
+        android:gravity="bottom"
         android:text="$6,000"
-        android:textSize="10sp"
-        android:layout_alignParentBottom="true"
-        android:gravity="bottom"/>
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="10sp" />
 
     <TextView
         android:id="@+id/smallType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@id/smallCar"
         android:layout_marginTop="10dp"
-        android:textSize="10sp"
-        android:textColor="#00559A"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/smallPrice"
         android:gravity="right|bottom"
-        android:layout_toRightOf="@id/smallPrice"/>
+        android:text="New"
+        android:textColor="#00559A"
+        android:textSize="10sp" />
 
 
 </RelativeLayout>

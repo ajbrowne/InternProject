@@ -4,32 +4,38 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#efefef"
-        tools:context=".Fragments.HomeFragment">
+    android:id="@+id/homeFragment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#efefef"
+    tools:context=".Fragments.HomeFragment">
 
-        <include
-            android:id="@+id/firstWidget"
-            layout="@layout/home_widget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <include
-            android:id="@+id/secondWidget"
-            layout="@layout/home_widget"
+        <RelativeLayout
+            android:id="@+id/homeFragment1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/firstWidget" />
+            android:background="#efefef"
+            tools:context=".Fragments.HomeFragment"/>
 
-        <include
-            android:id="@+id/thirdWidget"
-            layout="@layout/home_widget"
+        <RelativeLayout
+            android:id="@+id/homeFragment2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/secondWidget" />
+            android:background="#efefef"
+            android:layout_below="@id/homeFragment1"
+            tools:context=".Fragments.HomeFragment"/>
+
+        <RelativeLayout
+            android:id="@+id/homeFragment23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#efefef"
+            android:layout_below="@id/homeFragment2"
+            tools:context=".Fragments.HomeFragment"/>
+
 
 
     </RelativeLayout>
+
 
 </ScrollView>

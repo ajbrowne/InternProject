@@ -26,9 +26,9 @@ public class SpecialsRestClient {
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void get(String url, AsyncHttpResponseHandler responseHandler) {
+    public static void get(String url, JsonHttpResponseHandler responseHandler) {
         client.setProxy(myIp, 8080);
-        client.get(url, responseHandler);
+        client.get(getAbsoluteUrl(url), responseHandler);
     }
 
     public static void post(Context context, String url, StringEntity entity, String type, AsyncHttpResponseHandler responseHandler) {

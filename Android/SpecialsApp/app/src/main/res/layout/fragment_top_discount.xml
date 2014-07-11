@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trendingFragment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".Fragments.HomeFragment"
+    android:background="#efefef">
+
+    <RelativeLayout
+        android:id="@+id/topRel1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#efefef">
+
+        <TextView
+            android:id="@+id/newVehicles1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See What's Trending"
+            android:paddingLeft="5dp"
+            android:paddingRight="115dp"
+            style="@android:style/TextAppearance.DeviceDefault.Large"/>
+
+        <TextView
+            android:id="@+id/descrip1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:text="Most Popular Deals"
+            android:layout_below="@id/newVehicles1"/>
+
+        <TextView
+            android:id="@+id/more1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="MORE"
+            android:onClick="goHome"
+            android:layout_centerVertical="true"
+            android:background="@drawable/play_button"
+            android:textColor="#fff"/>
+
+    </RelativeLayout>
+
+    <it.gmariotti.cardslib.library.view.CardGridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnWidth="190dp"
+        android:numColumns="3"
+        android:verticalSpacing="3dp"
+        android:horizontalSpacing="-8dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:id="@+id/newGrid1"
+        android:background="#efefef"
+        android:layout_below="@id/topRel1"/>
+
+
+</RelativeLayout>
