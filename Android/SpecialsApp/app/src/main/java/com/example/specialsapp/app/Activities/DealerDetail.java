@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -36,13 +37,15 @@ public class DealerDetail extends BaseActivity {
     private TextView mName;
     private TextView mPhone;
     private TextView mDistance;
+    private Geocoder mGeocoder;
+    private MarkerOptions mMarkerOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dealer_detail);
         Bundle extras = getIntent().getExtras();
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        mGeocoder = new Geocoder(this, Locale.getDefault());
         init();
         float ZOOM = 13;
         ActionBar actionBar = getActionBar();
@@ -54,28 +57,14 @@ public class DealerDetail extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String address = "Address Not Found";
-        address = getStringAddress(extras, geocoder, address);
-
+        new GetAddressTask().execute(extras.getDouble("lat"), extras.getDouble("long"));
         mName.setText(extras.getString("name"));
-        mAddress.setText(address);
         mPhone.setText("555-555-5555");
         mDistance.setText(extras.getString("dist") + " miles away");
         phoneNumber = "5555555555";
-        configureMap(extras, ZOOM, address);
+        configureMap(extras, ZOOM);
     }
 
-    private String getStringAddress(Bundle extras, Geocoder geocoder, String address) {
-        List<Address> addresses;
-        try {
-            addresses = geocoder.getFromLocation(extras.getDouble("lat"), extras.getDouble("long"), 1);
-            address = addresses.get(0).getAddressLine(0)+"\n"+addresses.get(0).getAddressLine(1);
-        } catch (IOException e) {
-            Log.d("DealerDetail", "Address not found", e);
-            return "No Address Found";
-        }
-        return address;
-    }
 
     private void init() {
         mAddress = (TextView)findViewById(R.id.dealer_address);
@@ -84,9 +73,9 @@ public class DealerDetail extends BaseActivity {
         mDistance = (TextView)findViewById(R.id.dealer_distance);
     }
 
-    private void configureMap(Bundle extras, float ZOOM, String address) {
-        MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(extras.getDouble("lat"), extras.getDouble("long"))).title(extras.getString("name")).snippet(address);
-        googleMap.addMarker(markerOptions);
+    private void configureMap(Bundle extras, float ZOOM) {
+        mMarkerOptions = new MarkerOptions().position(new LatLng(extras.getDouble("lat"), extras.getDouble("long"))).title(extras.getString("name"));
+        googleMap.addMarker(mMarkerOptions);
         CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(extras.getDouble("lat"), extras.getDouble("long"))).zoom(ZOOM).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
@@ -131,5 +120,32 @@ public class DealerDetail extends BaseActivity {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:"+phoneNumber));
         startActivity(intent);
+    }
+
+    private class GetAddressTask extends AsyncTask<Double, Void, String> {
+
+        @Override
+        protected String doInBackground(Double... doubles) {
+            double lat = doubles[0];
+            double longitude = doubles[1];
+            String address = "No Address Found";
+            List<Address> addresses = new ArrayList<Address>();
+            while(true){
+                try {
+                    addresses = mGeocoder.getFromLocation(lat, longitude, 1);
+                    address = addresses.get(0).getAddressLine(0)+"\n"+addresses.get(0).getAddressLine(1);
+                } catch (IOException e) {
+                }
+                if(addresses.size() !=0){
+                    return address;
+                }
+            }
+        }
+
+        protected void onPostExecute(String result) {
+            mAddress.setText(result);
+            googleMap.clear();
+            googleMap.addMarker(mMarkerOptions.snippet(result));
+        }
     }
 }
