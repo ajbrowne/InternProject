@@ -2,13 +2,12 @@ apply plugin: 'android'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.1.0"
-
+    buildToolsVersion '19.1.0'
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 18
         versionCode 1
-        versionName "1.0"
+        versionName '1.0'
     }
     buildTypes {
         release {
@@ -16,11 +15,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile group:'com.squareup.picasso', name:'picasso', version:'2.3.2'
+    compile group: 'com.squareup.picasso', name: 'picasso', version: '2.3.2'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'com.loopj.android:android-async-http:1.4.5'
     compile 'com.github.gabrielemariotti.cards:library:1.7.0'
@@ -28,5 +29,6 @@ dependencies {
     compile 'org.jasypt:jasypt:1.9.2'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
     compile 'com.android.support:support-v13:19.+'
-    compile 'com.google.android.gms:play-services:4.2.42'
+    compile 'com.google.android.gms:play-services:4.4.52'
+    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
 }

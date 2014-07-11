@@ -61,10 +61,10 @@ public class HomeFragment extends Fragment {
 
 
         TrendingFragment trendingFragment = new TrendingFragment();
-        TopDiscountFragment topDiscountFragment = new TopDiscountFragment();
+        //TopDiscountFragment topDiscountFragment = new TopDiscountFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.homeFragment1, trendingFragment);
-        transaction.add(R.id.homeFragment2, topDiscountFragment).commit();
+        transaction.add(R.id.homeFragment1, trendingFragment).commit();
+        //transaction.add(R.id.homeFragment2, topDiscountFragment).commit();
 
 
         return homeView;

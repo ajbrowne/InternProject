@@ -11,7 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpClientStack;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SpecialDetail;
 import com.example.specialsapp.app.Cards.VehicleCard;
@@ -23,6 +32,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
+import org.apache.http.client.CookieStore;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.AbstractHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +63,10 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     private static final double defaultLocation = -1000.0;
     private PullToRefreshLayout mPullToRefreshLayout;
 
+    private RequestQueue queue;
+    private JsonArrayRequest searchRequest;
+    private AbstractHttpClient client;
+
     public BaseSearchFragment() {
         // Required empty public constructor
     }
@@ -65,34 +82,45 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     }
 
     public void vehicleAsync(RequestParams parameters, View view, PullToRefreshLayout pullToRefreshLayout) {
+        client = new DefaultHttpClient();
+        queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
+
+        searchRequest = new JsonArrayRequest("http://192.168.170.79:8080/v1/specials/vehicle?lng=-83.0448429&lat=42.3301972&make=&extra=0", new ResponseListener(), new ErrorListener());
+        queue.add(searchRequest);
+
+
+
+
+
+
         baseView = view;
         mPullToRefreshLayout = pullToRefreshLayout;
         SpecialsRestClient.get("vehicle", parameters, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
-                newVehicles = new ArrayList<Vehicle>();
-                ArrayList<Special> specials = new ArrayList<Special>();
-                Vehicle newVehicle = new Vehicle();
-                try {
-                    JSONObject dealer = (JSONObject) request.get(0);
-                    JSONArray vehicleArray = (JSONArray) dealer.get("vehicles");
-                    for (int i = 0; i < vehicleArray.length(); i++) {
-                        JSONObject vehicle = (JSONObject) vehicleArray.get(i);
-                        String id = vehicle.getString("id");
-                        JSONArray specialArray = (JSONArray) dealer.get("specials");
-                        for (int j = 0; j < specialArray.length(); j++) {
-                            JSONObject special = (JSONObject) specialArray.get(j);
-                            JSONArray ids = (JSONArray) special.get("vehicleId");
-                            createVehicle(dealer, vehicle, id, special, ids);
-                        }
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                addCards(newVehicles);
-            }
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
+//                newVehicles = new ArrayList<Vehicle>();
+//                ArrayList<Special> specials = new ArrayList<Special>();
+//                Vehicle newVehicle = new Vehicle();
+//                try {
+//                    JSONObject dealer = (JSONObject) request.get(0);
+//                    JSONArray vehicleArray = (JSONArray) dealer.get("vehicles");
+//                    for (int i = 0; i < vehicleArray.length(); i++) {
+//                        JSONObject vehicle = (JSONObject) vehicleArray.get(i);
+//                        String id = vehicle.getString("id");
+//                        JSONArray specialArray = (JSONArray) dealer.get("specials");
+//                        for (int j = 0; j < specialArray.length(); j++) {
+//                            JSONObject special = (JSONObject) specialArray.get(j);
+//                            JSONArray ids = (JSONArray) special.get("vehicleId");
+//                            createVehicle(dealer, vehicle, id, special, ids);
+//                        }
+//                    }
+//
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                addCards(newVehicles);
+//            }
         });
     }
 
@@ -243,6 +271,43 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
         DecimalFormat formatter = new DecimalFormat("#,###");
         Double number = Double.parseDouble(amount);
         return String.valueOf(formatter.format(number));
+    }
+
+    private class ResponseListener implements Response.Listener<JSONArray>{
+        @Override
+        public void onResponse(JSONArray response) {
+            newVehicles = new ArrayList<Vehicle>();
+            ArrayList<Special> specials = new ArrayList<Special>();
+            Vehicle newVehicle = new Vehicle();
+            try {
+                JSONObject dealer = (JSONObject) response.get(0);
+                JSONArray vehicleArray = (JSONArray) dealer.get("vehicles");
+                for (int i = 0; i < vehicleArray.length(); i++) {
+                    JSONObject vehicle = (JSONObject) vehicleArray.get(i);
+                    String id = vehicle.getString("id");
+                    JSONArray specialArray = (JSONArray) dealer.get("specials");
+                    for (int j = 0; j < specialArray.length(); j++) {
+                        JSONObject special = (JSONObject) specialArray.get(j);
+                        JSONArray ids = (JSONArray) special.get("vehicleId");
+                        createVehicle(dealer, vehicle, id, special, ids);
+                    }
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            addCards(newVehicles);
+
+        }
+
+    }
+
+    private class ErrorListener implements Response.ErrorListener{
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            System.out.println("YOU Stink!");
+        }
     }
 
 }
