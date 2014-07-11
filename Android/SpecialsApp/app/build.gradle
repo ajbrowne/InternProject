@@ -28,4 +28,5 @@ dependencies {
     compile 'org.jasypt:jasypt:1.9.2'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
     compile 'com.android.support:support-v13:19.+'
+    compile 'com.google.android.gms:play-services:4.2.42'
 }
