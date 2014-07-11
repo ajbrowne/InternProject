@@ -1,7 +1,7 @@
 package com.example.specialsapp.app.Fragments;
 
 
-
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Toast;
 
+import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,6 +28,7 @@ import com.example.specialsapp.app.Cards.VehicleCard;
 import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.Models.Vehicle;
 import com.example.specialsapp.app.R;
+import com.example.specialsapp.app.Rest.AppController;
 import com.example.specialsapp.app.Rest.SpecialsRestClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -41,6 +43,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,23 +52,24 @@ import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+
 /**
  * A simple {@link Fragment} subclass.
- *
  */
 public class BaseSearchFragment extends Fragment implements AbsListView.OnScrollListener {
 
+    private static final double defaultLocation = -1000.0;
     private View baseView;
     private CardArrayAdapter mCardArrayAdapter;
     private ArrayList<Vehicle> newVehicles;
     private ArrayList<Card> cards;
     private int currIndex, returnSize;
-    private static final double defaultLocation = -1000.0;
     private PullToRefreshLayout mPullToRefreshLayout;
 
     private RequestQueue queue;
     private JsonArrayRequest searchRequest;
     private AbstractHttpClient client;
+    private ProgressDialog pDialog;
 
     public BaseSearchFragment() {
         // Required empty public constructor
@@ -84,44 +88,29 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     public void vehicleAsync(RequestParams parameters, View view, PullToRefreshLayout pullToRefreshLayout) {
         client = new DefaultHttpClient();
         queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
-
-        searchRequest = new JsonArrayRequest("http://192.168.170.79:8080/v1/specials/vehicle?lng=-83.0448429&lat=42.3301972&make=&extra=0", new ResponseListener(), new ErrorListener());
-        queue.add(searchRequest);
-
-
-
-
-
-
         baseView = view;
         mPullToRefreshLayout = pullToRefreshLayout;
-        SpecialsRestClient.get("vehicle", parameters, new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
-//                newVehicles = new ArrayList<Vehicle>();
-//                ArrayList<Special> specials = new ArrayList<Special>();
-//                Vehicle newVehicle = new Vehicle();
-//                try {
-//                    JSONObject dealer = (JSONObject) request.get(0);
-//                    JSONArray vehicleArray = (JSONArray) dealer.get("vehicles");
-//                    for (int i = 0; i < vehicleArray.length(); i++) {
-//                        JSONObject vehicle = (JSONObject) vehicleArray.get(i);
-//                        String id = vehicle.getString("id");
-//                        JSONArray specialArray = (JSONArray) dealer.get("specials");
-//                        for (int j = 0; j < specialArray.length(); j++) {
-//                            JSONObject special = (JSONObject) specialArray.get(j);
-//                            JSONArray ids = (JSONArray) special.get("vehicleId");
-//                            createVehicle(dealer, vehicle, id, special, ids);
-//                        }
-//                    }
-//
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                addCards(newVehicles);
-//            }
-        });
+
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get("http://192.168.170.79:8080/v1/specials/vehicle?lng=-83.0448429&lat=42.3301972&make=&extra=0");
+        if (entry != null) {
+            try {
+                String data = new String(entry.data, "UTF-8");
+                JSONArray cached = new JSONArray(data);
+                doStuff(cached);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Loading...");
+            pDialog.show();
+            searchRequest = new JsonArrayRequest("http://192.168.170.79:8080/v1/specials/vehicle?lng=-83.0448429&lat=42.3301972&make=&extra=0", new ResponseListener(), new ErrorListener());
+            queue.add(searchRequest);
+        }
     }
 
     public void createVehicle(JSONObject dealer, JSONObject vehicle, String id, JSONObject special, JSONArray ids) throws JSONException {
@@ -136,9 +125,8 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
                 String newPrice = String.valueOf(Integer.parseInt(vehicle.getString("price")) - Integer.parseInt(special.getString("amount")));
 
                 boolean duplicate = false;
-                for (int l = 0; l < newVehicles.size(); l++){
-                    Vehicle added = newVehicles.get(l);
-                    if (added.getId().equals(vehicle.getString("id"))){
+                for (Vehicle added : newVehicles) {
+                    if (added.getId().equals(vehicle.getString("id"))) {
                         ArrayList<Special> combine = added.getSpecials();
                         combine.add(specialObject);
                         added.setSpecials(combine);
@@ -146,9 +134,9 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
                         duplicate = true;
                     }
                 }
-                if (!duplicate){
+                if (!duplicate) {
                     Vehicle vehicleObject = new Vehicle(vehicle.getString("year"), vehicle.getString("make"), vehicle.getString("model"),
-                            vehicle.getString("type"), (JSONArray)vehicle.get("specs"), vehicle.getString("id"), dealer.getString("dealerName"),
+                            vehicle.getString("type"), (JSONArray) vehicle.get("specs"), vehicle.getString("id"), dealer.getString("dealerName"),
                             specs, vehicle.getString("year") + " " + vehicle.getString("make") + " " + vehicle.getString("model"),
                             newPrice, vehicle.getString("price"), vehicle.getString("urlImage"), special.getString("amount"));
                     newVehicles.add(vehicleObject);
@@ -162,7 +150,6 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
         cards = new ArrayList<Card>();
         cards = createSpecials(0, newVehicles, cards);
         mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
-
         CardListView cardListView = (CardListView) baseView.findViewById(R.id.myList1);
         if (cardListView != null) {
             cardListView.setAdapter(mCardArrayAdapter);
@@ -180,11 +167,10 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
      * @return Arraylist of created cards
      */
     public ArrayList<Card> createSpecials(int index, ArrayList<Vehicle> newVehicles, ArrayList<Card> cards) {
-        for (int i = index; i < index+10 && i < returnSize; i++) {
+        for (int i = index; i < index + 10 && i < returnSize; i++) {
             VehicleCard card = new VehicleCard(getActivity(), R.layout.vehicle_card);
             final Vehicle vehicle = newVehicles.get(i);
             card.setTitle(vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel());
-            // Needs to be gas mileage!!!
             try {
                 card.setGasMileage((String) vehicle.getSpecs().get(0));
             } catch (JSONException e) {
@@ -213,7 +199,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
             public void onClick(Card card, View view) {
                 Intent intent = new Intent(getActivity(), SpecialDetail.class);
                 VehicleCard temp = (VehicleCard) card;
-                intent.putExtra("title",  temp.getTitle());
+                intent.putExtra("title", temp.getTitle());
                 intent.putExtra("oldP", temp.getOldPrice());
                 intent.putExtra("newP", temp.getNewPrice());
                 intent.putExtra("imageUrl", temp.getUrl());
@@ -221,7 +207,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
                 intent.putExtra("make", vehicle.getMake());
                 intent.putExtra("model", vehicle.getModel());
                 ArrayList<String> tempSpecs = new ArrayList<String>();
-                for(int i = 0; i < vehicle.getSpecs().length();i++){
+                for (int i = 0; i < vehicle.getSpecs().length(); i++) {
                     try {
                         tempSpecs.add(vehicle.getSpecs().get(i).toString());
                     } catch (JSONException e) {
@@ -244,7 +230,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
 
-        if (loadMore && currIndex < returnSize-1){
+        if (loadMore && currIndex < returnSize - 1) {
             createSpecials(currIndex, newVehicles, cards);
             mCardArrayAdapter.notifyDataSetChanged();
         }
@@ -273,41 +259,45 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
         return String.valueOf(formatter.format(number));
     }
 
-    private class ResponseListener implements Response.Listener<JSONArray>{
+    private class ResponseListener implements Response.Listener<JSONArray> {
         @Override
         public void onResponse(JSONArray response) {
-            newVehicles = new ArrayList<Vehicle>();
-            ArrayList<Special> specials = new ArrayList<Special>();
-            Vehicle newVehicle = new Vehicle();
-            try {
-                JSONObject dealer = (JSONObject) response.get(0);
-                JSONArray vehicleArray = (JSONArray) dealer.get("vehicles");
-                for (int i = 0; i < vehicleArray.length(); i++) {
-                    JSONObject vehicle = (JSONObject) vehicleArray.get(i);
-                    String id = vehicle.getString("id");
-                    JSONArray specialArray = (JSONArray) dealer.get("specials");
-                    for (int j = 0; j < specialArray.length(); j++) {
-                        JSONObject special = (JSONObject) specialArray.get(j);
-                        JSONArray ids = (JSONArray) special.get("vehicleId");
-                        createVehicle(dealer, vehicle, id, special, ids);
-                    }
-                }
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            addCards(newVehicles);
-
+            pDialog.hide();
+            doStuff(response);
         }
 
     }
 
-    private class ErrorListener implements Response.ErrorListener{
+    private class ErrorListener implements Response.ErrorListener {
         @Override
         public void onErrorResponse(VolleyError error) {
             System.out.println("YOU Stink!");
         }
+    }
+
+    public void doStuff(JSONArray response){
+        newVehicles = new ArrayList<Vehicle>();
+        ArrayList<Special> specials = new ArrayList<Special>();
+        Vehicle newVehicle = new Vehicle();
+        try {
+            JSONObject dealer = (JSONObject) response.get(0);
+            JSONArray vehicleArray = (JSONArray) dealer.get("vehicles");
+            for (int i = 0; i < vehicleArray.length(); i++) {
+                JSONObject vehicle = (JSONObject) vehicleArray.get(i);
+                String id = vehicle.getString("id");
+                JSONArray specialArray = (JSONArray) dealer.get("specials");
+                for (int j = 0; j < specialArray.length(); j++) {
+                    JSONObject special = (JSONObject) specialArray.get(j);
+                    JSONArray ids = (JSONArray) special.get("vehicleId");
+                    createVehicle(dealer, vehicle, id, special, ids);
+                }
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        addCards(newVehicles);
     }
 
 }
