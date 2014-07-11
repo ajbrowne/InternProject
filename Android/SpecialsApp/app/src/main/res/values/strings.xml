@@ -17,10 +17,13 @@
     <string name="year_prompt">Year</string>
     <string name="price_prompt">Maximum Price</string>
     <string name="strikethrough"><strike>$16,000</strike></string>
+
     <string-array name="none">
         <item>No Vehicles</item>
     </string-array>
+
     <string name="results">No Matches Found</string>
+
     <string-array name="list_items">
         <item>Dealers Near You</item>
         <item>Specials Near You</item>
@@ -304,5 +307,6 @@
     <string name="title_activity_vehicle_results">VehicleResultsActivity</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_dealer_results">DealerResultsActivity</string>
+    <string name="title_activity_dealer_detail">DealerDetail</string>
 
 </resources>

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.specialsapp.app.Activities.DealerDetail;
 import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Cards.DealerCard;
@@ -152,9 +153,25 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
             distance = (double)Math.round(distance *10)/10;
             card.setDistance(String.valueOf(distance) + " mi");
             card.setNumSpecials(String.valueOf(dealer.getNumSpecials()) + " deals currently running");
+            card.setOnClickListener(getOnClickListener(dealer, distance));
             cards.add(card);
+
         }
         return cards;
+    }
+
+    private Card.OnCardClickListener getOnClickListener(final Dealer dealer, final Double distance) {
+        return new Card.OnCardClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Intent intent = new Intent(getActivity(), DealerDetail.class);
+                intent.putExtra("name", dealer.getName());
+                intent.putExtra("lat", dealer.getLatitude());
+                intent.putExtra("long", dealer.getLongitude());
+                intent.putExtra("dist", distance.toString());
+                getActivity().startActivity(intent);
+            }
+        };
     }
 
     @Override
