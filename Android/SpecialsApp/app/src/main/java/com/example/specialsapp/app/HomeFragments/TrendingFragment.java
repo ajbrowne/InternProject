@@ -1,5 +1,6 @@
 package com.example.specialsapp.app.HomeFragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.Cache;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpClientStack;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Activities.SpecialDetail;
@@ -19,15 +27,15 @@ import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.Models.Vehicle;
 import com.example.specialsapp.app.R;
-import com.example.specialsapp.app.Rest.SpecialsRestClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+import com.example.specialsapp.app.Rest.AppController;
 
-import org.apache.http.Header;
+import org.apache.http.impl.client.AbstractHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,6 +57,12 @@ public class TrendingFragment extends Fragment {
     private ArrayList<Card> cards;
     private View homeView;
     private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+    private static final String baseUrl = "http://192.168.170.34:8080/v1/specials/vehicle?";
+
+    private RequestQueue queue;
+    private JsonArrayRequest searchRequest;
+    private AbstractHttpClient client;
+    private ProgressDialog pDialog;
 
     public TrendingFragment() {
         // Required empty public constructor
@@ -120,27 +134,42 @@ public class TrendingFragment extends Fragment {
         param.put("lat", latt);
         param.put("make", "");
         param.put("extra", "0");
-        RequestParams params = new RequestParams(param);
 
-        System.out.println(params);
-        trendingAsync(params);
+        trendingAsync(param);
     }
 
-    private void trendingAsync(RequestParams params) {
-        SpecialsRestClient.get("vehicle", params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
-                try {
-                    JSONObject dealer = (JSONObject) request.get(0);
-                    JSONArray specialArray = (JSONArray) dealer.get("specials");
-                    trendingSpecialHelp(dealer, specialArray);
+    private void trendingAsync(HashMap<String, String> params) {
+        client = new DefaultHttpClient();
+        queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                addCards(vehicles);
+        String url = generateUrl(params);
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if (entry != null) {
+            try {
+                String data = new String(entry.data, "UTF-8");
+                JSONArray cached = new JSONArray(data);
+                System.out.println("Cached Trending Call");
+                getTrending(cached);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        });
+
+        } else {
+            System.out.println("NOTHING WAS CACHED THAT MATCHED");
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Loading...");
+            pDialog.show();
+            searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+
+                }
+            });
+            queue.add(searchRequest);
+        }
     }
 
     private void trendingSpecialHelp(JSONObject dealer, JSONArray specialArray) throws JSONException {
@@ -244,5 +273,33 @@ public class TrendingFragment extends Fragment {
         DecimalFormat formatter = new DecimalFormat("#,###");
         Double number = Double.parseDouble(amount);
         return String.valueOf(formatter.format(number));
+    }
+
+    private class ResponseListener implements Response.Listener<JSONArray> {
+        @Override
+        public void onResponse(JSONArray response) {
+            pDialog.hide();
+            getTrending(response);
+        }
+
+    }
+
+    public void getTrending(JSONArray response){
+        try {
+            System.out.println("OH DEAR GOD");
+            System.out.println(this);
+            JSONObject dealer = (JSONObject) response.get(0);
+            JSONArray specialArray = (JSONArray) dealer.get("specials");
+            trendingSpecialHelp(dealer, specialArray);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        addCards(vehicles);
+    }
+
+    private String generateUrl(HashMap<String, String> parameters){
+        String url = baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
+        return url;
     }
 }

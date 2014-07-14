@@ -11,31 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.Toast;
 
 import com.android.volley.Cache;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SpecialDetail;
 import com.example.specialsapp.app.Cards.VehicleCard;
 import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.Models.Vehicle;
 import com.example.specialsapp.app.R;
 import com.example.specialsapp.app.Rest.AppController;
-import com.example.specialsapp.app.Rest.SpecialsRestClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.apache.http.Header;
-import org.apache.http.client.CookieStore;
-import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
@@ -46,6 +36,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import it.gmariotti.cardslib.library.internal.Card;
@@ -65,6 +56,9 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     private ArrayList<Card> cards;
     private int currIndex, returnSize;
     private PullToRefreshLayout mPullToRefreshLayout;
+    private static final String baseUrl = "http://192.168.170.34:8080/v1/specials/vehicle?";
+    private String lastUrl;
+    private boolean isSearch;
 
     private RequestQueue queue;
     private JsonArrayRequest searchRequest;
@@ -85,19 +79,24 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
         return baseView;
     }
 
-    public void vehicleAsync(RequestParams parameters, View view, PullToRefreshLayout pullToRefreshLayout) {
+    public void vehicleAsync(HashMap<String, String> parameters, View view, PullToRefreshLayout pullToRefreshLayout, boolean isSearch) {
+        this.isSearch = isSearch;
         client = new DefaultHttpClient();
         queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
         baseView = view;
         mPullToRefreshLayout = pullToRefreshLayout;
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
-        Cache.Entry entry = cache.get("http://192.168.170.79:8080/v1/specials/vehicle?lng=-83.0448429&lat=42.3301972&make=&extra=0");
+        String url = generateUrl(parameters);
+        lastUrl = url;
+        System.out.println(lastUrl);
+        Cache.Entry entry = cache.get(url);
         if (entry != null) {
             try {
                 String data = new String(entry.data, "UTF-8");
                 JSONArray cached = new JSONArray(data);
-                doStuff(cached);
+                System.out.println("cached base" + isSearch);
+                carSearch(cached);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
@@ -108,7 +107,11 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
             pDialog = new ProgressDialog(getActivity());
             pDialog.setMessage("Loading...");
             pDialog.show();
-            searchRequest = new JsonArrayRequest("http://192.168.170.79:8080/v1/specials/vehicle?lng=-83.0448429&lat=42.3301972&make=&extra=0", new ResponseListener(), new ErrorListener());
+            if (isSearch){
+                searchRequest = new JsonArrayRequest(url, new ResponseListener(), new ErrorListener());
+            } else{
+                searchRequest = new JsonArrayRequest(url, new ResponseListener(), new ErrorListener());
+            }
             queue.add(searchRequest);
         }
     }
@@ -263,7 +266,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
         @Override
         public void onResponse(JSONArray response) {
             pDialog.hide();
-            doStuff(response);
+            carSearch(response);
         }
 
     }
@@ -271,11 +274,10 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     private class ErrorListener implements Response.ErrorListener {
         @Override
         public void onErrorResponse(VolleyError error) {
-            System.out.println("YOU Stink!");
         }
     }
 
-    public void doStuff(JSONArray response){
+    public void carSearch(JSONArray response){
         newVehicles = new ArrayList<Vehicle>();
         ArrayList<Special> specials = new ArrayList<Special>();
         Vehicle newVehicle = new Vehicle();
@@ -298,6 +300,14 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
             e.printStackTrace();
         }
         addCards(newVehicles);
+    }
+
+    private String generateUrl(HashMap<String, String> parameters){
+        String url = baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
+        if (isSearch){
+            url = url + "&model=" + parameters.get("model") + "&type=" + parameters.get("type") + "&max=" + parameters.get("max");
+        }
+        return url;
     }
 
 }

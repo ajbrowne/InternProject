@@ -127,8 +127,7 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
         param.put("lat", latt);
         param.put("make", "");
         param.put("extra", "0");
-        RequestParams params = new RequestParams(param);
 
-        vehicleAsync(params, homeView, mPullToRefreshLayout);
+        vehicleAsync(param, homeView, mPullToRefreshLayout, false);
     }
 }

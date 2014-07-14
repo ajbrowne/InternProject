@@ -18,9 +18,9 @@ public class AlphaAdapter extends ArrayAdapter<String> implements SectionIndexer
     private HashMap<String, Integer> alphaIndexer;
     private String[] sections;
 
-    public AlphaAdapter(Context c, int resource, List<String> data)
+    public AlphaAdapter(Context context, int resource, List<String> data)
     {
-        super(c, resource, data);
+        super(context, resource, data);
         alphaIndexer = new HashMap<String, Integer>();
         for (int i = 0; i < data.size(); i++)
         {

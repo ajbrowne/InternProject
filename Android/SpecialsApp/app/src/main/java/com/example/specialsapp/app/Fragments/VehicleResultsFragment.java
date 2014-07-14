@@ -30,6 +30,7 @@ public class VehicleResultsFragment extends BaseSearchFragment implements OnRefr
     private String[] params = new String[5];
     private PullToRefreshLayout mPullToRefreshLayout;
     private RequestParams parameters;
+    HashMap<String, String> param = new HashMap<String, String>();
 
     public VehicleResultsFragment() {
         // Required empty public constructor
@@ -87,14 +88,12 @@ public class VehicleResultsFragment extends BaseSearchFragment implements OnRefr
         param.put("type", params[2]);
         param.put("max", params[3]);
         param.put("extra", params[4]);
-        parameters = new RequestParams(param);
-        System.out.println("PARAMS: " + parameters);
-        vehicleAsync(parameters, resultsView, mPullToRefreshLayout);
+        vehicleAsync(param, resultsView, mPullToRefreshLayout, true);
     }
 
     @Override
     public void onRefreshStarted(View view) {
-        vehicleAsync(parameters, resultsView, mPullToRefreshLayout);
+        vehicleAsync(param, resultsView, mPullToRefreshLayout, true);
     }
 }
 
