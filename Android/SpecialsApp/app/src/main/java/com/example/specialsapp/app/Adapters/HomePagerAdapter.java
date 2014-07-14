@@ -1,5 +1,6 @@
 package com.example.specialsapp.app.Adapters;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -16,10 +17,6 @@ import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
  */
 public class HomePagerAdapter extends FragmentStatePagerAdapter {
 
-    private HomeFragment homeFragment = new HomeFragment();
-    private DealerSpecialsFragment dealerSpecialsFragment = new DealerSpecialsFragment();
-    private NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
-
     public HomePagerAdapter(FragmentManager fm){
         super(fm);
     }
@@ -28,15 +25,16 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return homeFragment;
+                return new HomeFragment();
             case 1:
-                return dealerSpecialsFragment;
+                return new DealerSpecialsFragment();
             case 2:
-                return nearbyDealersFragment;
+                return new NearbyDealersFragment();
         }
         return null;
     }
 
+    @Override
     public CharSequence getPageTitle(int position) {
 
         switch(position){
