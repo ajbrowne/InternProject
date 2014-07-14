@@ -16,6 +16,10 @@ import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
  */
 public class HomePagerAdapter extends FragmentPagerAdapter {
 
+    private HomeFragment homeFragment = new HomeFragment();
+    private DealerSpecialsFragment dealerSpecialsFragment = new DealerSpecialsFragment();
+    private NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
+
     public HomePagerAdapter(FragmentManager fm){
         super(fm);
     }
@@ -24,11 +28,11 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new HomeFragment();
+                return homeFragment;
             case 1:
-                return new DealerSpecialsFragment();
+                return dealerSpecialsFragment;
             case 2:
-                return new NearbyDealersFragment();
+                return nearbyDealersFragment;
         }
         return null;
     }

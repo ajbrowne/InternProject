@@ -271,7 +271,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     private class ErrorListener implements Response.ErrorListener {
         @Override
         public void onErrorResponse(VolleyError error) {
-            System.out.println("YOU Stink!");
+            System.out.println(error);
         }
     }
 
