@@ -23,11 +23,9 @@ import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Activities.SpecialDetail;
 import com.example.specialsapp.app.Cards.HomeVehicleCard;
-import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Vehicle;
 import com.example.specialsapp.app.R;
 import com.example.specialsapp.app.Rest.AppController;
-import com.loopj.android.http.RequestParams;
 
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -38,7 +36,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardGridArrayAdapter;
@@ -51,15 +48,12 @@ public class TopDiscountFragment extends Fragment {
 
     private static final String TopDiscounts = "Top Discounts";
     private static final String TopDiscountsDescription = "The Best Deals Around";
-
+    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/special/top";
     private ArrayList<Card> cards;
     private View homeView;
     private ArrayList<String> addedVehicles = new ArrayList<String>();
     private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
-    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/special/top";
-
     private RequestQueue queue;
-    private JsonArrayRequest searchRequest;
     private AbstractHttpClient client;
     private ProgressDialog pDialog;
 
@@ -79,11 +73,7 @@ public class TopDiscountFragment extends Fragment {
         client = new DefaultHttpClient();
         queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
 
-        final GPS gps = new GPS(getActivity());
-        Double latitude = gps.getLatitude();
-        Double longitude = gps.getLongitude();
-
-        getTopDiscounts(latitude, longitude);
+        topAsync();
 
         return homeView;
     }
@@ -103,7 +93,6 @@ public class TopDiscountFragment extends Fragment {
         }
         return true;
     }
-
 
 
     private void createCards(View view, String title, String description, ArrayList<Card> theCards) {
@@ -128,16 +117,7 @@ public class TopDiscountFragment extends Fragment {
         }
     }
 
-    private void getTopDiscounts(double latitude, double longitude) {
-        String latt = String.valueOf(latitude);
-        String longg = String.valueOf(longitude);
-
-        HashMap<String, String> param = new HashMap<String, String>();
-        RequestParams params = new RequestParams(param);
-        topAsync(params);
-    }
-
-    private void topAsync(RequestParams params) {
+    private void topAsync() {
         client = new DefaultHttpClient();
         queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
 
@@ -159,7 +139,7 @@ public class TopDiscountFragment extends Fragment {
             pDialog = new ProgressDialog(getActivity());
             pDialog.setMessage("Loading...");
             pDialog.show();
-            searchRequest = new JsonArrayRequest(baseUrl, new ResponseListener(), new Response.ErrorListener() {
+            JsonArrayRequest searchRequest = new JsonArrayRequest(baseUrl, new ResponseListener(), new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
 
@@ -173,8 +153,8 @@ public class TopDiscountFragment extends Fragment {
     private void topDiscountHelp(JSONObject dealer, JSONArray specialArray) throws JSONException {
         for (int i = 0; i < specialArray.length(); i++) {
             JSONObject spec = (JSONObject) specialArray.get(i);
-                JSONArray vehicles2 = (JSONArray) dealer.get("vehicles");
-                topVehicleHelp(spec, vehicles2);
+            JSONArray vehicles2 = (JSONArray) dealer.get("vehicles");
+            topVehicleHelp(spec, vehicles2);
         }
     }
 
@@ -187,14 +167,14 @@ public class TopDiscountFragment extends Fragment {
     }
 
     private void topIdCheck(JSONObject spec, JSONObject vehicle, JSONArray ids) throws JSONException {
-        for (int k = 0; k < ids.length(); k++){
+        for (int k = 0; k < ids.length(); k++) {
             boolean add = false;
             for (String addedVehicle : addedVehicles) {
                 if (addedVehicle.compareTo((String) ids.get(k)) == 0) {
                     add = true;
                 }
             }
-            if (!add){
+            if (!add) {
                 if (vehicle.getString("id").compareTo((String) ids.get(k)) == 0) {
                     Vehicle newVehicle = new Vehicle();
                     addedVehicles.add((String) ids.get(k));
@@ -234,7 +214,7 @@ public class TopDiscountFragment extends Fragment {
                 public void onClick(Card card, View view) {
                     Intent intent = new Intent(getActivity(), SpecialDetail.class);
                     HomeVehicleCard temp = (HomeVehicleCard) card;
-                    intent.putExtra("title",  temp.getTitle());
+                    intent.putExtra("title", temp.getTitle());
                     intent.putExtra("oldP", insertCommas(vehicle.getOldPrice()));
                     intent.putExtra("newP", insertCommas(vehicle.getNewPrice()));
                     intent.putExtra("imageUrl", temp.getUrl());
@@ -242,7 +222,7 @@ public class TopDiscountFragment extends Fragment {
                     intent.putExtra("make", vehicle.getMake());
                     intent.putExtra("model", vehicle.getModel());
                     ArrayList<String> tempSpecs = new ArrayList<String>();
-                    for(int i = 0; i < vehicle.getSpecs().length();i++){
+                    for (int i = 0; i < vehicle.getSpecs().length(); i++) {
                         try {
                             tempSpecs.add(vehicle.getSpecs().get(i).toString());
                         } catch (JSONException e) {
@@ -261,22 +241,13 @@ public class TopDiscountFragment extends Fragment {
         return cards;
     }
 
-    public String insertCommas(String amount){
+    public String insertCommas(String amount) {
         DecimalFormat formatter = new DecimalFormat("#,###");
         Double number = Double.parseDouble(amount);
         return String.valueOf(formatter.format(number));
     }
 
-    private class ResponseListener implements Response.Listener<JSONArray> {
-        @Override
-        public void onResponse(JSONArray response) {
-            pDialog.hide();
-            getDiscounts(response);
-        }
-
-    }
-
-    private void getDiscounts(JSONArray response){
+    private void getDiscounts(JSONArray response) {
         try {
             JSONObject dealer = (JSONObject) response.get(0);
             JSONArray specialArray = (JSONArray) dealer.get("specials");
@@ -286,5 +257,14 @@ public class TopDiscountFragment extends Fragment {
             e.printStackTrace();
         }
         addCards(vehicles);
+    }
+
+    private class ResponseListener implements Response.Listener<JSONArray> {
+        @Override
+        public void onResponse(JSONArray response) {
+            pDialog.hide();
+            getDiscounts(response);
+        }
+
     }
 }

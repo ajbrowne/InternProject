@@ -1,12 +1,11 @@
 package com.example.specialsapp.app.Fragments;
 
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,19 +49,14 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 public class BaseSearchFragment extends Fragment implements AbsListView.OnScrollListener {
 
     private static final double defaultLocation = -1000.0;
+    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/vehicle?";
     private View baseView;
     private CardArrayAdapter mCardArrayAdapter;
     private ArrayList<Vehicle> newVehicles;
     private ArrayList<Card> cards;
     private int currIndex, returnSize;
     private PullToRefreshLayout mPullToRefreshLayout;
-    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/vehicle?";
-    private String lastUrl;
     private boolean isSearch;
-
-    private RequestQueue queue;
-    private JsonArrayRequest searchRequest;
-    private AbstractHttpClient client;
 
     public BaseSearchFragment() {
         // Required empty public constructor
@@ -80,15 +74,14 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
 
     public void vehicleAsync(HashMap<String, String> parameters, View view, PullToRefreshLayout pullToRefreshLayout, boolean isSearch) {
         this.isSearch = isSearch;
-        client = new DefaultHttpClient();
-        queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
+        AbstractHttpClient client = new DefaultHttpClient();
+        RequestQueue queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
         baseView = view;
         mPullToRefreshLayout = pullToRefreshLayout;
+        JsonArrayRequest searchRequest;
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         String url = generateUrl(parameters);
-        lastUrl = url;
-        System.out.println(lastUrl);
         Cache.Entry entry = cache.get(url);
         if (entry != null) {
             try {
@@ -103,9 +96,9 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
             }
 
         } else {
-            if (isSearch){
+            if (isSearch) {
                 searchRequest = new JsonArrayRequest(url, new ResponseListener(), new ErrorListener());
-            } else{
+            } else {
                 searchRequest = new JsonArrayRequest(url, new ResponseListener(), new ErrorListener());
             }
             queue.add(searchRequest);
@@ -258,22 +251,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
         return String.valueOf(formatter.format(number));
     }
 
-    private class ResponseListener implements Response.Listener<JSONArray> {
-        @Override
-        public void onResponse(JSONArray response) {
-            carSearch(response);
-        }
-
-    }
-
-    private class ErrorListener implements Response.ErrorListener {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            System.out.println(error);
-        }
-    }
-
-    public void carSearch(JSONArray response){
+    public void carSearch(JSONArray response) {
         newVehicles = new ArrayList<Vehicle>();
         ArrayList<Special> specials = new ArrayList<Special>();
         Vehicle newVehicle = new Vehicle();
@@ -298,12 +276,27 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
         addCards(newVehicles);
     }
 
-    private String generateUrl(HashMap<String, String> parameters){
+    private String generateUrl(HashMap<String, String> parameters) {
         String url = baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
-        if (isSearch){
+        if (isSearch) {
             url = url + "&model=" + parameters.get("model") + "&type=" + parameters.get("type") + "&max=" + parameters.get("max");
         }
         return url;
+    }
+
+    private class ResponseListener implements Response.Listener<JSONArray> {
+        @Override
+        public void onResponse(JSONArray response) {
+            carSearch(response);
+        }
+
+    }
+
+    private class ErrorListener implements Response.ErrorListener {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Log.d("error", "Http request failed");
+        }
     }
 
 }

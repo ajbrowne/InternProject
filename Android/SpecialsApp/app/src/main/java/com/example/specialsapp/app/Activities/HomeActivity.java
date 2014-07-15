@@ -11,6 +11,7 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.example.specialsapp.app.Adapters.HomePagerAdapter;
 import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.R;
+
 import java.util.ArrayList;
 
 /**
@@ -54,7 +55,7 @@ public class HomeActivity extends BaseActivity {
             intent.putExtra("tabIndex", viewPager.getCurrentItem());
             startActivity(intent);
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     public ArrayList<Dealer> getDealers() {
@@ -65,7 +66,7 @@ public class HomeActivity extends BaseActivity {
         this.dealers = dealers;
     }
 
-    public ViewPager getViewPager(){
+    public ViewPager getViewPager() {
         return this.viewPager;
     }
 }

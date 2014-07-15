@@ -30,8 +30,8 @@ public class SpecialDetail extends BaseActivity {
         TextView mTitle = (TextView) findViewById(R.id.title_text);
         TextView mOldPrice = (TextView) findViewById(R.id.price_old);
         TextView mNewPrice = (TextView) findViewById(R.id.price_new);
-        ImageView mTitleImage = (ImageView)findViewById(R.id.title_image);
-        ListView mSpecsList = (ListView)findViewById(R.id.specs_list);
+        ImageView mTitleImage = (ImageView) findViewById(R.id.title_image);
+        ListView mSpecsList = (ListView) findViewById(R.id.specs_list);
 
 
         if (extras != null) {
@@ -44,7 +44,7 @@ public class SpecialDetail extends BaseActivity {
                     .placeholder(R.drawable.tesla)
                     .resize(335, 600)
                     .into(mTitleImage);
-            ArrayList<String> specsTemp = (ArrayList<String>)extras.get("spec");
+            ArrayList<String> specsTemp = (ArrayList<String>) extras.get("spec");
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.custom_item, specsTemp);
             mSpecsList.setAdapter(spinnerArrayAdapter);
         }
@@ -68,10 +68,9 @@ public class SpecialDetail extends BaseActivity {
 
     public void submitInfo(View view) {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
-        if (shared.getBoolean("stored", true)){
+        if (shared.getBoolean("stored", true)) {
             Toast.makeText(this.getApplicationContext(), "Info Submitted", Toast.LENGTH_LONG).show();
-        }
-        else{
+        } else {
             Intent intent = new Intent(SpecialDetail.this, MainActivity.class);
             intent.putExtra("submit", true);
             startActivity(intent);

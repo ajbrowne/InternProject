@@ -1,17 +1,15 @@
 package com.example.specialsapp.app.Rest;
+
 import android.content.Context;
 
 import com.loopj.android.http.*;
 
 import org.apache.http.entity.StringEntity;
 
-import java.io.File;
-
 /**
- *
  * Centralizes all rest call to the api using Android Async HTTP Library
  * Used by Pinterest/Instagram and based off of Apache
- *
+ * <p/>
  * Created by brownea on 6/21/14.
  */
 

@@ -27,7 +27,8 @@ public class SearchActivity extends BaseActivity {
 
         final ActionBar actionBar = getActionBar();
 
-        SearchPagerAdapter mAdapter; mAdapter = new SearchPagerAdapter(getSupportFragmentManager());
+        SearchPagerAdapter mAdapter;
+        mAdapter = new SearchPagerAdapter(getSupportFragmentManager());
         ViewPager viewPager = (ViewPager) findViewById(R.id.fragmentContainer3);
 
         viewPager.setAdapter(mAdapter);
@@ -41,8 +42,8 @@ public class SearchActivity extends BaseActivity {
         viewPager.setAdapter(mAdapter);
         tabs.setViewPager(viewPager);
 
-        if (tabIndex != numTabs){
-            viewPager.setCurrentItem(tabIndex-1);
+        if (tabIndex != numTabs) {
+            viewPager.setCurrentItem(tabIndex - 1);
         }
 
     }

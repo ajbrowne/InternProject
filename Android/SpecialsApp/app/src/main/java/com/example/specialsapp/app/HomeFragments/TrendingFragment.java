@@ -41,10 +41,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.internal.CardGridArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardGridView;
-import it.gmariotti.cardslib.library.view.CardListView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,15 +51,10 @@ public class TrendingFragment extends Fragment {
 
     private static final String Trending = "See What's Trending";
     private static final String TrendingDescription = "Most Popular Deals";
-
+    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/vehicle?";
     private ArrayList<Card> cards;
     private View homeView;
     private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
-    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/vehicle?";
-
-    private RequestQueue queue;
-    private JsonArrayRequest searchRequest;
-    private AbstractHttpClient client;
     private ProgressDialog pDialog;
 
     public TrendingFragment() {
@@ -139,8 +132,8 @@ public class TrendingFragment extends Fragment {
     }
 
     private void trendingAsync(HashMap<String, String> params) {
-        client = new DefaultHttpClient();
-        queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
+        AbstractHttpClient client = new DefaultHttpClient();
+        RequestQueue queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
 
         String url = generateUrl(params);
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
@@ -162,7 +155,7 @@ public class TrendingFragment extends Fragment {
             pDialog = new ProgressDialog(getActivity());
             pDialog.setMessage("Loading...");
             pDialog.show();
-            searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
+            JsonArrayRequest searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
 
@@ -200,8 +193,7 @@ public class TrendingFragment extends Fragment {
                 String newPrice = String.valueOf(Integer.parseInt(vehicle.getString("price")) - Integer.parseInt(spec.getString("amount")));
 
                 boolean duplicate = false;
-                for (int l = 0; l < vehicles.size(); l++) {
-                    Vehicle added = vehicles.get(l);
+                for (Vehicle added : vehicles) {
                     if (added.getId().equals(vehicle.getString("id"))) {
                         ArrayList<Special> combine = added.getSpecials();
                         combine.add(specialObject);
@@ -275,16 +267,7 @@ public class TrendingFragment extends Fragment {
         return String.valueOf(formatter.format(number));
     }
 
-    private class ResponseListener implements Response.Listener<JSONArray> {
-        @Override
-        public void onResponse(JSONArray response) {
-            pDialog.hide();
-            getTrending(response);
-        }
-
-    }
-
-    public void getTrending(JSONArray response){
+    public void getTrending(JSONArray response) {
         try {
             System.out.println("OH DEAR GOD");
             System.out.println(this);
@@ -298,8 +281,16 @@ public class TrendingFragment extends Fragment {
         addCards(vehicles);
     }
 
-    private String generateUrl(HashMap<String, String> parameters){
-        String url = baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
-        return url;
+    private String generateUrl(HashMap<String, String> parameters) {
+        return baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
+    }
+
+    private class ResponseListener implements Response.Listener<JSONArray> {
+        @Override
+        public void onResponse(JSONArray response) {
+            pDialog.hide();
+            getTrending(response);
+        }
+
     }
 }

@@ -1,18 +1,14 @@
 package com.example.specialsapp.app.Fragments;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,19 +17,11 @@ import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.specialsapp.app.Activities.DealerDetail;
-import com.example.specialsapp.app.Activities.HomeActivity;
-import com.example.specialsapp.app.Activities.SearchActivity;
 import com.example.specialsapp.app.Cards.DealerCard;
-import com.example.specialsapp.app.Cards.HomeVehicleCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Dealer;
-import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.R;
-import com.example.specialsapp.app.Rest.SpecialsRestClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.apache.http.Header;
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
@@ -53,17 +41,14 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 /**
  * Created by brownea on 6/12/14.
  */
-public class NearbyDealersFragment extends Fragment implements OnRefreshListener{
+public class NearbyDealersFragment extends Fragment implements OnRefreshListener {
 
     private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/dealers?";
     private View homeView;
-    private CardListView cardListView;
     private Double lat;
     private Double longi;
     private PullToRefreshLayout mPullToRefreshLayout;
     private RequestQueue queue;
-    private JsonArrayRequest searchRequest;
-    private AbstractHttpClient client;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,10 +59,10 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         getActivity().setTitle("Dealers");
         setHasOptionsMenu(true);
 
-        client = new DefaultHttpClient();
+        AbstractHttpClient client = new DefaultHttpClient();
         queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
 
-        mPullToRefreshLayout = (PullToRefreshLayout)homeView.findViewById(R.id.carddemo_extra_ptr_layout1);
+        mPullToRefreshLayout = (PullToRefreshLayout) homeView.findViewById(R.id.carddemo_extra_ptr_layout1);
         ActionBarPullToRefresh.from(this.getActivity())
                 .allChildrenArePullable()
                 .listener(this)
@@ -108,10 +93,10 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         param.put("extra", "0");
 
         String url = generateUrl(param);
-        searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
+        JsonArrayRequest searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
+                Log.d("error", "Dealer request failed");
             }
         });
 
@@ -124,7 +109,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
 
         CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
 
-        cardListView = (CardListView) homeView.findViewById(R.id.myList);
+        CardListView cardListView = (CardListView) homeView.findViewById(R.id.myList);
         if (cardListView != null) {
             cardListView.setAdapter(mCardArrayAdapter);
         }
@@ -134,13 +119,13 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         }
     }
 
-    public ArrayList<Card> createDealers(ArrayList<Dealer> dealers, ArrayList<Card> cards){
-        for (Dealer dealer: dealers){
+    public ArrayList<Card> createDealers(ArrayList<Dealer> dealers, ArrayList<Card> cards) {
+        for (Dealer dealer : dealers) {
             DealerCard card = new DealerCard(getActivity(), R.layout.dealer_card, dealer.getLatitude(), dealer.getLongitude());
             card.setDealer(dealer.getName());
             card.setCityState(dealer.getCity() + ", " + dealer.getState());
             Double distance = distance(dealer.getLatitude(), dealer.getLongitude(), lat, longi);
-            distance = (double)Math.round(distance *10)/10;
+            distance = (double) Math.round(distance * 10) / 10;
             card.setDistance(String.valueOf(distance) + " mi");
             card.setNumSpecials(String.valueOf(dealer.getNumSpecials()) + " deals currently running");
             card.setOnClickListener(getOnClickListener(dealer, distance));
@@ -191,8 +176,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
     }
 
     private String generateUrl(HashMap<String, String> parameters) {
-        String url = baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&extra=" + parameters.get("extra");
-        return url;
+        return baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&extra=" + parameters.get("extra");
     }
 
     private class ResponseListener implements Response.Listener<JSONArray> {

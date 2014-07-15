@@ -33,10 +33,10 @@ public class SignupZipFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_signup_zip, container, false);
-        Button next = (Button)view.findViewById(R.id.flow1_button);
-        TextView signIn = (TextView)view.findViewById(R.id.flow1_signin);
-        zip = (EditText)view.findViewById(R.id.flow1_zip);
-        if(getActivity().getIntent().getBooleanExtra("submit", false)){
+        Button next = (Button) view.findViewById(R.id.flow1_button);
+        TextView signIn = (TextView) view.findViewById(R.id.flow1_signin);
+        zip = (EditText) view.findViewById(R.id.flow1_zip);
+        if (getActivity().getIntent().getBooleanExtra("submit", false)) {
             signIn.setVisibility(View.GONE);
         }
 
@@ -44,7 +44,7 @@ public class SignupZipFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 zipCode = zip.getText().toString();
-                ((MainActivity)getActivity()).getUser().setZip(zipCode);
+                ((MainActivity) getActivity()).getUser().setZip(zipCode);
                 SignupNameFragment fragment = new SignupNameFragment();
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 /**
  * Created by brownea on 6/20/14.
- **/
+ */
 public class Special {
 
     private String title;
@@ -13,12 +13,12 @@ public class Special {
     private String dealer;
     private int price = -1000;
     private String amount;
-
     private String url;
 
-    public Special(){}
+    public Special() {
+    }
 
-    public Special(String title, String description, String type, String dealer, String amount){
+    public Special(String title, String description, String type, String dealer, String amount) {
         this.title = title;
         this.description = description;
         this.type = type;

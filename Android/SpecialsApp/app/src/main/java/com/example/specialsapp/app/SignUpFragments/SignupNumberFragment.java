@@ -20,7 +20,6 @@ import com.example.specialsapp.app.R;
 
 /**
  * A simple {@link Fragment} subclass.
- *
  */
 public class SignupNumberFragment extends Fragment {
 
@@ -36,17 +35,17 @@ public class SignupNumberFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_signup_number, container, false);
-        Button next = (Button)view.findViewById(R.id.flow_button);
-        TextView signIn = (TextView)view.findViewById(R.id.flow_signin);
-        number = (EditText)view.findViewById(R.id.flow_number);
-        if(getActivity().getIntent().getBooleanExtra("submit", false)){
+        Button next = (Button) view.findViewById(R.id.flow_button);
+        TextView signIn = (TextView) view.findViewById(R.id.flow_signin);
+        number = (EditText) view.findViewById(R.id.flow_number);
+        if (getActivity().getIntent().getBooleanExtra("submit", false)) {
             signIn.setVisibility(View.GONE);
         }
 
-        TelephonyManager tMgr = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-        if (tMgr.getLine1Number() != null){
+        TelephonyManager tMgr = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        if (tMgr.getLine1Number() != null) {
             String num = tMgr.getLine1Number();
-            num = ("(" + num.substring(0,3) + ") "  +num.substring(3,6) + "-" + num.substring(6,10));
+            num = ("(" + num.substring(0, 3) + ") " + num.substring(3, 6) + "-" + num.substring(6, 10));
             number.setText(num);
         }
 
@@ -54,7 +53,7 @@ public class SignupNumberFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 phoneNumber = number.getText().toString();
-                ((MainActivity)getActivity()).getUser().setPhoneNumber(phoneNumber);
+                ((MainActivity) getActivity()).getUser().setPhoneNumber(phoneNumber);
                 SignupZipFragment fragment = new SignupZipFragment();
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

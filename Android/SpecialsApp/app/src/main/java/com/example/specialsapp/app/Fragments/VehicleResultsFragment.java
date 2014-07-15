@@ -21,16 +21,15 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 /**
  * A simple {@link Fragment} subclass.
- *
  */
 public class VehicleResultsFragment extends BaseSearchFragment implements OnRefreshListener {
 
-    private View resultsView;
     private static final double defaultLocation = -1000.0;
+    HashMap<String, String> param = new HashMap<String, String>();
+    private View resultsView;
     private String[] params = new String[5];
     private PullToRefreshLayout mPullToRefreshLayout;
     private RequestParams parameters;
-    HashMap<String, String> param = new HashMap<String, String>();
 
     public VehicleResultsFragment() {
         // Required empty public constructor
@@ -49,7 +48,7 @@ public class VehicleResultsFragment extends BaseSearchFragment implements OnRefr
         getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         getActivity().getActionBar().setTitle("Vehicle Results");
 
-        mPullToRefreshLayout = (PullToRefreshLayout)resultsView.findViewById(R.id.carddemo_extra_ptr_layout);
+        mPullToRefreshLayout = (PullToRefreshLayout) resultsView.findViewById(R.id.carddemo_extra_ptr_layout);
         ActionBarPullToRefresh.from(this.getActivity())
                 .allChildrenArePullable()
                 .listener(this)

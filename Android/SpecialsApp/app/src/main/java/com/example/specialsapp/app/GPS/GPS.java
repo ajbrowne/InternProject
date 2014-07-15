@@ -15,30 +15,27 @@ import android.util.Log;
 
 /**
  * Created by brownea on 6/12/14.
- **/
+ */
 public class GPS extends Service implements LocationListener {
 
-    private Context context;
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
+    private static final long MIN_TIME_BTW_UPDATES = 1000 * 60;
+    protected LocationManager locationManager;
     boolean isGPSEnabled = false;
     boolean isNetworkEnabled = false;
     boolean canGetLocation = false;
-
     Location location;
     double latitude;
     double longitude;
+    private Context context;
 
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-    private static final long MIN_TIME_BTW_UPDATES = 1000*60;
-
-    protected LocationManager locationManager;
-
-    public GPS(Context context){
+    public GPS(Context context) {
         this.context = context;
         getLocation();
     }
 
-    public Location getLocation(){
-        try{
+    public Location getLocation() {
+        try {
             locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
 
             // get GPS status
@@ -47,33 +44,32 @@ public class GPS extends Service implements LocationListener {
             // get network status
             isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            if (!isGPSEnabled){
+            if (!isGPSEnabled) {
                 showSettingsAlert();
-            }
-            else{
+            } else {
                 this.canGetLocation = true;
                 // Get location from network provider
-                if (isNetworkEnabled){
+                if (isNetworkEnabled) {
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BTW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                     Log.d("Network", "Network");
-                    if (locationManager != null){
+                    if (locationManager != null) {
                         location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
-                        if (location != null){
+                        if (location != null) {
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
                         }
                     }
                 }
                 // Get lat long if GPS is enabled
-                if (isGPSEnabled){
-                    if (location == null){
+                if (isGPSEnabled) {
+                    if (location == null) {
                         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BTW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                         Log.d("GPS enabled", "GPS enabled");
-                        if (locationManager != null){
+                        if (locationManager != null) {
                             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            if (location != null){
+                            if (location != null) {
                                 latitude = location.getLatitude();
                                 longitude = location.getLongitude();
                             }
@@ -81,11 +77,12 @@ public class GPS extends Service implements LocationListener {
                     }
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return location;
     }
+
     @Override
     public void onLocationChanged(Location location) {
     }
@@ -107,15 +104,15 @@ public class GPS extends Service implements LocationListener {
         return null;
     }
 
-    public double getLatitude(){
-        if (location != null){
+    public double getLatitude() {
+        if (location != null) {
             latitude = location.getLatitude();
         }
         return latitude;
     }
 
-    public double getLongitude(){
-        if (location != null){
+    public double getLongitude() {
+        if (location != null) {
             longitude = location.getLongitude();
         }
         return longitude;
@@ -123,8 +120,9 @@ public class GPS extends Service implements LocationListener {
 
     /**
      * Function to check GPS/wifi enabled
+     *
      * @return boolean
-     * */
+     */
     public boolean canGetLocation() {
         return this.canGetLocation;
     }
@@ -132,8 +130,8 @@ public class GPS extends Service implements LocationListener {
     /**
      * Function to show settings alert dialog
      * On pressing Settings button will launch Settings Options
-     * */
-    public void showSettingsAlert(){
+     */
+    public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
         // Setting Dialog Title
@@ -144,7 +142,7 @@ public class GPS extends Service implements LocationListener {
 
         // On pressing Settings button
         alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
+            public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 context.startActivity(intent);
             }

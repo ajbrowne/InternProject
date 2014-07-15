@@ -1,52 +1,29 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
-import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 
-import com.example.specialsapp.app.Activities.HomeActivity;
-import com.example.specialsapp.app.Activities.SearchActivity;
-import com.example.specialsapp.app.Activities.SpecialDetail;
-import com.example.specialsapp.app.Cards.VehicleCard;
 import com.example.specialsapp.app.GPS.GPS;
-import com.example.specialsapp.app.Models.Special;
-import com.example.specialsapp.app.Models.Vehicle;
 import com.example.specialsapp.app.R;
-import com.example.specialsapp.app.Rest.SpecialsRestClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-import it.gmariotti.cardslib.library.view.CardListView;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 /**
- *
  * Currently the home view that displays all specials from the dealer
  * that is closest to your current location.
- *
+ * <p/>
  * Created by brownea on 6/12/14.
  */
-public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefreshListener{
+public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefreshListener {
 
     private View homeView;
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -62,7 +39,7 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
 
         setHasOptionsMenu(true);
 
-        mPullToRefreshLayout = (PullToRefreshLayout)homeView.findViewById(R.id.carddemo_extra_ptr_layout);
+        mPullToRefreshLayout = (PullToRefreshLayout) homeView.findViewById(R.id.carddemo_extra_ptr_layout);
         ActionBarPullToRefresh.from(this.getActivity())
                 .allChildrenArePullable()
                 .listener(this)
@@ -88,7 +65,7 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
         Double longitude = gps.getLongitude();
         // Call to retrieve specials to display
         try {
-           getDealerSpecials(longitude, latitude);
+            getDealerSpecials(longitude, latitude);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -97,8 +74,8 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
     /**
      * Finds nearest dealers (x determined in api) to given lat and long
      *
-     * @param lng  - longitude
-     * @param lat  - latitude
+     * @param lng - longitude
+     * @param lat - latitude
      * @throws JSONException
      */
     public void getDealerSpecials(Double lng, Double lat) throws JSONException {

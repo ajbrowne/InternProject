@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -64,12 +63,12 @@ public class MainActivity extends BaseActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         user = new User();
         boolean check = getIntent().getBooleanExtra("submit", false);
-        if(check){
+        if (check) {
             SignupNumberFragment signupNumberFragment = new SignupNumberFragment();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, signupNumberFragment, "number");
             fragmentTransaction.commit();
-        }else {
+        } else {
             // Create and show login fragment
             LoginFragment fragment = new LoginFragment();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -138,10 +137,10 @@ public class MainActivity extends BaseActivity {
      *
      * @param username -
      * @param password -
-     * @param phone -
-     * @param zip -
-     * @param first -
-     * @param last -
+     * @param phone    -
+     * @param zip      -
+     * @param first    -
+     * @param last     -
      */
     public void register(String username, String password, String phone, String zip, String first, String last) {
 

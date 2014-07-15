@@ -13,17 +13,14 @@ import java.util.Set;
 /**
  * Created by brownea on 7/9/14.
  */
-public class VolleyAdapter extends ArrayAdapter<String> implements SectionIndexer
-{
+public class VolleyAdapter extends ArrayAdapter<String> implements SectionIndexer {
     private HashMap<String, Integer> alphaIndexer;
     private String[] sections;
 
-    public VolleyAdapter(Context context, int resource, List<String> data)
-    {
+    public VolleyAdapter(Context context, int resource, List<String> data) {
         super(context, resource, data);
         alphaIndexer = new HashMap<String, Integer>();
-        for (int i = 0; i < data.size(); i++)
-        {
+        for (int i = 0; i < data.size(); i++) {
             String s = data.get(i).substring(0, 1).toUpperCase();
             if (!alphaIndexer.containsKey(s))
                 alphaIndexer.put(s, i);
@@ -37,18 +34,15 @@ public class VolleyAdapter extends ArrayAdapter<String> implements SectionIndexe
             sections[i] = sectionList.get(i);
     }
 
-    public int getPositionForSection(int section)
-    {
+    public int getPositionForSection(int section) {
         return alphaIndexer.get(sections[section]);
     }
 
-    public int getSectionForPosition(int position)
-    {
+    public int getSectionForPosition(int position) {
         return 1;
     }
 
-    public Object[] getSections()
-    {
+    public Object[] getSections() {
         return sections;
     }
 }

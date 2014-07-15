@@ -1,6 +1,5 @@
 package com.example.specialsapp.app.Activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +18,7 @@ import com.example.specialsapp.app.Cards.DealerCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.R;
+
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
@@ -39,9 +39,6 @@ public class DealerResultsActivity extends BaseActivity {
     private TextView mResultsNone;
     private double lat;
     private double longi;
-    private RequestQueue queue;
-    private JsonArrayRequest searchRequest;
-    private AbstractHttpClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +48,8 @@ public class DealerResultsActivity extends BaseActivity {
         getActionBar().setTitle("Dealer Results");
 
         mResultsNone = (TextView) findViewById(R.id.second_result);
-        client = new DefaultHttpClient();
-        queue = Volley.newRequestQueue(this, new HttpClientStack(client));
+        AbstractHttpClient client = new DefaultHttpClient();
+        RequestQueue queue = Volley.newRequestQueue(this, new HttpClientStack(client));
 
         GPS gps = new GPS(this);
         lat = gps.getLatitude();
@@ -65,7 +62,7 @@ public class DealerResultsActivity extends BaseActivity {
         param.put("extra", "1");
 
         String url = generateUrl(param);
-        searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
+        JsonArrayRequest searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("Volley Error", error.toString());

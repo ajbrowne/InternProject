@@ -38,7 +38,7 @@ public class DealerDetail extends BaseActivity {
     private TextView mName;
     private TextView mPhone;
     private TextView mDistance;
-    private Geocoder mGeocoder;
+    private Geocoder mGeoCoder;
     private MarkerOptions mMarkerOptions;
 
     @Override
@@ -46,7 +46,7 @@ public class DealerDetail extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dealer_detail);
         Bundle extras = getIntent().getExtras();
-        mGeocoder = new Geocoder(this, Locale.getDefault());
+        mGeoCoder = new Geocoder(this, Locale.getDefault());
         init();
         float ZOOM = 13;
         ActionBar actionBar = getActionBar();
@@ -68,10 +68,10 @@ public class DealerDetail extends BaseActivity {
 
 
     private void init() {
-        mAddress = (TextView)findViewById(R.id.dealer_address);
-        mName = (TextView)findViewById(R.id.dealer_name);
-        mPhone = (TextView)findViewById(R.id.dealer_phone);
-        mDistance = (TextView)findViewById(R.id.dealer_distance);
+        mAddress = (TextView) findViewById(R.id.dealer_address);
+        mName = (TextView) findViewById(R.id.dealer_name);
+        mPhone = (TextView) findViewById(R.id.dealer_phone);
+        mDistance = (TextView) findViewById(R.id.dealer_distance);
     }
 
     private void configureMap(final Bundle extras, float ZOOM) {
@@ -108,7 +108,7 @@ public class DealerDetail extends BaseActivity {
 
     /**
      * function to load map. If map is not created it will create it for you
-     * */
+     */
     private void initilizeMap() {
         if (googleMap == null) {
             googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
@@ -143,13 +143,14 @@ public class DealerDetail extends BaseActivity {
             double longitude = doubles[1];
             String address = "No Address Found";
             List<Address> addresses = new ArrayList<Address>();
-            while(true){
+            while (true) {
                 try {
-                    addresses = mGeocoder.getFromLocation(lat, longitude, 1);
-                    address = addresses.get(0).getAddressLine(0)+"\n"+addresses.get(0).getAddressLine(1);
+                    addresses = mGeoCoder.getFromLocation(lat, longitude, 1);
+                    address = addresses.get(0).getAddressLine(0) + "\n" + addresses.get(0).getAddressLine(1);
                 } catch (IOException e) {
+                    Log.d("error", "No Address Found");
                 }
-                if(addresses.size() !=0){
+                if (addresses.size() != 0) {
                     return address;
                 }
             }

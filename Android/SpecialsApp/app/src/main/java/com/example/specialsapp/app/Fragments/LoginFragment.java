@@ -19,17 +19,16 @@ import com.example.specialsapp.app.SignUpFragments.SignupNumberFragment;
 import java.util.Locale;
 
 /**
- *
  * Fragment used for when users want to log in to the app
- *
+ * <p/>
  * Created by brownea on 6/11/14.
  */
 public class LoginFragment extends Fragment {
 
+    int stackVar;
     private EditText username;
     private EditText password;
     private FragmentManager fragmentManager;
-    int stackVar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,8 +39,8 @@ public class LoginFragment extends Fragment {
 
         stackVar = fragmentManager.getBackStackEntryCount();
         for (int i = 0; i < stackVar; i++) {
-                Log.i("MainActivity", "popping backstack");
-                fragmentManager.popBackStack();
+            Log.i("MainActivity", "popping backstack");
+            fragmentManager.popBackStack();
         }
 
         // Link elements from xml
@@ -83,7 +82,7 @@ public class LoginFragment extends Fragment {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
                     System.out.println(encrypted);
 
-                    ((MainActivity)getActivity()).login(user, encrypted);
+                    ((MainActivity) getActivity()).login(user, encrypted);
                 }
             }
         };

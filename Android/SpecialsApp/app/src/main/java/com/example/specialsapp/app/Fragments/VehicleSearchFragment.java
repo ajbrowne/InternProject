@@ -16,8 +16,6 @@ import android.widget.Spinner;
 import com.example.specialsapp.app.Activities.VehicleResultsActivity;
 import com.example.specialsapp.app.R;
 
-import java.util.ArrayList;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -59,26 +57,25 @@ public class VehicleSearchFragment extends Fragment {
         submitSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (makeSpinner.getSelectedItem().toString().compareTo("All") == 0){
+                if (makeSpinner.getSelectedItem().toString().compareTo("All") == 0) {
                     params[0] = "";
                     params[1] = "";
                 }
-                if (typeSpinner.getSelectedItem().toString().compareTo("Any") == 0){
+                if (typeSpinner.getSelectedItem().toString().compareTo("Any") == 0) {
                     params[2] = "";
                 }
-                if (priceSpinner.getSelectedItem().toString().compareTo("None") == 0){
+                if (priceSpinner.getSelectedItem().toString().compareTo("None") == 0) {
                     params[3] = "";
                 }
-                if (params[0].equals("") && params[2].equals("") && params[3].equals("")){
+                if (params[0].equals("") && params[2].equals("") && params[3].equals("")) {
                     params[4] = "0";
                 }
 
                 Intent intent = new Intent(getActivity(), VehicleResultsActivity.class);
                 intent.putExtra("params", params);
-                if (sharedPrefs.getBoolean("use_location", false)){
+                if (sharedPrefs.getBoolean("use_location", false)) {
                     intent.putExtra("zip", sharedPrefs.getString("zip", ""));
-                }
-                else{
+                } else {
                     intent.putExtra("zip", "nope");
                 }
                 startActivity(intent);
@@ -101,10 +98,10 @@ public class VehicleSearchFragment extends Fragment {
                     int identifier = 0;
                     String[] models;
                     identifier = getActivity().getResources().getIdentifier(theStringField, "array", getActivity().getPackageName());
-                    if (identifier == 0){
+                    if (identifier == 0) {
                         identifier = getActivity().getResources().getIdentifier("none", "array", getActivity().getPackageName());
                         models = getActivity().getResources().getStringArray(identifier);
-                    } else{
+                    } else {
                         models = getActivity().getResources().getStringArray(identifier);
                     }
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models); //selected item will look like a spinner set from XML
@@ -115,7 +112,7 @@ public class VehicleSearchFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                if (index == 1){
+                if (index == 1) {
                     String[] models = getActivity().getResources().getStringArray(R.array.any);
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

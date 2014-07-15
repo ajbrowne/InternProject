@@ -32,7 +32,7 @@ public class SettingsActivity extends PreferenceActivity implements
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         EditTextPreference editTextPref = (EditTextPreference) findPreference("zip_code");
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("use_location", false)){
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("use_location", false)) {
             editTextPref.setEnabled(false);
             editTextPref.setSelectable(true);
         } else {
@@ -50,9 +50,9 @@ public class SettingsActivity extends PreferenceActivity implements
             EditTextPreference etp = (EditTextPreference) pref;
             pref.setSummary(etp.getText());
         }
-        if (pref instanceof CheckBoxPreference){
+        if (pref instanceof CheckBoxPreference) {
             EditTextPreference editTextPref = (EditTextPreference) findPreference("zip_code");
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("use_location", false)){
+            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("use_location", false)) {
                 editTextPref.setEnabled(false);
                 editTextPref.setSelectable(true);
             } else {

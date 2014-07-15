@@ -8,20 +8,19 @@ import com.example.specialsapp.app.Fragments.DealerSearchFragment;
 import com.example.specialsapp.app.Fragments.VehicleSearchFragment;
 
 /**
- *
  * Adapter used for switching tabs in HomeActivity
- *
+ * <p/>
  * Created by brownea on 6/23/14.
  */
 public class SearchPagerAdapter extends FragmentPagerAdapter {
 
-    public SearchPagerAdapter(FragmentManager fm){
+    public SearchPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return new VehicleSearchFragment();
             case 1:
@@ -32,7 +31,7 @@ public class SearchPagerAdapter extends FragmentPagerAdapter {
 
     public CharSequence getPageTitle(int position) {
 
-        switch(position){
+        switch (position) {
             case 0:
                 return "Vehicles";
             case 1:

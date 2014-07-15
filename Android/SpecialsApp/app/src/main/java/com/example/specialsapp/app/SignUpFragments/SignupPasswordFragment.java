@@ -43,11 +43,11 @@ public class SignupPasswordFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_signup_password, container, false);
         Button next = (Button) view.findViewById(R.id.flow4_button);
-        TextView signin = (TextView) view.findViewById(R.id.flow4_signin);
+        TextView signIn = (TextView) view.findViewById(R.id.flow4_signin);
         password = (EditText) view.findViewById(R.id.flow4_password);
         confirm = (EditText) view.findViewById(R.id.flow4_verify);
-        if(getActivity().getIntent().getBooleanExtra("submit", false)){
-            signin.setVisibility(View.GONE);
+        if (getActivity().getIntent().getBooleanExtra("submit", false)) {
+            signIn.setVisibility(View.GONE);
         }
 
         // Link listeners to identify matching passwords
@@ -73,12 +73,12 @@ public class SignupPasswordFragment extends Fragment {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(userPassword);
 
                     ((MainActivity) getActivity()).getUser().setPassword(encrypted);
-                    ((MainActivity)getActivity()).register(email, encrypted, phone, zip, first, last); // Async call to register
+                    ((MainActivity) getActivity()).register(email, encrypted, phone, zip, first, last); // Async call to register
                 }
             }
         });
 
-        signin.setOnClickListener(new View.OnClickListener() {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoginFragment fragment = new LoginFragment();

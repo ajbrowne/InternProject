@@ -1,7 +1,6 @@
 package com.example.specialsapp.app.Fragments;
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,11 +20,8 @@ import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
- *
  */
 public class DealerSearchFragment extends Fragment {
-
-    private View searchView;
 
     public DealerSearchFragment() {
         // Required empty public constructor
@@ -35,7 +31,7 @@ public class DealerSearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        searchView = inflater.inflate(R.layout.fragment_dealer_search, container, false);
+        View searchView = inflater.inflate(R.layout.fragment_dealer_search, container, false);
         // Inflate the layout for this fragment
 
         ListView makes = (ListView) searchView.findViewById(R.id.dealer_search_listview);
@@ -44,7 +40,7 @@ public class DealerSearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), DealerResultsActivity.class);
-                intent.putExtra("make", ((TextView)view).getText().toString());
+                intent.putExtra("make", ((TextView) view).getText().toString());
                 startActivity(intent);
             }
         });

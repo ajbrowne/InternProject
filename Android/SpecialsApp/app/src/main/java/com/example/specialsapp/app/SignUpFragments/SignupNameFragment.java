@@ -17,7 +17,6 @@ import com.example.specialsapp.app.R;
 
 /**
  * A simple {@link Fragment} subclass.
- *
  */
 public class SignupNameFragment extends Fragment {
 
@@ -36,12 +35,12 @@ public class SignupNameFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_signup_name, container, false);
-        Button next = (Button)view.findViewById(R.id.flow2_button);
-        TextView signin = (TextView)view.findViewById(R.id.flow2_signin);
-        first = (EditText)view.findViewById(R.id.flow2_first);
-        last = (EditText)view.findViewById(R.id.flow2_last);
-        if(getActivity().getIntent().getBooleanExtra("submit", false)){
-            signin.setVisibility(View.GONE);
+        Button next = (Button) view.findViewById(R.id.flow2_button);
+        TextView signIn = (TextView) view.findViewById(R.id.flow2_signin);
+        first = (EditText) view.findViewById(R.id.flow2_first);
+        last = (EditText) view.findViewById(R.id.flow2_last);
+        if (getActivity().getIntent().getBooleanExtra("submit", false)) {
+            signIn.setVisibility(View.GONE);
         }
 
 
@@ -62,7 +61,7 @@ public class SignupNameFragment extends Fragment {
             }
         });
 
-        signin.setOnClickListener(new View.OnClickListener() {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoginFragment fragment = new LoginFragment();

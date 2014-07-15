@@ -10,10 +10,6 @@ import android.widget.TextView;
 
 import com.example.specialsapp.app.R;
 
-import org.w3c.dom.Text;
-
-import java.util.Locale;
-
 import it.gmariotti.cardslib.library.internal.Card;
 
 /**
@@ -69,18 +65,20 @@ public class DealerCard extends Card {
         });
     }
 
-    public void setDealer(String dealer){ this.dealer = dealer; }
-
-    public void setCityState(String cityState){
-        this.cityState = cityState;
-    }
-
     public String getCityState() {
         return this.cityState;
     }
 
+    public void setCityState(String cityState) {
+        this.cityState = cityState;
+    }
+
     public String getDealer() {
         return this.dealer;
+    }
+
+    public void setDealer(String dealer) {
+        this.dealer = dealer;
     }
 
     public String getDistance() {
@@ -98,7 +96,6 @@ public class DealerCard extends Card {
     public void setNumSpecials(String numSpecials) {
         this.numSpecials = numSpecials;
     }
-
 
 
 }

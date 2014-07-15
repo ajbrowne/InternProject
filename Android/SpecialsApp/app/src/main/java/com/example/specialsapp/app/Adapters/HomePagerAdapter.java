@@ -1,32 +1,27 @@
 package com.example.specialsapp.app.Adapters;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.SparseArray;
 
 import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
 import com.example.specialsapp.app.HomeFragments.HomeFragment;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
-import com.example.specialsapp.app.R;
 
 /**
- *
  * Adapter used for switching tabs in HomeActivity
- *
+ * <p/>
  * Created by brownea on 6/23/14.
  */
 public class HomePagerAdapter extends FragmentStatePagerAdapter {
 
-    public HomePagerAdapter(FragmentManager fm){
+    public HomePagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return new HomeFragment();
             case 1:
@@ -40,7 +35,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
 
-        switch(position){
+        switch (position) {
             case 0:
                 return "Home";
             case 1:

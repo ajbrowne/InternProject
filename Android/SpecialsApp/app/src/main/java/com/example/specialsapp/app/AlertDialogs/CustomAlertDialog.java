@@ -10,7 +10,7 @@ import android.content.DialogInterface;
  */
 public class CustomAlertDialog extends AlertDialog.Builder {
 
-    public CustomAlertDialog(Context context, String title, String message){
+    public CustomAlertDialog(Context context, String title, String message) {
         super(context);
         setTitle(title);
         setMessage(message);
