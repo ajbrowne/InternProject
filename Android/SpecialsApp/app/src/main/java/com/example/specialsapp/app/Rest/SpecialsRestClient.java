@@ -2,7 +2,10 @@ package com.example.specialsapp.app.Rest;
 
 import android.content.Context;
 
-import com.loopj.android.http.*;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.apache.http.entity.StringEntity;
 

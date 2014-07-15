@@ -1,12 +1,11 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -76,11 +75,11 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
                 .setup(mPullToRefreshLayout);
 
         String zip = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("zip_code", "");
-        if (!zip.equals("")){
+        if (!zip.equals("")) {
             double[] location = getLoc(zip);
             lat = location[0];
             longi = location[1];
-        } else{
+        } else {
             GPS gps = new GPS(getActivity());
             lat = gps.getLatitude();
             longi = gps.getLongitude();
@@ -192,6 +191,22 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         return baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&extra=" + parameters.get("extra");
     }
 
+    public double[] getLoc(String zip) {
+        final Geocoder geocoder = new Geocoder(getActivity());
+        double[] location = {defaultLocation, defaultLocation};
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(zip, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                location[0] = address.getLatitude();
+                location[1] = address.getLongitude();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return location;
+    }
+
     private class ResponseListener implements Response.Listener<JSONArray> {
         @Override
         public void onResponse(JSONArray response) {
@@ -219,21 +234,5 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
             addCards(dealers);
         }
 
-    }
-
-    public double[] getLoc(String zip) {
-        final Geocoder geocoder = new Geocoder(getActivity());
-        double[] location = {defaultLocation, defaultLocation};
-        try {
-            List<Address> addresses = geocoder.getFromLocationName(zip, 1);
-            if (addresses != null && !addresses.isEmpty()) {
-                Address address = addresses.get(0);
-                location[0] = address.getLatitude();
-                location[1] = address.getLongitude();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return location;
     }
 }

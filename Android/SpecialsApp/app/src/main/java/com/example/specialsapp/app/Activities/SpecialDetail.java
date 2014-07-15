@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.example.specialsapp.app.R;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SpecialDetail extends BaseActivity {

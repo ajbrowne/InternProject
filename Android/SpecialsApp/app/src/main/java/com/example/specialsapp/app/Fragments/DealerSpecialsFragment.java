@@ -48,11 +48,11 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
 
         String zip = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("zip_code", "");
         double latitude, longitude;
-        if (!zip.equals("")){
+        if (!zip.equals("")) {
             double[] location = getLoc(zip);
             latitude = location[0];
             longitude = location[1];
-        } else{
+        } else {
             GPS gps = new GPS(getActivity());
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();

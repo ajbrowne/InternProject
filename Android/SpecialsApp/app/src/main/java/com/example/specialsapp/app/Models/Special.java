@@ -1,7 +1,5 @@
 package com.example.specialsapp.app.Models;
 
-import android.graphics.Bitmap;
-
 /**
  * Created by brownea on 6/20/14.
  */
