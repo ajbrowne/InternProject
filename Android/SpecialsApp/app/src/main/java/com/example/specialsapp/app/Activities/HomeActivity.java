@@ -1,6 +1,7 @@
 package com.example.specialsapp.app.Activities;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,8 +10,6 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.example.specialsapp.app.Adapters.HomePagerAdapter;
 import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.R;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -31,8 +30,10 @@ public class HomeActivity extends BaseActivity {
         tabs.setBackgroundColor(getResources().getColor(android.R.color.white));
         tabs.setTextColor(getResources().getColor(android.R.color.black));
         viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
-        HomePagerAdapter mAdapter = new HomePagerAdapter(getSupportFragmentManager());
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        HomePagerAdapter mAdapter = new HomePagerAdapter(fragmentManager);
         viewPager.setAdapter(mAdapter);
+        viewPager.setOffscreenPageLimit(5);
         tabs.setViewPager(viewPager);
     }
 
