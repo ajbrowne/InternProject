@@ -51,6 +51,14 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
     private View homeView;
     private PullToRefreshLayout mPullToRefreshLayout;
 
+    public static DealerSpecialsFragment newInstance(int index) {
+        DealerSpecialsFragment fragment = new DealerSpecialsFragment();
+        Bundle args = new Bundle();
+        args.putInt("index", index);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -2,11 +2,14 @@ package com.example.specialsapp.app.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.SparseArray;
 
 import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
 import com.example.specialsapp.app.HomeFragments.HomeFragment;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
+import com.example.specialsapp.app.R;
 
 /**
  *
@@ -16,25 +19,39 @@ import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
  */
 public class HomePagerAdapter extends FragmentStatePagerAdapter {
 
-    private HomeFragment homeFragment = new HomeFragment();
-    private DealerSpecialsFragment dealerSpecialsFragment = new DealerSpecialsFragment();
-    private NearbyDealersFragment nearbyDealersFragment = new NearbyDealersFragment();
+    private FragmentManager mFragmentManager;
 
     public HomePagerAdapter(FragmentManager fm){
         super(fm);
+        mFragmentManager = fm;
     }
 
     @Override
     public Fragment getItem(int position) {
+        String name = makeFragmentName(R.id.fragmentContainer2, position);
+        Fragment fragment = mFragmentManager.findFragmentByTag(name);
         switch (position){
             case 0:
-                return homeFragment;
+                if (fragment == null){
+                    fragment = HomeFragment.newInstance(position);
+                }
+                return fragment;
             case 1:
-                return dealerSpecialsFragment;
+                if (fragment == null){
+                    fragment = DealerSpecialsFragment.newInstance(position);
+                }
+                return fragment;
             case 2:
-                return nearbyDealersFragment;
+                if (fragment == null){
+                    fragment = NearbyDealersFragment.newInstance(position);
+                }
+                return fragment;
         }
         return null;
+    }
+
+    private static String makeFragmentName(int viewId, int index) {
+        return "android:switcher:" + viewId + ":" + index;
     }
 
     public CharSequence getPageTitle(int position) {
@@ -53,5 +70,11 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return 3;
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        System.out.println("GOT HERE");
+        return POSITION_NONE;
     }
 }

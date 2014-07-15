@@ -32,7 +32,6 @@ public class HomeActivity extends BaseActivity {
         tabs.setTextColor(getResources().getColor(android.R.color.black));
         viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
         HomePagerAdapter mAdapter = new HomePagerAdapter(getSupportFragmentManager());
-
         viewPager.setAdapter(mAdapter);
         tabs.setViewPager(viewPager);
     }

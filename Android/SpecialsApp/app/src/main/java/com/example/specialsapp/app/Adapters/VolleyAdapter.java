@@ -13,12 +13,12 @@ import java.util.Set;
 /**
  * Created by brownea on 7/9/14.
  */
-public class AlphaAdapter extends ArrayAdapter<String> implements SectionIndexer
+public class VolleyAdapter extends ArrayAdapter<String> implements SectionIndexer
 {
     private HashMap<String, Integer> alphaIndexer;
     private String[] sections;
 
-    public AlphaAdapter(Context context, int resource, List<String> data)
+    public VolleyAdapter(Context context, int resource, List<String> data)
     {
         super(context, resource, data);
         alphaIndexer = new HashMap<String, Integer>();

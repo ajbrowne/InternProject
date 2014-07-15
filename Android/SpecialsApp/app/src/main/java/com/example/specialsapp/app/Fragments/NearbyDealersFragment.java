@@ -53,6 +53,14 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
     private Double longi;
     private PullToRefreshLayout mPullToRefreshLayout;
 
+    public static NearbyDealersFragment newInstance(int index) {
+        NearbyDealersFragment f = new NearbyDealersFragment();
+        Bundle args = new Bundle();
+        args.putInt("index", index);
+        f.setArguments(args);
+        return f;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

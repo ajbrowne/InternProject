@@ -56,7 +56,7 @@ public class TopDiscountFragment extends Fragment {
     private View homeView;
     private ArrayList<String> addedVehicles = new ArrayList<String>();
     private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
-    private static final String baseUrl = "http://192.168.170.34:8080/v1/specials/special/top";
+    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/special/top";
 
     private RequestQueue queue;
     private JsonArrayRequest searchRequest;

@@ -56,7 +56,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     private ArrayList<Card> cards;
     private int currIndex, returnSize;
     private PullToRefreshLayout mPullToRefreshLayout;
-    private static final String baseUrl = "http://192.168.170.34:8080/v1/specials/vehicle?";
+    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/vehicle?";
     private String lastUrl;
     private boolean isSearch;
 
