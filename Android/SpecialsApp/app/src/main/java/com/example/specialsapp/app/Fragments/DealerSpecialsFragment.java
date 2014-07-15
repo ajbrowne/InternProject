@@ -2,6 +2,7 @@ package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,10 +46,17 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
                 .listener(this)
                 .setup(mPullToRefreshLayout);
 
-        // Get location upon opening app, returning to Dealers
-        final GPS gps = new GPS(getActivity());
-        Double latitude = gps.getLatitude();
-        Double longitude = gps.getLongitude();
+        String zip = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("zip_code", "");
+        double latitude, longitude;
+        if (!zip.equals("")) {
+            double[] location = getLoc(zip);
+            latitude = location[0];
+            longitude = location[1];
+        } else {
+            GPS gps = new GPS(getActivity());
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+        }
 
         try {
             getDealerSpecials(longitude, latitude);

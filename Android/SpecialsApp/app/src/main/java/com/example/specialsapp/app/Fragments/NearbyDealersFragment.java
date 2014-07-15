@@ -1,7 +1,10 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,8 +31,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
@@ -43,6 +48,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
  */
 public class NearbyDealersFragment extends Fragment implements OnRefreshListener {
 
+    private static final double defaultLocation = -1000.0;
     private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/dealers?";
     private View homeView;
     private Double lat;
@@ -68,10 +74,16 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
                 .listener(this)
                 .setup(mPullToRefreshLayout);
 
-        // Get location upon opening app, returning to Dealers
-        GPS gps = new GPS(getActivity());
-        lat = gps.getLatitude();
-        longi = gps.getLongitude();
+        String zip = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("zip_code", "");
+        if (!zip.equals("")) {
+            double[] location = getLoc(zip);
+            lat = location[0];
+            longi = location[1];
+        } else {
+            GPS gps = new GPS(getActivity());
+            lat = gps.getLatitude();
+            longi = gps.getLongitude();
+        }
 
         getDealers();
 
@@ -177,6 +189,22 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
 
     private String generateUrl(HashMap<String, String> parameters) {
         return baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&extra=" + parameters.get("extra");
+    }
+
+    public double[] getLoc(String zip) {
+        final Geocoder geocoder = new Geocoder(getActivity());
+        double[] location = {defaultLocation, defaultLocation};
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(zip, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                location[0] = address.getLatitude();
+                location[1] = address.getLongitude();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return location;
     }
 
     private class ResponseListener implements Response.Listener<JSONArray> {

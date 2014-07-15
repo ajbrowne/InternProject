@@ -58,7 +58,7 @@ public class BaseActivity extends FragmentActivity {
                 edit.commit();
                 menu.findItem(R.id.action_logout).setVisible(false);
                 menu.findItem(R.id.action_login).setVisible(true);
-                new CustomAlertDialog(this, "Logout", "You have been logged out. You can no longer send contact info to dealers").show();
+                new CustomAlertDialog(this, "Logout", "You have been logged out. You can no longer send contact info to dealers automatically").show();
                 return true;
             case R.id.action_login:
                 Intent newIntent = new Intent(this, MainActivity.class);
