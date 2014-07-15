@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.GeoResult;
 import org.springframework.data.geo.Point;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by maharb on 6/30/14.
@@ -35,33 +38,7 @@ public class MergeService {
     }
 
     /**
-     * This function finds specials by nearest to the given location
-     *
-     * @param point - the location we want to search near
-     * @return - a list of mergerobj that contains a list of the specials based on dealer name
-     */
-    public List<? extends MergerObj> getNearestSpecials(Point point) {
-        List<GeoResult> newDealer = dealerService.getDealerLocation(point);
-        List<MergerObj> specials = new ArrayList<MergerObj>();
-        //loop over the dealers to find the dealers specials
-        for (GeoResult aNewDealer : newDealer) {
-            Dealer tempDealer = (Dealer) aNewDealer.getContent();
-            Special tempSpecial = new Special();
-            tempSpecial.setDealer(tempDealer.getId());
-            List<Special> temp = specialService.getSpecials(tempSpecial);
-            //store the dealers name and the special in an object to pass to the app
-            //dealer name is for the cards in the app.
-            if (temp.size() != 0) {
-                specials.add(new MergerObj(tempDealer.getName(), temp));
-            }
-        }
-        log.info("Number of specials: " + specials.size());
-
-        return specials;
-    }
-
-    /**
-     * This function is modified getNearestSpecials that returns the vehicles of the specials found
+     * This function is modified getNearestVehicles that returns the vehicles of the specials found
      *
      * @param point   - the location we want to search near
      * @param vehicle - the vehicle information we are trying to find
@@ -123,14 +100,26 @@ public class MergeService {
         return matches;
     }
 
+    /**
+     * Remove non matching vehicles from the list of initial vehicles
+     *
+     * @param vehicles - the initial list of vehicles
+     * @param match - the the vehicle that will have duplicates in the list
+     * @return - a refined list of vehicles with no duplicates
+     */
     private List<Vehicle> vehicleHelper(List<Vehicle> vehicles, Vehicle match) {
         int length = vehicles.size();
+        //Loop over the vehicles list
         for (int i = 0; i < vehicles.size(); i++) {
+            //Check to see if the current location in the list is the matching make
             if (!vehicles.get(i).getMake().equals(match.getMake())) {
+                //if it is not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
                 i--;
+                //Check to see if the current vehicle has a matching model
             } else if (!vehicles.get(i).getModel().equals(match.getModel())) {
+                //if it does not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
                 i--;
@@ -142,11 +131,19 @@ public class MergeService {
         return vehicles;
     }
 
+    /**
+     * Check to see if the matching id is in the list
+     * This is like the .contains method, we wrote this
+     * because the .contains method was not returning the
+     * results we were expecting
+     *
+     * @param ids - a list of ids to be checked
+     * @param id - the id we are checking for
+     * @return - a boolean based on if the id is in the list
+     */
     private boolean listCheck(List<String> ids, String id) {
-
         for (String temp : ids) {
             if (temp.equals(id)) {
-                System.out.println("TEMP: " + temp + " ID: " + id);
                 return true;
             }
         }
@@ -154,66 +151,72 @@ public class MergeService {
         return false;
     }
 
-    public List getTopDiscount() {
-        List<MergerObj> mergerObjs = new ArrayList<MergerObj>();
-        List<Special> specials = specialService.getAllSpecials();
 
+    /**
+     * Service for the api endpoint to return top discounts on vehicles
+     *
+     * @return - a list of objs containing the vehicles, specials, and dealer name for the top discount
+     */
+    public List<? extends MergerObj> getTopDiscount() {
+        //Create list to return and get all of the specials
+        List<MergerObj> mergerObjs = new ArrayList<MergerObj>();
+        List specials = specialService.getAllSpecials();
+
+        //Sort the specials from highest amount and take only the first 3 results
         List<Special> sortedSpecials = sortByValue(specials).subList(0,3);
         List<Vehicle> vehicles = new ArrayList<Vehicle>();
         List<String> ids = new ArrayList<String>();
+        //Get the ids of the vehicles of the top specials
         ids = getTopVehicles(specials, ids);
+        //create vehicle objects based on the ids
         for(String id : ids){
             Vehicle vehicle = new Vehicle();
             vehicle.setId(id);
             vehicles.addAll(vehicleService.getVehicles(vehicle));
         }
+        //Create the merge objects with out dealer names
         mergerObjs = createMerger(mergerObjs, sortedSpecials, vehicles);
-        for(MergerObj mergerObj :mergerObjs){
+        //Get the dealer names based on the id in the specials and add it to the objects
+        for(MergerObj mergerObj :mergerObjs) {
             String dealerName = dealerService.getDealerById(mergerObj.getSpecials().get(0).getDealer()).getName();
             mergerObj.setDealerName(dealerName);
         }
-
-
         return mergerObjs;
     }
 
-//    private List<Special> sortSpecialsList(List<Special> specials, List<Special> all, List<Special> sortedSpecials) {
-//        List<Special> top = sortByValue(all);
-//        List<String> listIds = new ArrayList<String>();
-//        for(String id : specialIds){
-//            listIds.add(id);
-//        }
-//        for(Special special : specials){
-//            if(listIds.get(0).equals(special.getId())){
-//                sortedSpecials.add( special);
-//            }else if(listIds.get(1).equals(special.getId())){
-//                sortedSpecials.add( special);
-//            }else if(listIds.get(2).equals(special.getId())){
-//                sortedSpecials.add( special);
-//            }
-//        }
-//        return sortedSpecials;
-//    }
-
+    /**
+     * Create the merger objects that will be returned.
+     * This was originally supposed to create the new objs based on the dealers
+     * being different but I am not sure it functions completely correctly.
+     * (Works for the purpose of demoing)
+     *
+     * @param mergerObjs - List of the merger objects we are adding too
+     * @param specials - List of specials to be added
+     * @param vehicles - List of vehicles to be added
+     * @return - return the populated list of merger objects
+     */
     private List<MergerObj> createMerger(List<MergerObj> mergerObjs, List<Special> specials, List<Vehicle> vehicles) {
         MergerObj mergerObj = new MergerObj();
+        //Loop over the specials
         for(Special special : specials){
-
-            List tempSpecials = new ArrayList();
+            //Check to see if there is a current obj or if we need to create the new one
+            List<Special> tempSpecials = new ArrayList<Special>();
             if(mergerObjs.size() == 0){
+                //Adds first object to the list that will be returned
                 tempSpecials.add(special);
                 mergerObj.setSpecials(tempSpecials);
                 mergerObj.setVehicles(vehicles);
                 mergerObjs.add(mergerObj);
             }else{
+                //Loops over the current objects in the return list
                 for(int i =0;i<mergerObjs.size();i++) {
-//                    if(i==0){
-//                        continue;
-//                    }
+                    //If the object contains the correct dealer info then the next special is added to this objects
+                    //specials list
                     if (mergerObjs.get(i).getSpecials().get(0).getDealer().equals(special.getDealer())) {
                         tempSpecials = mergerObjs.get(i).getSpecials();
                         tempSpecials.add(special);
                         mergerObjs.get(i).setSpecials(tempSpecials);
+                        //if the object doesn't contain the same dealer a new merger object is created
                     }else if((i+1)==mergerObjs.size()){
                         tempSpecials.add(special);
                         mergerObj.setSpecials(tempSpecials);
@@ -222,31 +225,50 @@ public class MergeService {
                     }
                 }
             }
-
-
         }
         return mergerObjs;
     }
 
+    /**
+     * Method used to get the top 3 vehicles based on the top special discounts
+     * The top 3 vehicles could come from one special
+     *
+     * @param specials - List of top specials
+     * @param ids - List of vehicle ids
+     * @return - Return a modified list of ids that only contains the top 3
+     */
     private List<String> getTopVehicles(List<Special> specials, List<String> ids) {
+        //Loop over the specials to compare ids
         for(Special special: specials){
+            //if the size of the list of ids found is greater than 3 exit the loop
             if(ids.size() >= 3){
                 break;
             }
+            //Check the number of vehicles in the first special
+            //If it is greater than 3 then we just grab the first 3 and return
             if(special.getVehicleId().size() > 3){
-                ids.addAll(special.getVehicleId().subList(0,2));
+                ids.addAll(special.getVehicleId().subList(0,3));
                 break;
+                //if it is less than 3 then we add them all and continue in the loop
             }else if(special.getVehicleId().size() < 3){
                 ids.addAll(special.getVehicleId());
+                //if it is exactly 3 then we get those and return
             }else if(special.getVehicleId().size() == 3){
                 ids.addAll(special.getVehicleId());
                 break;
             }
         }
+        //Catch just in case too many vehicle ids get added to the list
         ids = ids.subList(0,3);
         return ids;
     }
 
+    /**
+     * Comparator for sorting a list of specials by the amount that is stored
+     *
+     * @param all - All of the specials we have
+     * @return - return the sorted list of specials
+     */
     private List<Special> sortByValue(List<Special> all) {
         Collections.sort(all, new Comparator() {
             @Override
