@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import java.util.List;
 
 /**
+ * Repository layer for vehicles
+ *
  * Created by maharb on 6/30/14.
  */
 public class MongoVehicleRepository implements VehicleRepository {

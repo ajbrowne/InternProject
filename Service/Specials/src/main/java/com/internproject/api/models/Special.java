@@ -7,6 +7,11 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Special Object that stores all of the information about specials
+ * Note: For some reason at the very beginning we made amount a String
+ * and never bothered to change it over and it just seems annoying to do
+ * now so deal with it.
+ *
  * Created by maharb on 6/18/14.
  */
 @Document(collection = "special")

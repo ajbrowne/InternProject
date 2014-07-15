@@ -7,6 +7,8 @@ import org.springframework.data.geo.Point;
 import java.util.List;
 
 /**
+ * The dealer object, contains all of the important information about a dealer
+ *
  * Created by maharb on 6/18/14.
  */
 public class Dealer {

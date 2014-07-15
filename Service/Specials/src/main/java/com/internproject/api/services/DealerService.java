@@ -15,7 +15,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
+ * Service layer for dealer objects. This handles the logic for storing or searching for
+ * dealers.
  *
  * Created by maharb on 6/27/14.
  */

@@ -15,6 +15,8 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import java.net.UnknownHostException;
 
 /**
+ * Configuration file that sets up our mongodb connection
+ * and the benas that this service uses
  * Created by maharb on 6/18/14.
  */
 @Configuration

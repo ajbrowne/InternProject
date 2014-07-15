@@ -3,6 +3,9 @@ package com.internproject.api.models;
 import java.util.List;
 
 /**
+ * Unused object to store specials and dealers and vehicles would have been added later if needed
+ * This would have been used to return results of a key word search but that was never implemented.
+ *
  * Created by maharb on 6/24/14.
  */
 public class SpecialsDealers {

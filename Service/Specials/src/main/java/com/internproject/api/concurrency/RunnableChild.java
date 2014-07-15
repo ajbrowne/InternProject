@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Child Thread that manages the creation of queries to query the mongo db.
+ * Uses thread names as a means of determining what to put in the query.
+ *
  * Created by maharb on 6/27/14.
  */
 public class RunnableChild implements Runnable {
@@ -87,7 +90,7 @@ public class RunnableChild implements Runnable {
      */
     private void vehicleSearch() {
         Query query = new Query();
-        List<? extends Vehicle> temp = new ArrayList<Vehicle>();
+        List temp = new ArrayList<Vehicle>();
         //Queries are created differently for the different kind of
         //search
         if(name.equals("id") && vehicle.getId() != null){
@@ -123,7 +126,7 @@ public class RunnableChild implements Runnable {
      */
     private void dealerSearch() {
         Query query = new Query();
-        List<? extends Dealer> temp = new ArrayList<Dealer>();
+        List temp = new ArrayList<Dealer>();
         //run query based on kind of query needed for each field
         if(dealer.getId() != null && name.equals("id")){
             temp = runQuery(name, dealer.getId(), query, 0);
@@ -159,7 +162,7 @@ public class RunnableChild implements Runnable {
      * @param value - the value that we are going to be querying for
      * @param query - the query object
      * @param optional - an optional value if an int is being queried
-     * @return
+     * @return - A list of the resulting query
      */
     private List runQuery(String queryType, String value, Query query, int optional) {
         Criteria criteria;
@@ -246,7 +249,7 @@ public class RunnableChild implements Runnable {
      */
     private void specialSearch(){
         Query query = new Query();
-        List<? extends Special> temp = new ArrayList<Special>();
+        List temp = new ArrayList<Special>();
         //create each query based on kind of query needed for each field
         if(special.getDealer() != null && name.equals("dealer")){
             temp = runQuery(name, special.getDealer(), query,0);

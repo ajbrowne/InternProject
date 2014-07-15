@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
+ * Controller for the specials objects
  *
  * Created by maharb on 6/18/14.
  */

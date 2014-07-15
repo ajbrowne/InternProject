@@ -5,6 +5,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
+ * User object, stores all of the information needed for a user to be created and to login
+ *
  * Created by maharb on 6/18/14.
  */
 @Document(collection = "users")

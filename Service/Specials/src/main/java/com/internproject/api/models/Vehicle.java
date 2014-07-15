@@ -5,6 +5,8 @@ import org.springframework.data.annotation.Id;
 import java.util.List;
 
 /**
+ * Vehicle object that stores all of the information about a vehicle.
+ *
  * Created by maharb on 6/30/14.
  */
 public class Vehicle {
