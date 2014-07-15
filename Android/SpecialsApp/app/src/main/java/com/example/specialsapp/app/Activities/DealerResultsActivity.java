@@ -38,14 +38,13 @@ import it.gmariotti.cardslib.library.view.CardListView;
 public class DealerResultsActivity extends BaseActivity {
 
 
+    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/dealers?";
     private TextView mResultsNone;
     private double lat;
     private double longi;
     private RequestQueue queue;
     private JsonArrayRequest searchRequest;
     private AbstractHttpClient client;
-    private ProgressDialog pDialog;
-    private static final String baseUrl = "htt://192.168.170.93:8080/v1/specials/dealers";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +69,12 @@ public class DealerResultsActivity extends BaseActivity {
 
         String url = generateUrl(param);
 
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Loading...");
-        pDialog.show();
-            searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener(){
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println(error);
-                }
-            });
+        searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
+        });
 
         queue.add(searchRequest);
 
@@ -103,7 +99,7 @@ public class DealerResultsActivity extends BaseActivity {
             card.setDealer(dealer.getName());
             card.setCityState(dealer.getCity() + ", " + dealer.getState());
             Double distance = distance(dealer.getLatitude(), dealer.getLongitude(), lat, longi);
-            distance = (double)Math.round(distance *10)/10;
+            distance = (double) Math.round(distance * 10) / 10;
             card.setDistance(String.valueOf(distance) + " mi");
             card.setNumSpecials(String.valueOf(dealer.getNumSpecials()) + " deals currently running");
             cards.add(card);
@@ -141,7 +137,7 @@ public class DealerResultsActivity extends BaseActivity {
         return (rad * 180.0 / Math.PI);
     }
 
-    private String generateUrl(HashMap<String, String> parameters){
+    private String generateUrl(HashMap<String, String> parameters) {
         String url = baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
         return url;
     }
@@ -149,7 +145,6 @@ public class DealerResultsActivity extends BaseActivity {
     private class ResponseListener implements Response.Listener<JSONArray> {
         @Override
         public void onResponse(JSONArray response) {
-            pDialog.hide();
             ArrayList<Dealer> dealers = new ArrayList<Dealer>();
             try {
                 for (int i = 0; i < response.length(); i++) {
@@ -169,7 +164,7 @@ public class DealerResultsActivity extends BaseActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if(dealers.size() == 0){
+            if (dealers.size() == 0) {
                 mResultsNone.setVisibility(View.VISIBLE);
             }
             addCards(dealers);

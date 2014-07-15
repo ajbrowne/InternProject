@@ -53,14 +53,6 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
     private Double longi;
     private PullToRefreshLayout mPullToRefreshLayout;
 
-    public static NearbyDealersFragment newInstance(int index) {
-        NearbyDealersFragment f = new NearbyDealersFragment();
-        Bundle args = new Bundle();
-        args.putInt("index", index);
-        f.setArguments(args);
-        return f;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -189,17 +181,6 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         longi = gps.getLongitude();
         // Call to retrieve dealers to display
         getDealers();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        if (id == R.id.search){
-            Intent intent = new Intent(getActivity(), SearchActivity.class);
-            intent.putExtra("tab", 2);
-            startActivity(intent);
-        }
-        return true;
     }
 
     private double distance(double lat1, double lon1, double lat2, double lon2) {

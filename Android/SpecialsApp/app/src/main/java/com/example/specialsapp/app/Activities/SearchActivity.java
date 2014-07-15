@@ -23,7 +23,7 @@ public class SearchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        int tabIndex = getIntent().getIntExtra("tab", numTabs);
+        int tabIndex = getIntent().getIntExtra("tabIndex", numTabs);
 
         final ActionBar actionBar = getActionBar();
 

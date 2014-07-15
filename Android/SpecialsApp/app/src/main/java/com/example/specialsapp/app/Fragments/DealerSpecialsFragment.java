@@ -51,14 +51,6 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
     private View homeView;
     private PullToRefreshLayout mPullToRefreshLayout;
 
-    public static DealerSpecialsFragment newInstance(int index) {
-        DealerSpecialsFragment fragment = new DealerSpecialsFragment();
-        Bundle args = new Bundle();
-        args.putInt("index", index);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,22 +79,6 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
             e.printStackTrace();
         }
         return homeView;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        if (id == R.id.search){
-            Intent intent = new Intent(getActivity(), SearchActivity.class);
-            intent.putExtra("tab", 1);
-            startActivity(intent);
-        }
-        return true;
     }
 
     @Override
