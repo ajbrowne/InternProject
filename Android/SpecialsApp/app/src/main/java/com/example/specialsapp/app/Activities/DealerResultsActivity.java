@@ -1,5 +1,6 @@
 package com.example.specialsapp.app.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -106,9 +107,24 @@ public class DealerResultsActivity extends BaseActivity {
             distance = (double)Math.round(distance *10)/10;
             card.setDistance(String.valueOf(distance) + " mi");
             card.setNumSpecials(String.valueOf(dealer.getNumSpecials()) + " deals currently running");
+            card.setOnClickListener(getOnClickListener(dealer, distance));
             cards.add(card);
         }
         return cards;
+    }
+
+    private Card.OnCardClickListener getOnClickListener(final Dealer dealer, final Double distance) {
+        return new Card.OnCardClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Intent intent = new Intent(DealerResultsActivity.this, DealerDetail.class);
+                intent.putExtra("name", dealer.getName());
+                intent.putExtra("lat", dealer.getLatitude());
+                intent.putExtra("long", dealer.getLongitude());
+                intent.putExtra("dist", distance.toString());
+                startActivity(intent);
+            }
+        };
     }
 
 

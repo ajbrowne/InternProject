@@ -37,24 +37,6 @@ public class CombineController {
     public CombineController(){}
 
     /**
-     * This function is used to get specials by location.
-     * Mapped to /v1/specials/special
-     *
-     * @param lng - longitude of users position
-     * @param lat - latitude of users position
-     * @return - A list of the dealers near the users position - currently nearest 2
-     */
-    @RequestMapping(value="/special", produces = "application/json", params = {"lng", "lat"})
-    @ResponseBody
-    public ResponseEntity<List> specialLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat){
-        //Create point object with the latitude and longitude of the user
-        Point point = new Point(lng, lat);
-        log.info("Location received from app: " + point);
-        //Query and return the nearest dealers
-        return new ResponseEntity<List>(mergeService.getNearestSpecials(point), HttpStatus.OK);
-    }
-
-    /**
      * The endpoint for doing vehicle search.
      * /v1/specials/vehicle
      *
@@ -71,6 +53,12 @@ public class CombineController {
         return new ResponseEntity<List>(mergeService.getNearestVehicles(point, vehicle, flag), HttpStatus.OK);
     }
 
+    /**
+     * The endpoint for the top discounted vehicles
+     * /v1/specials/special/top
+     *
+     * @return http status and a list of the top 3 discounts
+     */
     @RequestMapping(value = "/special/top")
     @ResponseBody
     public ResponseEntity<List> topDiscount(){
