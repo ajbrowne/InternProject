@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
+ * Controller for the dealers objects
+ *
  * Created by maharb on 6/18/14.
  */
 @Controller

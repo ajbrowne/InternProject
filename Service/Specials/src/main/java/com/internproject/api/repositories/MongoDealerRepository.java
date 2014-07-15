@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import java.util.List;
 
 /**
+ * Repository layer for dealers
+ *
  * Created by maharb on 6/18/14.
  */
 public class MongoDealerRepository implements DealerRepository {

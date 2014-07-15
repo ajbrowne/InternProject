@@ -18,6 +18,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 /**
+ * Controller for logging in and registering users
+ * Still needs to be converted to have a service layer.
+ * Not a primary feature of the app so not really used.
+ *
  * Created by maharb on 6/18/14.
  */
 @Controller

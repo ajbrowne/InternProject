@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 /**
+ * Repository Layer for Users
+ *
  * Created by maharb on 6/18/14.
  */
 public class MongoUserRepository implements UserRepository {

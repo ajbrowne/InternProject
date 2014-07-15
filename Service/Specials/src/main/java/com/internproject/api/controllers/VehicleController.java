@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
+ * Controller for hte vehicles objects
+ *
  * Created by maharb on 6/30/14.
  */
 @Controller

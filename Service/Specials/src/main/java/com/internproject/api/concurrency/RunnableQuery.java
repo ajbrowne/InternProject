@@ -14,6 +14,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Child thread of the main thread that creates all of the child threads that create
+ * the queries. This thread is here to set the correct names for the child threads.
+ *
  * Created by maharb on 6/27/14.
  */
 public class RunnableQuery implements Runnable {

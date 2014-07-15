@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import java.util.List;
 
 /**
+ * Repository layer for specials
+ *
  * Created by maharb on 6/18/14.
  */
 public class MongoSpecialRepository implements SpecialRepository {

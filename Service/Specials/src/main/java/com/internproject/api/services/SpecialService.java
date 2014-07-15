@@ -13,6 +13,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Special Service layer that is used to manage the logic for creating and
+ * searching for specials
+ *
  * Created by maharb on 6/27/14.
  */
 public class SpecialService {

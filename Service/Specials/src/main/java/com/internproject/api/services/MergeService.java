@@ -16,6 +16,9 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
+ * Service layer for combined queries that return multiple object types in the results,
+ * Used for searching for vehicles by location for example.
+ *
  * Created by maharb on 6/30/14.
  */
 public class MergeService {
