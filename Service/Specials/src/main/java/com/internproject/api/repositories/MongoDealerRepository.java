@@ -12,14 +12,14 @@ import java.util.List;
 
 /**
  * Repository layer for dealers
- *
+ * <p/>
  * Created by maharb on 6/18/14.
  */
 public class MongoDealerRepository implements DealerRepository {
 
     private MongoTemplate mongoTemplate;
 
-    public MongoDealerRepository(MongoTemplate mongoTemplate){
+    public MongoDealerRepository(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
@@ -52,10 +52,10 @@ public class MongoDealerRepository implements DealerRepository {
     }
 
     @Override
-    public synchronized void updateDealerSpecials(Dealer dealer){
+    public synchronized void updateDealerSpecials(Dealer dealer) {
         Dealer temp = mongoTemplate.findOne(Query.query(Criteria.where("id").is(dealer.getId())), Dealer.class);
-        temp.setNumSpecials(temp.getNumSpecials()+1);
-        System.out.println("SPECIALS: "  + temp);
+        temp.setNumSpecials(temp.getNumSpecials() + 1);
+        System.out.println("SPECIALS: " + temp);
         mongoTemplate.insert(temp, "dealers");
     }
 

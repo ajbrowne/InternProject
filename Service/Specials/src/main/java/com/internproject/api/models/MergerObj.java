@@ -5,20 +5,27 @@ import java.util.List;
 /**
  * This object is used to merge some dealer data and special data for
  * use in the android card layouts.
- *
+ * <p/>
  * Created by maharb on 6/24/14.
  */
 public class MergerObj {
+    private String dealerName;
+    private List<Special> specials;
+    private List<Vehicle> vehicles;
+
     public MergerObj(String dealerName, List<Special> specials, List<Vehicle> vehicles) {
         this.dealerName = dealerName;
         this.specials = specials;
         this.vehicles = vehicles;
     }
+
     public MergerObj(String dealerName, List<Special> specials) {
         this.dealerName = dealerName;
         this.specials = specials;
     }
-    public MergerObj(){}
+
+    public MergerObj() {
+    }
 
     public String getDealerName() {
         return dealerName;
@@ -36,9 +43,6 @@ public class MergerObj {
         this.specials = specials;
     }
 
-    private String dealerName;
-    private List<Special> specials;
-
     public List<Vehicle> getVehicles() {
         return vehicles;
     }
@@ -55,6 +59,4 @@ public class MergerObj {
                 ", vehicles=" + vehicles +
                 '}';
     }
-
-    private List<Vehicle> vehicles;
 }

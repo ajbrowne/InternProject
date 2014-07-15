@@ -8,7 +8,7 @@ import org.codehaus.jettison.json.JSONObject;
  */
 public class JsonHelper {
 
-    public String jsonGen(String response){
+    public String jsonGen(String response) {
         JSONObject returnObj = new JSONObject();
         try {
             returnObj.put("response", response);

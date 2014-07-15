@@ -8,22 +8,22 @@ import org.springframework.data.mongodb.core.query.Query;
 
 /**
  * Repository Layer for Users
- *
+ * <p/>
  * Created by maharb on 6/18/14.
  */
 public class MongoUserRepository implements UserRepository {
 
     private MongoTemplate mongoTemplate;
 
-    public MongoUserRepository(MongoTemplate mongoTemplate){
+    public MongoUserRepository(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
     @Override
     public User save(User user) {
-        try{
+        try {
             mongoTemplate.insert(user, "users");
-        }catch(DuplicateKeyException e){
+        } catch (DuplicateKeyException e) {
             return null;
         }
         return user;
@@ -31,6 +31,6 @@ public class MongoUserRepository implements UserRepository {
 
     @Override
     public User getUser(User user) {
-        return mongoTemplate.findOne(Query.query(Criteria.where("username").is(user.getUsername())) ,User.class);
+        return mongoTemplate.findOne(Query.query(Criteria.where("username").is(user.getUsername())), User.class);
     }
 }

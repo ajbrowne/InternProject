@@ -5,15 +5,24 @@ import java.util.Arrays;
 /**
  * Custom location object that allows us to store dealer location without breaking
  * the service because Spring doesn't know how to serialize a Point object
- *
+ * <p/>
  * Created by maharb on 6/18/14.
  */
 public class Location {
 
-    public Location(){}
+    private double[] coordinates;
+    private String type;
+
+    public Location() {
+    }
 
     public Location(double[] coordinates) {
         this.coordinates = coordinates;
+    }
+
+    public Location(double[] coordinates, String type) {
+        this.coordinates = coordinates;
+        this.type = type;
     }
 
     public double[] getCoordinates() {
@@ -23,8 +32,6 @@ public class Location {
     public void setCoordinates(double[] coordinates) {
         this.coordinates = coordinates;
     }
-
-    private double[] coordinates;
 
     public String getType() {
         return type;
@@ -41,11 +48,4 @@ public class Location {
                 ", type='" + type + '\'' +
                 '}';
     }
-
-    public Location(double[] coordinates, String type) {
-        this.coordinates = coordinates;
-        this.type = type;
-    }
-
-    private String type;
 }

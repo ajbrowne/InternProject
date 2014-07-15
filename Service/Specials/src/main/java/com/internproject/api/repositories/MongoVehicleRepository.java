@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Repository layer for vehicles
- *
+ * <p/>
  * Created by maharb on 6/30/14.
  */
 public class MongoVehicleRepository implements VehicleRepository {
@@ -17,15 +17,17 @@ public class MongoVehicleRepository implements VehicleRepository {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public MongoVehicleRepository(MongoTemplate mongoTemplate){
+    public MongoVehicleRepository(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public MongoVehicleRepository(){}
+    public MongoVehicleRepository() {
+    }
 
 
     /**
      * Create new vehicles in the mongodb. For test purposes only
+     *
      * @param vehicle - vehicle to be stored
      * @return - the vehicle that was saved
      */
@@ -39,7 +41,7 @@ public class MongoVehicleRepository implements VehicleRepository {
      * Search for vehicles based on the given vehicle criteria
      *
      * @param vehicle - vehicle to be searched for
-     * @param query - created query object
+     * @param query   - created query object
      * @return - List of matching vehicles
      */
     @Override
@@ -48,7 +50,7 @@ public class MongoVehicleRepository implements VehicleRepository {
     }
 
     @Override
-    public List<Vehicle> getAllVehicles(){
-        return  mongoTemplate.findAll(Vehicle.class,"vehicles");
+    public List<Vehicle> getAllVehicles() {
+        return mongoTemplate.findAll(Vehicle.class, "vehicles");
     }
 }

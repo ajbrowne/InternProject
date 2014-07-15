@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Controller for hte vehicles objects
- *
+ * <p/>
  * Created by maharb on 6/30/14.
  */
 @Controller
@@ -24,11 +24,12 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
 
-    public VehicleController(VehicleService vehicleService){
+    public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
 
-    public VehicleController(){}
+    public VehicleController() {
+    }
 
     /**
      * Api endpoint for the creation of vehicles
@@ -38,8 +39,8 @@ public class VehicleController {
      */
     @RequestMapping(value = "/vehicleTest", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Vehicle> storeVehicle(@RequestBody Vehicle vehicle){
-        return new ResponseEntity<Vehicle>(vehicleService.store(vehicle) ,HttpStatus.OK);
+    public ResponseEntity<Vehicle> storeVehicle(@RequestBody Vehicle vehicle) {
+        return new ResponseEntity<Vehicle>(vehicleService.store(vehicle), HttpStatus.OK);
     }
 
     /**
@@ -50,14 +51,14 @@ public class VehicleController {
      */
     @RequestMapping(value = "/vehicle")
     @ResponseBody
-    public ResponseEntity<List<Vehicle>> getVehicles(@ModelAttribute Vehicle vehicle){
+    public ResponseEntity<List<Vehicle>> getVehicles(@ModelAttribute Vehicle vehicle) {
         List<Vehicle> vehicles = vehicleService.getVehicles(vehicle);
-        if(vehicles.size() == 0){
+        if (vehicles.size() == 0) {
             log.info("No Vehicles found");
-            return new ResponseEntity<List<Vehicle>>(vehicles , HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<List<Vehicle>>(vehicles, HttpStatus.BAD_REQUEST);
         }
         //Successfully found specials
         log.info(vehicles.size() + " Vehicles were found that matched the criteria");
-        return new ResponseEntity<List<Vehicle>>(vehicles ,HttpStatus.OK);
+        return new ResponseEntity<List<Vehicle>>(vehicles, HttpStatus.OK);
     }
 }

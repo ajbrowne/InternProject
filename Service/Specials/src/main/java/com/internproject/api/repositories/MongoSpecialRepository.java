@@ -8,14 +8,14 @@ import java.util.List;
 
 /**
  * Repository layer for specials
- *
+ * <p/>
  * Created by maharb on 6/18/14.
  */
 public class MongoSpecialRepository implements SpecialRepository {
 
     private MongoTemplate mongoTemplate;
 
-    public MongoSpecialRepository(MongoTemplate mongoTemplate){
+    public MongoSpecialRepository(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 

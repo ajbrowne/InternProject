@@ -40,19 +40,29 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public SpecialService specialService() throws UnknownHostException {return new SpecialService(specialRepository());}
+    public SpecialService specialService() throws UnknownHostException {
+        return new SpecialService(specialRepository());
+    }
 
     @Bean
-    public DealerService dealerService() throws UnknownHostException {return new DealerService(dealerRepository());}
+    public DealerService dealerService() throws UnknownHostException {
+        return new DealerService(dealerRepository());
+    }
 
     @Bean
-    public MergeService mergeService() throws UnknownHostException {return new MergeService(specialService(),dealerService(), vehicleService());}
+    public MergeService mergeService() throws UnknownHostException {
+        return new MergeService(specialService(), dealerService(), vehicleService());
+    }
 
     @Bean
-    public VehicleRepository vehicleRepository() throws UnknownHostException {return new MongoVehicleRepository(mongoTemplate());}
+    public VehicleRepository vehicleRepository() throws UnknownHostException {
+        return new MongoVehicleRepository(mongoTemplate());
+    }
 
     @Bean
-    public VehicleService vehicleService() throws UnknownHostException {return new VehicleService(vehicleRepository());}
+    public VehicleService vehicleService() throws UnknownHostException {
+        return new VehicleService(vehicleRepository());
+    }
 
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {

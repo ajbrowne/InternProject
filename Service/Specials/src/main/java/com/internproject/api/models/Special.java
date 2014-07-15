@@ -11,11 +11,11 @@ import java.util.List;
  * Note: For some reason at the very beginning we made amount a String
  * and never bothered to change it over and it just seems annoying to do
  * now so deal with it.
- *
+ * <p/>
  * Created by maharb on 6/18/14.
  */
 @Document(collection = "special")
-public class Special{
+public class Special {
 
     @Id
     private String id;
@@ -25,6 +25,8 @@ public class Special{
     private int status;
     private Date startDate;
     private Date endDate;
+    private boolean trending;
+    private List<String> vehicleId;
 
     public Special(String id, String title, String dealer, String amount, int status, Date startDate, Date endDate, boolean trending, List<String> vehicleId) {
         this.id = id;
@@ -36,6 +38,9 @@ public class Special{
         this.endDate = endDate;
         this.trending = trending;
         this.vehicleId = vehicleId;
+    }
+
+    public Special() {
     }
 
     @Override
@@ -61,10 +66,6 @@ public class Special{
         this.trending = trending;
     }
 
-    private boolean trending;
-
-    private List<String> vehicleId;
-
     public List<String> getVehicleId() {
         return vehicleId;
     }
@@ -72,8 +73,6 @@ public class Special{
     public void setVehicleId(List<String> vehicleId) {
         this.vehicleId = vehicleId;
     }
-
-    public Special(){}
 
     public String getId() {
         return id;
@@ -130,7 +129,6 @@ public class Special{
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-
 
 
 }

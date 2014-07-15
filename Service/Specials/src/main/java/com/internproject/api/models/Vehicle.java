@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Vehicle object that stores all of the information about a vehicle.
- *
+ * <p/>
  * Created by maharb on 6/30/14.
  */
 public class Vehicle {
@@ -22,14 +22,6 @@ public class Vehicle {
     private String type;
     private List<String> specs;
 
-    public String getUrlImage() {
-        return urlImage;
-    }
-
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
-    }
-
     public Vehicle(String id, int year, String make, String model, String trim, int price, String urlImage) {
         this.id = id;
         this.year = year;
@@ -39,7 +31,6 @@ public class Vehicle {
         this.price = price;
         this.urlImage = urlImage;
     }
-
 
     public Vehicle(String id, int year, String make, String model, String trim, int price, String urlImage, String type, List<String> specs) {
         this.id = id;
@@ -51,6 +42,26 @@ public class Vehicle {
         this.urlImage = urlImage;
         this.type = type;
         this.specs = specs;
+    }
+
+    public Vehicle(int year, String make, String model, String trim, int price) {
+        this.year = year;
+        this.make = make;
+        this.model = model;
+        this.trim = trim;
+        this.price = price;
+    }
+
+
+    public Vehicle() {
+    }
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
 
     public List<String> getSpecs() {
@@ -83,16 +94,6 @@ public class Vehicle {
                 ", specs=" + specs +
                 '}';
     }
-
-    public Vehicle(int year, String make, String model, String trim, int price) {
-        this.year = year;
-        this.make = make;
-        this.model = model;
-        this.trim = trim;
-        this.price = price;
-    }
-
-    public Vehicle(){}
 
     public int getPrice() {
         return price;

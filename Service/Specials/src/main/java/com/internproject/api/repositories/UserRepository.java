@@ -7,5 +7,6 @@ import com.internproject.api.models.User;
  */
 public interface UserRepository {
     public User save(User user);
+
     public User getUser(User user);
 }

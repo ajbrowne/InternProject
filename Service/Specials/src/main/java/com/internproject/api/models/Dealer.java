@@ -8,18 +8,74 @@ import java.util.List;
 
 /**
  * The dealer object, contains all of the important information about a dealer
- *
+ * <p/>
  * Created by maharb on 6/18/14.
  */
 public class Dealer {
 
-    public Dealer(){}
+    @Id
+    private String id;
+    private String name;
+    private String admin;
+    private Location loc;
+    private int numSpecials;
+    private List<String> make;
+    private String city;
+    private String state;
+    @JsonIgnore
+    private Point location;
+
+    public Dealer() {
+    }
 
     public Dealer(String id, String name, String admin, Location loc) {
         this.id = id;
         this.name = name;
         this.admin = admin;
         this.loc = loc;
+    }
+    public Dealer(String id, String name, String admin, Location loc, int numSpecials, List<String> make, String city, String state, Point location) {
+        this.id = id;
+        this.name = name;
+        this.admin = admin;
+        this.loc = loc;
+        this.numSpecials = numSpecials;
+        this.make = make;
+        this.city = city;
+        this.state = state;
+        this.location = location;
+    }
+    public Dealer(String id, String name, String admin, Location loc, List<String> make, String city, String state, Point location) {
+        this.id = id;
+        this.name = name;
+        this.admin = admin;
+        this.loc = loc;
+        this.make = make;
+        this.city = city;
+        this.state = state;
+        this.location = location;
+    }
+    public Dealer(String name, String admin, Location loc, String city, String state, Point location) {
+        this.name = name;
+        this.admin = admin;
+        this.loc = loc;
+        this.city = city;
+        this.state = state;
+        this.location = location;
+    }
+
+    public Dealer(String keyword) {
+        this.name = keyword;
+        this.admin = keyword;
+        this.city = keyword;
+        this.state = keyword;
+    }
+
+    public Dealer(Point location, Location loc, String admin, String name) {
+        this.location = location;
+        this.loc = loc;
+        this.admin = admin;
+        this.name = name;
     }
 
     public String getId() {
@@ -54,24 +110,6 @@ public class Dealer {
         this.loc = loc;
     }
 
-    @Id
-    private String id;
-    private String name;
-    private String admin;
-    private Location loc;
-
-    public Dealer(String id, String name, String admin, Location loc, int numSpecials, List<String> make, String city, String state, Point location) {
-        this.id = id;
-        this.name = name;
-        this.admin = admin;
-        this.loc = loc;
-        this.numSpecials = numSpecials;
-        this.make = make;
-        this.city = city;
-        this.state = state;
-        this.location = location;
-    }
-
     public int getNumSpecials() {
         return numSpecials;
     }
@@ -95,19 +133,6 @@ public class Dealer {
                 '}';
     }
 
-    private int numSpecials;
-
-    public Dealer(String id, String name, String admin, Location loc, List<String> make, String city, String state, Point location) {
-        this.id = id;
-        this.name = name;
-        this.admin = admin;
-        this.loc = loc;
-        this.make = make;
-        this.city = city;
-        this.state = state;
-        this.location = location;
-    }
-
     public List<String> getMake() {
         return make;
     }
@@ -115,26 +140,6 @@ public class Dealer {
     public void setMake(List<String> make) {
         this.make = make;
     }
-
-    private List<String> make;
-
-    public Dealer(String name, String admin, Location loc, String city, String state, Point location) {
-        this.name = name;
-        this.admin = admin;
-        this.loc = loc;
-        this.city = city;
-        this.state = state;
-        this.location = location;
-    }
-
-    public Dealer(String keyword){
-        this.name = keyword;
-        this.admin = keyword;
-        this.city = keyword;
-        this.state = keyword;
-    }
-
-    private String city;
 
     public String getState() {
         return state;
@@ -152,15 +157,6 @@ public class Dealer {
         this.city = city;
     }
 
-    private String state;
-
-    public Dealer(Point location, Location loc, String admin, String name) {
-        this.location = location;
-        this.loc = loc;
-        this.admin = admin;
-        this.name = name;
-    }
-
     public Point getLocation() {
         return location;
     }
@@ -168,8 +164,5 @@ public class Dealer {
     public void setLocation(Point location) {
         this.location = location;
     }
-
-    @JsonIgnore
-    private Point location;
 
 }

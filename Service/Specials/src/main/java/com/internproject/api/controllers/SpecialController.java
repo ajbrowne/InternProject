@@ -13,22 +13,23 @@ import java.util.List;
 
 /**
  * Controller for the specials objects
- *
+ * <p/>
  * Created by maharb on 6/18/14.
  */
 @Controller
-@RequestMapping(value="/v1/specials")
+@RequestMapping(value = "/v1/specials")
 public class SpecialController {
 
     private Logger log = Logger.getLogger(SpecialController.class.getName());
     @Autowired
     private SpecialService specialService;
 
-    public SpecialController(SpecialService specialService){
+    public SpecialController(SpecialService specialService) {
         this.specialService = specialService;
     }
 
-    public SpecialController(){}
+    public SpecialController() {
+    }
 
 
     /**
@@ -40,9 +41,9 @@ public class SpecialController {
      * @param special A special object is passed in and will be stored
      * @return returns the object on successful storing of the special
      */
-    @RequestMapping(value = "/create",method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<Special> createSpecial(@RequestBody Special special){
+    public ResponseEntity<Special> createSpecial(@RequestBody Special special) {
         specialService.store(special);
         log.info("New special added: Title=" + special.getTitle() + ", dealer=" + special.getDealer());
         return new ResponseEntity<Special>(special, HttpStatus.CREATED);
@@ -56,21 +57,21 @@ public class SpecialController {
      *
      * @return - the list of all specials that match the values passed in
      */
-    @RequestMapping(value = "/special",method = RequestMethod.GET)
+    @RequestMapping(value = "/special", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<Special>> getMatchingSpecials(@ModelAttribute Special test, @RequestParam(value = "all", required = false)String findAll){
-        if(findAll != null){
+    public ResponseEntity<List<Special>> getMatchingSpecials(@ModelAttribute Special test, @RequestParam(value = "all", required = false) String findAll) {
+        if (findAll != null) {
             log.info("All specials returned");
-            return new ResponseEntity<List<Special>>(specialService.getAllSpecials() ,HttpStatus.OK);
+            return new ResponseEntity<List<Special>>(specialService.getAllSpecials(), HttpStatus.OK);
         }
         List<Special> special = specialService.getSpecials(test);
         //If no specials were found let the app know so the user can be notified
-        if(special.size() == 0){
+        if (special.size() == 0) {
             log.info("No Specials found");
-            return new ResponseEntity<List<Special>>(special ,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<List<Special>>(special, HttpStatus.BAD_REQUEST);
         }
         //Successfully found specials
         log.info(special.size() + " Specials were found that matched the criteria");
-        return new ResponseEntity<List<Special>>(special ,HttpStatus.OK);
+        return new ResponseEntity<List<Special>>(special, HttpStatus.OK);
     }
 }

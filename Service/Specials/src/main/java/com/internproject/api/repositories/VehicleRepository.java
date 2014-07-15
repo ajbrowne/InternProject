@@ -11,6 +11,7 @@ import java.util.List;
 public interface VehicleRepository {
 
     public Vehicle save(Vehicle vehicle);
+
     public List<Vehicle> getVehicles(Vehicle vehicle, Query query);
 
     List<Vehicle> getAllVehicles();

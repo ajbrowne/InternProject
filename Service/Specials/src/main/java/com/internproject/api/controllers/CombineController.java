@@ -18,36 +18,37 @@ import java.util.List;
 /**
  * This controller is used for any api calls that are not specifically accessing
  * the dealer or special collections, but may be accessing both.
- *
+ * <p/>
  * Created by maharb on 6/24/14.
  */
 
 @Controller
-@RequestMapping(value="/v1/specials")
+@RequestMapping(value = "/v1/specials")
 public class CombineController {
 
     @Autowired
     private MergeService mergeService;
     private Logger log = Logger.getLogger(SpecialController.class.getName());
 
-    public CombineController(MergeService mergeService){
+    public CombineController(MergeService mergeService) {
         this.mergeService = mergeService;
     }
 
-    public CombineController(){}
+    public CombineController() {
+    }
 
     /**
      * The endpoint for doing vehicle search.
      * /v1/specials/vehicle
      *
-     * @param lng - longitude of users position
-     * @param lat - latitude of users position
+     * @param lng     - longitude of users position
+     * @param lat     - latitude of users position
      * @param vehicle - the vehicle attributes we are searching by
      * @return - HttpStatus with a list of the specials and vehicles with the dealers name
      */
     @RequestMapping(value = "/vehicle", produces = "application/json", params = {"lng", "lat"})
     @ResponseBody
-    public ResponseEntity<List> vehicleLoc(@RequestParam(value = "lng", required = false) double lng, @RequestParam(value = "lat", required = false) double lat, @RequestParam(value = "extra", required = false) Integer flag, @ModelAttribute Vehicle vehicle){
+    public ResponseEntity<List> vehicleLoc(@RequestParam(value = "lng", required = false) double lng, @RequestParam(value = "lat", required = false) double lat, @RequestParam(value = "extra", required = false) Integer flag, @ModelAttribute Vehicle vehicle) {
         Point point = new Point(lng, lat);
         log.info("Vehicle Location received from app: " + point);
         return new ResponseEntity<List>(mergeService.getNearestVehicles(point, vehicle, flag), HttpStatus.OK);
@@ -61,7 +62,7 @@ public class CombineController {
      */
     @RequestMapping(value = "/special/top")
     @ResponseBody
-    public ResponseEntity<List> topDiscount(){
+    public ResponseEntity<List> topDiscount() {
         return new ResponseEntity<List>(mergeService.getTopDiscount(), HttpStatus.OK);
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class StringParser {
 
-    private static List years = new ArrayList(){
+    private static List years = new ArrayList() {
         {
             add("2014");
             add("2013");
@@ -19,7 +19,7 @@ public class StringParser {
             add("2009");
         }
     };
-    private static List makes = new ArrayList(){
+    private static List makes = new ArrayList() {
         {
             add("chevy");
             add("chevrolet");
@@ -32,7 +32,7 @@ public class StringParser {
             add("pontiac");
         }
     };
-    private static List models = new ArrayList(){
+    private static List models = new ArrayList() {
         {
             add("malibu");
             add("impala");
@@ -52,24 +52,23 @@ public class StringParser {
     };
 
 
-
-    public static String[] parseString(String input){
+    public static String[] parseString(String input) {
         String delims = "[ ]+";
         String[] tokens = input.split(delims);
         return tokens;
     }
 
-    public static HashMap<String, String> mapValues(String[] tokens){
+    public static HashMap<String, String> mapValues(String[] tokens) {
         HashMap<String, String> parsed = new HashMap<String, String>();
-        for(String token : tokens){
-            if(years.contains(token)){
+        for (String token : tokens) {
+            if (years.contains(token)) {
                 parsed.put("year", token);
-            }else if(makes.contains(token.toLowerCase())){
+            } else if (makes.contains(token.toLowerCase())) {
                 parsed.put("make", token);
-            }else if(models.contains(token.toLowerCase())){
+            } else if (models.contains(token.toLowerCase())) {
                 parsed.put("model", token);
-            }else{
-                if(parsed.get("model") != null) {
+            } else {
+                if (parsed.get("model") != null) {
                     parsed.put("model", parsed.get("model").concat(" " + token));
                 }
             }

@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Service to handle the logic of vehicle search and creation
- *
+ * <p/>
  * Created by maharb on 6/30/14.
  */
 public class VehicleService {
@@ -22,8 +22,11 @@ public class VehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
     private Logger log = Logger.getLogger(VehicleService.class.getName());
-    public VehicleService(){}
-    public VehicleService(VehicleRepository vehicleRepository){
+
+    public VehicleService() {
+    }
+
+    public VehicleService(VehicleRepository vehicleRepository) {
         this.vehicleRepository = vehicleRepository;
     }
 
@@ -33,7 +36,7 @@ public class VehicleService {
      * @param vehicle - vehicle being stored
      * @return - Vehicle that was just stored
      */
-    public Vehicle store(Vehicle vehicle){
+    public Vehicle store(Vehicle vehicle) {
         return vehicleRepository.save(vehicle);
     }
 
@@ -44,7 +47,7 @@ public class VehicleService {
      * @param vehicle - vehicle criteria being searched for
      * @return - List of matching vehicles
      */
-    public List<Vehicle> getVehicles(Vehicle vehicle){
+    public List<Vehicle> getVehicles(Vehicle vehicle) {
         List<Vehicle> vehicles = new ArrayList<Vehicle>();
         RunnableQuery mainThread = new RunnableQuery("vehicle", vehicleRepository, vehicle, vehicles);
         ExecutorService es = Executors.newCachedThreadPool();

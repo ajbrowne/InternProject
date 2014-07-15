@@ -1,9 +1,9 @@
 package com.internproject.api.controllers;
 
-import com.internproject.api.models.User;
-import com.internproject.api.repositories.UserRepository;
 import com.internproject.api.helpers.JsonHelper;
 import com.internproject.api.helpers.PasswordHash;
+import com.internproject.api.models.User;
+import com.internproject.api.repositories.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,11 +21,11 @@ import java.security.spec.InvalidKeySpecException;
  * Controller for logging in and registering users
  * Still needs to be converted to have a service layer.
  * Not a primary feature of the app so not really used.
- *
+ * <p/>
  * Created by maharb on 6/18/14.
  */
 @Controller
-@RequestMapping(value="/v1/specials")
+@RequestMapping(value = "/v1/specials")
 public class UserController {
 
     @Autowired
@@ -34,11 +34,11 @@ public class UserController {
     private Logger log = Logger.getLogger(UserController.class.getName());
     private JsonHelper jsonHelper;
 
-    public UserController(){
+    public UserController() {
         jsonHelper = new JsonHelper();
     }
 
-    public UserController(UserRepository userRepository){
+    public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -53,14 +53,14 @@ public class UserController {
      * @param user - The user object of the user trying to login
      * @return - status of login and string of info.
      */
-    @RequestMapping(value="/login", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<String> login(@RequestBody User user){
+    public ResponseEntity<String> login(@RequestBody User user) {
         log.info(user.getUsername() + " is trying to login.");
 
         User check = userRepository.getUser(user);
         try {
-            if(!PasswordHash.validatePassword(user.getPassword(), check.getPassword())){
+            if (!PasswordHash.validatePassword(user.getPassword(), check.getPassword())) {
                 log.info(user.getUsername() + " failed to login.");
 
                 return new ResponseEntity<String>(jsonHelper.jsonGen("Invalid Username or Password"), HttpStatus.UNAUTHORIZED);
@@ -69,13 +69,13 @@ public class UserController {
             log.error(e);
         } catch (InvalidKeySpecException e) {
             log.error(e);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             log.info("No such user");
             return new ResponseEntity<String>(jsonHelper.jsonGen("Invalid Username or Password"), HttpStatus.UNAUTHORIZED);
         }
 
         log.info(user.getUsername() + " logged in successfully.");
-        return new ResponseEntity<String>(jsonHelper.jsonGen("Login Success") ,HttpStatus.OK);
+        return new ResponseEntity<String>(jsonHelper.jsonGen("Login Success"), HttpStatus.OK);
     }
 
     /**
@@ -87,9 +87,9 @@ public class UserController {
      * @param user - The user trying to register
      * @return - Return the user object upon registration.
      */
-    @RequestMapping(value="/register", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<User> register(@RequestBody User user){
+    public ResponseEntity<User> register(@RequestBody User user) {
         try {
             String securePass = PasswordHash.generateStorngPasswordHash(user.getPassword());
             user.setPassword(securePass);
@@ -99,7 +99,7 @@ public class UserController {
             log.error(e);
         }
         User check = userRepository.save(user);
-        if(check == null){
+        if (check == null) {
             log.info(user.getUsername() + " has already been registered to another user.");
             return new ResponseEntity<User>(check, HttpStatus.BAD_REQUEST);
         }

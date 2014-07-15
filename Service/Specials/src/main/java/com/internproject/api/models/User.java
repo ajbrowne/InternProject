@@ -6,19 +6,42 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * User object, stores all of the information needed for a user to be created and to login
- *
+ * <p/>
  * Created by maharb on 6/18/14.
  */
 @Document(collection = "users")
 public class User {
 
-    public User(){}
-
     @Id
     private String id;
-
     @Indexed(unique = true)
     private String username;
+    private int role;
+    private String password;
+    private String phone;
+    private String zip;
+    private String firstName;
+    private String lastName;
+
+    public User() {
+    }
+
+    public User(String id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = 1;
+    }
+
+    public User(String username, int role, String password, String phone, String zip, String firstName, String lastName) {
+        this.username = username;
+        this.role = role;
+        this.password = password;
+        this.phone = phone;
+        this.zip = zip;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public int getRole() {
         return role;
@@ -27,8 +50,6 @@ public class User {
     public void setRole(int role) {
         this.role = role;
     }
-
-    private int role;
 
     public String getPassword() {
         return password;
@@ -54,18 +75,6 @@ public class User {
         this.username = email;
     }
 
-
-
-    public User(String id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.role = 1;
-    }
-
-    private String password;
-    private String phone;
-
     @Override
     public String toString() {
         return "User{" +
@@ -79,20 +88,6 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
-
-    private String zip;
-
-    public User(String username, int role, String password, String phone, String zip, String firstName, String lastName) {
-        this.username = username;
-        this.role = role;
-        this.password = password;
-        this.phone = phone;
-        this.zip = zip;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    private String firstName;
 
     public String getLastName() {
         return lastName;
@@ -125,8 +120,6 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    private String lastName;
 
 
 }

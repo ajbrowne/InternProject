@@ -1,8 +1,8 @@
 package com.internproject.api.services;
 
+import com.internproject.api.concurrency.RunnableQuery;
 import com.internproject.api.models.Special;
 import com.internproject.api.repositories.SpecialRepository;
-import com.internproject.api.concurrency.RunnableQuery;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Special Service layer that is used to manage the logic for creating and
  * searching for specials
- *
+ * <p/>
  * Created by maharb on 6/27/14.
  */
 public class SpecialService {
@@ -24,10 +24,12 @@ public class SpecialService {
     private SpecialRepository specialRepository;
     private Logger log = Logger.getLogger(SpecialService.class.getName());
 
-    public SpecialService(SpecialRepository specialRepository){
+    public SpecialService(SpecialRepository specialRepository) {
         this.specialRepository = specialRepository;
     }
-    public SpecialService(){}
+
+    public SpecialService() {
+    }
 
     /**
      * Function used to manage the creation of the appropriate threads used to run the
@@ -36,7 +38,7 @@ public class SpecialService {
      * @param special - parameters we are searching for
      * @return - List of matching specials objects
      */
-    public List<Special> getSpecials(Special special){
+    public List<Special> getSpecials(Special special) {
         List<Special> specials = new ArrayList<Special>();
         //Create the parent thread taht will manage the special search threads
         RunnableQuery mainThread = new RunnableQuery("special", specialRepository, special, specials);
@@ -51,10 +53,10 @@ public class SpecialService {
         //Set trending flag on first 4 or all of the specials to true
         //Used to demo trending feature of app
         int check = 3;
-        if(specials.size() < check){
+        if (specials.size() < check) {
             check = specials.size();
         }
-        for(int i =0; i<check;i++){
+        for (int i = 0; i < check; i++) {
             specials.get(i).setTrending(true);
         }
         return specials;
@@ -66,7 +68,7 @@ public class SpecialService {
      * @param special - Special being stored
      * @return - the special that was stored
      */
-    public Special store(Special special){
+    public Special store(Special special) {
         specialRepository.save(special);
         DealerService dealerService = new DealerService();
         dealerService.updateSpecials(special.getDealer());
@@ -78,7 +80,7 @@ public class SpecialService {
      *
      * @return - a list of all specials
      */
-    public List getAllSpecials(){
+    public List getAllSpecials() {
         return specialRepository.findAll();
     }
 

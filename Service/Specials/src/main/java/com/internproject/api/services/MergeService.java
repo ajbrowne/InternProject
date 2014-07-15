@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Service layer for combined queries that return multiple object types in the results,
  * Used for searching for vehicles by location for example.
- *
+ * <p/>
  * Created by maharb on 6/30/14.
  */
 public class MergeService {
@@ -107,7 +107,7 @@ public class MergeService {
      * Remove non matching vehicles from the list of initial vehicles
      *
      * @param vehicles - the initial list of vehicles
-     * @param match - the the vehicle that will have duplicates in the list
+     * @param match    - the the vehicle that will have duplicates in the list
      * @return - a refined list of vehicles with no duplicates
      */
     private List<Vehicle> vehicleHelper(List<Vehicle> vehicles, Vehicle match) {
@@ -141,7 +141,7 @@ public class MergeService {
      * results we were expecting
      *
      * @param ids - a list of ids to be checked
-     * @param id - the id we are checking for
+     * @param id  - the id we are checking for
      * @return - a boolean based on if the id is in the list
      */
     private boolean listCheck(List<String> ids, String id) {
@@ -166,13 +166,13 @@ public class MergeService {
         List specials = specialService.getAllSpecials();
 
         //Sort the specials from highest amount and take only the first 3 results
-        List<Special> sortedSpecials = sortByValue(specials).subList(0,3);
+        List<Special> sortedSpecials = sortByValue(specials).subList(0, 3);
         List<Vehicle> vehicles = new ArrayList<Vehicle>();
         List<String> ids = new ArrayList<String>();
         //Get the ids of the vehicles of the top specials
         ids = getTopVehicles(specials, ids);
         //create vehicle objects based on the ids
-        for(String id : ids){
+        for (String id : ids) {
             Vehicle vehicle = new Vehicle();
             vehicle.setId(id);
             vehicles.addAll(vehicleService.getVehicles(vehicle));
@@ -180,7 +180,7 @@ public class MergeService {
         //Create the merge objects with out dealer names
         mergerObjs = createMerger(mergerObjs, sortedSpecials, vehicles);
         //Get the dealer names based on the id in the specials and add it to the objects
-        for(MergerObj mergerObj :mergerObjs) {
+        for (MergerObj mergerObj : mergerObjs) {
             String dealerName = dealerService.getDealerById(mergerObj.getSpecials().get(0).getDealer()).getName();
             mergerObj.setDealerName(dealerName);
         }
@@ -194,25 +194,25 @@ public class MergeService {
      * (Works for the purpose of demoing)
      *
      * @param mergerObjs - List of the merger objects we are adding too
-     * @param specials - List of specials to be added
-     * @param vehicles - List of vehicles to be added
+     * @param specials   - List of specials to be added
+     * @param vehicles   - List of vehicles to be added
      * @return - return the populated list of merger objects
      */
     private List<MergerObj> createMerger(List<MergerObj> mergerObjs, List<Special> specials, List<Vehicle> vehicles) {
         MergerObj mergerObj = new MergerObj();
         //Loop over the specials
-        for(Special special : specials){
+        for (Special special : specials) {
             //Check to see if there is a current obj or if we need to create the new one
             List<Special> tempSpecials = new ArrayList<Special>();
-            if(mergerObjs.size() == 0){
+            if (mergerObjs.size() == 0) {
                 //Adds first object to the list that will be returned
                 tempSpecials.add(special);
                 mergerObj.setSpecials(tempSpecials);
                 mergerObj.setVehicles(vehicles);
                 mergerObjs.add(mergerObj);
-            }else{
+            } else {
                 //Loops over the current objects in the return list
-                for(int i =0;i<mergerObjs.size();i++) {
+                for (int i = 0; i < mergerObjs.size(); i++) {
                     //If the object contains the correct dealer info then the next special is added to this objects
                     //specials list
                     if (mergerObjs.get(i).getSpecials().get(0).getDealer().equals(special.getDealer())) {
@@ -220,7 +220,7 @@ public class MergeService {
                         tempSpecials.add(special);
                         mergerObjs.get(i).setSpecials(tempSpecials);
                         //if the object doesn't contain the same dealer a new merger object is created
-                    }else if((i+1)==mergerObjs.size()){
+                    } else if ((i + 1) == mergerObjs.size()) {
                         tempSpecials.add(special);
                         mergerObj.setSpecials(tempSpecials);
                         mergerObj.setVehicles(vehicles);
@@ -237,32 +237,32 @@ public class MergeService {
      * The top 3 vehicles could come from one special
      *
      * @param specials - List of top specials
-     * @param ids - List of vehicle ids
+     * @param ids      - List of vehicle ids
      * @return - Return a modified list of ids that only contains the top 3
      */
     private List<String> getTopVehicles(List<Special> specials, List<String> ids) {
         //Loop over the specials to compare ids
-        for(Special special: specials){
+        for (Special special : specials) {
             //if the size of the list of ids found is greater than 3 exit the loop
-            if(ids.size() >= 3){
+            if (ids.size() >= 3) {
                 break;
             }
             //Check the number of vehicles in the first special
             //If it is greater than 3 then we just grab the first 3 and return
-            if(special.getVehicleId().size() > 3){
-                ids.addAll(special.getVehicleId().subList(0,3));
+            if (special.getVehicleId().size() > 3) {
+                ids.addAll(special.getVehicleId().subList(0, 3));
                 break;
                 //if it is less than 3 then we add them all and continue in the loop
-            }else if(special.getVehicleId().size() < 3){
+            } else if (special.getVehicleId().size() < 3) {
                 ids.addAll(special.getVehicleId());
                 //if it is exactly 3 then we get those and return
-            }else if(special.getVehicleId().size() == 3){
+            } else if (special.getVehicleId().size() == 3) {
                 ids.addAll(special.getVehicleId());
                 break;
             }
         }
         //Catch just in case too many vehicle ids get added to the list
-        ids = ids.subList(0,3);
+        ids = ids.subList(0, 3);
         return ids;
     }
 

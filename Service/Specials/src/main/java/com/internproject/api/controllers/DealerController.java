@@ -14,21 +14,21 @@ import java.util.List;
 
 /**
  * Controller for the dealers objects
- *
+ * <p/>
  * Created by maharb on 6/18/14.
  */
 @Controller
-@RequestMapping(value="/v1/specials")
+@RequestMapping(value = "/v1/specials")
 public class DealerController {
 
     @Autowired
     private DealerService dealerService;
     private Logger log = Logger.getLogger(DealerController.class.getName());
 
-    public DealerController(){
+    public DealerController() {
     }
 
-    public DealerController(DealerService dealerService){
+    public DealerController(DealerService dealerService) {
         this.dealerService = dealerService;
     }
 
@@ -39,9 +39,9 @@ public class DealerController {
      * @param dealer - A dealer object that spring will populate with the data passed in
      * @return - return the dealer we created if successful
      */
-    @RequestMapping(value="/dealerTest", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/dealerTest", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<Dealer> createDealer(@RequestBody Dealer dealer){
+    public ResponseEntity<Dealer> createDealer(@RequestBody Dealer dealer) {
         double[] first = dealer.getLoc().getCoordinates();
         Point point = new Point(first[0], first[1]);
         dealer.setLocation(point);
@@ -58,12 +58,12 @@ public class DealerController {
      * @param lat - latitude of users position
      * @return - A list of the dealers near the users position - currently nearest 2
      */
-    @RequestMapping(value="/dealers", produces = "application/json", params = {"lng", "lat"})
+    @RequestMapping(value = "/dealers", produces = "application/json", params = {"lng", "lat"})
     @ResponseBody
-    public ResponseEntity<List> dealerLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat,@RequestParam(value = "extra", required = false) Integer flag, @ModelAttribute Dealer dealer){
+    public ResponseEntity<List> dealerLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat, @RequestParam(value = "extra", required = false) Integer flag, @ModelAttribute Dealer dealer) {
         Point point = new Point(lng, lat);
         log.info("Location received from app: " + point);
-        if(flag == 0){
+        if (flag == 0) {
             List newDealer = dealerService.getDealerLocation(point);
             log.info("Number of dealers returned: " + newDealer.size());
             return new ResponseEntity<List>(newDealer, HttpStatus.OK);
