@@ -2,12 +2,11 @@ package com.example.specialsapp.app.Fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
 
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.R;

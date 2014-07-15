@@ -5,8 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
-import com.example.specialsapp.app.HomeFragments.HomeFragment;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
+import com.example.specialsapp.app.HomeFragments.HomeFragment;
 
 /**
  * Adapter used for switching tabs in HomeActivity
