@@ -109,7 +109,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         JsonArrayRequest searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("error", "Dealer request failed");
+                Log.d("error", "Dealer request failed!!!!!!!!!!!!!!!!!!!!!!");
             }
         });
 

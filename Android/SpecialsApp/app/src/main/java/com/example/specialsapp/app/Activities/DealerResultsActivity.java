@@ -55,11 +55,7 @@ public class DealerResultsActivity extends BaseActivity {
         lat = gps.getLatitude();
         longi = gps.getLongitude();
 
-        HashMap<String, String> param = new HashMap<String, String>();
-        param.put("lng", String.valueOf(longi));
-        param.put("lat", String.valueOf(lat));
-        param.put("make", getIntent().getStringExtra("make"));
-        param.put("extra", "1");
+        HashMap<String, String> param = createParams();
 
         String url = generateUrl(param);
         JsonArrayRequest searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
@@ -68,9 +64,17 @@ public class DealerResultsActivity extends BaseActivity {
                 Log.d("Volley Error", error.toString());
             }
         });
-
         queue.add(searchRequest);
 
+    }
+
+    private HashMap<String, String> createParams() {
+        HashMap<String, String> param = new HashMap<String, String>();
+        param.put("lng", String.valueOf(longi));
+        param.put("lat", String.valueOf(lat));
+        param.put("make", getIntent().getStringExtra("make"));
+        param.put("extra", "1");
+        return param;
     }
 
     private void addCards(ArrayList<Dealer> dealers) {
@@ -88,13 +92,14 @@ public class DealerResultsActivity extends BaseActivity {
 
     public ArrayList<Card> createDealers(ArrayList<Dealer> dealers, ArrayList<Card> cards) {
         for (Dealer dealer : dealers) {
-            DealerCard card = new DealerCard(this, R.layout.dealer_card, dealer.getLatitude(), dealer.getLongitude());
-            card.setDealer(dealer.getName());
-            card.setCityState(dealer.getCity() + ", " + dealer.getState());
+
             Double distance = distance(dealer.getLatitude(), dealer.getLongitude(), lat, longi);
             distance = (double) Math.round(distance * 10) / 10;
-            card.setDistance(String.valueOf(distance) + " mi");
-            card.setNumSpecials(String.valueOf(dealer.getNumSpecials()) + " deals currently running");
+
+            DealerCard card = new DealerCard(this, dealer.getName(), dealer.getCity() + " "
+                    + dealer.getState(), String.valueOf(distance), String.valueOf(dealer.getNumSpecials()) +
+                    " deals currently running", dealer.getLatitude(), dealer.getLongitude());
+
             card.setOnClickListener(getOnClickListener(dealer, distance));
             cards.add(card);
         }
@@ -130,7 +135,8 @@ public class DealerResultsActivity extends BaseActivity {
 
     private double distance(double lat1, double lon1, double lat2, double lon2) {
         double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1))
+                * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
         dist = Math.acos(dist);
         dist = rad2deg(dist);
         dist = dist * 60 * 1.1515;
@@ -146,7 +152,8 @@ public class DealerResultsActivity extends BaseActivity {
     }
 
     private String generateUrl(HashMap<String, String> parameters) {
-        return baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
+        return baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") +
+                "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
     }
 
     private class ResponseListener implements Response.Listener<JSONArray> {
@@ -156,15 +163,12 @@ public class DealerResultsActivity extends BaseActivity {
             try {
                 for (int i = 0; i < response.length(); i++) {
                     JSONObject dealerObject = (JSONObject) response.get(i);
-                    Dealer dealer = new Dealer();
-                    dealer.setCity(dealerObject.get("city").toString());
-                    dealer.setState(dealerObject.get("state").toString());
-                    dealer.setName(dealerObject.get("name").toString());
                     JSONObject loc = (JSONObject) dealerObject.get("loc");
-                    JSONArray coords = (JSONArray) loc.get("coordinates");
-                    dealer.setLongitude(coords.getDouble(1));
-                    dealer.setLatitude(coords.getDouble(0));
-                    dealer.setNumSpecials(dealerObject.getInt("numSpecials"));
+                    JSONArray coordinates = (JSONArray) loc.get("coordinates");
+
+                    Dealer dealer = new Dealer(dealerObject.get("name").toString(),
+                            dealerObject.get("city").toString(), dealerObject.get("state").toString(),
+                            dealerObject.getInt("numSpecials"), coordinates.getDouble(0), coordinates.getDouble(1));
                     dealers.add(dealer);
                 }
 

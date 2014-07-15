@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.R;
 
+/**
+ * Base Activity extended by any activity that requires the normal menu for the app.
+ */
 public class BaseActivity extends FragmentActivity {
 
     private Menu menu;

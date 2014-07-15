@@ -16,12 +16,13 @@ public class Dealer {
     public Dealer() {
     }
 
-    public Dealer(String name, String city, String state, int numSpecials, double distanceFrom) {
+    public Dealer(String name, String city, String state, int numSpecials, double latitude, double longitude) {
         this.name = name;
         this.city = city;
         this.state = state;
         this.numSpecials = numSpecials;
-        this.distanceFrom = distanceFrom;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getName() {

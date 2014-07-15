@@ -39,6 +39,16 @@ public class DealerCard extends Card {
         this.longi = longi;
     }
 
+    public DealerCard(Context context, String dealer, String cityState, String distance, String numSpecials, double lat, double longi) {
+        super(context);
+        this.dealer = dealer;
+        this.cityState = cityState;
+        this.distance = distance;
+        this.numSpecials = numSpecials;
+        this.lat = lat;
+        this.longi = longi;
+    }
+
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
         TextView mDealer = (TextView) parent.findViewById(R.id.dealer);
@@ -69,7 +79,7 @@ public class DealerCard extends Card {
         return this.cityState;
     }
 
-    public void setCityState(String cityState) {
+    public void setCityState(String cityState){
         this.cityState = cityState;
     }
 
@@ -77,9 +87,7 @@ public class DealerCard extends Card {
         return this.dealer;
     }
 
-    public void setDealer(String dealer) {
-        this.dealer = dealer;
-    }
+    public void setDealer(String dealer){ this.dealer = dealer; }
 
     public String getDistance() {
         return distance;
@@ -96,6 +104,7 @@ public class DealerCard extends Card {
     public void setNumSpecials(String numSpecials) {
         this.numSpecials = numSpecials;
     }
+
 
 
 }

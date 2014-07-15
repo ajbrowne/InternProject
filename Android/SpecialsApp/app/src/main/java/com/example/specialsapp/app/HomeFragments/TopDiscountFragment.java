@@ -73,27 +73,13 @@ public class TopDiscountFragment extends Fragment {
         client = new DefaultHttpClient();
         queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
 
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        pDialog.show();
         topAsync();
 
         return homeView;
     }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.search) {
-            Intent intent = new Intent(getActivity(), SearchActivity.class);
-            intent.putExtra("tab", 0);
-            startActivity(intent);
-        }
-        return true;
-    }
-
 
     private void createCards(View view, String title, String description, ArrayList<Card> theCards) {
         TextView theTitle = (TextView) view.findViewById(R.id.newVehicles1);
@@ -136,9 +122,6 @@ public class TopDiscountFragment extends Fragment {
             }
 
         } else {
-            pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Loading...");
-            pDialog.show();
             JsonArrayRequest searchRequest = new JsonArrayRequest(baseUrl, new ResponseListener(), new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
@@ -248,6 +231,7 @@ public class TopDiscountFragment extends Fragment {
     }
 
     private void getDiscounts(JSONArray response) {
+        pDialog.hide();
         try {
             JSONObject dealer = (JSONObject) response.get(0);
             JSONArray specialArray = (JSONArray) dealer.get("specials");
@@ -262,7 +246,6 @@ public class TopDiscountFragment extends Fragment {
     private class ResponseListener implements Response.Listener<JSONArray> {
         @Override
         public void onResponse(JSONArray response) {
-            pDialog.hide();
             getDiscounts(response);
         }
 

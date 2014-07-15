@@ -149,13 +149,7 @@ public class MainActivity extends BaseActivity {
         JSONObject auth = new JSONObject();
 
         try {
-            auth.put(Username, username);
-            auth.put(Password, password);
-            auth.put("role", 1);
-            auth.put("phone", phone);
-            auth.put("zip", zip);
-            auth.put("firstName", first);
-            auth.put("lastName", last);
+            createAuth(username, password, phone, zip, first, last, auth);
             StringEntity entity = new StringEntity(auth.toString());
             SpecialsRestClient.post(this, "register", entity, "application/json", new JsonHttpResponseHandler() {
                 @Override
@@ -175,6 +169,16 @@ public class MainActivity extends BaseActivity {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
+
+    private void createAuth(String username, String password, String phone, String zip, String first, String last, JSONObject auth) throws JSONException {
+        auth.put(Username, username);
+        auth.put(Password, password);
+        auth.put("role", 1);
+        auth.put("phone", phone);
+        auth.put("zip", zip);
+        auth.put("firstName", first);
+        auth.put("lastName", last);
     }
 
     /*

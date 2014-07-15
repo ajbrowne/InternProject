@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -84,18 +85,6 @@ public class TrendingFragment extends Fragment {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.search) {
-            Intent intent = new Intent(getActivity(), SearchActivity.class);
-            intent.putExtra("tab", 0);
-            startActivity(intent);
-        }
-        return true;
-    }
-
-
     private void createCards(View view, String title, String description, ArrayList<Card> theCards) {
         TextView theTitle = (TextView) view.findViewById(R.id.newVehicles);
         TextView theDescription = (TextView) view.findViewById(R.id.descrip);
@@ -142,7 +131,6 @@ public class TrendingFragment extends Fragment {
             try {
                 String data = new String(entry.data, "UTF-8");
                 JSONArray cached = new JSONArray(data);
-                System.out.println("Cached Trending Call");
                 getTrending(cached);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -151,14 +139,13 @@ public class TrendingFragment extends Fragment {
             }
 
         } else {
-            System.out.println("NOTHING WAS CACHED THAT MATCHED");
             pDialog = new ProgressDialog(getActivity());
             pDialog.setMessage("Loading...");
             pDialog.show();
             JsonArrayRequest searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-
+                    Log.d("error", "Trending http request failed");
                 }
             });
             queue.add(searchRequest);

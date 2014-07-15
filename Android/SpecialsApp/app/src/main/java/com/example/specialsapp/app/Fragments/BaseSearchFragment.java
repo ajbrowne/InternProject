@@ -83,6 +83,11 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         String url = generateUrl(parameters);
         Cache.Entry entry = cache.get(url);
+        makeAsync(isSearch, queue, url, entry);
+    }
+
+    private void makeAsync(boolean isSearch, RequestQueue queue, String url, Cache.Entry entry) {
+        JsonArrayRequest searchRequest;
         if (entry != null) {
             try {
                 String data = new String(entry.data, "UTF-8");
@@ -116,24 +121,28 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
                 specs.add(specialObject);
                 String newPrice = String.valueOf(Integer.parseInt(vehicle.getString("price")) - Integer.parseInt(special.getString("amount")));
 
-                boolean duplicate = false;
-                for (Vehicle added : newVehicles) {
-                    if (added.getId().equals(vehicle.getString("id"))) {
-                        ArrayList<Special> combine = added.getSpecials();
-                        combine.add(specialObject);
-                        added.setSpecials(combine);
-                        added.setDiscount(String.valueOf(Integer.parseInt(added.getDiscount()) + Integer.parseInt(special.getString("amount"))));
-                        duplicate = true;
-                    }
-                }
-                if (!duplicate) {
-                    Vehicle vehicleObject = new Vehicle(vehicle.getString("year"), vehicle.getString("make"), vehicle.getString("model"),
-                            vehicle.getString("type"), (JSONArray) vehicle.get("specs"), vehicle.getString("id"), dealer.getString("dealerName"),
-                            specs, vehicle.getString("year") + " " + vehicle.getString("make") + " " + vehicle.getString("model"),
-                            newPrice, vehicle.getString("price"), vehicle.getString("urlImage"), special.getString("amount"));
-                    newVehicles.add(vehicleObject);
-                }
+                checkVehicle(dealer, vehicle, special, specialObject, specs, newPrice);
             }
+        }
+    }
+
+    private void checkVehicle(JSONObject dealer, JSONObject vehicle, JSONObject special, Special specialObject, ArrayList<Special> specs, String newPrice) throws JSONException {
+        boolean duplicate = false;
+        for (Vehicle added : newVehicles) {
+            if (added.getId().equals(vehicle.getString("id"))) {
+                ArrayList<Special> combine = added.getSpecials();
+                combine.add(specialObject);
+                added.setSpecials(combine);
+                added.setDiscount(String.valueOf(Integer.parseInt(added.getDiscount()) + Integer.parseInt(special.getString("amount"))));
+                duplicate = true;
+            }
+        }
+        if (!duplicate) {
+            Vehicle vehicleObject = new Vehicle(vehicle.getString("year"), vehicle.getString("make"), vehicle.getString("model"),
+                    vehicle.getString("type"), (JSONArray) vehicle.get("specs"), vehicle.getString("id"), dealer.getString("dealerName"),
+                    specs, vehicle.getString("year") + " " + vehicle.getString("make") + " " + vehicle.getString("model"),
+                    newPrice, vehicle.getString("price"), vehicle.getString("urlImage"), special.getString("amount"));
+            newVehicles.add(vehicleObject);
         }
     }
 
