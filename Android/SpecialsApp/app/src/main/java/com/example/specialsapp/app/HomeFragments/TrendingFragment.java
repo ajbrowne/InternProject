@@ -57,7 +57,7 @@ public class TrendingFragment extends Fragment {
     private ArrayList<Card> cards;
     private View homeView;
     private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
-    private static final String baseUrl = "http://192.168.170.34:8080/v1/specials/vehicle?";
+    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/vehicle?";
 
     private RequestQueue queue;
     private JsonArrayRequest searchRequest;

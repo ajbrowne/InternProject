@@ -1,5 +1,6 @@
 package com.example.specialsapp.app.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -32,9 +33,8 @@ public class HomeActivity extends BaseActivity {
         viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
         FragmentManager fragmentManager = getSupportFragmentManager();
         HomePagerAdapter mAdapter = new HomePagerAdapter(fragmentManager);
-
         viewPager.setAdapter(mAdapter);
-        viewPager.setOffscreenPageLimit(5);
+        viewPager.setOffscreenPageLimit(3);
         tabs.setViewPager(viewPager);
     }
 
@@ -48,7 +48,13 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if (id == R.id.search) {
+            Intent intent = new Intent(this, SearchActivity.class);
+            intent.putExtra("tabIndex", viewPager.getCurrentItem());
+            startActivity(intent);
+        }
+        return true;
     }
 
     public ArrayList<Dealer> getDealers() {

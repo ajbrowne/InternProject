@@ -82,22 +82,6 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        if (id == R.id.search){
-            Intent intent = new Intent(getActivity(), SearchActivity.class);
-            intent.putExtra("tab", 1);
-            startActivity(intent);
-        }
-        return true;
-    }
-
-    @Override
     public void onRefreshStarted(View view) {
         final GPS gps = new GPS(getActivity());
         Double latitude = gps.getLatitude();

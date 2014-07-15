@@ -56,14 +56,13 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     private ArrayList<Card> cards;
     private int currIndex, returnSize;
     private PullToRefreshLayout mPullToRefreshLayout;
-    private static final String baseUrl = "http://192.168.170.34:8080/v1/specials/vehicle?";
+    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/vehicle?";
     private String lastUrl;
     private boolean isSearch;
 
     private RequestQueue queue;
     private JsonArrayRequest searchRequest;
     private AbstractHttpClient client;
-    private ProgressDialog pDialog;
 
     public BaseSearchFragment() {
         // Required empty public constructor
@@ -104,9 +103,6 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
             }
 
         } else {
-            pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Loading...");
-            pDialog.show();
             if (isSearch){
                 searchRequest = new JsonArrayRequest(url, new ResponseListener(), new ErrorListener());
             } else{
@@ -265,7 +261,6 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     private class ResponseListener implements Response.Listener<JSONArray> {
         @Override
         public void onResponse(JSONArray response) {
-            pDialog.hide();
             carSearch(response);
         }
 

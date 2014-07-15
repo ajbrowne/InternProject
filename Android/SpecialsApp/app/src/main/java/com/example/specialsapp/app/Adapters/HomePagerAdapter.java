@@ -3,11 +3,14 @@ package com.example.specialsapp.app.Adapters;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.SparseArray;
 
 import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
 import com.example.specialsapp.app.HomeFragments.HomeFragment;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
+import com.example.specialsapp.app.R;
 
 /**
  *
@@ -52,4 +55,5 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return 3;
     }
+
 }

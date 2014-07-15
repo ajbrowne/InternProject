@@ -183,17 +183,6 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         getDealers();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        if (id == R.id.search){
-            Intent intent = new Intent(getActivity(), SearchActivity.class);
-            intent.putExtra("tab", 2);
-            startActivity(intent);
-        }
-        return true;
-    }
-
     private double distance(double lat1, double lon1, double lat2, double lon2) {
         double theta = lon1 - lon2;
         double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));

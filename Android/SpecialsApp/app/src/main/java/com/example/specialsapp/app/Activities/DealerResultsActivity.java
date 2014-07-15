@@ -1,21 +1,25 @@
 package com.example.specialsapp.app.Activities;
 
 import android.content.Intent;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpClientStack;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.specialsapp.app.Cards.DealerCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.R;
-import com.example.specialsapp.app.Rest.SpecialsRestClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.apache.http.Header;
+import org.apache.http.impl.client.AbstractHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,9 +34,13 @@ import it.gmariotti.cardslib.library.view.CardListView;
 public class DealerResultsActivity extends BaseActivity {
 
 
+    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/dealers?";
     private TextView mResultsNone;
     private double lat;
     private double longi;
+    private RequestQueue queue;
+    private JsonArrayRequest searchRequest;
+    private AbstractHttpClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +48,10 @@ public class DealerResultsActivity extends BaseActivity {
         setContentView(R.layout.activity_dealer_results);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setTitle("Dealer Results");
+
         mResultsNone = (TextView) findViewById(R.id.second_result);
+        client = new DefaultHttpClient();
+        queue = Volley.newRequestQueue(this, new HttpClientStack(client));
 
         GPS gps = new GPS(this);
         lat = gps.getLatitude();
@@ -51,37 +62,17 @@ public class DealerResultsActivity extends BaseActivity {
         param.put("lat", String.valueOf(lat));
         param.put("make", getIntent().getStringExtra("make"));
         param.put("extra", "1");
-        RequestParams params = new RequestParams(param);
-        System.out.println(params);
-        SpecialsRestClient.get("dealers", params, new JsonHttpResponseHandler() {
+
+        String url = generateUrl(param);
+
+        searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
-                ArrayList<Dealer> dealers = new ArrayList<Dealer>();
-                try {
-                    for (int i = 0; i < request.length(); i++) {
-                        JSONObject dealerObject = (JSONObject) request.get(i);
-                        Dealer dealer = new Dealer();
-                        dealer.setCity(dealerObject.get("city").toString());
-                        dealer.setState(dealerObject.get("state").toString());
-                        dealer.setName(dealerObject.get("name").toString());
-                        JSONObject loc = (JSONObject) dealerObject.get("loc");
-                        JSONArray coords = (JSONArray) loc.get("coordinates");
-                        dealer.setLongitude(coords.getDouble(1));
-                        dealer.setLatitude(coords.getDouble(0));
-                        dealer.setNumSpecials(dealerObject.getInt("numSpecials"));
-                        dealers.add(dealer);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                if(dealers.size() == 0){
-                    mResultsNone.setVisibility(View.VISIBLE);
-                }
-                addCards(dealers);
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
             }
-
         });
+
+        queue.add(searchRequest);
 
     }
 
@@ -104,7 +95,7 @@ public class DealerResultsActivity extends BaseActivity {
             card.setDealer(dealer.getName());
             card.setCityState(dealer.getCity() + ", " + dealer.getState());
             Double distance = distance(dealer.getLatitude(), dealer.getLongitude(), lat, longi);
-            distance = (double)Math.round(distance *10)/10;
+            distance = (double) Math.round(distance * 10) / 10;
             card.setDistance(String.valueOf(distance) + " mi");
             card.setNumSpecials(String.valueOf(dealer.getNumSpecials()) + " deals currently running");
             card.setOnClickListener(getOnClickListener(dealer, distance));
@@ -155,5 +146,40 @@ public class DealerResultsActivity extends BaseActivity {
 
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
+    }
+
+    private String generateUrl(HashMap<String, String> parameters) {
+        String url = baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
+        return url;
+    }
+
+    private class ResponseListener implements Response.Listener<JSONArray> {
+        @Override
+        public void onResponse(JSONArray response) {
+            ArrayList<Dealer> dealers = new ArrayList<Dealer>();
+            try {
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject dealerObject = (JSONObject) response.get(i);
+                    Dealer dealer = new Dealer();
+                    dealer.setCity(dealerObject.get("city").toString());
+                    dealer.setState(dealerObject.get("state").toString());
+                    dealer.setName(dealerObject.get("name").toString());
+                    JSONObject loc = (JSONObject) dealerObject.get("loc");
+                    JSONArray coords = (JSONArray) loc.get("coordinates");
+                    dealer.setLongitude(coords.getDouble(1));
+                    dealer.setLatitude(coords.getDouble(0));
+                    dealer.setNumSpecials(dealerObject.getInt("numSpecials"));
+                    dealers.add(dealer);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (dealers.size() == 0) {
+                mResultsNone.setVisibility(View.VISIBLE);
+            }
+            addCards(dealers);
+        }
+
     }
 }
