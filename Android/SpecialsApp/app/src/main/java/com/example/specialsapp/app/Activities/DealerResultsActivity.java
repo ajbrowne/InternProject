@@ -1,5 +1,6 @@
 package com.example.specialsapp.app.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +39,9 @@ public class DealerResultsActivity extends BaseActivity {
     private TextView mResultsNone;
     private double lat;
     private double longi;
+    private RequestQueue queue;
+    private JsonArrayRequest searchRequest;
+    private AbstractHttpClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +51,8 @@ public class DealerResultsActivity extends BaseActivity {
         getActionBar().setTitle("Dealer Results");
 
         mResultsNone = (TextView) findViewById(R.id.second_result);
-        AbstractHttpClient client = new DefaultHttpClient();
-        RequestQueue queue = Volley.newRequestQueue(this, new HttpClientStack(client));
+        client = new DefaultHttpClient();
+        queue = Volley.newRequestQueue(this, new HttpClientStack(client));
 
         GPS gps = new GPS(this);
         lat = gps.getLatitude();
@@ -61,8 +65,7 @@ public class DealerResultsActivity extends BaseActivity {
         param.put("extra", "1");
 
         String url = generateUrl(param);
-
-        JsonArrayRequest searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
+        searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("Volley Error", error.toString());

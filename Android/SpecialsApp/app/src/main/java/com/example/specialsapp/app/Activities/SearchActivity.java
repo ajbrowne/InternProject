@@ -42,7 +42,7 @@ public class SearchActivity extends BaseActivity {
         tabs.setViewPager(viewPager);
 
         if (tabIndex != numTabs){
-            viewPager.setCurrentItem(tabIndex);
+            viewPager.setCurrentItem(tabIndex-1);
         }
 
     }
