@@ -14,6 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpClientStack;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.specialsapp.app.Activities.DealerDetail;
 import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.SearchActivity;
@@ -28,6 +34,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
+import org.apache.http.impl.client.AbstractHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,11 +55,15 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
  */
 public class NearbyDealersFragment extends Fragment implements OnRefreshListener{
 
+    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/dealers?";
     private View homeView;
     private CardListView cardListView;
     private Double lat;
     private Double longi;
     private PullToRefreshLayout mPullToRefreshLayout;
+    private RequestQueue queue;
+    private JsonArrayRequest searchRequest;
+    private AbstractHttpClient client;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +73,9 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         inflater.inflate(R.layout.dealer_card, container, false);
         getActivity().setTitle("Dealers");
         setHasOptionsMenu(true);
+
+        client = new DefaultHttpClient();
+        queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
 
         mPullToRefreshLayout = (PullToRefreshLayout)homeView.findViewById(R.id.carddemo_extra_ptr_layout1);
         ActionBarPullToRefresh.from(this.getActivity())
@@ -91,41 +106,16 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         param.put("lng", longg);
         param.put("lat", latt);
         param.put("extra", "0");
-        RequestParams params = new RequestParams(param);
 
-        dealersAsync(params);
-
-    }
-
-    private void dealersAsync(RequestParams params) {
-        SpecialsRestClient.get("dealers", params, new JsonHttpResponseHandler() {
+        String url = generateUrl(param);
+        searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray request) {
-                ArrayList<Dealer> dealers = new ArrayList<Dealer>();
-                try {
-                    for (int i = 0; i < request.length(); i++) {
-                        JSONObject outer = (JSONObject) request.get(i);
-                        JSONObject dealerObject = (JSONObject) outer.get("content");
-                        Dealer dealer = new Dealer();
-                        dealer.setCity(dealerObject.get("city").toString());
-                        dealer.setState(dealerObject.get("state").toString());
-                        dealer.setName(dealerObject.get("name").toString());
-                        JSONObject loc = (JSONObject) dealerObject.get("loc");
-                        JSONArray coords = (JSONArray) loc.get("coordinates");
-                        dealer.setLongitude(coords.getDouble(1));
-                        dealer.setLatitude(coords.getDouble(0));
-                        dealer.setNumSpecials(dealerObject.getInt("numSpecials"));
-                        dealers.add(dealer);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                addCards(dealers);
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
             }
-
         });
+
+        queue.add(searchRequest);
     }
 
     private void addCards(ArrayList<Dealer> dealers) {
@@ -198,5 +188,39 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
 
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
+    }
+
+    private String generateUrl(HashMap<String, String> parameters) {
+        String url = baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&extra=" + parameters.get("extra");
+        return url;
+    }
+
+    private class ResponseListener implements Response.Listener<JSONArray> {
+        @Override
+        public void onResponse(JSONArray response) {
+            ArrayList<Dealer> dealers = new ArrayList<Dealer>();
+            try {
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject outer = (JSONObject) response.get(i);
+                    JSONObject dealerObject = (JSONObject) outer.get("content");
+                    Dealer dealer = new Dealer();
+                    dealer.setCity(dealerObject.get("city").toString());
+                    dealer.setState(dealerObject.get("state").toString());
+                    dealer.setName(dealerObject.get("name").toString());
+                    JSONObject loc = (JSONObject) dealerObject.get("loc");
+                    JSONArray coords = (JSONArray) loc.get("coordinates");
+                    dealer.setLongitude(coords.getDouble(1));
+                    dealer.setLatitude(coords.getDouble(0));
+                    dealer.setNumSpecials(dealerObject.getInt("numSpecials"));
+                    dealers.add(dealer);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            addCards(dealers);
+        }
+
     }
 }
