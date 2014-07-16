@@ -46,24 +46,27 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
                 .listener(this)
                 .setup(mPullToRefreshLayout);
 
-        String zip = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("zip_code", "");
-        double latitude, longitude;
-        if (!zip.equals("")) {
-            double[] location = getLoc(zip);
-            latitude = location[0];
-            longitude = location[1];
-        } else {
-            GPS gps = new GPS(getActivity());
-            latitude = gps.getLatitude();
-            longitude = gps.getLongitude();
-        }
+        double[] location = checkLocationSettings();
 
         try {
-            getDealerSpecials(longitude, latitude);
+            getDealerSpecials(location[0], location[1]);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return homeView;
+    }
+
+    private double[] checkLocationSettings() {
+        String zip = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("zip_code", "");
+        double[] location = new double[2];
+        if (!zip.equals("")) {
+            location = getLoc(zip);
+        } else {
+            GPS gps = new GPS(getActivity());
+            location[0] = gps.getLatitude();
+            location[1] = gps.getLongitude();
+        }
+        return location;
     }
 
     @Override

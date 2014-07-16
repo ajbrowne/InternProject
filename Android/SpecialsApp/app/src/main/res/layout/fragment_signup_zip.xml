@@ -33,10 +33,12 @@
         android:layout_below="@id/flow1_info"
         android:layout_margin="25dp"
         android:background="@drawable/rounded_input"
-        android:hint="00000"
-        android:inputType="number"
+        android:hint="Enter Zip"
+        android:inputType="textPostalAddress"
         android:textColor="#000"
-        android:textCursorDrawable="@null"/>
+        android:textCursorDrawable="@null"
+        android:singleLine="true"
+        android:maxLines="1"/>
 
     <Button
         android:id="@+id/flow1_button"

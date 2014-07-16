@@ -43,7 +43,9 @@
             android:layout_marginLeft="15dp"
             android:textColor="#000"
             android:layout_weight="1"
-            android:textCursorDrawable="@null" />
+            android:textCursorDrawable="@null"
+            android:singleLine="true"
+            android:maxLines="1"/>
 
         <EditText
             android:id="@+id/flow2_last"
@@ -55,7 +57,9 @@
             android:hint="Last Name"
             android:textColor="#000"
             android:layout_weight="1"
-            android:textCursorDrawable="@null" />
+            android:textCursorDrawable="@null"
+            android:singleLine="true"
+            android:maxLines="1"/>
 
         </LinearLayout>
 

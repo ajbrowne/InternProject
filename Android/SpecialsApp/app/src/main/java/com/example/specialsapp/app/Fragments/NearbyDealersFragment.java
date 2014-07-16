@@ -49,7 +49,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 public class NearbyDealersFragment extends Fragment implements OnRefreshListener {
 
     private static final double defaultLocation = -1000.0;
-    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/dealers?";
+    private static final String baseUrl = "http://192.168.171.146:8080/v1/specials/dealers?";
     private View homeView;
     private Double lat;
     private Double longi;
@@ -74,6 +74,14 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
                 .listener(this)
                 .setup(mPullToRefreshLayout);
 
+        checkLocationSettings();
+
+        getDealers();
+
+        return homeView;
+    }
+
+    private void checkLocationSettings() {
         String zip = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("zip_code", "");
         if (!zip.equals("")) {
             double[] location = getLoc(zip);
@@ -84,10 +92,6 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
             lat = gps.getLatitude();
             longi = gps.getLongitude();
         }
-
-        getDealers();
-
-        return homeView;
     }
 
     @Override
@@ -163,10 +167,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
 
     @Override
     public void onRefreshStarted(View view) {
-        final GPS gps = new GPS(getActivity());
-        lat = gps.getLatitude();
-        longi = gps.getLongitude();
-        // Call to retrieve dealers to display
+        checkLocationSettings();
         getDealers();
     }
 

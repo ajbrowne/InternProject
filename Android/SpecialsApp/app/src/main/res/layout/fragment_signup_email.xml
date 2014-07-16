@@ -36,7 +36,9 @@
         android:hint="yourname@example.com"
         android:inputType="textEmailAddress"
         android:textColor="#000"
-        android:textCursorDrawable="@null"/>
+        android:textCursorDrawable="@null"
+        android:singleLine="true"
+        android:maxLines="1"/>
 
     <Button
         android:id="@+id/flow3_button"

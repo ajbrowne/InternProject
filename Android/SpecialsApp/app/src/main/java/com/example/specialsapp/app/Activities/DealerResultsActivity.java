@@ -35,7 +35,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
 public class DealerResultsActivity extends BaseActivity {
 
 
-    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/dealers?";
+    private static final String baseUrl = "http://192.168.171.146:8080/v1/specials/dealers?";
     private TextView mResultsNone;
     private double lat;
     private double longi;
@@ -96,10 +96,11 @@ public class DealerResultsActivity extends BaseActivity {
             Double distance = distance(dealer.getLatitude(), dealer.getLongitude(), lat, longi);
             distance = (double) Math.round(distance * 10) / 10;
 
-            DealerCard card = new DealerCard(this, dealer.getName(), dealer.getCity() + " "
-                    + dealer.getState(), String.valueOf(distance), String.valueOf(dealer.getNumSpecials()) +
-                    " deals currently running", dealer.getLatitude(), dealer.getLongitude());
-
+            DealerCard card = new DealerCard(this, R.layout.dealer_card, dealer.getLatitude(), dealer.getLongitude());
+            card.setDealer(dealer.getName());
+            card.setCityState(dealer.getCity() + ", " + dealer.getState());
+            card.setDistance(String.valueOf(distance) + " mi");
+            card.setNumSpecials(String.valueOf(dealer.getNumSpecials()) + " deals currently running");
             card.setOnClickListener(getOnClickListener(dealer, distance));
             cards.add(card);
         }
@@ -124,7 +125,7 @@ public class DealerResultsActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.search, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -163,10 +164,11 @@ public class DealerResultsActivity extends BaseActivity {
             try {
                 for (int i = 0; i < response.length(); i++) {
                     JSONObject dealerObject = (JSONObject) response.get(i);
+                    System.out.println(dealerObject.getString("name"));
                     JSONObject loc = (JSONObject) dealerObject.get("loc");
                     JSONArray coordinates = (JSONArray) loc.get("coordinates");
 
-                    Dealer dealer = new Dealer(dealerObject.get("name").toString(),
+                    Dealer dealer = new Dealer(dealerObject.getString("name"),
                             dealerObject.get("city").toString(), dealerObject.get("state").toString(),
                             dealerObject.getInt("numSpecials"), coordinates.getDouble(0), coordinates.getDouble(1));
                     dealers.add(dealer);

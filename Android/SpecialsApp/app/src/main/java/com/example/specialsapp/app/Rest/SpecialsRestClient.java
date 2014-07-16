@@ -17,7 +17,7 @@ import org.apache.http.entity.StringEntity;
  */
 
 public class SpecialsRestClient {
-    private static final String myIp = "192.168.170.93";
+    private static final String myIp = "192.168.171.146";
     private static final String BASE_URL = "http://" + myIp + ":8080/v1/specials/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();

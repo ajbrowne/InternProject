@@ -36,7 +36,9 @@
         android:background="@drawable/rounded_input"
         android:hint="(555) 555-5555"
         android:textColor="#000"
-        android:textCursorDrawable="@null"/>
+        android:textCursorDrawable="@null"
+        android:singleLine="true"
+        android:maxLines="1"/>
 
     <Button
         android:id="@+id/flow_button"

@@ -28,9 +28,13 @@ public class SettingsActivity extends PreferenceActivity implements
         addPreferencesFromResource(R.xml.pref_general);
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-
         EditTextPreference editTextPref = (EditTextPreference) findPreference("zip_code");
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("use_location", false)) {
+
+        if (!sharedPreferences.getString("zip_code", "").equals("")){
+            editTextPref.setSummary(sharedPreferences.getString("zip_code", "Enter Zip Code"));
+        }
+
+        if (sharedPreferences.getBoolean("use_location", false)) {
             editTextPref.setEnabled(false);
             editTextPref.setSelectable(true);
         } else {

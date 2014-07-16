@@ -48,7 +48,7 @@ public class TopDiscountFragment extends Fragment {
 
     private static final String TopDiscounts = "Top Discounts";
     private static final String TopDiscountsDescription = "The Best Deals Around";
-    private static final String baseUrl = "http://192.168.170.93:8080/v1/specials/special/top";
+    private static final String baseUrl = "http://192.168.171.146:8080/v1/specials/special/top";
     private ArrayList<Card> cards;
     private View homeView;
     private ArrayList<String> addedVehicles = new ArrayList<String>();
