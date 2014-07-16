@@ -1,6 +1,7 @@
 package com.example.specialsapp.app.Activities;
 
 import android.app.ActionBar;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -37,11 +38,12 @@ public class SearchActivity extends BaseActivity {
         viewPager.setAdapter(mAdapter);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Search");
-
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs_search);
         tabs.setBackgroundColor(getResources().getColor(android.R.color.white));
         tabs.setTextColor(getResources().getColor(android.R.color.black));
 
+        Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/roboto-light.ttf");
+        tabs.setTypeface(typeFace, android.R.style.TextAppearance_DeviceDefault);
         viewPager.setAdapter(mAdapter);
         tabs.setViewPager(viewPager);
 

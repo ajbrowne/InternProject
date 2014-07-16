@@ -1,6 +1,7 @@
 package com.example.specialsapp.app.Activities;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -31,6 +32,8 @@ public class HomeActivity extends BaseActivity {
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setBackgroundColor(getResources().getColor(android.R.color.white));
         tabs.setTextColor(getResources().getColor(android.R.color.black));
+        Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/roboto-light.ttf");
+        tabs.setTypeface(typeFace, android.R.style.TextAppearance_DeviceDefault);
         viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
         FragmentManager fragmentManager = getSupportFragmentManager();
         HomePagerAdapter mAdapter = new HomePagerAdapter(fragmentManager);

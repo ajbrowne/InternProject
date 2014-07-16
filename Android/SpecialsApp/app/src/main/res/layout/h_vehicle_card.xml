@@ -20,14 +20,14 @@
 
     <TextView
         android:id="@+id/smallCar"
-
+        android:paddingTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/gridCar"
         android:fontFamily="sans-serif-light"
         android:maxWidth="100dp"
         android:text="2004 Chevrolet Silverado"
-        android:textSize="12sp" />
+        style="@android:style/TextAppearance.DeviceDefault.Small" />
 
     <TextView
         android:id="@+id/smallPrice"
@@ -36,12 +36,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@id/smallCar"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="sans-serif-light"
         android:gravity="bottom"
         android:text="$6,000"
         android:textColor="@android:color/holo_green_dark"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/smallType"
@@ -51,13 +51,13 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_below="@id/smallCar"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/smallPrice"
         android:fontFamily="sans-serif-light"
         android:gravity="right|bottom"
         android:text="New"
         android:textColor="#00559A"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
 
 </RelativeLayout>
