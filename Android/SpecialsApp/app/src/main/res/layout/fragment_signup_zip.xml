@@ -39,7 +39,7 @@
         android:background="@drawable/rounded_input"
         android:fontFamily="sans-serif-light"
         android:hint="Enter Zip"
-        android:inputType="textPostalAddress"
+        android:inputType="number"
         android:maxLines="1"
         android:singleLine="true"
         android:textColor="#000"
