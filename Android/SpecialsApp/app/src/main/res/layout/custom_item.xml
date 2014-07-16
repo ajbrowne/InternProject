@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
-    android:paddingLeft="7dp"
-    android:paddingBottom="15dp"
-    android:paddingTop="15dp"
+    style="@android:style/TextAppearance.DeviceDefault"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@android:style/TextAppearance.DeviceDefault" />
+    android:fontFamily="sans-serif-light"
+    android:paddingBottom="15dp"
+    android:paddingLeft="7dp"
+    android:paddingTop="15dp" />

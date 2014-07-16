@@ -7,22 +7,22 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:focusable="true"
-        android:focusableInTouchMode="true"/>
+        android:focusableInTouchMode="true"
+        android:fontFamily="sans-serif-light" />
 
     <com.astuetz.PagerSlidingTabStrip xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/tabs"
-        app:pstsShouldExpand="true"
-        app:pstsIndicatorColor="#00559A"
-        app:pstsIndicatorHeight="4dp"
-        app:pstsDividerColor="#fff"
         android:layout_width="match_parent"
         android:layout_height="48dip"
-        />
+        app:pstsDividerColor="#fff"
+        app:pstsIndicatorColor="#00559A"
+        app:pstsIndicatorHeight="4dp"
+        app:pstsShouldExpand="true" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/fragmentContainer2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tabs"/>
+        android:layout_below="@+id/tabs" />
 
 </RelativeLayout>

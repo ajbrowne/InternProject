@@ -10,8 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Make: "
         android:layout_marginTop="40dp"
+
+        android:fontFamily="sans-serif-light"
+        android:text="Make: "
         android:textSize="15sp" />
 
     <Spinner
@@ -21,7 +23,9 @@
         android:layout_below="@id/make_label"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
+
         android:entries="@array/makes"
+        android:fontFamily="sans-serif-light"
         android:minWidth="200dp"
         android:prompt="@string/make_prompt"
         android:spinnerMode="dialog" />
@@ -30,8 +34,10 @@
         android:id="@+id/model_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_below="@id/makeSpinner"
         android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-light"
         android:text="Model: "
         android:textSize="15sp" />
 
@@ -39,10 +45,12 @@
         android:id="@+id/modelSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_below="@id/model_label"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:entries="@array/any"
+        android:fontFamily="sans-serif-light"
         android:minWidth="200dp"
         android:prompt="@string/model_prompt"
         android:spinnerMode="dialog" />
@@ -52,7 +60,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/modelSpinner"
+
         android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-light"
         android:text="Type: "
         android:textSize="15sp" />
 
@@ -63,8 +73,10 @@
         android:layout_below="@id/type_label"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
+
         android:layout_weight="1"
         android:entries="@array/type"
+        android:fontFamily="sans-serif-light"
         android:minWidth="200dp"
         android:prompt="@string/type_prompt"
         android:spinnerMode="dialog"
@@ -74,8 +86,10 @@
         android:id="@+id/price_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_below="@id/typeSpinner"
         android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-light"
         android:text="Maximum Price: "
         android:textSize="15sp" />
 
@@ -88,7 +102,9 @@
         android:layout_marginBottom="15dp"
         android:layout_weight="1"
         android:entries="@array/priceRange"
+        android:fontFamily="sans-serif-light"
         android:minWidth="200dp"
+
         android:prompt="@string/price_prompt"
         android:spinnerMode="dialog"
         android:textColor="#000" />
@@ -102,9 +118,11 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/priceSpinner"
         android:layout_centerHorizontal="true"
+
         android:layout_margin="25dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-light"
         android:text="Search"
         android:textColor="#FFF" />
 

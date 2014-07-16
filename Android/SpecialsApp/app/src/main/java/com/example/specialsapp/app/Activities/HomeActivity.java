@@ -53,7 +53,7 @@ public class HomeActivity extends BaseActivity {
         if (id == R.id.search) {
             Intent intent = new Intent(this, SearchActivity.class);
             intent.putExtra("tabIndex", viewPager.getCurrentItem());
-            System.out.println("CURRENT ITEM: " +viewPager.getCurrentItem());
+            System.out.println("CURRENT ITEM: " + viewPager.getCurrentItem());
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

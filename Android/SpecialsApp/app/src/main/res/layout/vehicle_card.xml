@@ -9,28 +9,32 @@
         android:id="@+id/thumbnail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scaleType="fitXY"
         android:src="@drawable/silverado"
-        android:visibility="gone"
-        android:scaleType="fitXY"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/title"
         style="@android:style/TextAppearance.DeviceDefault.Large"
-        android:paddingTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/thumbnail"
+        android:fontFamily="sans-serif-light"
         android:paddingLeft="10dp"
+
+        android:paddingTop="8dp"
         android:text="2004 Chevrolet Silverado" />
 
     <TextView
         android:id="@+id/gasMileage"
-        android:layout_width="wrap_content"
         style="@android:style/TextAppearance.DeviceDefault.Medium"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
+        android:fontFamily="sans-serif-light"
         android:paddingLeft="10dp"
         android:paddingTop="2dp"
+
         android:text="22-27 MPG"
         android:textColor="@android:color/holo_green_dark" />
 
@@ -39,8 +43,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/gasMileage"
+        android:fontFamily="sans-serif-light"
         android:paddingLeft="10dp"
         android:paddingTop="2dp"
+
         android:text="Shaver Autos" />
 
     <TextView
@@ -49,32 +55,37 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dealerName"
         android:layout_marginTop="15dp"
-        android:textColor="#aaa"
+        android:fontFamily="sans-serif-light"
+
         android:paddingLeft="10dp"
-        android:text="@string/strikethrough"/>
+        android:text="@string/strikethrough"
+        android:textColor="#aaa" />
 
     <TextView
         android:id="@+id/newPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$11,000"
-        android:paddingLeft="3dp"
-        android:textColor="@android:color/holo_green_dark"
-        android:layout_toRightOf="@id/oldPrice"
-        android:layout_marginTop="15dp"
+        android:layout_below="@id/dealerName"
         android:layout_marginLeft="5dp"
-        android:layout_below="@id/dealerName"/>
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/oldPrice"
+        android:fontFamily="sans-serif-light"
+        android:paddingLeft="3dp"
+
+        android:text="$11,000"
+        android:textColor="@android:color/holo_green_dark" />
 
     <TextView
         android:id="@+id/type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dealerName"
         android:layout_alignParentRight="true"
-        android:textColor="#534CE6"
-
-        android:paddingRight="10dp"
+        android:layout_below="@id/dealerName"
         android:layout_marginTop="15dp"
-        android:text="USED"/>
+
+        android:fontFamily="sans-serif-light"
+        android:paddingRight="10dp"
+        android:text="USED"
+        android:textColor="#534CE6" />
 
 </RelativeLayout>

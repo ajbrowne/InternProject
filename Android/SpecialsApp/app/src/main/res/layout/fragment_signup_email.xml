@@ -10,6 +10,7 @@
         style="@android:style/TextAppearance.DeviceDefault.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:paddingTop="95dp"
         android:text="Enter Your Email Address"
@@ -21,10 +22,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/flow3_title"
+        android:fontFamily="sans-serif-light"
         android:gravity="center"
-        android:textColor="#000"
         android:paddingTop="25dp"
-        android:text="This is the easiest way for dealers to quickly contact\n you and will also be used as your login." />
+        android:text="This is the easiest way for dealers to quickly contact\n you and will also be used as your login."
+        android:textColor="#000" />
 
     <EditText
         android:id="@+id/flow3_email"
@@ -33,12 +35,13 @@
         android:layout_below="@id/flow3_info"
         android:layout_margin="25dp"
         android:background="@drawable/rounded_input"
+        android:fontFamily="sans-serif-light"
         android:hint="yourname@example.com"
         android:inputType="textEmailAddress"
-        android:textColor="#000"
-        android:textCursorDrawable="@null"
+        android:maxLines="1"
         android:singleLine="true"
-        android:maxLines="1"/>
+        android:textColor="#000"
+        android:textCursorDrawable="@null" />
 
     <Button
         android:id="@+id/flow3_button"
@@ -49,6 +52,7 @@
         android:layout_marginRight="25dp"
         android:layout_marginTop="110dp"
         android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-light"
         android:text="Continue"
         android:textColor="#fff" />
 
@@ -56,10 +60,11 @@
         android:id="@+id/flow3_signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:textColor="#00559A"/>
+        android:layout_marginBottom="30dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:text="Sign In"
+        android:textColor="#00559A" />
 
 </RelativeLayout>

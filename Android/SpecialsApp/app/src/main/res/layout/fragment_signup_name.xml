@@ -10,6 +10,7 @@
         style="@android:style/TextAppearance.DeviceDefault.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:paddingTop="95dp"
         android:text="What's Your Name?"
@@ -21,15 +22,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/flow2_title"
+        android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:paddingTop="25dp"
         android:text="Dealers like to know your name\n before they contact you."
         android:textColor="#000" />
 
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linear"
         android:layout_below="@id/flow2_info"
         android:layout_marginTop="35dp">
 
@@ -37,41 +39,44 @@
             android:id="@+id/flow2_first"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_input"
-            android:hint="First Name"
-            android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
-            android:textColor="#000"
+            android:layout_marginRight="15dp"
             android:layout_weight="1"
-            android:textCursorDrawable="@null"
+            android:background="@drawable/rounded_input"
+            android:fontFamily="sans-serif-light"
+            android:hint="First Name"
+            android:maxLines="1"
             android:singleLine="true"
-            android:maxLines="1"/>
+            android:textColor="#000"
+            android:textCursorDrawable="@null" />
 
         <EditText
             android:id="@+id/flow2_last"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_input"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:hint="Last Name"
-            android:textColor="#000"
             android:layout_weight="1"
-            android:textCursorDrawable="@null"
+            android:background="@drawable/rounded_input"
+            android:fontFamily="sans-serif-light"
+            android:hint="Last Name"
+            android:maxLines="1"
             android:singleLine="true"
-            android:maxLines="1"/>
+            android:textColor="#000"
+            android:textCursorDrawable="@null" />
 
-        </LinearLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/flow2_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/linear"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_below="@id/linear"
         android:layout_marginTop="125dp"
         android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-light"
         android:text="Continue"
         android:textColor="#fff" />
 
@@ -79,11 +84,12 @@
         android:id="@+id/flow2_signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:textColor="#00559A"/>
+        android:layout_marginBottom="30dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:text="Sign In"
+        android:textColor="#00559A" />
 
 
 </RelativeLayout>

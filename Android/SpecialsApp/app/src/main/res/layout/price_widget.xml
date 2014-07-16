@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+id/price_field"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="horizontal">
-
-<TextView
-    android:id="@+id/price_old"
-    android:layout_width="wrap_content"
+    android:id="@+id/price_field"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="@string/strikethrough"
-    android:textColor="#aaa"
-    style="@android:style/TextAppearance.DeviceDefault"/>
+    android:orientation="horizontal">
 
-<TextView
-    android:id="@+id/price_new"
-    android:layout_marginLeft="15dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@android:color/holo_green_dark"
-    android:text="$11,000"
-    style="@android:style/TextAppearance.DeviceDefault"/>
+    <TextView
+        android:id="@+id/price_old"
+        style="@android:style/TextAppearance.DeviceDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/strikethrough"
+
+        android:textColor="#aaa" />
+
+    <TextView
+        android:id="@+id/price_new"
+        style="@android:style/TextAppearance.DeviceDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="sans-serif-light"
+        android:text="$11,000"
+
+        android:textColor="@android:color/holo_green_dark" />
 </LinearLayout>

@@ -79,7 +79,7 @@ public class DealerCard extends Card {
         return this.cityState;
     }
 
-    public void setCityState(String cityState){
+    public void setCityState(String cityState) {
         this.cityState = cityState;
     }
 
@@ -87,7 +87,9 @@ public class DealerCard extends Card {
         return this.dealer;
     }
 
-    public void setDealer(String dealer){ this.dealer = dealer; }
+    public void setDealer(String dealer) {
+        this.dealer = dealer;
+    }
 
     public String getDistance() {
         return distance;
@@ -104,7 +106,6 @@ public class DealerCard extends Card {
     public void setNumSpecials(String numSpecials) {
         this.numSpecials = numSpecials;
     }
-
 
 
 }

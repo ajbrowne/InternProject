@@ -30,7 +30,7 @@ public class SettingsActivity extends PreferenceActivity implements
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         EditTextPreference editTextPref = (EditTextPreference) findPreference("zip_code");
 
-        if (!sharedPreferences.getString("zip_code", "").equals("")){
+        if (!sharedPreferences.getString("zip_code", "").equals("")) {
             editTextPref.setSummary(sharedPreferences.getString("zip_code", "Enter Zip Code"));
         }
 
