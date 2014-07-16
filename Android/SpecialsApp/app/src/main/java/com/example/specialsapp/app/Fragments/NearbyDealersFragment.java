@@ -1,6 +1,7 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -82,15 +83,17 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
     }
 
     private void checkLocationSettings() {
-        String zip = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("zip_code", "");
-        if (!zip.equals("")) {
-            double[] location = getLoc(zip);
-            lat = location[0];
-            longi = location[1];
-        } else {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String zip = sharedPreferences.getString("zip_code", "");
+        boolean useLocation = sharedPreferences.getBoolean("use_location", false);
+        if (useLocation) {
             GPS gps = new GPS(getActivity());
             lat = gps.getLatitude();
             longi = gps.getLongitude();
+        } else {
+            double[] location = getLoc(zip);
+            lat = location[0];
+            longi = location[1];
         }
     }
 

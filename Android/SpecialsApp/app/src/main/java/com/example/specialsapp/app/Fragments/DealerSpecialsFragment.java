@@ -1,6 +1,7 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -57,9 +58,11 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
     }
 
     private double[] checkLocationSettings() {
-        String zip = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("zip_code", "");
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String zip = sharedPreferences.getString("zip_code", "");
+        boolean useLocation = sharedPreferences.getBoolean("use_location", false);
         double[] location = new double[2];
-        if (!zip.equals("")) {
+        if (!zip.equals("") || !useLocation) {
             location = getLoc(zip);
         } else {
             GPS gps = new GPS(getActivity());

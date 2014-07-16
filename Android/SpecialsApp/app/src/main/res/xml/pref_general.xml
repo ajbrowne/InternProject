@@ -2,12 +2,14 @@
 
     <PreferenceCategory
         android:key="search_category"
+        android:fontFamily="sans-serif-light"
         android:title="Search Settings">
 
     <CheckBoxPreference
         android:key="use_location"
         android:title="@string/pref_title_location"
         android:summary="@string/pref_description_location"
+        android:fontFamily="sans-serif-light"
         android:defaultValue="true" />
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
@@ -18,6 +20,7 @@
         android:summary="@string/pref_zip_summary"
         android:defaultValue="@string/pref_default_display_name"
         android:selectAllOnFocus="true"
+        android:fontFamily="sans-serif-light"
         android:inputType="number"
         android:singleLine="true"
         android:maxLines="1" />
