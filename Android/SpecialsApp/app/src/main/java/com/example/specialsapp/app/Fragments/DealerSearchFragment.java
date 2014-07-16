@@ -40,7 +40,7 @@ public class DealerSearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), DealerResultsActivity.class);
-                intent.putExtra("make", ((TextView) view).getText().toString());
+                intent.putExtra("make", ((TextView) view).getText().toString().replaceAll(" ", "%20"));
                 startActivity(intent);
             }
         });

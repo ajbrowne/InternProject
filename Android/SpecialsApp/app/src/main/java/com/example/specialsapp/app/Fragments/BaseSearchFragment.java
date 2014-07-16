@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.TextView;
 
 import com.android.volley.Cache;
 import com.android.volley.RequestQueue;
@@ -296,7 +297,12 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     private class ResponseListener implements Response.Listener<JSONArray> {
         @Override
         public void onResponse(JSONArray response) {
-            carSearch(response);
+            if(response.length() == 0){
+                TextView result = (TextView)baseView.findViewById(R.id.third_result);
+                result.setVisibility(View.VISIBLE);
+            }else {
+                carSearch(response);
+            }
         }
 
     }
