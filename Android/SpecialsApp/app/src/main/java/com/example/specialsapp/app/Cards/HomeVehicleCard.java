@@ -47,6 +47,7 @@ public class HomeVehicleCard extends Card {
         mType.setText(this.type);
         Picasso.with(context)
                 .load(url)
+                .placeholder(R.drawable.tesla)
                 .resize(100, 80)
                 .into(thumbnail);
 
