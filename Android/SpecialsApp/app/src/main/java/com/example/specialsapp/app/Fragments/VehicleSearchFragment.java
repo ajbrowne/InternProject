@@ -57,6 +57,7 @@ public class VehicleSearchFragment extends Fragment {
         submitSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                params[4] = "1";
                 if (makeSpinner.getSelectedItem().toString().compareTo("All") == 0) {
                     params[0] = "";
                     params[1] = "";
