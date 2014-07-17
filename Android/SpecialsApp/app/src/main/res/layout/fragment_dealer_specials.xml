@@ -22,7 +22,6 @@
             android:id="@+id/myList1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="12dp"
             android:paddingTop="12dp" />
 
     </uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout>
