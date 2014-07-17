@@ -50,7 +50,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 public class NearbyDealersFragment extends Fragment implements OnRefreshListener {
 
     private static final double defaultLocation = -1000.0;
-    private static final String baseUrl = "http://192.168.171.146:8080/v1/specials/dealers?";
+    private static final String baseUrl = "http://192.168.170.100:8080/v1/specials/dealers?";
     private View homeView;
     private Double lat;
     private Double longi;
@@ -217,8 +217,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
             ArrayList<Dealer> dealers = new ArrayList<Dealer>();
             try {
                 for (int i = 0; i < response.length(); i++) {
-                    JSONObject outer = (JSONObject) response.get(i);
-                    JSONObject dealerObject = (JSONObject) outer.get("content");
+                    JSONObject dealerObject = (JSONObject) response.get(i);
                     Dealer dealer = new Dealer();
                     dealer.setCity(dealerObject.get("city").toString());
                     dealer.setState(dealerObject.get("state").toString());

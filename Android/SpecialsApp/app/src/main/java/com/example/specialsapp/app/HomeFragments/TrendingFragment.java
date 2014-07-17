@@ -50,7 +50,7 @@ public class TrendingFragment extends Fragment {
 
     private static final String Trending = "See What's Trending";
     private static final String TrendingDescription = "Most Popular Deals";
-    private static final String baseUrl = "http://192.168.171.146:8080/v1/specials/vehicle?";
+    private static final String baseUrl = "http://192.168.170.100:8080/v1/specials/vehicle?";
     private ArrayList<Card> cards;
     private View homeView;
     private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();

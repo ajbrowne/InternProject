@@ -35,7 +35,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
 public class DealerResultsActivity extends BaseActivity {
 
 
-    private static final String baseUrl = "http://192.168.171.146:8080/v1/specials/dealers?";
+    private static final String baseUrl = "http://192.168.170.100:8080/v1/specials/dealers?";
     private TextView mResultsNone;
     private double lat;
     private double longi;
@@ -72,8 +72,13 @@ public class DealerResultsActivity extends BaseActivity {
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("lng", String.valueOf(longi));
         param.put("lat", String.valueOf(lat));
-        param.put("make", getIntent().getStringExtra("make"));
-        param.put("extra", "1");
+        if (getIntent().getStringExtra("make").equals("All")){
+            param.put("extra", "0");
+        } else{
+            param.put("extra", "1");
+            param.put("make", getIntent().getStringExtra("make"));
+        }
+        System.out.println(param);
         return param;
     }
 
@@ -164,7 +169,6 @@ public class DealerResultsActivity extends BaseActivity {
             try {
                 for (int i = 0; i < response.length(); i++) {
                     JSONObject dealerObject = (JSONObject) response.get(i);
-                    System.out.println(dealerObject.getString("name"));
                     JSONObject loc = (JSONObject) dealerObject.get("loc");
                     JSONArray coordinates = (JSONArray) loc.get("coordinates");
 
