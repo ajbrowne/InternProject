@@ -60,7 +60,6 @@ public class DealerService {
      * @return - a list of the dealers that match
      */
     public List<? extends Dealer> getDealers(Point point, Dealer dealer) {
-        System.out.println(dealer);
         List<Dealer> dealers = new ArrayList<Dealer>();
         List<GeoResult> locResults = dealerRepository.getDealerByLocation(point);
         List<Dealer> locDealers = new ArrayList<Dealer>();
