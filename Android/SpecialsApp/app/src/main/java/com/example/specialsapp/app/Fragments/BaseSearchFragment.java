@@ -83,6 +83,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         String url = generateUrl(parameters);
+        System.out.println("URL: " + url);
         Cache.Entry entry = cache.get(url);
         makeAsync(isSearch, queue, url, entry);
     }

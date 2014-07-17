@@ -71,7 +71,6 @@ public class VehicleResultsFragment extends BaseSearchFragment implements OnRefr
             param.put("lat", latt);
         } else {
             double[] location = getLoc(zip);
-            System.out.println(location[0]);
             if (location[0] != defaultLocation) {
                 latt = String.valueOf(location[0]);
                 longi = String.valueOf(location[1]);
