@@ -24,9 +24,10 @@ public class MongoDealerRepository implements DealerRepository {
     }
 
     @Override
-    public List getDealerByLocation(Point point) {
+    public List<Dealer> getDealerByLocation(Point point) {
         GeoResults dealers = mongoTemplate.geoNear(NearQuery.near(point), Dealer.class, "dealers");
-        return dealers.getContent();
+        List<Dealer> returnDealers = dealers.getContent();
+        return returnDealers;
     }
 
     @Override

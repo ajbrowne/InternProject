@@ -39,7 +39,7 @@ public class DealerService {
      * @param point - the point we are searching near
      * @return - a list of nearby dealers
      */
-    public List getDealerLocation(Point point) {
+    public List<Dealer> getDealerLocation(Point point) {
         return dealerRepository.getDealerByLocation(point);
     }
 
