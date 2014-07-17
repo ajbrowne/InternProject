@@ -60,6 +60,21 @@ public class MergeService {
         for (Vehicle tempVehicle : tempVehicles) {
             ids.add(tempVehicle.getId());
         }
+        return findNearSpecials(flag, newDealer, specials, tempVehicles, ids);
+
+    }
+
+    /**
+     * Create the merger objects based on the nearby specials from the nearby dealers
+     *
+     * @param flag - check to sort depending on what we are trying to do with the results
+     * @param newDealer - list of dealers by location
+     * @param specials - list of the mergerobjs we created and will be adding too
+     * @param tempVehicles - list of the vehicles that will be associated with the specials
+     * @param ids - list of the vehicles ids
+     * @return - constructed list of merged objects we will be returning
+     */
+    private List<? extends MergerObj> findNearSpecials(int flag, List<GeoResult> newDealer, List<MergerObj> specials, List<Vehicle> tempVehicles, List<String> ids) {
         //loop over the dealers that are closest to the point to find
         //the specials for that dealer
         for (GeoResult aNewDealer : newDealer) {

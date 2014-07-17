@@ -5,7 +5,7 @@
     android:background="#EFEFEF">
 
     <include
-        android:id="@+id/first_result"
+        android:id="@+id/third_result"
         layout="@layout/results_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

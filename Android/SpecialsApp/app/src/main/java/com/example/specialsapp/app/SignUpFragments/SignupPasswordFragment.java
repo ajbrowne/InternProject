@@ -111,11 +111,9 @@ public class SignupPasswordFragment extends Fragment {
             String conf = confirm.getText().toString();
 
             if (pass.compareTo(conf) == 0 && pass.length() != 0 && conf.length() != 0) {
-                System.out.println("SAME");
                 password.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_confirm));
                 confirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_confirm));
             } else {
-                System.out.println("DIFF");
                 password.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_input));
                 confirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_input));
             }

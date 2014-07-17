@@ -13,7 +13,7 @@
     <ImageView
         android:id="@+id/gridCar"
         android:layout_width="100dp"
-        android:layout_height="82dp"
+        android:layout_height="80dp"
         android:layout_marginTop="3dp"
         android:scaleType="fitXY"
         android:src="@drawable/aztek" />

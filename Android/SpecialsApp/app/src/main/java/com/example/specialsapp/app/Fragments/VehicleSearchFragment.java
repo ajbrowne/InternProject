@@ -71,6 +71,8 @@ public class VehicleSearchFragment extends Fragment {
                     params[4] = "0";
                 }
 
+                params[0] = params[0].replaceAll(" ", "%20");
+                params[1] = params[1].replaceAll(" ", "%20");
                 Intent intent = new Intent(getActivity(), VehicleResultsActivity.class);
                 intent.putExtra("params", params);
                 if (sharedPrefs.getBoolean("use_location", false)) {
