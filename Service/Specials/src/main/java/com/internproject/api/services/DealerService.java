@@ -40,7 +40,7 @@ public class DealerService {
      * @return - a list of nearby dealers
      */
     public List getDealerLocation(Point point) {
-        return dealerRepository.getDealerByLocation(point);
+        return getDealersFromGeoresult(point);
     }
 
     /**
@@ -61,12 +61,7 @@ public class DealerService {
      */
     public List<? extends Dealer> getDealers(Point point, Dealer dealer) {
         List<Dealer> dealers = new ArrayList<Dealer>();
-        List<GeoResult> locResults = dealerRepository.getDealerByLocation(point);
-        List<Dealer> locDealers = new ArrayList<Dealer>();
-
-        for (GeoResult geoResult : locResults) {
-            locDealers.add((Dealer) geoResult.getContent());
-        }
+        List<Dealer> locDealers = getDealersFromGeoresult(point);
         if (dealer.getMake() == null) {
             RunnableQuery mainThread = new RunnableQuery("dealer", dealerRepository, dealer, dealers);
             ExecutorService es = Executors.newCachedThreadPool();
@@ -82,11 +77,20 @@ public class DealerService {
             dealers = dealerRepository.findAllDealers();
             dealers = findMatch(dealers, dealer);
         }
-        System.out.println(dealers);
         dealers = dealerSort(dealers, locDealers);
 
 
         return dealers;
+    }
+
+    private List<Dealer> getDealersFromGeoresult(Point point) {
+        List<GeoResult> locResults = dealerRepository.getDealerByLocation(point);
+        List<Dealer> locDealers = new ArrayList<Dealer>();
+
+        for (GeoResult geoResult : locResults) {
+            locDealers.add((Dealer) geoResult.getContent());
+        }
+        return locDealers;
     }
 
     public Dealer getDealerById(String id) {
