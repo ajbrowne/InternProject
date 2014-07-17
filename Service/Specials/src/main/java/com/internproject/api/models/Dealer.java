@@ -34,6 +34,7 @@ public class Dealer {
         this.admin = admin;
         this.loc = loc;
     }
+
     public Dealer(String id, String name, String admin, Location loc, int numSpecials, List<String> make, String city, String state, Point location) {
         this.id = id;
         this.name = name;
@@ -45,6 +46,7 @@ public class Dealer {
         this.state = state;
         this.location = location;
     }
+
     public Dealer(String id, String name, String admin, Location loc, List<String> make, String city, String state, Point location) {
         this.id = id;
         this.name = name;
@@ -55,6 +57,7 @@ public class Dealer {
         this.state = state;
         this.location = location;
     }
+
     public Dealer(String name, String admin, Location loc, String city, String state, Point location) {
         this.name = name;
         this.admin = admin;

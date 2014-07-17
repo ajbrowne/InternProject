@@ -72,9 +72,9 @@ public class DealerResultsActivity extends BaseActivity {
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("lng", String.valueOf(longi));
         param.put("lat", String.valueOf(lat));
-        if (getIntent().getStringExtra("make").equals("All")){
+        if (getIntent().getStringExtra("make").equals("All")) {
             param.put("extra", "0");
-        } else{
+        } else {
             param.put("extra", "1");
             param.put("make", getIntent().getStringExtra("make"));
         }
