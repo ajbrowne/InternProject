@@ -27,9 +27,9 @@ public class MongoDealerRepository implements DealerRepository {
     @Override
     public List getDealerByLocation(Point point) {
         GeoResults dealers = mongoTemplate.geoNear(NearQuery.near(point), Dealer.class, "dealers");
-        List returnDealers = new ArrayList<Dealer>();
+        List<Dealer> returnDealers = new ArrayList<Dealer>();
         for(int i = 0; i < dealers.getContent().size();i++){
-            returnDealers.add(dealers.getContent().get(i));
+            returnDealers.add((Dealer)dealers.getContent().get(i));
         }
         return returnDealers;
     }
@@ -60,7 +60,6 @@ public class MongoDealerRepository implements DealerRepository {
     public synchronized void updateDealerSpecials(Dealer dealer) {
         Dealer temp = mongoTemplate.findOne(Query.query(Criteria.where("id").is(dealer.getId())), Dealer.class);
         temp.setNumSpecials(temp.getNumSpecials() + 1);
-        System.out.println("SPECIALS: " + temp);
         mongoTemplate.insert(temp, "dealers");
     }
 
