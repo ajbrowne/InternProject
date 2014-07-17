@@ -64,7 +64,7 @@ public class DealerController {
         Point point = new Point(lng, lat);
         log.info("Location received from app: " + point);
         if (flag == 0) {
-            List<Dealer> newDealer = dealerService.getDealerLocation(point);
+            List newDealer = dealerService.getDealerLocation(point);
             log.info("Number of dealers returned: " + newDealer.size());
             return new ResponseEntity<List>(newDealer, HttpStatus.OK);
         }
