@@ -47,12 +47,14 @@ public class MergeService {
      * @return - a list of mergerobj that contains a list of the specials and vehicles by dealer name
      */
     public List<? extends MergerObj> getNearestVehicles(Point point, Vehicle vehicle, int flag) {
+        System.out.println(vehicle);
         List<Dealer> newDealer = dealerService.getDealerLocation(point);
         List<MergerObj> specials = new ArrayList<MergerObj>();
         List<Vehicle> tempVehicles = vehicleService.getAllVehicles();
         List<String> ids = new ArrayList<String>();
         if (flag == 1) {
             tempVehicles = vehicleService.getVehicles(vehicle);
+            System.out.println("TEMPV:" + tempVehicles);
             tempVehicles = vehicleHelper(tempVehicles, vehicle);
         }
         //Loop over the vehicles that match the given description and store their ids
@@ -120,7 +122,7 @@ public class MergeService {
                 length--;
                 i--;
                 //Check to see if the current vehicle has a matching model
-            } else if (!vehicles.get(i).getModel().equals(match.getModel())) {
+            } else if (!vehicles.get(i).getModel().equals(match.getModel()) && match.getModel().equals(null)) {
                 //if it does not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
