@@ -17,6 +17,8 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.example.specialsapp.app.Models.LocationObject;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -167,30 +169,30 @@ public class GPS extends Service implements LocationListener {
         alertDialog.show();
     }
 
-    public double[] checkLocationSettings() {
+    public LocationObject checkLocationSettings() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String zip = sharedPreferences.getString("zip_code", "");
         boolean useLocation = sharedPreferences.getBoolean("use_location", false);
-        double[] location = new double[2];
+        LocationObject location = new LocationObject();
         if ((!zip.equals("") && !zip.equals("Enter Zip Code")) && !useLocation) {
             System.out.println(zip);
             location = getLoc(zip);
         } else {
-            location[0] = getLatitude();
-            location[1] = getLongitude();
+            location.setLatitude(getLatitude());
+            location.setLongitude(getLongitude());
         }
         return location;
     }
 
-    private double[] getLoc(String zip) {
+    private LocationObject getLoc(String zip) {
         final Geocoder geocoder = new Geocoder(context);
-        double[] location = {defaultLocation, defaultLocation};
+        LocationObject location = new LocationObject(defaultLocation, defaultLocation);
         try {
             List<Address> addresses = geocoder.getFromLocationName(zip, 1);
             if (addresses != null && !addresses.isEmpty()) {
                 Address address = addresses.get(0);
-                location[0] = address.getLatitude();
-                location[1] = address.getLongitude();
+                location.setLatitude(address.getLatitude());
+                location.setLongitude(address.getLongitude());
             }
         } catch (IOException e) {
             e.printStackTrace();

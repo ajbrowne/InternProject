@@ -1,11 +1,7 @@
 package com.example.specialsapp.app.Activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.specialsapp.app.Cards.DealerCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Dealer;
+import com.example.specialsapp.app.Models.LocationObject;
 import com.example.specialsapp.app.R;
 
 import org.apache.http.impl.client.AbstractHttpClient;
@@ -29,10 +26,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
@@ -42,7 +37,6 @@ public class DealerResultsActivity extends BaseActivity {
 
 
     private static final String baseUrl = "http://192.168.168.235:8080/v1/specials/dealers?";
-    private static final double defaultLocation = 0.0;
     private TextView mResultsNone;
     private double lat;
     private double longi;
@@ -59,7 +53,9 @@ public class DealerResultsActivity extends BaseActivity {
         RequestQueue queue = Volley.newRequestQueue(this, new HttpClientStack(client));
 
         GPS gps = new GPS(this);
-        gps.checkLocationSettings();
+        LocationObject location = gps.checkLocationSettings();
+        lat = location.getLatitude();
+        longi = location.getLongitude();
 
         HashMap<String, String> param = createParams();
 

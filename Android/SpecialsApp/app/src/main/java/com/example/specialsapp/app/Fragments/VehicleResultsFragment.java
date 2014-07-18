@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.specialsapp.app.GPS.GPS;
+import com.example.specialsapp.app.Models.LocationObject;
 import com.example.specialsapp.app.R;
 
 import java.util.HashMap;
@@ -53,9 +54,9 @@ public class VehicleResultsFragment extends BaseVehicleFragment implements OnRef
 
     private void search() {
         final GPS gps = new GPS(getActivity());
-        double[] location = gps.checkLocationSettings();
-        Double latitude = location[0];
-        Double longitude = location[1];
+        LocationObject location = gps.checkLocationSettings();
+        Double latitude = location.getLatitude();
+        Double longitude = location.getLongitude();
         String latt = String.valueOf(latitude);
         String longi = String.valueOf(longitude);
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.specialsapp.app.GPS.GPS;
+import com.example.specialsapp.app.Models.LocationObject;
 import com.example.specialsapp.app.R;
 
 import org.json.JSONException;
@@ -49,10 +50,10 @@ public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRef
         //TODO It is almost always best to create objects for these kinds of things
 
         GPS gps = new GPS(getActivity());
-        double[] location = gps.checkLocationSettings();
+        LocationObject location = gps.checkLocationSettings();
 
         try {
-            getDealerSpecials(location[0], location[1]);
+            getDealerSpecials(location.getLatitude(), location.getLongitude());
         } catch (JSONException e) {
             e.printStackTrace();
         }

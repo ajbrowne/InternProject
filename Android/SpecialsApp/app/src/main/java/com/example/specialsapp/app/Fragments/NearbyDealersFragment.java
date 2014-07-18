@@ -24,6 +24,7 @@ import com.example.specialsapp.app.Activities.DealerDetail;
 import com.example.specialsapp.app.Cards.DealerCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Dealer;
+import com.example.specialsapp.app.Models.LocationObject;
 import com.example.specialsapp.app.R;
 
 import org.apache.http.impl.client.AbstractHttpClient;
@@ -77,9 +78,9 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
                 .listener(this)
                 .setup(mPullToRefreshLayout);
 
-        double[] location = gps.checkLocationSettings();
-        lat = location[0];
-        longi = location[1];
+        LocationObject location = gps.checkLocationSettings();
+        lat = location.getLatitude();
+        longi = location.getLongitude();
 
         getDealers();
 
@@ -166,9 +167,9 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
     @Override
     public void onRefreshStarted(View view) {
         gps.checkLocationSettings();
-        double[] location = gps.checkLocationSettings();
-        lat = location[0];
-        longi = location[1];
+        LocationObject location = gps.checkLocationSettings();
+        lat = location.getLatitude();
+        longi = location.getLongitude();
         getDealers();
     }
 
