@@ -47,14 +47,12 @@ public class MergeService {
      * @return - a list of mergerobj that contains a list of the specials and vehicles by dealer name
      */
     public List<? extends MergerObj> getNearestVehicles(Point point, Vehicle vehicle, int flag) {
-        System.out.println(vehicle);
         List<Dealer> newDealer = dealerService.getDealerLocation(point);
         List<MergerObj> specials = new ArrayList<MergerObj>();
         List<Vehicle> tempVehicles = vehicleService.getAllVehicles();
         List<String> ids = new ArrayList<String>();
         if (flag == 1) {
             tempVehicles = vehicleService.getVehicles(vehicle);
-            System.out.println("TEMPV:" + tempVehicles);
             tempVehicles = vehicleHelper(tempVehicles, vehicle);
         }
         //Loop over the vehicles that match the given description and store their ids
@@ -131,13 +129,13 @@ public class MergeService {
         //Loop over the vehicles list
         for (int i = 0; i < vehicles.size(); i++) {
             //Check to see if the current location in the list is the matching make
-            if (!vehicles.get(i).getMake().equals(match.getMake())&& match.getMake() != null) {
+            if (!vehicles.get(i).getMake().equals(match.getMake())&& !match.getMake().equals("")) {
                 //if it is not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
                 i--;
                 //Check to see if the current vehicle has a matching model
-            } else if (!vehicles.get(i).getModel().equals(match.getModel()) && match.getModel() != null) {
+            } else if (!vehicles.get(i).getModel().equals(match.getModel()) && !match.getModel().equals("")) {
                 //if it does not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
@@ -145,7 +143,7 @@ public class MergeService {
                 if (i >= length) {
                     break;
                 }
-            } else if (!vehicles.get(i).getType().equals(match.getType())&& match.getType() != null) {
+            } else if (!vehicles.get(i).getType().equals(match.getType())&& !match.getType().equals("")) {
                 //if it is not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
