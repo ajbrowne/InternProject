@@ -21,7 +21,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
  */
 public class VehicleResultsFragment extends BaseVehicleFragment implements OnRefreshListener {
 
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
     private View resultsView;
     private String[] params = new String[5];
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -60,7 +60,7 @@ public class VehicleResultsFragment extends BaseVehicleFragment implements OnRef
         String latt = String.valueOf(latitude);
         String longi = String.valueOf(longitude);
 
-        HashMap<String, String> param = new HashMap<String, String>();
+        HashMap<String, String> param = new HashMap<>();
         param.put("lat", latt);
         param.put("lng", longi);
         param.put("make", params[0]);

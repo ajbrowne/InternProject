@@ -59,7 +59,7 @@ public class DealerDetail extends BaseActivity {
     }
 
     /**
-     * Initialize TextViews TODO provide a better name for this method
+     * Initialize TextViews
      */
     private void loadTextViews() {
         mAddress = (TextView) findViewById(R.id.dealer_address);
@@ -136,7 +136,7 @@ public class DealerDetail extends BaseActivity {
             double lat = doubles[0];
             double longitude = doubles[1];
             String address = "No Address Found";
-            List<Address> addresses = new ArrayList<Address>();
+            List<Address> addresses = new ArrayList<>();
             while (address.equals("No Address Found")) {
                 try {
                     addresses = mGeoCoder.getFromLocation(lat, longitude, 1);

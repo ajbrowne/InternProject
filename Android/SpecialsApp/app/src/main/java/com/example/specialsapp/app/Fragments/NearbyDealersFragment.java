@@ -47,10 +47,9 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 /**
  * Created by brownea on 6/12/14.
- */
+ **/
 public class NearbyDealersFragment extends Fragment implements OnRefreshListener {
 
-    private static final double defaultLocation = 0.0;
     private static final String baseUrl = "http://192.168.168.235:8080/v1/specials/dealers?";
     private View homeView;
     private Double lat;
@@ -96,7 +95,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         String latt = String.valueOf(lat);
         String longg = String.valueOf(longi);
 
-        HashMap<String, String> param = new HashMap<String, String>();
+        HashMap<String, String> param = new HashMap<>();
         param.put("lng", longg);
         param.put("lat", latt);
 
@@ -118,7 +117,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
      * @param dealers
      */
     private void addCards(ArrayList<Dealer> dealers) {
-        ArrayList<Card> cards = new ArrayList<Card>();
+        ArrayList<Card> cards = new ArrayList<>();
         cards = createDealers(dealers, cards);
 
         CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
@@ -196,7 +195,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
     private class ResponseListener implements Response.Listener<JSONArray> {
         @Override
         public void onResponse(JSONArray response) {
-            ArrayList<Dealer> dealers = new ArrayList<Dealer>();
+            ArrayList<Dealer> dealers = new ArrayList<>();
             try {
                 for (int i = 0; i < response.length(); i++) {
                     JSONObject dealerObject = (JSONObject) response.get(i);

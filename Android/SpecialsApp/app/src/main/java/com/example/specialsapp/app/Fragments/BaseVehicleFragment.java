@@ -1,8 +1,6 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -32,12 +30,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
@@ -73,11 +69,13 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
     }
 
     /**
-     * TODO fix this comment
-     * @param parameters
-     * @param view
-     * @param pullToRefreshLayout
-     * @param isSearch
+     * Initializes async fields including caching.
+     *
+     * @param parameters - parameters for search
+     * @param view - current view
+     * @param pullToRefreshLayout - current PullToRefreshLayout
+     * @param isSearch - denotes whether from home view or search
+     *
      */
     public void vehicleAsync(HashMap<String, String> parameters, View view, PullToRefreshLayout pullToRefreshLayout, boolean isSearch) {
         this.isSearch = isSearch;
@@ -94,11 +92,13 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
     }
 
     /**
-     * TODO fix this comment
-     * @param isSearch
-     * @param queue
-     * @param url
-     * @param entry
+     * Makes the actual call for vehicles, whether with cached or new results from the api
+     *
+     * @param isSearch - denotes whether from home view or search
+     * @param queue - queue of async calls being made
+     * @param url - url being sent to api
+     * @param entry - cached results if they exist
+     *
      */
     private void makeAsync(boolean isSearch, RequestQueue queue, String url, Cache.Entry entry) {
         JsonArrayRequest searchRequest;
@@ -124,7 +124,7 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
                 specialObject.setTitle(special.getString("title"));
                 specialObject.setAmount(special.getString("amount"));
 
-                ArrayList<Special> specs = new ArrayList<Special>();
+                ArrayList<Special> specs = new ArrayList<>();
                 specs.add(specialObject);
                 String newPrice = String.valueOf(Integer.parseInt(vehicle.getString("price")) - Integer.parseInt(special.getString("amount")));
 
@@ -155,7 +155,7 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
 
     public void addCards(ArrayList<Vehicle> newVehicles) {
         returnSize = newVehicles.size();
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
         createSpecials(0, newVehicles, cards);
         mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
         CardListView cardListView = (CardListView) baseView.findViewById(R.id.myList1);
@@ -172,7 +172,6 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
     /**
      * Creates cards for a given ArrayList of specials
      *
-     * @return Arraylist of created cards
      */
     public void createSpecials(int index, ArrayList<Vehicle> newVehicles, ArrayList<Card> cards) {
         for (int i = index; i < index + 10 && i < returnSize; i++) {
@@ -213,7 +212,7 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
                 intent.putExtra("year", vehicle.getYear());
                 intent.putExtra("make", vehicle.getMake());
                 intent.putExtra("model", vehicle.getModel());
-                ArrayList<String> tempSpecs = new ArrayList<String>();
+                ArrayList<String> tempSpecs = new ArrayList<>();
                 for (int i = 0; i < vehicle.getSpecs().length(); i++) {
                     try {
                         tempSpecs.add(vehicle.getSpecs().get(i).toString());
@@ -250,7 +249,7 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
     }
 
     public void carSearch(JSONArray response) {
-        newVehicles = new ArrayList<Vehicle>();
+        newVehicles = new ArrayList<>();
         try {
             JSONObject dealer = (JSONObject) response.get(0);
             JSONArray vehicleArray = (JSONArray) dealer.get("vehicles");

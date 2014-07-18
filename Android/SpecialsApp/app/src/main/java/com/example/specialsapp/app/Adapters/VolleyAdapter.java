@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  * Created by brownea on 7/9/14.
- */
+ **/
 public class VolleyAdapter extends ArrayAdapter<String> implements SectionIndexer {
     private HashMap<String, Integer> alphaIndexer;
     private String[] sections;

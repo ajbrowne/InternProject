@@ -1,6 +1,5 @@
 package com.example.specialsapp.app.HomeFragments;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -54,8 +53,7 @@ public class TrendingFragment extends Fragment {
     private static final String BASE_URL = "http://192.168.168.235:8080/v1/specials/vehicle?";
     private ArrayList<Card> cards;
     private View homeView;
-    private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
-    private ProgressDialog pDialog;
+    private ArrayList<Vehicle> vehicles = new ArrayList<>();
 
     public TrendingFragment() {
         // Required empty public constructor
@@ -112,11 +110,9 @@ public class TrendingFragment extends Fragment {
         String latt = String.valueOf(latitude);
         String longg = String.valueOf(longitude);
 
-        HashMap<String, String> param = new HashMap<String, String>();
+        HashMap<String, String> param = new HashMap<>();
         param.put("lng", longg);
         param.put("lat", latt);
-        param.put("make", "");
-        param.put("extra", "0");
 
         trendingAsync(param);
     }
@@ -173,7 +169,7 @@ public class TrendingFragment extends Fragment {
                 specialObject.setTitle(spec.getString("title"));
                 specialObject.setAmount(spec.getString("amount"));
 
-                ArrayList<Special> specs = new ArrayList<Special>();
+                ArrayList<Special> specs = new ArrayList<>();
                 specs.add(specialObject);
                 String newPrice = String.valueOf(Integer.parseInt(vehicle.getString("price")) - Integer.parseInt(spec.getString("amount")));
 
@@ -199,7 +195,7 @@ public class TrendingFragment extends Fragment {
     }
 
     private void addCards(ArrayList<Vehicle> vehicles) {
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
         cards = createSpecials(0, vehicles);
     }
 
@@ -226,7 +222,7 @@ public class TrendingFragment extends Fragment {
                     intent.putExtra("year", vehicle.getYear());
                     intent.putExtra("make", vehicle.getMake());
                     intent.putExtra("model", vehicle.getModel());
-                    ArrayList<String> tempSpecs = new ArrayList<String>();
+                    ArrayList<String> tempSpecs = new ArrayList<>();
                     for (int i = 0; i < vehicle.getSpecs().length(); i++) {
                         try {
                             tempSpecs.add(vehicle.getSpecs().get(i).toString());
@@ -267,7 +263,7 @@ public class TrendingFragment extends Fragment {
     }
 
     private String generateUrl(HashMap<String, String> parameters) {
-        return BASE_URL + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
+        return BASE_URL + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat");
     }
 
     private class ResponseListener implements Response.Listener<JSONArray> {

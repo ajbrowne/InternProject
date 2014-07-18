@@ -24,7 +24,6 @@ public class HomeActivity extends BaseActivity {
 
     private ArrayList dealers;
     private ViewPager viewPager;
-    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

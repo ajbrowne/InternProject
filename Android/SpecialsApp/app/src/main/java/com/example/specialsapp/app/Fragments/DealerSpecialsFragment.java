@@ -82,7 +82,7 @@ public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRef
         String latt = String.valueOf(lat);
         String longg = String.valueOf(lng);
 
-        HashMap<String, String> param = new HashMap<String, String>();
+        HashMap<String, String> param = new HashMap<>();
         param.put("lng", longg);
         param.put("lat", latt);
 

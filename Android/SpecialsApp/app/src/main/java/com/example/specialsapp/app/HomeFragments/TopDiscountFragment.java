@@ -1,6 +1,5 @@
 package com.example.specialsapp.app.HomeFragments;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -48,11 +47,10 @@ public class TopDiscountFragment extends Fragment {
     private static final String baseUrl = "http://192.168.168.235:8080/v1/specials/special/top";
     private ArrayList<Card> cards;
     private View homeView;
-    private ArrayList<String> addedVehicles = new ArrayList<String>();
-    private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+    private ArrayList<String> addedVehicles = new ArrayList<>();
+    private ArrayList<Vehicle> vehicles = new ArrayList<>();
     private RequestQueue queue;
     private AbstractHttpClient client;
-    private ProgressDialog pDialog;
 
     public TopDiscountFragment() {
         // Required empty public constructor
@@ -69,10 +67,6 @@ public class TopDiscountFragment extends Fragment {
 
         client = new DefaultHttpClient();
         queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
-
-        //pDialog = new ProgressDialog(getActivity());
-        //pDialog.setMessage("Loading...");
-        //pDialog.show();
         topAsync();
 
         return homeView;
@@ -172,7 +166,7 @@ public class TopDiscountFragment extends Fragment {
     }
 
     private void addCards(ArrayList<Vehicle> vehicles) {
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
         cards = createSpecials(0, vehicles);
     }
 
@@ -199,7 +193,7 @@ public class TopDiscountFragment extends Fragment {
                     intent.putExtra("year", vehicle.getYear());
                     intent.putExtra("make", vehicle.getMake());
                     intent.putExtra("model", vehicle.getModel());
-                    ArrayList<String> tempSpecs = new ArrayList<String>();
+                    ArrayList<String> tempSpecs = new ArrayList<>();
                     for (int i = 0; i < vehicle.getSpecs().length(); i++) {
                         try {
                             tempSpecs.add(vehicle.getSpecs().get(i).toString());

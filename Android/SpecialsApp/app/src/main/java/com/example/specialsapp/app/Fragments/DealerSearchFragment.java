@@ -45,7 +45,7 @@ public class DealerSearchFragment extends Fragment {
             }
         });
 
-        ArrayList<String> makesArray = new ArrayList<String>(Arrays.asList(getActivity().getResources().getStringArray(R.array.makes)));
+        ArrayList<String> makesArray = new ArrayList<>(Arrays.asList(getActivity().getResources().getStringArray(R.array.makes)));
         VolleyAdapter alphaAdapter = new VolleyAdapter(getActivity(), R.layout.custom_item, makesArray);
         makes.setAdapter(alphaAdapter);
 

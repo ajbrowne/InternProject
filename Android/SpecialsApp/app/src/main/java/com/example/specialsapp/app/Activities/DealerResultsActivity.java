@@ -86,7 +86,7 @@ public class DealerResultsActivity extends BaseActivity {
 
         CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(this, cards);
 
-        CardListView cardListView = (CardListView) findViewById(R.id.myList3); // TODO please make a better name for myList3
+        CardListView cardListView = (CardListView) findViewById(R.id.dealer_search_results);
         if (cardListView != null) {
             cardListView.setAdapter(mCardArrayAdapter);
         }
