@@ -131,13 +131,13 @@ public class MergeService {
         //Loop over the vehicles list
         for (int i = 0; i < vehicles.size(); i++) {
             //Check to see if the current location in the list is the matching make
-            if (!vehicles.get(i).getMake().equals(match.getMake())&& match.getMake().equals(null)) {
+            if (!vehicles.get(i).getMake().equals(match.getMake())&& match.getMake() != null) {
                 //if it is not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
                 i--;
                 //Check to see if the current vehicle has a matching model
-            } else if (!vehicles.get(i).getModel().equals(match.getModel()) && match.getModel().equals(null)) {
+            } else if (!vehicles.get(i).getModel().equals(match.getModel()) && match.getModel() != null) {
                 //if it does not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
@@ -145,7 +145,7 @@ public class MergeService {
                 if (i >= length) {
                     break;
                 }
-            } else if (!vehicles.get(i).getType().equals(match.getType())&& match.getType().equals(null)) {
+            } else if (!vehicles.get(i).getType().equals(match.getType())&& match.getType() != null) {
                 //if it is not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
