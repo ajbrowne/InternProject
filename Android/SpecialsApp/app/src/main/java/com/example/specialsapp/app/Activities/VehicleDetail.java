@@ -19,7 +19,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class SpecialDetail extends BaseActivity {
+/**
+ * This is the vehicle detail activity that displays info
+ * about vehicles and allows the user to send their
+ * information to the dealer that has that vehicle.
+ *
+ *@author maharb
+ */
+public class VehicleDetail extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +77,7 @@ public class SpecialDetail extends BaseActivity {
         if (shared.getBoolean("stored", true)) {
             Toast.makeText(this.getApplicationContext(), "Info Submitted", Toast.LENGTH_LONG).show();
         } else {
-            Intent intent = new Intent(SpecialDetail.this, MainActivity.class);
+            Intent intent = new Intent(VehicleDetail.this, MainActivity.class);
             intent.putExtra("submit", true);
             startActivity(intent);
         }

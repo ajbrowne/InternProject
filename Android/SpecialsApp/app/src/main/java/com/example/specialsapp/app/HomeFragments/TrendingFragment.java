@@ -19,7 +19,7 @@ import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.specialsapp.app.Activities.HomeActivity;
-import com.example.specialsapp.app.Activities.SpecialDetail;
+import com.example.specialsapp.app.Activities.VehicleDetail;
 import com.example.specialsapp.app.Cards.HomeVehicleCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Special;
@@ -213,7 +213,7 @@ public class TrendingFragment extends Fragment {
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
-                    Intent intent = new Intent(getActivity(), SpecialDetail.class);
+                    Intent intent = new Intent(getActivity(), VehicleDetail.class);
                     HomeVehicleCard temp = (HomeVehicleCard) card;
                     intent.putExtra("title", temp.getTitle());
                     intent.putExtra("oldP", insertCommas(vehicle.getOldPrice()));

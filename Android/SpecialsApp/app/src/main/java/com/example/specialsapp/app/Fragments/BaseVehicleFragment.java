@@ -17,7 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.specialsapp.app.Activities.SpecialDetail;
+import com.example.specialsapp.app.Activities.VehicleDetail;
 import com.example.specialsapp.app.Cards.VehicleCard;
 import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.Models.Vehicle;
@@ -203,7 +203,7 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
         return new Card.OnCardClickListener() {
             @Override
             public void onClick(Card card, View view) {
-                Intent intent = new Intent(getActivity(), SpecialDetail.class);
+                Intent intent = new Intent(getActivity(), VehicleDetail.class);
                 VehicleCard temp = (VehicleCard) card;
                 intent.putExtra("title", temp.getTitle());
                 intent.putExtra("oldP", temp.getOldPrice());
