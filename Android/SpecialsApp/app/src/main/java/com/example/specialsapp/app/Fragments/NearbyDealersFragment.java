@@ -50,7 +50,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 public class NearbyDealersFragment extends Fragment implements OnRefreshListener {
 
     private static final double defaultLocation = -1000.0;
-    private static final String baseUrl = "http://192.168.170.100:8080/v1/specials/dealers?";
+    private static final String baseUrl = "http://192.168.168.235:8080/v1/specials/dealers?";
     private View homeView;
     private Double lat;
     private Double longi;
