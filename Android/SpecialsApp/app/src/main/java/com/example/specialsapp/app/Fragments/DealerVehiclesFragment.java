@@ -22,7 +22,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
  * The home view that displays all vehicles on special from the dealer
  * that is closest to your current location or entered zip.
  */
-public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRefreshListener {
+public class DealerVehiclesFragment extends BaseVehicleFragment implements OnRefreshListener {
 
     private View homeView;
     private PullToRefreshLayout mPullToRefreshLayout;

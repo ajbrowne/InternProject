@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.specialsapp.app.Fragments.DealerSpecialsFragment;
+import com.example.specialsapp.app.Fragments.DealerVehiclesFragment;
 import com.example.specialsapp.app.Fragments.NearbyDealersFragment;
 import com.example.specialsapp.app.HomeFragments.HomeFragment;
 
@@ -28,7 +28,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new HomeFragment();
             case 1:
-                return new DealerSpecialsFragment();
+                return new DealerVehiclesFragment();
             case 2:
                 return new NearbyDealersFragment();
         }
