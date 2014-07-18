@@ -7,7 +7,6 @@ import com.internproject.api.models.Special;
 import com.internproject.api.models.Vehicle;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.geo.GeoResult;
 import org.springframework.data.geo.Point;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.List;
 /**
  * Service layer for combined queries that return multiple object types in the results,
  * Used for searching for vehicles by location for example.
- * <p/>
+ *
  * Created by maharb on 6/30/14.
  */
 public class MergeService {
@@ -48,7 +47,7 @@ public class MergeService {
      * @return - a list of mergerobj that contains a list of the specials and vehicles by dealer name
      */
     public List<? extends MergerObj> getNearestVehicles(Point point, Vehicle vehicle, int flag) {
-        List<GeoResult> newDealer = dealerService.getDealerLocation(point);
+        List<Dealer> newDealer = dealerService.getDealerLocation(point);
         List<MergerObj> specials = new ArrayList<MergerObj>();
         List<Vehicle> tempVehicles = vehicleService.getAllVehicles();
         List<String> ids = new ArrayList<String>();
@@ -60,12 +59,27 @@ public class MergeService {
         for (Vehicle tempVehicle : tempVehicles) {
             ids.add(tempVehicle.getId());
         }
+        return getMergerObjs(flag, newDealer, specials, tempVehicles, ids);
+
+
+    }
+
+    /**
+     * Create merger objects based on vehicles, specials, and dealers
+     *
+     * @param flag - determine what api call happened
+     * @param newDealer - list of dealers
+     * @param specials - list of merger objects
+     * @param tempVehicles - list of vehicles
+     * @param ids - list of ids
+     * @return - generated list of merged objects
+     */
+    private List<? extends MergerObj> getMergerObjs(int flag, List<Dealer> newDealer, List<MergerObj> specials, List<Vehicle> tempVehicles, List<String> ids) {
         //loop over the dealers that are closest to the point to find
         //the specials for that dealer
-        for (GeoResult aNewDealer : newDealer) {
-            Dealer tempDealer = (Dealer) aNewDealer.getContent();
+        for (Dealer aNewDealer : newDealer) {
             Special tempSpecial = new Special();
-            tempSpecial.setDealer(tempDealer.getId());
+            tempSpecial.setDealer(aNewDealer.getId());
             tempSpecial.setVehicleId(ids);
             List<Special> temp = specialService.getSpecials(tempSpecial);
             //return only specials with the matching vehicles
@@ -75,12 +89,11 @@ public class MergeService {
             //store the dealers name and the special in an object to pass to the app
             //dealer name is for the cards in the app.
             if (temp.size() != 0) {
-                specials.add(new MergerObj(tempDealer.getName(), temp, tempVehicles));
+                specials.add(new MergerObj(aNewDealer.getName(), temp, tempVehicles));
             }
         }
 
         return specials;
-
     }
 
     /**
@@ -116,14 +129,22 @@ public class MergeService {
         //Loop over the vehicles list
         for (int i = 0; i < vehicles.size(); i++) {
             //Check to see if the current location in the list is the matching make
-            if (!vehicles.get(i).getMake().equals(match.getMake())) {
+            if (!vehicles.get(i).getMake().equals(match.getMake())&& !match.getMake().equals("")) {
                 //if it is not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
                 i--;
                 //Check to see if the current vehicle has a matching model
-            } else if (!vehicles.get(i).getModel().equals(match.getModel())) {
+            } else if (!vehicles.get(i).getModel().equals(match.getModel()) && !match.getModel().equals("")) {
                 //if it does not then we remove it
+                vehicles.remove(vehicles.get(i));
+                length--;
+                i--;
+                if (i >= length) {
+                    break;
+                }
+            } else if (!vehicles.get(i).getType().equals(match.getType())&& !match.getType().equals("")) {
+                //if it is not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
                 i--;

@@ -51,7 +51,7 @@ public class TrendingFragment extends Fragment {
     private static final String TRENDING = "See What's Trending";
     private static final String TRENDING_DESCRIPTION = "Most Popular Deals";
     //TODO I've seen this in a couple of places - this is another thing that should be read in from a properties file
-    private static final String BASE_URL = "http://192.168.170.100:8080/v1/specials/vehicle?";
+    private static final String BASE_URL = "http://192.168.168.235:8080/v1/specials/vehicle?";
     private ArrayList<Card> cards;
     private View homeView;
     private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
@@ -138,9 +138,6 @@ public class TrendingFragment extends Fragment {
             }
 
         } else {
-            pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Loading...");
-            pDialog.show();
             JsonArrayRequest searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
@@ -276,7 +273,6 @@ public class TrendingFragment extends Fragment {
     private class ResponseListener implements Response.Listener<JSONArray> {
         @Override
         public void onResponse(JSONArray response) {
-            pDialog.hide();
             getTrending(response);
         }
 

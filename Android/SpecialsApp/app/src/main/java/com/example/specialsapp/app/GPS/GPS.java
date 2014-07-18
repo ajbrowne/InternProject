@@ -5,13 +5,20 @@ import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by brownea on 6/12/14.
@@ -20,6 +27,7 @@ public class GPS extends Service implements LocationListener {
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     private static final long MIN_TIME_BTW_UPDATES = 1000 * 60;
+    private static final double defaultLocation = 0.0;
     protected LocationManager locationManager;
     boolean isGPSEnabled = false;
     boolean isNetworkEnabled = false;
@@ -157,5 +165,36 @@ public class GPS extends Service implements LocationListener {
 
         // Showing Alert Message
         alertDialog.show();
+    }
+
+    public double[] checkLocationSettings() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String zip = sharedPreferences.getString("zip_code", "");
+        boolean useLocation = sharedPreferences.getBoolean("use_location", false);
+        double[] location = new double[2];
+        if ((!zip.equals("") && !zip.equals("Enter Zip Code")) && !useLocation) {
+            System.out.println(zip);
+            location = getLoc(zip);
+        } else {
+            location[0] = getLatitude();
+            location[1] = getLongitude();
+        }
+        return location;
+    }
+
+    private double[] getLoc(String zip) {
+        final Geocoder geocoder = new Geocoder(context);
+        double[] location = {defaultLocation, defaultLocation};
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(zip, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                location[0] = address.getLatitude();
+                location[1] = address.getLongitude();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return location;
     }
 }

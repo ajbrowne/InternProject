@@ -1,9 +1,7 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +23,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
  * <p/>
  * Created by brownea on 6/12/14.
  */
-public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefreshListener {
+public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRefreshListener {
 
     private View homeView;
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -49,7 +47,9 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
 
         //TODO ***make a GPS location class that is just 2 doubles.
         //TODO It is almost always best to create objects for these kinds of things
-        double[] location = checkLocationSettings();
+
+        GPS gps = new GPS(getActivity());
+        double[] location = gps.checkLocationSettings();
 
         try {
             getDealerSpecials(location[0], location[1]);
@@ -57,21 +57,6 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
             e.printStackTrace();
         }
         return homeView;
-    }
-
-    private double[] checkLocationSettings() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String zip = sharedPreferences.getString("zip_code", "");
-        boolean useLocation = sharedPreferences.getBoolean("use_location", false);
-        double[] location = new double[2];
-        if (!zip.equals("") || !useLocation) {
-            location = getLoc(zip);
-        } else {
-            GPS gps = new GPS(getActivity());
-            location[0] = gps.getLatitude();
-            location[1] = gps.getLongitude();
-        }
-        return location;
     }
 
     @Override

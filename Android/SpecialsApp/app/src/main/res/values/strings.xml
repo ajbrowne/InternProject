@@ -91,6 +91,7 @@
         <item>Focus</item>
     </string-array>
     <string-array name="Cadillac">
+        <item>All</item>
         <item>ATS</item>
         <item>Catera</item>
         <item>CTS</item>
@@ -109,6 +110,7 @@
         <item>XTS</item>
     </string-array>
     <string-array name="AstonMartin">
+        <item>All</item>
         <item>DB AR1 Zagato</item>
         <item>DB7</item>
         <item>DB7 Vantage</item>
@@ -125,6 +127,7 @@
         <item>Virage</item>
     </string-array>
     <string-array name="Chevrolet">
+        <item>All</item>
         <item>2500</item>
         <item>3500</item>
         <item>Astro</item>
@@ -174,6 +177,7 @@
         <item>Volt</item>
     </string-array>
     <string-array name="GMC">
+        <item>All</item>
         <item>Acadia</item>
         <item>Canyon</item>
         <item>Envoy</item>
@@ -190,12 +194,14 @@
         <item>Yukon XL</item>
     </string-array>
     <string-array name="Lamborghini">
+        <item>All</item>
         <item>Aventador</item>
         <item>Diablo</item>
         <item>Gallardo</item>
         <item>Murcielago</item>
     </string-array>
     <string-array name="MercedesBenz">
+        <item>All</item>
         <item>C-Class</item>
         <item>CL-Class</item>
         <item>CLA-Class</item>
@@ -216,6 +222,7 @@
         <item>Sprinter</item>
     </string-array>
     <string-array name="MINI">
+        <item>All</item>
         <item>Clubman</item>
         <item>Convertible</item>
         <item>Cooper</item>
@@ -276,9 +283,9 @@
         <item>Any</item>
         <item>New</item>
         <item>Used</item>
-        <item>Certified</item>
     </string-array>
     <string-array name="Pontiac">
+        <item>All</item>
         <item>1000</item>
         <item>6000</item>
         <item>Aztek</item>

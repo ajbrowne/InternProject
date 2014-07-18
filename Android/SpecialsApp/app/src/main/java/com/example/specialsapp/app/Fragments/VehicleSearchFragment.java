@@ -58,6 +58,7 @@ public class VehicleSearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //TODO why are you using compareto instead of equals?
+                params[4] = "1";
                 if (makeSpinner.getSelectedItem().toString().compareTo("All") == 0) {
                     params[0] = ""; //TODO this is kind of confusing to quickly read and understand what is going on. is there a better, more readable way to implement this?
                     params[1] = "";
@@ -67,6 +68,9 @@ public class VehicleSearchFragment extends Fragment {
                 }
                 if (priceSpinner.getSelectedItem().toString().compareTo("None") == 0) {
                     params[3] = "";
+                }
+                if (modelSpinner.getSelectedItem().toString().compareTo("All") == 0) {
+                    params[1] = "";
                 }
                 if (params[0].equals("") && params[2].equals("") && params[3].equals("")) {
                     params[4] = "0";
@@ -108,6 +112,9 @@ public class VehicleSearchFragment extends Fragment {
                     identifier = getActivity().getResources().getIdentifier(theStringField, "array", getActivity().getPackageName());
                     if (identifier == 0) {
                         identifier = getActivity().getResources().getIdentifier("none", "array", getActivity().getPackageName());
+                        models = getActivity().getResources().getStringArray(identifier);
+                    } else if (theStringField.equals("All")) {
+                        identifier = getActivity().getResources().getIdentifier("any", "array", getActivity().getPackageName());
                         models = getActivity().getResources().getStringArray(identifier);
                     } else {
                         models = getActivity().getResources().getStringArray(identifier);

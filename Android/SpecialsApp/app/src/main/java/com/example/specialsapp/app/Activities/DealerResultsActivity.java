@@ -1,7 +1,11 @@
 package com.example.specialsapp.app.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,8 +29,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
@@ -35,7 +41,8 @@ import it.gmariotti.cardslib.library.view.CardListView;
 public class DealerResultsActivity extends BaseActivity {
 
 
-    private static final String baseUrl = "http://192.168.170.100:8080/v1/specials/dealers?";
+    private static final String baseUrl = "http://192.168.168.235:8080/v1/specials/dealers?";
+    private static final double defaultLocation = 0.0;
     private TextView mResultsNone;
     private double lat;
     private double longi;
@@ -52,8 +59,7 @@ public class DealerResultsActivity extends BaseActivity {
         RequestQueue queue = Volley.newRequestQueue(this, new HttpClientStack(client));
 
         GPS gps = new GPS(this);
-        lat = gps.getLatitude();
-        longi = gps.getLongitude();
+        gps.checkLocationSettings();
 
         HashMap<String, String> param = createParams();
 
@@ -83,7 +89,7 @@ public class DealerResultsActivity extends BaseActivity {
     }
 
     private void addCards(ArrayList<Dealer> dealers) {
-        ArrayList<Card> cards = new ArrayList<>();
+        ArrayList cards = new ArrayList();
         createDealerCards(dealers, cards);
 
         CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(this, cards);

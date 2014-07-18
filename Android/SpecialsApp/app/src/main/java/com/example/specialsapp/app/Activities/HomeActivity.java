@@ -1,5 +1,6 @@
 package com.example.specialsapp.app.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -21,14 +22,15 @@ import java.util.ArrayList;
  */
 public class HomeActivity extends BaseActivity {
 
-    private ArrayList<Dealer> dealers;
+    private ArrayList dealers;
     private ViewPager viewPager;
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        dealers = new ArrayList<>();
+        dealers = new ArrayList();
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setBackgroundColor(getResources().getColor(android.R.color.white));

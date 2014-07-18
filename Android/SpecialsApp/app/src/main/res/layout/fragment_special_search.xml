@@ -60,7 +60,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/modelSpinner"
-
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif-light"
         android:text="Type: "
@@ -73,8 +72,6 @@
         android:layout_below="@id/type_label"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
-
-        android:layout_weight="1"
         android:entries="@array/type"
         android:fontFamily="sans-serif-light"
         android:minWidth="200dp"
@@ -86,9 +83,9 @@
         android:id="@+id/price_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_below="@id/typeSpinner"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
         android:fontFamily="sans-serif-light"
         android:text="Maximum Price: "
         android:textSize="15sp" />
@@ -100,11 +97,10 @@
         android:layout_below="@id/price_label"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
-        android:layout_weight="1"
         android:entries="@array/priceRange"
         android:fontFamily="sans-serif-light"
         android:minWidth="200dp"
-
+        android:visibility="gone"
         android:prompt="@string/price_prompt"
         android:spinnerMode="dialog"
         android:textColor="#000" />
@@ -118,7 +114,6 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/priceSpinner"
         android:layout_centerHorizontal="true"
-
         android:layout_margin="25dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/custom_button"

@@ -47,10 +47,9 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BaseSearchFragment extends Fragment implements AbsListView.OnScrollListener {
+public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrollListener {
 
-    private static final double DEFAULT_LOCATION = -1000.0;
-    private static final String BASE_URL = "http://192.168.170.100:8080/v1/specials/vehicle?";
+    private static final String BASE_URL = "http://192.168.168.235:8080/v1/specials/vehicle?";
     private View baseView;
     private CardArrayAdapter mCardArrayAdapter;
     private ArrayList<Vehicle> newVehicles;
@@ -59,7 +58,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     private PullToRefreshLayout mPullToRefreshLayout;
     private boolean isSearch;
 
-    public BaseSearchFragment() {
+    public BaseVehicleFragment() {
         // Required empty public constructor
     }
 
@@ -89,6 +88,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         String url = generateUrl(parameters);
+        System.out.println("URL: " + url);
         Cache.Entry entry = cache.get(url);
         makeAsync(isSearch, queue, url, entry);
     }
@@ -243,23 +243,6 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
         }
     }
 
-
-    public double[] getLoc(String zip) {
-        final Geocoder geocoder = new Geocoder(getActivity());
-        double[] location = {DEFAULT_LOCATION, DEFAULT_LOCATION};
-        try {
-            List<Address> addresses = geocoder.getFromLocationName(zip, 1);
-            if (addresses != null && !addresses.isEmpty()) {
-                Address address = addresses.get(0);
-                location[0] = address.getLatitude();
-                location[1] = address.getLongitude();
-            }
-        } catch (IOException e) {
-            Log.d("BaseSearchFragment", "getLocation failed");
-        }
-        return location;
-    }
-
     private String insertCommas(String amount) {
         DecimalFormat formatter = new DecimalFormat("#,###");
         Double number = Double.parseDouble(amount);
@@ -302,10 +285,10 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     private class ResponseListener implements Response.Listener<JSONArray> {
         @Override
         public void onResponse(JSONArray response) {
-            if(response.length() == 0){
-                TextView result = (TextView)baseView.findViewById(R.id.third_result);
+            if (response.length() == 0) {
+                TextView result = (TextView) baseView.findViewById(R.id.third_result);
                 result.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 carSearch(response);
             }
         }
