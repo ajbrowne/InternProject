@@ -1,7 +1,6 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Carries out search and displays cards for search results.
  */
 public class VehicleResultsFragment extends BaseVehicleFragment implements OnRefreshListener {
 
@@ -52,6 +51,9 @@ public class VehicleResultsFragment extends BaseVehicleFragment implements OnRef
         return resultsView;
     }
 
+    /**
+     * Gets location and sets parameters for search.
+     */
     private void search() {
         final GPS gps = new GPS(getActivity());
         LocationObject location = gps.checkLocationSettings();
@@ -70,6 +72,10 @@ public class VehicleResultsFragment extends BaseVehicleFragment implements OnRef
         vehicleAsync(param, resultsView, mPullToRefreshLayout, true);
     }
 
+    /**
+     * Searches again on refresh.
+     * @param view - the current view
+     */
     @Override
     public void onRefreshStarted(View view) {
         vehicleAsync(param, resultsView, mPullToRefreshLayout, true);

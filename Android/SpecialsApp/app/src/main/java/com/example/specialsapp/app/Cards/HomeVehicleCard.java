@@ -13,9 +13,6 @@ import it.gmariotti.cardslib.library.internal.Card;
 
 /**
  * This class provides a simple Google Play card to display
- * dealers (may not be needed later)
- *
- * @author brownea
  */
 public class HomeVehicleCard extends Card {
 
@@ -35,6 +32,12 @@ public class HomeVehicleCard extends Card {
         this.context = context;
     }
 
+    /**
+     * Automatically called upon a listener being added to a card array (I think).
+     * Sets up all elements on a card.
+     * @param parent - the parent view
+     * @param view - the current view where cards will be added
+     */
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
         TextView mName = (TextView) parent.findViewById(R.id.smallCar);
@@ -45,22 +48,13 @@ public class HomeVehicleCard extends Card {
         mName.setText(this.name);
         mPrice.setText("$" + this.price);
         mType.setText(this.type);
+
+        // Loads images either from imgur or cache
         Picasso.with(context)
                 .load(url)
                 .placeholder(R.drawable.tesla)
                 .resize(100, 80)
                 .into(thumbnail);
-
-        if (this.price.compareTo("") == 0) {
-            mPrice.setText("$60,000");
-            mName.setText("2004 Pontiac Aztek");
-            mType.setText("Used");
-            Picasso.with(context)
-                    .load(url)
-                    .placeholder(R.drawable.tesla)
-                    .resize(100, 80)
-                    .into(thumbnail);
-        }
     }
 
     public String getName() {

@@ -19,10 +19,8 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 /**
- * Currently the home view that displays all specials from the dealer
- * that is closest to your current location.
- * <p/>
- * Created by brownea on 6/12/14.
+ * The home view that displays all vehicles on special from the dealer
+ * that is closest to your current location or entered zip.
  */
 public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRefreshListener {
 
@@ -34,12 +32,11 @@ public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRef
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         homeView = inflater.inflate(R.layout.fragment_dealer_specials, container, false);
-
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setTitle("Cobalt Deals");
-
         setHasOptionsMenu(true);
 
+        // Set up the pull to refresh for this view
         mPullToRefreshLayout = (PullToRefreshLayout) homeView.findViewById(R.id.carddemo_extra_ptr_layout);
         ActionBarPullToRefresh.from(this.getActivity())
                 .allChildrenArePullable()
@@ -57,6 +54,10 @@ public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRef
         return homeView;
     }
 
+    /**
+     * Executes the GET request again/uses cached info if possible
+     * @param view
+     */
     @Override
     public void onRefreshStarted(View view) {
         final GPS gps = new GPS(getActivity());

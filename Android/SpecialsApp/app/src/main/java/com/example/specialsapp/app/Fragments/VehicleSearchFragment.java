@@ -17,7 +17,7 @@ import com.example.specialsapp.app.Activities.VehicleResultsActivity;
 import com.example.specialsapp.app.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Gets the fields for a vehicle search to be carried out.
  */
 public class VehicleSearchFragment extends Fragment {
 
@@ -35,7 +35,6 @@ public class VehicleSearchFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,14 +45,9 @@ public class VehicleSearchFragment extends Fragment {
                 .getDefaultSharedPreferences(getActivity());
 
         Button submitSearch = (Button) searchView.findViewById(R.id.searchButton);
-        makeSpinner = (Spinner) searchView.findViewById(R.id.makeSpinner);
-        modelSpinner = (Spinner) searchView.findViewById(R.id.modelSpinner);
-        typeSpinner = (Spinner) searchView.findViewById(R.id.typeSpinner);
+        initializeSpinners(searchView);
 
-        setSpinnerListener(makeSpinner, MAKE);
-        setSpinnerListener(modelSpinner, MODEL);
-        setSpinnerListener(typeSpinner, TYPE);
-
+        // Sets the listener for the search button catching certain input cases
         submitSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,8 +63,10 @@ public class VehicleSearchFragment extends Fragment {
                     params[MODEL] = "";
                 }
 
+                // Remove spaces to get string-arrays correctly
                 params[MAKE] = params[MAKE].replaceAll(" ", SPACE);
                 params[MODEL] = params[MODEL].replaceAll(" ", SPACE);
+
                 Intent intent = new Intent(getActivity(), VehicleResultsActivity.class);
                 intent.putExtra("params", params);
 
@@ -81,8 +77,21 @@ public class VehicleSearchFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         return searchView;
+    }
+
+    /**
+     * Initialize the spinners for the view
+     * @param searchView - the current view
+     */
+    private void initializeSpinners(View searchView) {
+        makeSpinner = (Spinner) searchView.findViewById(R.id.makeSpinner);
+        modelSpinner = (Spinner) searchView.findViewById(R.id.modelSpinner);
+        typeSpinner = (Spinner) searchView.findViewById(R.id.typeSpinner);
+
+        setSpinnerListener(makeSpinner, MAKE);
+        setSpinnerListener(modelSpinner, MODEL);
+        setSpinnerListener(typeSpinner, TYPE);
     }
 
     /**
@@ -100,12 +109,20 @@ public class VehicleSearchFragment extends Fragment {
                 String selected = spinner.getSelectedItem().toString();
                 params[index] = selected;
                 String theStringField;
+
+                // For model spinner
                 if (index == 0) {
+
+                    // Format string received from spinner
                     theStringField = spinner.getSelectedItem().toString();
                     theStringField = theStringField.replaceAll(" ", "").replaceAll("-", "");
                     int identifier = 0;
                     String[] models;
+
+                    //Attempt to find the array for the input
                     identifier = getActivity().getResources().getIdentifier(theStringField, "array", getActivity().getPackageName());
+
+                    // If nothing is found, set to none. If "Any" set to any. Otherwise string-array was found.
                     if (identifier == 0) {
                         identifier = getActivity().getResources().getIdentifier("none", "array", getActivity().getPackageName());
                         models = getActivity().getResources().getStringArray(identifier);
@@ -123,6 +140,7 @@ public class VehicleSearchFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                // Set model to "Any"
                 if (index == 1) {
                     String[] models = getActivity().getResources().getStringArray(R.array.any);
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
@@ -132,5 +150,4 @@ public class VehicleSearchFragment extends Fragment {
             }
         });
     }
-
 }

@@ -13,10 +13,7 @@ import com.example.specialsapp.app.R;
 import it.gmariotti.cardslib.library.internal.Card;
 
 /**
- * This class provides a simple Google Play card to display
- * dealers (may not be needed later)
- *
- * @author brownea
+ * This class provides a simple Google Play card to display dealers.
  */
 public class DealerCard extends Card {
 
@@ -39,7 +36,8 @@ public class DealerCard extends Card {
         this.longi = longi;
     }
 
-    public DealerCard(Context context, String dealer, String cityState, String distance, String numSpecials, double lat, double longi) {
+    public DealerCard(Context context, String dealer, String cityState, String distance,
+                      String numSpecials, double lat, double longi) {
         super(context);
         this.dealer = dealer;
         this.cityState = cityState;
@@ -49,6 +47,12 @@ public class DealerCard extends Card {
         this.longi = longi;
     }
 
+    /**
+     * Automatically called upon a listener being added to a card array (I think).
+     * Sets up all elements on a card.
+     * @param parent - the parent view
+     * @param view - the current view where cards will be added
+     */
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
         TextView mDealer = (TextView) parent.findViewById(R.id.dealer);
@@ -61,6 +65,8 @@ public class DealerCard extends Card {
         mCityState.setText(cityState);
         mDistance.setText(distance);
         mNumSpecials.setText(numSpecials);
+
+        // Listener that opens up Google Map at dealer
         mPin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

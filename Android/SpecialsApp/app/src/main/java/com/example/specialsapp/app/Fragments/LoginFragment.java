@@ -19,9 +19,7 @@ import com.example.specialsapp.app.SignUpFragments.SignupNumberFragment;
 import java.util.Locale;
 
 /**
- * Fragment used for when users want to log in to the app
- * <p/>
- * Created by brownea on 6/11/14.
+ * Fragment used for when users want to log in to the app.
  */
 public class LoginFragment extends Fragment {
 
@@ -50,7 +48,6 @@ public class LoginFragment extends Fragment {
         password = (EditText) loginView.findViewById(R.id.password);
 
         login.setOnClickListener(loginClick());
-
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,12 +59,12 @@ public class LoginFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-
         return loginView;
     }
 
-    /*
-        Fires the asyncCheck when login is clicked
+    /**
+     * Attempts to log the user in when the button is clicked
+     * @return
      */
     private View.OnClickListener loginClick() {
         return new View.OnClickListener() {
@@ -87,5 +84,4 @@ public class LoginFragment extends Fragment {
             }
         };
     }
-
 }

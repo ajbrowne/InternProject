@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment that gets the value to be used for the dealer search.
  */
 public class DealerSearchFragment extends Fragment {
 

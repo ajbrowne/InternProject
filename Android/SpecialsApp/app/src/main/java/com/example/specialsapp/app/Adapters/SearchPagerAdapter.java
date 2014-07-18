@@ -8,9 +8,7 @@ import com.example.specialsapp.app.Fragments.DealerSearchFragment;
 import com.example.specialsapp.app.Fragments.VehicleSearchFragment;
 
 /**
- * Adapter used for switching tabs in HomeActivity
- * <p/>
- * Created by brownea on 6/23/14.
+ * Adapter used for switching tabs in SearchActivity
  */
 public class SearchPagerAdapter extends FragmentPagerAdapter {
 
@@ -18,6 +16,11 @@ public class SearchPagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
+    /**
+     * Handles these tab indexes upon creation.
+     * @param position - position of tab
+     * @return - the fragment that is the tab
+     */
     @Override
     public Fragment getItem(int position) {
         switch (position) {
@@ -29,6 +32,11 @@ public class SearchPagerAdapter extends FragmentPagerAdapter {
         return null;
     }
 
+    /**
+     * Sets the title for each tab.
+     * @param position - position of tab
+     * @return - the title of the tab
+     */
     public CharSequence getPageTitle(int position) {
 
         switch (position) {
@@ -40,6 +48,10 @@ public class SearchPagerAdapter extends FragmentPagerAdapter {
         return null;
     }
 
+    /**
+     * Return the total number of tabs
+     * @return - the number of tabs
+     */
     @Override
     public int getCount() {
         return 2;

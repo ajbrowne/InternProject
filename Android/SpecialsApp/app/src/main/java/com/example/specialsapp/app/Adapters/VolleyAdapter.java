@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by brownea on 7/9/14.
+ * Adapter used to make HTTP requests with Google Volley.
  **/
 public class VolleyAdapter extends ArrayAdapter<String> implements SectionIndexer {
     private HashMap<String, Integer> alphaIndexer;

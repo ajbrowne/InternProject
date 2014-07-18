@@ -10,8 +10,6 @@ import com.example.specialsapp.app.HomeFragments.HomeFragment;
 
 /**
  * Adapter used for switching tabs in HomeActivity
- * <p/>
- * Created by brownea on 6/23/14.
  */
 public class HomePagerAdapter extends FragmentStatePagerAdapter {
 
@@ -19,6 +17,11 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
     }
 
+    /**
+     * Handles these tab indexes upon creation.
+     * @param position - position of tab
+     * @return - the fragment that is the tab
+     */
     @Override
     public Fragment getItem(int position) {
         switch (position) {
@@ -32,6 +35,11 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
         return null;
     }
 
+    /**
+     * Sets the title for each tab.
+     * @param position - position of tab
+     * @return - the title of the tab
+     */
     @Override
     public CharSequence getPageTitle(int position) {
 
@@ -46,6 +54,10 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
         return null;
     }
 
+    /**
+     * Return the total number of tabs
+     * @return - the number of tabs
+     */
     @Override
     public int getCount() {
         return 3;
