@@ -8,35 +8,11 @@
         revision="19.1.0"
         sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
     <item
-        dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-52f8edd4f217aa2125946f0649940624a8ec70b5.jar"
-        jar="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="3dfdf1db5ce5ea2999a5dcde8c8e650b02660059"/>
-    <item
-        dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-a4fb2c47372b9c26594e2ffe7be243f8717ecb2e.jar"
-        jar="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.mcxiaoke.volley/library-aar/1.0.0/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="e40b9a81989bd4a846018551c280f8c4d837bf2e"/>
-    <item
         dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-29c19b76cb6c2f9ba526d42b10aebf6b6478ecbd.jar"
         jar="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.astuetz/pagerslidingtabstrip/1.0.1/classes.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="7912610ed96381c25c36d986eba422731b9641b6"/>
-    <item
-        dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/support-v13-19.1.0-432d29bb26d6067815408d15c09d69cadf2dd68d.jar"
-        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v13/19.1.0/support-v13-19.1.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="6b852a232f642c75a7fdfc7212b841b8c8f8959c"/>
-    <item
-        dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/picasso-2.3.2-731a8ae69ef8571842067fc171ea3b9d8bb9d747.jar"
-        jar="/Users/maharb/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.3.2/d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27/picasso-2.3.2.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27"/>
     <item
         dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-c14aeca506af8cf08fbcc035c4f9a4a47571fdf7.jar"
         jar="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.7.0/classes.jar"
@@ -50,16 +26,40 @@
         revision="19.1.0"
         sha1="6ca319f998430aa20c4dde97ba6df213d6cf3dd0"/>
     <item
-        dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/android-async-http-1.4.5-c47e1ee550648fea465d19a38739d4a6ca5e49cd.jar"
-        jar="/Users/maharb/.gradle/caches/modules-2/files-2.1/com.loopj.android/android-async-http/1.4.5/77bf7cacf9cefe19dc105e5425d2eb1bb5285881/android-async-http-1.4.5.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="77bf7cacf9cefe19dc105e5425d2eb1bb5285881"/>
-    <item
         dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-f945a6ece5143cdf61b49b1e9bdc8a3ad5435fb6.jar"
         jar="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.github.chrisbanes.actionbarpulltorefresh/library/0.9.9/classes.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="06ca4ea902f14efb76284d918edb085df33cc365"/>
+    <item
+        dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-52f8edd4f217aa2125946f0649940624a8ec70b5.jar"
+        jar="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3dfdf1db5ce5ea2999a5dcde8c8e650b02660059"/>
+    <item
+        dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/classes-a4fb2c47372b9c26594e2ffe7be243f8717ecb2e.jar"
+        jar="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/build/intermediates/exploded-aar/com.mcxiaoke.volley/library-aar/1.0.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="e40b9a81989bd4a846018551c280f8c4d837bf2e"/>
+    <item
+        dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/support-v13-19.1.0-432d29bb26d6067815408d15c09d69cadf2dd68d.jar"
+        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v13/19.1.0/support-v13-19.1.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="6b852a232f642c75a7fdfc7212b841b8c8f8959c"/>
+    <item
+        dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/picasso-2.3.2-731a8ae69ef8571842067fc171ea3b9d8bb9d747.jar"
+        jar="/Users/maharb/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.3.2/d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27/picasso-2.3.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27"/>
+    <item
+        dex="/Users/maharb/GitHub/InternProject/Android/SpecialsApp/app/build/intermediates/pre-dexed/debug/android-async-http-1.4.5-c47e1ee550648fea465d19a38739d4a6ca5e49cd.jar"
+        jar="/Users/maharb/.gradle/caches/modules-2/files-2.1/com.loopj.android/android-async-http/1.4.5/77bf7cacf9cefe19dc105e5425d2eb1bb5285881/android-async-http-1.4.5.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="77bf7cacf9cefe19dc105e5425d2eb1bb5285881"/>
 
 </pre-dex-items>

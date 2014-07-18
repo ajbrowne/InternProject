@@ -12,11 +12,13 @@ import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.R;
 
 /**
+ * TODO ALL of your classes need javadoc comment explaining what the class does.
  * Base Activity extended by any activity that requires the normal menu for the app.
  */
 public class BaseActivity extends FragmentActivity {
 
     private Menu menu;
+    protected static final String FONT_PATH = "fonts/roboto-light.ttf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +33,11 @@ public class BaseActivity extends FragmentActivity {
 
         // Check login status, change menu appropriately
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean status = shared.getBoolean("stored", true);
-        if (status) {
-            menu.findItem(R.id.action_logout).setVisible(true);
-            menu.findItem(R.id.action_login).setVisible(false);
-        } else {
-            menu.findItem(R.id.action_logout).setVisible(false);
-            menu.findItem(R.id.action_login).setVisible(true);
-        }
+        boolean loggedIn = shared.getBoolean("stored", true);
+
+        menu.findItem(R.id.action_logout).setVisible(loggedIn);
+        menu.findItem(R.id.action_login).setVisible(!loggedIn);
+
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -1,9 +1,7 @@
 package com.example.specialsapp.app.Fragments;
 
 import android.app.ActionBar;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +23,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
  * <p/>
  * Created by brownea on 6/12/14.
  */
-public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefreshListener {
+public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRefreshListener {
 
     private View homeView;
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -46,6 +44,9 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
                 .allChildrenArePullable()
                 .listener(this)
                 .setup(mPullToRefreshLayout);
+
+        //TODO ***make a GPS location class that is just 2 doubles.
+        //TODO It is almost always best to create objects for these kinds of things
 
         GPS gps = new GPS(getActivity());
         double[] location = gps.checkLocationSettings();

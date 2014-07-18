@@ -35,8 +35,8 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MainActivity extends BaseActivity {
 
-    private static final String Username = "username";
-    private static final String Password = "password";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
     private User user;
 
     /**
@@ -103,8 +103,8 @@ public class MainActivity extends BaseActivity {
 
         // Async call using Async HTTP Android client posting JSON for login
         try {
-            auth.put(Username, username);
-            auth.put(Password, password);
+            auth.put(USERNAME, username);
+            auth.put(PASSWORD, password);
             StringEntity entity = new StringEntity(auth.toString());
             SpecialsRestClient.post(this, "login", entity, "application/json", new JsonHttpResponseHandler() {
                 @Override
@@ -115,20 +115,18 @@ public class MainActivity extends BaseActivity {
                         if (response.compareTo("Login Success") == 0) {
                             savePreferences("stored", true);
                             savePreferences("User", User);
-                            savePreferences("Password", Pass);
+                            savePreferences("PASSWORD", Pass);
                             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();
                         }
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        Log.d("MainActivity", "Error on login attempt");
                     }
                 }
             });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        } catch (JSONException | UnsupportedEncodingException e) {
+            Log.d("MainActivity", "Error on login attempt");
         }
     }
 
@@ -157,23 +155,21 @@ public class MainActivity extends BaseActivity {
                     if (statusCode == 201) {
                         savePreferences("stored", true);
                         savePreferences("User", User);
-                        savePreferences("Password", Pass);
+                        savePreferences("PASSWORD", Pass);
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
                     }
                 }
             });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        } catch (JSONException | UnsupportedEncodingException e) {
+            Log.e("SpecialsApp", "Error registering user");
         }
     }
 
     private void createAuth(String username, String password, String phone, String zip, String first, String last, JSONObject auth) throws JSONException {
-        auth.put(Username, username);
-        auth.put(Password, password);
+        auth.put(USERNAME, username);
+        auth.put(PASSWORD, password);
         auth.put("role", 1);
         auth.put("phone", phone);
         auth.put("zip", zip);
@@ -186,22 +182,14 @@ public class MainActivity extends BaseActivity {
      */
     public String computeSHAHash(String password) {
         String SHAHash = "ZZ";
-        MessageDigest mdSha1 = null;
+        MessageDigest mdSha1;
         try {
             mdSha1 = MessageDigest.getInstance("SHA-1");
-        } catch (NoSuchAlgorithmException e1) {
-            Log.e("myapp", "Error initializing SHA1 message digest");
-        }
-        try {
             mdSha1.update(password.getBytes("ASCII"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        byte[] data = mdSha1.digest();
-        try {
+            byte[] data = mdSha1.digest();
             SHAHash = convertToHex(data);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (NoSuchAlgorithmException | IOException e ) {
+            Log.e("SpecialsApp", "Error initializing SHA1 message digest");
         }
 
         return SHAHash;

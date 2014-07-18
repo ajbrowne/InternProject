@@ -1,8 +1,6 @@
 package com.example.specialsapp.app.Fragments;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.R;
-import com.loopj.android.http.RequestParams;
 
 import java.util.HashMap;
 
@@ -21,14 +18,12 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VehicleResultsFragment extends BaseSearchFragment implements OnRefreshListener {
+public class VehicleResultsFragment extends BaseVehicleFragment implements OnRefreshListener {
 
-    private static final double defaultLocation = -1000.0;
     HashMap<String, String> param = new HashMap<String, String>();
     private View resultsView;
     private String[] params = new String[5];
     private PullToRefreshLayout mPullToRefreshLayout;
-    private RequestParams parameters;
 
     public VehicleResultsFragment() {
         // Required empty public constructor

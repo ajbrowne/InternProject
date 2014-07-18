@@ -17,23 +17,24 @@ import org.apache.http.entity.StringEntity;
  */
 
 public class SpecialsRestClient {
-    private static final String myIp = "192.168.168.235";
-    private static final String BASE_URL = "http://" + myIp + ":8080/v1/specials/";
+    // TODO another address that should be in a properties file
+    private static final String IP = "192.168.168.235";
+    private static final String BASE_URL = "http://" + IP + ":8080/v1/specials/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.setProxy(myIp, 8080);
+        client.setProxy(IP, 8080);
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
     public static void get(String url, JsonHttpResponseHandler responseHandler) {
-        client.setProxy(myIp, 8080);
+        client.setProxy(IP, 8080);
         client.get(getAbsoluteUrl(url), responseHandler);
     }
 
     public static void post(Context context, String url, StringEntity entity, String type, AsyncHttpResponseHandler responseHandler) {
-        client.setProxy(myIp, 8080);
+        client.setProxy(IP, 8080);
         client.post(context, getAbsoluteUrl(url), entity, type, responseHandler);
     }
 

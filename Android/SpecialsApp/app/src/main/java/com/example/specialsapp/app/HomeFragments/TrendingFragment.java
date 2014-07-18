@@ -48,9 +48,10 @@ import it.gmariotti.cardslib.library.view.CardGridView;
  */
 public class TrendingFragment extends Fragment {
 
-    private static final String Trending = "See What's Trending";
-    private static final String TrendingDescription = "Most Popular Deals";
-    private static final String baseUrl = "http://192.168.168.235:8080/v1/specials/vehicle?";
+    private static final String TRENDING = "See What's Trending";
+    private static final String TRENDING_DESCRIPTION = "Most Popular Deals";
+    //TODO I've seen this in a couple of places - this is another thing that should be read in from a properties file
+    private static final String BASE_URL = "http://192.168.168.235:8080/v1/specials/vehicle?";
     private ArrayList<Card> cards;
     private View homeView;
     private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
@@ -105,6 +106,8 @@ public class TrendingFragment extends Fragment {
         }
     }
 
+    // TODO I feel like I've seen this method before as well, or several variations on pretty much the same thing
+    // TODO is there a way we can centralize these methods and make it better, like using the builder pattern?
     private void getTrending(double latitude, double longitude) {
         String latt = String.valueOf(latitude);
         String longg = String.valueOf(longitude);
@@ -130,10 +133,8 @@ public class TrendingFragment extends Fragment {
                 String data = new String(entry.data, "UTF-8");
                 JSONArray cached = new JSONArray(data);
                 getTrending(cached);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+            } catch (UnsupportedEncodingException|JSONException e) {
+                Log.d("error", "Trending http request failed");
             }
 
         } else {
@@ -147,6 +148,8 @@ public class TrendingFragment extends Fragment {
         }
     }
 
+    // TODO These two methods are so similar to the ones in TopDiscountFragment. Should we be inheriting from a common superclass fragment that contains these implementations?
+    // TODO or at least be using an interface that contains method declarations for these?
     private void trendingSpecialHelp(JSONObject dealer, JSONArray specialArray) throws JSONException {
         for (int i = 0; i < specialArray.length(); i++) {
             JSONObject spec = (JSONObject) specialArray.get(i);
@@ -239,7 +242,7 @@ public class TrendingFragment extends Fragment {
 
             cards.add(card);
         }
-        createCards(homeView, Trending, TrendingDescription, cards);
+        createCards(homeView, TRENDING, TRENDING_DESCRIPTION, cards);
         return cards;
     }
 
@@ -264,7 +267,7 @@ public class TrendingFragment extends Fragment {
     }
 
     private String generateUrl(HashMap<String, String> parameters) {
-        return baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
+        return BASE_URL + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
     }
 
     private class ResponseListener implements Response.Listener<JSONArray> {
