@@ -113,7 +113,7 @@ public class VehicleSearchFragment extends Fragment {
                     if (identifier == 0) {
                         identifier = getActivity().getResources().getIdentifier("none", "array", getActivity().getPackageName());
                         models = getActivity().getResources().getStringArray(identifier);
-                    } else if (theStringField.equals("All")) {
+                    } else if (theStringField.equals("Any")) {
                         identifier = getActivity().getResources().getIdentifier("any", "array", getActivity().getPackageName());
                         models = getActivity().getResources().getStringArray(identifier);
                     } else {

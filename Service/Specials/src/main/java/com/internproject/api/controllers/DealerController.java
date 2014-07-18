@@ -60,14 +60,9 @@ public class DealerController {
      */
     @RequestMapping(value = "/dealers", produces = "application/json", params = {"lng", "lat"})
     @ResponseBody
-    public ResponseEntity<List> dealerLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat, @RequestParam(value = "extra", required = false) Integer flag, @ModelAttribute Dealer dealer) {
+    public ResponseEntity<List> dealerLoc(@RequestParam("lng") double lng, @RequestParam("lat") double lat,  @ModelAttribute Dealer dealer) {
         Point point = new Point(lng, lat);
         log.info("Location received from app: " + point);
-        if (flag == 0) {
-            List newDealer = dealerService.getDealerLocation(point);
-            log.info("Number of dealers returned: " + newDealer.size());
-            return new ResponseEntity<List>(newDealer, HttpStatus.OK);
-        }
         //Query and return the nearest dealers
         List newDealer = dealerService.getDealers(point, dealer);
         log.info("Number of dealers returned: " + newDealer.size());

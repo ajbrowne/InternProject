@@ -48,10 +48,10 @@ public class CombineController {
      */
     @RequestMapping(value = "/vehicle", produces = "application/json", params = {"lng", "lat"})
     @ResponseBody
-    public ResponseEntity<List> vehicleLoc(@RequestParam(value = "lng", required = false) double lng, @RequestParam(value = "lat", required = false) double lat, @RequestParam(value = "extra", required = false) Integer flag, @ModelAttribute Vehicle vehicle) {
+    public ResponseEntity<List> vehicleLoc(@RequestParam(value = "lng", required = false) double lng, @RequestParam(value = "lat", required = false) double lat, @ModelAttribute Vehicle vehicle) {
         Point point = new Point(lng, lat);
         log.info("Vehicle Location received from app: " + point);
-        return new ResponseEntity<List>(mergeService.getNearestVehicles(point, vehicle, flag), HttpStatus.OK);
+        return new ResponseEntity<List>(mergeService.getNearestVehicles(point, vehicle), HttpStatus.OK);
     }
 
     /**

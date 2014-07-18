@@ -25,7 +25,7 @@ public class DealerService {
     @Autowired
     private DealerRepository dealerRepository;
     private Logger log = Logger.getLogger(DealerService.class.getName());
-
+    private static int FIRST_VALUE = 0;
     public DealerService(DealerRepository dealerRepository) {
         this.dealerRepository = dealerRepository;
     }
@@ -60,22 +60,13 @@ public class DealerService {
      * @return - a list of the dealers that match
      */
     public List<? extends Dealer> getDealers(Point point, Dealer dealer) {
-        List<Dealer> dealers = new ArrayList<Dealer>();
+        List<Dealer> dealers;
         List<Dealer> locDealers = getDealersFromGeoresult(point);
-        if (dealer.getMake() == null) {
-            RunnableQuery mainThread = new RunnableQuery("dealer", dealerRepository, dealer, dealers);
-            ExecutorService es = Executors.newCachedThreadPool();
-            es.execute(mainThread);
-            es.shutdown();
-            try {
-                es.awaitTermination(30, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                log.warn(e);
-            }
+        if (dealer.getMake() != null && !dealer.getMake().get(FIRST_VALUE).equals("Any")) {
+            dealers = dealerRepository.findAllDealers();
             dealers = dealerCheck(dealers, dealer);
         } else {
             dealers = dealerRepository.findAllDealers();
-            dealers = findMatch(dealers, dealer);
         }
         dealers = dealerSort(dealers, locDealers);
 
@@ -97,16 +88,6 @@ public class DealerService {
         return dealerRepository.getDealerById(id);
     }
 
-    private List<Dealer> findMatch(List<Dealer> dealers, Dealer dealer) {
-        List<Dealer> tempDealers = new ArrayList<Dealer>();
-        for (Dealer temp : dealers) {
-            if (temp.getMake().contains(dealer.getMake().get(0))) {
-                tempDealers.add(temp);
-            }
-        }
-        return tempDealers;
-    }
-
     private List<Dealer> dealerSort(List<Dealer> dealers, List<Dealer> locDealers) {
         List<Dealer> temp = new ArrayList<Dealer>();
         for (Dealer dealer : locDealers) {
@@ -124,7 +105,7 @@ public class DealerService {
     private List<Dealer> dealerCheck(List<Dealer> dealers, Dealer dealer) {
         List<Dealer> tempDealers = new ArrayList<Dealer>();
         for (Dealer temp : dealers) {
-            if (dealer.getId().equals(temp.getId())) {
+            if (dealer.getMake().contains(temp.getMake().get(FIRST_VALUE))) {
                 tempDealers.add(temp);
             }
         }
