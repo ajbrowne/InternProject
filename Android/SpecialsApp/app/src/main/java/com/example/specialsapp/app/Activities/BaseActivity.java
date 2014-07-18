@@ -12,7 +12,6 @@ import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.R;
 
 /**
- * TODO ALL of your classes need javadoc comment explaining what the class does.
  * Base Activity extended by any activity that requires the normal menu for the app.
  */
 public class BaseActivity extends FragmentActivity {

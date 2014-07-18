@@ -20,25 +20,28 @@ public class SearchActivity extends BaseActivity {
 
     private static final int numTabs = 3;
 
+    /**
+     * onCreate called when activity is created. This gets all needed views and carries
+     * out necessary initializations.
+     * @param savedInstanceState -
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Log.d("SearchActivity", this.toString());
-
         int tabIndex = getIntent().getIntExtra("tabIndex", numTabs);
-        Log.d("SearchActivity", "tabIndex " + tabIndex);
 
-        final ActionBar actionBar = getActionBar();
-
-        SearchPagerAdapter mAdapter;
-        mAdapter = new SearchPagerAdapter(getSupportFragmentManager());
+        SearchPagerAdapter mAdapter = new SearchPagerAdapter(getSupportFragmentManager());
         ViewPager viewPager = (ViewPager) findViewById(R.id.fragmentContainer3);
-
         viewPager.setAdapter(mAdapter);
+
+        // Set title and backnav for action bar
+        final ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Search");
+
+        // Set up tabs for this view
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs_search);
         tabs.setBackgroundColor(getResources().getColor(android.R.color.white));
         tabs.setTextColor(getResources().getColor(android.R.color.black));
@@ -48,13 +51,18 @@ public class SearchActivity extends BaseActivity {
         viewPager.setAdapter(mAdapter);
         tabs.setViewPager(viewPager);
 
+        // Set the correct search tab
         if (tabIndex != numTabs) {
             viewPager.setCurrentItem(tabIndex - 1);
         }
 
     }
 
-
+    /**
+     * onCreateOptionsMenu gets the correct xml for the menu among other setup.
+     * @param menu - the menu for the activity
+     * @return - true upon success
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -62,6 +70,11 @@ public class SearchActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * onOptionsSelected handles action bar behavior for an activity.
+     * @param item - the selected item
+     * @return - true upon success
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
