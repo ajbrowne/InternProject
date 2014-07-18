@@ -145,7 +145,7 @@ public class MergeService {
                 if (i >= length) {
                     break;
                 }
-            } else if (!vehicles.get(i).getType().equals(match.getMake())&& match.getType().equals(null)) {
+            } else if (!vehicles.get(i).getType().equals(match.getType())&& match.getType().equals(null)) {
                 //if it is not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
