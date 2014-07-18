@@ -68,8 +68,8 @@ public class VehicleSearchFragment extends Fragment {
                 if (priceSpinner.getSelectedItem().toString().compareTo("None") == 0) {
                     params[3] = "";
                 }
-                if (modelSpinner.getSelectedItem().toString().compareTo("All") == 0){
-                    params[1]="";
+                if (modelSpinner.getSelectedItem().toString().compareTo("All") == 0) {
+                    params[1] = "";
                 }
                 if (params[0].equals("") && params[2].equals("") && params[3].equals("")) {
                     params[4] = "0";
@@ -107,7 +107,7 @@ public class VehicleSearchFragment extends Fragment {
                     if (identifier == 0) {
                         identifier = getActivity().getResources().getIdentifier("none", "array", getActivity().getPackageName());
                         models = getActivity().getResources().getStringArray(identifier);
-                    }else if (theStringField.equals("All")){
+                    } else if (theStringField.equals("All")) {
                         identifier = getActivity().getResources().getIdentifier("any", "array", getActivity().getPackageName());
                         models = getActivity().getResources().getStringArray(identifier);
                     } else {

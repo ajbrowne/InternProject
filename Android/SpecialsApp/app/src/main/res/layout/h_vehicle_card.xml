@@ -20,14 +20,14 @@
 
     <TextView
         android:id="@+id/smallCar"
-        android:paddingTop="5dp"
+        style="@android:style/TextAppearance.DeviceDefault.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/gridCar"
         android:fontFamily="sans-serif-light"
         android:maxWidth="100dp"
-        android:text="2004 Chevrolet Silverado"
-        style="@android:style/TextAppearance.DeviceDefault.Small" />
+        android:paddingTop="5dp"
+        android:text="2004 Chevrolet Silverado" />
 
     <TextView
         android:id="@+id/smallPrice"

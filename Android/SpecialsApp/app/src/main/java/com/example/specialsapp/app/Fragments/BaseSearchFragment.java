@@ -298,10 +298,10 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     private class ResponseListener implements Response.Listener<JSONArray> {
         @Override
         public void onResponse(JSONArray response) {
-            if(response.length() == 0){
-                TextView result = (TextView)baseView.findViewById(R.id.third_result);
+            if (response.length() == 0) {
+                TextView result = (TextView) baseView.findViewById(R.id.third_result);
                 result.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 carSearch(response);
             }
         }
