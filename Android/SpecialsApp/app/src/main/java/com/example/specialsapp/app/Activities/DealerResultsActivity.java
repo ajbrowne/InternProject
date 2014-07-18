@@ -58,7 +58,8 @@ public class DealerResultsActivity extends BaseActivity {
         AbstractHttpClient client = new DefaultHttpClient();
         RequestQueue queue = Volley.newRequestQueue(this, new HttpClientStack(client));
 
-        checkLocationSettings();
+        GPS gps = new GPS(this);
+        gps.checkLocationSettings();
 
         HashMap<String, String> param = createParams();
 
@@ -192,36 +193,5 @@ public class DealerResultsActivity extends BaseActivity {
             addCards(dealers);
         }
 
-    }
-
-    private void checkLocationSettings() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String zip = sharedPreferences.getString("zip_code", "");
-        boolean useLocation = sharedPreferences.getBoolean("use_location", false);
-        if (useLocation || zip.equals("") || zip.equals("Enter Zip Code")) {
-            GPS gps = new GPS(this);
-            lat = gps.getLatitude();
-            longi = gps.getLongitude();
-        } else {
-            double[] location = getLoc(zip);
-            lat = location[0];
-            longi = location[1];
-        }
-    }
-
-    public double[] getLoc(String zip) {
-        final Geocoder geocoder = new Geocoder(this);
-        double[] location = {defaultLocation, defaultLocation};
-        try {
-            List<Address> addresses = geocoder.getFromLocationName(zip, 1);
-            if (addresses != null && !addresses.isEmpty()) {
-                Address address = addresses.get(0);
-                location[0] = address.getLatitude();
-                location[1] = address.getLongitude();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return location;
     }
 }

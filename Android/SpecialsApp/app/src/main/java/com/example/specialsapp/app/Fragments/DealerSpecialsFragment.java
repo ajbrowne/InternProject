@@ -47,7 +47,8 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
                 .listener(this)
                 .setup(mPullToRefreshLayout);
 
-        double[] location = checkLocationSettings();
+        GPS gps = new GPS(getActivity());
+        double[] location = gps.checkLocationSettings();
 
         try {
             getDealerSpecials(location[0], location[1]);
@@ -55,23 +56,6 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
             e.printStackTrace();
         }
         return homeView;
-    }
-
-    private double[] checkLocationSettings() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String zip = sharedPreferences.getString("zip_code", "");
-        boolean useLocation = sharedPreferences.getBoolean("use_location", false);
-        double[] location = new double[2];
-        System.out.println(zip);
-        System.out.println(useLocation);
-        if ((!zip.equals("") && !zip.equals("Enter Zip Code")) || !useLocation) {
-            location = getLoc(zip);
-        } else {
-            GPS gps = new GPS(getActivity());
-            location[0] = gps.getLatitude();
-            location[1] = gps.getLongitude();
-        }
-        return location;
     }
 
     @Override

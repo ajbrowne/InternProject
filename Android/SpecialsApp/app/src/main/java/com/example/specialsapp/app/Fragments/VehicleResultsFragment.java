@@ -41,7 +41,6 @@ public class VehicleResultsFragment extends BaseSearchFragment implements OnRefr
         // Inflate the layout for this fragment
         resultsView = inflater.inflate(R.layout.fragment_vehicle_results, container, false);
 
-        String zip = getActivity().getIntent().getStringExtra("zip");
         params = getActivity().getIntent().getStringArrayExtra("params");
 
         getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -53,33 +52,21 @@ public class VehicleResultsFragment extends BaseSearchFragment implements OnRefr
                 .listener(this)
                 .setup(mPullToRefreshLayout);
 
-        search(zip);
+        search();
         return resultsView;
     }
 
-    private void search(String zip) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    private void search() {
         final GPS gps = new GPS(getActivity());
-        Double latitude = gps.getLatitude();
-        Double longitude = gps.getLongitude();
+        double[] location = gps.checkLocationSettings();
+        Double latitude = location[0];
+        Double longitude = location[1];
         String latt = String.valueOf(latitude);
         String longi = String.valueOf(longitude);
 
         HashMap<String, String> param = new HashMap<String, String>();
-        if (sharedPreferences.getBoolean("use_location", false)) {
-            param.put("lng", longi);
-            param.put("lat", latt);
-        } else {
-            double[] location = getLoc(zip);
-            if (location[0] != defaultLocation) {
-                latt = String.valueOf(location[0]);
-                longi = String.valueOf(location[1]);
-                param.put("lng", longi);
-                param.put("lat", latt);
-            }
-
-        }
-
+        param.put("lat", latt);
+        param.put("lng", longi);
         param.put("make", params[0]);
         param.put("model", params[1]);
         param.put("type", params[2]);

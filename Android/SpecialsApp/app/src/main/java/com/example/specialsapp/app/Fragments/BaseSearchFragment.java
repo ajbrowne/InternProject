@@ -49,7 +49,6 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
  */
 public class BaseSearchFragment extends Fragment implements AbsListView.OnScrollListener {
 
-    private static final double defaultLocation = 0;
     private static final String baseUrl = "http://192.168.168.235:8080/v1/specials/vehicle?";
     private View baseView;
     private CardArrayAdapter mCardArrayAdapter;
@@ -237,23 +236,6 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
             createSpecials(currIndex, newVehicles, cards);
             mCardArrayAdapter.notifyDataSetChanged();
         }
-    }
-
-
-    public double[] getLoc(String zip) {
-        final Geocoder geocoder = new Geocoder(getActivity());
-        double[] location = {defaultLocation, defaultLocation};
-        try {
-            List<Address> addresses = geocoder.getFromLocationName(zip, 1);
-            if (addresses != null && !addresses.isEmpty()) {
-                Address address = addresses.get(0);
-                location[0] = address.getLatitude();
-                location[1] = address.getLongitude();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return location;
     }
 
     private String insertCommas(String amount) {

@@ -56,6 +56,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
     private Double longi;
     private PullToRefreshLayout mPullToRefreshLayout;
     private RequestQueue queue;
+    private GPS gps;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +66,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         inflater.inflate(R.layout.dealer_card, container, false);
         getActivity().setTitle("Dealers");
         setHasOptionsMenu(true);
+        gps = new GPS(getActivity());
 
         AbstractHttpClient client = new DefaultHttpClient();
         queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
@@ -75,26 +77,13 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
                 .listener(this)
                 .setup(mPullToRefreshLayout);
 
-        checkLocationSettings();
+        double[] location = gps.checkLocationSettings();
+        lat = location[0];
+        longi = location[1];
 
         getDealers();
 
         return homeView;
-    }
-
-    private void checkLocationSettings() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String zip = sharedPreferences.getString("zip_code", "");
-        boolean useLocation = sharedPreferences.getBoolean("use_location", false);
-        if (useLocation || zip.equals("") || zip.equals("Enter Zip Code")) {
-            GPS gps = new GPS(getActivity());
-            lat = gps.getLatitude();
-            longi = gps.getLongitude();
-        } else {
-            double[] location = getLoc(zip);
-            lat = location[0];
-            longi = location[1];
-        }
     }
 
     @Override
@@ -170,7 +159,10 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
 
     @Override
     public void onRefreshStarted(View view) {
-        checkLocationSettings();
+        gps.checkLocationSettings();
+        double[] location = gps.checkLocationSettings();
+        lat = location[0];
+        longi = location[1];
         getDealers();
     }
 
@@ -193,22 +185,6 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
 
     private String generateUrl(HashMap<String, String> parameters) {
         return baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&extra=" + parameters.get("extra");
-    }
-
-    public double[] getLoc(String zip) {
-        final Geocoder geocoder = new Geocoder(getActivity());
-        double[] location = {defaultLocation, defaultLocation};
-        try {
-            List<Address> addresses = geocoder.getFromLocationName(zip, 1);
-            if (addresses != null && !addresses.isEmpty()) {
-                Address address = addresses.get(0);
-                location[0] = address.getLatitude();
-                location[1] = address.getLongitude();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return location;
     }
 
     private class ResponseListener implements Response.Listener<JSONArray> {
