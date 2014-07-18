@@ -1,5 +1,6 @@
 package com.example.specialsapp.app.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class HomeActivity extends BaseActivity {
 
     private ArrayList<Dealer> dealers;
     private ViewPager viewPager;
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

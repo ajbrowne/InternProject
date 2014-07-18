@@ -69,9 +69,9 @@ public class TopDiscountFragment extends Fragment {
         client = new DefaultHttpClient();
         queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
 
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Loading...");
-        pDialog.show();
+        //pDialog = new ProgressDialog(getActivity());
+        //pDialog.setMessage("Loading...");
+        //pDialog.show();
         topAsync();
 
         return homeView;
@@ -227,7 +227,7 @@ public class TopDiscountFragment extends Fragment {
     }
 
     private void getDiscounts(JSONArray response) {
-        pDialog.hide();
+        //pDialog.hide();
         try {
             JSONObject dealer = (JSONObject) response.get(0);
             JSONArray specialArray = (JSONArray) dealer.get("specials");

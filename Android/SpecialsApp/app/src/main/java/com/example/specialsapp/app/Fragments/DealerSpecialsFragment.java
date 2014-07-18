@@ -62,7 +62,9 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
         String zip = sharedPreferences.getString("zip_code", "");
         boolean useLocation = sharedPreferences.getBoolean("use_location", false);
         double[] location = new double[2];
-        if (!zip.equals("") || !useLocation) {
+        System.out.println(zip);
+        System.out.println(useLocation);
+        if ((!zip.equals("") && !zip.equals("Enter Zip Code")) || !useLocation) {
             location = getLoc(zip);
         } else {
             GPS gps = new GPS(getActivity());

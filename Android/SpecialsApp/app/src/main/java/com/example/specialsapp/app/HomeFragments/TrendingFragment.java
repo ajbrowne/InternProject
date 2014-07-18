@@ -137,9 +137,6 @@ public class TrendingFragment extends Fragment {
             }
 
         } else {
-            pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Loading...");
-            pDialog.show();
             JsonArrayRequest searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
@@ -273,7 +270,6 @@ public class TrendingFragment extends Fragment {
     private class ResponseListener implements Response.Listener<JSONArray> {
         @Override
         public void onResponse(JSONArray response) {
-            pDialog.hide();
             getTrending(response);
         }
 

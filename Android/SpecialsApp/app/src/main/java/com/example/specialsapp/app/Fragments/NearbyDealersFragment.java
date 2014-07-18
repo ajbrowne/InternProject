@@ -49,7 +49,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
  */
 public class NearbyDealersFragment extends Fragment implements OnRefreshListener {
 
-    private static final double defaultLocation = -1000.0;
+    private static final double defaultLocation = 0.0;
     private static final String baseUrl = "http://192.168.168.235:8080/v1/specials/dealers?";
     private View homeView;
     private Double lat;
@@ -86,7 +86,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String zip = sharedPreferences.getString("zip_code", "");
         boolean useLocation = sharedPreferences.getBoolean("use_location", false);
-        if (useLocation) {
+        if (useLocation || zip.equals("") || zip.equals("Enter Zip Code")) {
             GPS gps = new GPS(getActivity());
             lat = gps.getLatitude();
             longi = gps.getLongitude();

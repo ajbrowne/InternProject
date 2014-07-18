@@ -1,7 +1,11 @@
 package com.example.specialsapp.app.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,8 +29,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
@@ -36,6 +42,7 @@ public class DealerResultsActivity extends BaseActivity {
 
 
     private static final String baseUrl = "http://192.168.168.235:8080/v1/specials/dealers?";
+    private static final double defaultLocation = 0.0;
     private TextView mResultsNone;
     private double lat;
     private double longi;
@@ -51,9 +58,7 @@ public class DealerResultsActivity extends BaseActivity {
         AbstractHttpClient client = new DefaultHttpClient();
         RequestQueue queue = Volley.newRequestQueue(this, new HttpClientStack(client));
 
-        GPS gps = new GPS(this);
-        lat = gps.getLatitude();
-        longi = gps.getLongitude();
+        checkLocationSettings();
 
         HashMap<String, String> param = createParams();
 
@@ -187,5 +192,36 @@ public class DealerResultsActivity extends BaseActivity {
             addCards(dealers);
         }
 
+    }
+
+    private void checkLocationSettings() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String zip = sharedPreferences.getString("zip_code", "");
+        boolean useLocation = sharedPreferences.getBoolean("use_location", false);
+        if (useLocation || zip.equals("") || zip.equals("Enter Zip Code")) {
+            GPS gps = new GPS(this);
+            lat = gps.getLatitude();
+            longi = gps.getLongitude();
+        } else {
+            double[] location = getLoc(zip);
+            lat = location[0];
+            longi = location[1];
+        }
+    }
+
+    public double[] getLoc(String zip) {
+        final Geocoder geocoder = new Geocoder(this);
+        double[] location = {defaultLocation, defaultLocation};
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(zip, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                location[0] = address.getLatitude();
+                location[1] = address.getLongitude();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return location;
     }
 }

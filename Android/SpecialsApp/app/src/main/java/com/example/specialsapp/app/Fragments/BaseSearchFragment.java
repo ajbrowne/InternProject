@@ -49,7 +49,7 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
  */
 public class BaseSearchFragment extends Fragment implements AbsListView.OnScrollListener {
 
-    private static final double defaultLocation = -1000.0;
+    private static final double defaultLocation = 0;
     private static final String baseUrl = "http://192.168.168.235:8080/v1/specials/vehicle?";
     private View baseView;
     private CardArrayAdapter mCardArrayAdapter;
