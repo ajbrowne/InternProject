@@ -41,7 +41,7 @@
                 android:value="com.example.specialsapp.app.Activities.SearchActivity" />
         </activity>
         <activity
-            android:name=".Activities.SpecialDetail"
+            android:name=".Activities.VehicleDetail"
             android:label="SpecialDetail"
             android:screenOrientation="portrait" >
             <meta-data
