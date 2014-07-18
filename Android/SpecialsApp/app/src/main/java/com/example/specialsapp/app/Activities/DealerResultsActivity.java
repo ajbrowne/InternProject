@@ -73,29 +73,29 @@ public class DealerResultsActivity extends BaseActivity {
         param.put("lng", String.valueOf(longi));
         param.put("lat", String.valueOf(lat));
         if (getIntent().getStringExtra("make").equals("All")){
-            param.put("extra", "0");
+            param.put("extra", "0"); // TODO what are 0 and 1 here?
         } else{
             param.put("extra", "1");
             param.put("make", getIntent().getStringExtra("make"));
         }
-        System.out.println(param);
+        Log.d("DealerResultsActivity", "Created params: " + param); // TODO I changed this into a log - avoid using System.out.println
         return param;
     }
 
     private void addCards(ArrayList<Dealer> dealers) {
-        ArrayList<Card> cards = new ArrayList<Card>();
-        cards = createDealers(dealers, cards);
+        ArrayList<Card> cards = new ArrayList<>();
+        createDealerCards(dealers, cards);
 
         CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(this, cards);
 
-        CardListView cardListView = (CardListView) findViewById(R.id.myList3);
+        CardListView cardListView = (CardListView) findViewById(R.id.myList3); // TODO please make a better name for myList3
         if (cardListView != null) {
             cardListView.setAdapter(mCardArrayAdapter);
         }
 
     }
 
-    public ArrayList<Card> createDealers(ArrayList<Dealer> dealers, ArrayList<Card> cards) {
+    private void createDealerCards(ArrayList<Dealer> dealers, ArrayList<Card> cards) {
         for (Dealer dealer : dealers) {
 
             Double distance = distance(dealer.getLatitude(), dealer.getLongitude(), lat, longi);
@@ -109,7 +109,6 @@ public class DealerResultsActivity extends BaseActivity {
             card.setOnClickListener(getOnClickListener(dealer, distance));
             cards.add(card);
         }
-        return cards;
     }
 
     private Card.OnCardClickListener getOnClickListener(final Dealer dealer, final Double distance) {
@@ -179,9 +178,9 @@ public class DealerResultsActivity extends BaseActivity {
                 }
 
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e("DealerResultsActivity", "Invalid JSON in response");
             }
-            if (dealers.size() == 0) {
+            if (dealers.isEmpty()) {
                 mResultsNone.setVisibility(View.VISIBLE);
             }
             addCards(dealers);

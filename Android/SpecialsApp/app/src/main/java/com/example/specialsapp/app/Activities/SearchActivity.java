@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -24,10 +25,10 @@ public class SearchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        System.out.println(this);
+        Log.d("SearchActivity", this.toString());
 
         int tabIndex = getIntent().getIntExtra("tabIndex", numTabs);
-        System.out.println("tabIndex " + tabIndex);
+        Log.d("SearchActivity", "tabIndex " + tabIndex);
 
         final ActionBar actionBar = getActionBar();
 
@@ -42,7 +43,7 @@ public class SearchActivity extends BaseActivity {
         tabs.setBackgroundColor(getResources().getColor(android.R.color.white));
         tabs.setTextColor(getResources().getColor(android.R.color.black));
 
-        Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/roboto-light.ttf");
+        Typeface typeFace = Typeface.createFromAsset(getAssets(), FONT_PATH);
         tabs.setTypeface(typeFace, android.R.style.TextAppearance_DeviceDefault);
         viewPager.setAdapter(mAdapter);
         tabs.setViewPager(viewPager);

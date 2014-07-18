@@ -39,7 +39,7 @@ public class LoginFragment extends Fragment {
 
         stackVar = fragmentManager.getBackStackEntryCount();
         for (int i = 0; i < stackVar; i++) {
-            Log.i("MainActivity", "popping backstack");
+            Log.i("LoginFragment", "popping backstack");
             fragmentManager.popBackStack();
         }
 
@@ -80,7 +80,7 @@ public class LoginFragment extends Fragment {
                     new CustomAlertDialog(getActivity(), "Invalid username or password", "Your username or password is incorrect, try again.").show();
                 } else {
                     String encrypted = ((MainActivity) getActivity()).computeSHAHash(pass);
-                    System.out.println(encrypted);
+                    Log.d("LoginFragment", encrypted);
 
                     ((MainActivity) getActivity()).login(user, encrypted);
                 }

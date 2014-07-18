@@ -25,8 +25,8 @@ public class SettingsActivity extends PreferenceActivity implements
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        addPreferencesFromResource(R.xml.pref_general);
-        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
+        addPreferencesFromResource(R.xml.pref_general); //TODO don't use deprecated methods
+        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();//TODO don't use deprecated methods
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         EditTextPreference editTextPref = (EditTextPreference) findPreference("zip_code");
 
@@ -34,40 +34,30 @@ public class SettingsActivity extends PreferenceActivity implements
             editTextPref.setSummary(sharedPreferences.getString("zip_code", "Enter Zip Code"));
         }
 
-        if (sharedPreferences.getBoolean("use_location", false)) {
-            editTextPref.setEnabled(false);
-            editTextPref.setSelectable(true);
-        } else {
-            editTextPref.setEnabled(true);
-            editTextPref.setSelectable(true);
-        }
-
-
+        boolean useLocation = sharedPreferences.getBoolean("use_location", false);
+        editTextPref.setEnabled(!useLocation);
+        editTextPref.setSelectable(true);
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Preference pref = findPreference(key);
-        if (pref instanceof EditTextPreference) {
+        Preference pref = findPreference(key);//TODO don't use deprecated methods
+        if (pref instanceof EditTextPreference) { //TODO Don't use instanceof, if possible. Instead of instanceof, use Java OO (interfaces)
             EditTextPreference etp = (EditTextPreference) pref;
             pref.setSummary(etp.getText());
         }
         if (pref instanceof CheckBoxPreference) {
             EditTextPreference editTextPref = (EditTextPreference) findPreference("zip_code");
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("use_location", false)) {
-                editTextPref.setEnabled(false);
-                editTextPref.setSelectable(true);
-            } else {
-                editTextPref.setEnabled(true);
-                editTextPref.setSelectable(true);
-            }
 
+            boolean useLocation = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("use_location", false);
+            editTextPref.setEnabled(!useLocation);
+            editTextPref.setSelectable(true);
         }
     }
 
     protected void onResume() {
         super.onResume();
-        getPreferenceScreen().getSharedPreferences()
+        getPreferenceScreen().getSharedPreferences()//TODO don't use deprecated methods
                 .registerOnSharedPreferenceChangeListener(this);
     }
 
@@ -87,13 +77,8 @@ public class SettingsActivity extends PreferenceActivity implements
         // Check login status, change menu appropriately
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
         boolean status = shared.getBoolean("stored", true);
-        if (status) {
-            menu.findItem(R.id.action_logout).setVisible(true);
-            menu.findItem(R.id.action_login).setVisible(false);
-        } else {
-            menu.findItem(R.id.action_logout).setVisible(false);
-            menu.findItem(R.id.action_login).setVisible(true);
-        }
+        menu.findItem(R.id.action_logout).setVisible(status);
+        menu.findItem(R.id.action_login).setVisible(!status);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -115,7 +100,8 @@ public class SettingsActivity extends PreferenceActivity implements
             edit.commit();
             menu.findItem(R.id.action_logout).setVisible(false);
             menu.findItem(R.id.action_login).setVisible(true);
-            new CustomAlertDialog(this, "Logout", "You have been logged out. You can no longer send contact info to dealers").show();
+            new CustomAlertDialog(this, "Logout", "You have been logged out. " +
+                    "You can no longer send contact info to dealers").show();
             return true;
         }
         if (id == android.R.id.home) {

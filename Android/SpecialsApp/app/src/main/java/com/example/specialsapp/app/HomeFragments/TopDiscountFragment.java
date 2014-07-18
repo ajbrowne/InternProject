@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,19 +110,17 @@ public class TopDiscountFragment extends Fragment {
             try {
                 String data = new String(entry.data, "UTF-8");
                 JSONArray cached = new JSONArray(data);
-                System.out.println("Cached top discounts call");
+                Log.d("TopDiscounts","Cached top discounts call");
                 getDiscounts(cached);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+            } catch (UnsupportedEncodingException | JSONException e) {
+                Log.d("TopDiscounts","problem grabbing the top discounts");
             }
 
         } else {
             JsonArrayRequest searchRequest = new JsonArrayRequest(baseUrl, new ResponseListener(), new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-
+                    Log.e("TopDiscounts","problem grabbing discounts");
                 }
             });
             queue.add(searchRequest);
@@ -177,7 +176,7 @@ public class TopDiscountFragment extends Fragment {
         cards = createSpecials(0, vehicles);
     }
 
-    public ArrayList<Card> createSpecials(int index, ArrayList<Vehicle> vehicles) {
+    private ArrayList<Card> createSpecials(int index, ArrayList<Vehicle> vehicles) {
         for (int i = index; i < 3; i++) {
             HomeVehicleCard card = new HomeVehicleCard(getActivity(), R.layout.h_vehicle_card);
             final Vehicle vehicle = vehicles.get(i);
@@ -220,7 +219,7 @@ public class TopDiscountFragment extends Fragment {
         return cards;
     }
 
-    public String insertCommas(String amount) {
+    private String insertCommas(String amount) {
         DecimalFormat formatter = new DecimalFormat("#,###");
         Double number = Double.parseDouble(amount);
         return String.valueOf(formatter.format(number));

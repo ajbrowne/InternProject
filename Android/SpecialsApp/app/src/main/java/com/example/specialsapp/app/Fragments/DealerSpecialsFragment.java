@@ -47,6 +47,8 @@ public class DealerSpecialsFragment extends BaseSearchFragment implements OnRefr
                 .listener(this)
                 .setup(mPullToRefreshLayout);
 
+        //TODO ***make a GPS location class that is just 2 doubles.
+        //TODO It is almost always best to create objects for these kinds of things
         double[] location = checkLocationSettings();
 
         try {

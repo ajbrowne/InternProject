@@ -17,7 +17,7 @@ public class VehicleResultsActivity extends BaseActivity {
 
         VehicleResultsFragment fragment = new VehicleResultsFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container2, fragment);
+        fragmentTransaction.replace(R.id.container2, fragment); //TODO give container2 a better name
         fragmentTransaction.commit();
     }
 

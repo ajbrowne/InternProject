@@ -49,8 +49,8 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
  */
 public class BaseSearchFragment extends Fragment implements AbsListView.OnScrollListener {
 
-    private static final double defaultLocation = -1000.0;
-    private static final String baseUrl = "http://192.168.170.100:8080/v1/specials/vehicle?";
+    private static final double DEFAULT_LOCATION = -1000.0;
+    private static final String BASE_URL = "http://192.168.170.100:8080/v1/specials/vehicle?";
     private View baseView;
     private CardArrayAdapter mCardArrayAdapter;
     private ArrayList<Vehicle> newVehicles;
@@ -73,13 +73,19 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
         return baseView;
     }
 
+    /**
+     * TODO fix this comment
+     * @param parameters
+     * @param view
+     * @param pullToRefreshLayout
+     * @param isSearch
+     */
     public void vehicleAsync(HashMap<String, String> parameters, View view, PullToRefreshLayout pullToRefreshLayout, boolean isSearch) {
         this.isSearch = isSearch;
         AbstractHttpClient client = new DefaultHttpClient();
         RequestQueue queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
         baseView = view;
         mPullToRefreshLayout = pullToRefreshLayout;
-        JsonArrayRequest searchRequest;
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         String url = generateUrl(parameters);
@@ -87,26 +93,26 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
         makeAsync(isSearch, queue, url, entry);
     }
 
+    /**
+     * TODO fix this comment
+     * @param isSearch
+     * @param queue
+     * @param url
+     * @param entry
+     */
     private void makeAsync(boolean isSearch, RequestQueue queue, String url, Cache.Entry entry) {
         JsonArrayRequest searchRequest;
         if (entry != null) {
             try {
                 String data = new String(entry.data, "UTF-8");
                 JSONArray cached = new JSONArray(data);
-                System.out.println("cached base" + isSearch);
+                Log.d("BaseSearchFragment", "cached base" + isSearch);
                 carSearch(cached);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+            } catch (UnsupportedEncodingException | JSONException e) {
+                Log.d("BaseSearchFragment", "Asynchronous make search request error");
             }
-
         } else {
-            if (isSearch) {
-                searchRequest = new JsonArrayRequest(url, new ResponseListener(), new ErrorListener());
-            } else {
-                searchRequest = new JsonArrayRequest(url, new ResponseListener(), new ErrorListener());
-            }
+            searchRequest = new JsonArrayRequest(url, new ResponseListener(), new ErrorListener());
             queue.add(searchRequest);
         }
     }
@@ -150,7 +156,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     public void addCards(ArrayList<Vehicle> newVehicles) {
         returnSize = newVehicles.size();
         cards = new ArrayList<Card>();
-        cards = createSpecials(0, newVehicles, cards);
+        createSpecials(0, newVehicles, cards);
         mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
         CardListView cardListView = (CardListView) baseView.findViewById(R.id.myList1);
         if (cardListView != null) {
@@ -168,7 +174,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
      *
      * @return Arraylist of created cards
      */
-    public ArrayList<Card> createSpecials(int index, ArrayList<Vehicle> newVehicles, ArrayList<Card> cards) {
+    public void createSpecials(int index, ArrayList<Vehicle> newVehicles, ArrayList<Card> cards) {
         for (int i = index; i < index + 10 && i < returnSize; i++) {
             VehicleCard card = new VehicleCard(getActivity(), R.layout.vehicle_card);
             final Vehicle vehicle = newVehicles.get(i);
@@ -176,7 +182,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
             try {
                 card.setGasMileage((String) vehicle.getSpecs().get(0));
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e("BaseSearchFragment", "problem creating specials");
             }
 
             card.setDealer(vehicle.getDealer());
@@ -192,10 +198,9 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
             currIndex = i;
         }
         currIndex++;
-        return cards;
     }
 
-    public Card.OnCardClickListener getCardOnClickListener(final Vehicle vehicle) {
+    private Card.OnCardClickListener getCardOnClickListener(final Vehicle vehicle) {
         return new Card.OnCardClickListener() {
             @Override
             public void onClick(Card card, View view) {
@@ -213,7 +218,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
                     try {
                         tempSpecs.add(vehicle.getSpecs().get(i).toString());
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        Log.e("BaseSearchFragment", "error on card click");
                     }
                 }
                 intent.putStringArrayListExtra("spec", tempSpecs);
@@ -241,7 +246,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
 
     public double[] getLoc(String zip) {
         final Geocoder geocoder = new Geocoder(getActivity());
-        double[] location = {defaultLocation, defaultLocation};
+        double[] location = {DEFAULT_LOCATION, DEFAULT_LOCATION};
         try {
             List<Address> addresses = geocoder.getFromLocationName(zip, 1);
             if (addresses != null && !addresses.isEmpty()) {
@@ -250,7 +255,7 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
                 location[1] = address.getLongitude();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("BaseSearchFragment", "getLocation failed");
         }
         return location;
     }
@@ -263,8 +268,6 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
 
     public void carSearch(JSONArray response) {
         newVehicles = new ArrayList<Vehicle>();
-        ArrayList<Special> specials = new ArrayList<Special>();
-        Vehicle newVehicle = new Vehicle();
         try {
             JSONObject dealer = (JSONObject) response.get(0);
             JSONArray vehicleArray = (JSONArray) dealer.get("vehicles");
@@ -287,9 +290,11 @@ public class BaseSearchFragment extends Fragment implements AbsListView.OnScroll
     }
 
     private String generateUrl(HashMap<String, String> parameters) {
-        String url = baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
+        String url = BASE_URL + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat")
+                + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
         if (isSearch) {
-            url = url + "&model=" + parameters.get("model") + "&type=" + parameters.get("type") + "&max=" + parameters.get("max");
+            url = url + "&model=" + parameters.get("model") + "&type=" + parameters.get("type")
+                    + "&max=" + parameters.get("max");
         }
         return url;
     }

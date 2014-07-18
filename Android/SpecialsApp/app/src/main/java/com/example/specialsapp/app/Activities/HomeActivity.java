@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -27,12 +28,12 @@ public class HomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        dealers = new ArrayList<Dealer>();
+        dealers = new ArrayList<>();
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setBackgroundColor(getResources().getColor(android.R.color.white));
         tabs.setTextColor(getResources().getColor(android.R.color.black));
-        Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/roboto-light.ttf");
+        Typeface typeFace = Typeface.createFromAsset(getAssets(), FONT_PATH);
         tabs.setTypeface(typeFace, android.R.style.TextAppearance_DeviceDefault);
         viewPager = (ViewPager) findViewById(R.id.fragmentContainer2);
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -56,7 +57,7 @@ public class HomeActivity extends BaseActivity {
         if (id == R.id.search) {
             Intent intent = new Intent(this, SearchActivity.class);
             intent.putExtra("tabIndex", viewPager.getCurrentItem());
-            System.out.println("CURRENT ITEM: " + viewPager.getCurrentItem());
+            Log.d("HomeActivity", "CURRENT ITEM: " + viewPager.getCurrentItem());
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

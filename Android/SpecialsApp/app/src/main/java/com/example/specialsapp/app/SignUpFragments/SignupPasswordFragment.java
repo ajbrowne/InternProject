@@ -111,6 +111,7 @@ public class SignupPasswordFragment extends Fragment {
             String conf = confirm.getText().toString();
 
             if (pass.compareTo(conf) == 0 && pass.length() != 0 && conf.length() != 0) {
+                //TODO avoid deprecated methods
                 password.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_confirm));
                 confirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_confirm));
             } else {

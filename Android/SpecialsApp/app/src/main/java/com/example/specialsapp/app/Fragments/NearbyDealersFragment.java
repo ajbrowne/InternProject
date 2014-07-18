@@ -122,6 +122,12 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         queue.add(searchRequest);
     }
 
+    /**
+     * TODO: This method is pretty much the same in 3 different classes. Please make this method only once.
+     * TODO: DRY (Don't Repeat Yourself) code is what we strive for - that way debugging doesn't go through
+     * TODO: multiple places that do the same exact place, you get cleaner code, and you feel like a champ.
+     * @param dealers
+     */
     private void addCards(ArrayList<Dealer> dealers) {
         ArrayList<Card> cards = new ArrayList<Card>();
         cards = createDealers(dealers, cards);
@@ -195,7 +201,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         return baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&extra=" + parameters.get("extra");
     }
 
-    public double[] getLoc(String zip) {
+    private double[] getLoc(String zip) {
         final Geocoder geocoder = new Geocoder(getActivity());
         double[] location = {defaultLocation, defaultLocation};
         try {

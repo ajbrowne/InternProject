@@ -32,7 +32,7 @@ public class DealerDetail extends BaseActivity {
 
     private GoogleMap googleMap;
     private String phoneNumber;
-    private TextView mAddress;
+    private TextView mAddress; //TODO what is m for?
     private TextView mName;
     private TextView mPhone;
     private TextView mDistance;
@@ -49,13 +49,7 @@ public class DealerDetail extends BaseActivity {
         float ZOOM = 13;
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        try {
-            // Loading map
-            initilizeMap();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        loadMap();
         new GetAddressTask().execute(extras.getDouble("lat"), extras.getDouble("long"));
         mName.setText(extras.getString("name"));
         mPhone.setText("555-555-5555");
@@ -64,7 +58,9 @@ public class DealerDetail extends BaseActivity {
         configureMap(extras, ZOOM);
     }
 
-
+    /**
+     * Initialize TextViews TODO provide a better name for this method
+     */
     private void init() {
         mAddress = (TextView) findViewById(R.id.dealer_address);
         mName = (TextView) findViewById(R.id.dealer_name);
@@ -105,9 +101,9 @@ public class DealerDetail extends BaseActivity {
     }
 
     /**
-     * function to load map. If map is not created it will create it for you
+     * Load the map. If map is not created it will create it for you
      */
-    private void initilizeMap() {
+    private void loadMap() {
         if (googleMap == null) {
             googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
             // check if map is created successfully or not
@@ -123,7 +119,7 @@ public class DealerDetail extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initilizeMap();
+        loadMap();
     }
 
 
@@ -141,6 +137,8 @@ public class DealerDetail extends BaseActivity {
             double longitude = doubles[1];
             String address = "No Address Found";
             List<Address> addresses = new ArrayList<Address>();
+            //TODO I'm sure that you found this online and that it works fine, but I usually
+            //TODO avoid while(true) so that you don't come across hard to debug out of memory errors
             while (true) {
                 try {
                     addresses = mGeoCoder.getFromLocation(lat, longitude, 1);

@@ -48,7 +48,7 @@ public class VehicleSearchFragment extends Fragment {
         priceSpinner = (Spinner) searchView.findViewById(R.id.priceSpinner);
         typeSpinner = (Spinner) searchView.findViewById(R.id.typeSpinner);
 
-        setSpinnerListener(makeSpinner, 0);
+        setSpinnerListener(makeSpinner, 0); //TODO please make these integers variables with descriptive names
         setSpinnerListener(modelSpinner, 1);
         setSpinnerListener(typeSpinner, 2);
         setSpinnerListener(priceSpinner, 3);
@@ -57,8 +57,9 @@ public class VehicleSearchFragment extends Fragment {
         submitSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO why are you using compareto instead of equals?
                 if (makeSpinner.getSelectedItem().toString().compareTo("All") == 0) {
-                    params[0] = "";
+                    params[0] = ""; //TODO this is kind of confusing to quickly read and understand what is going on. is there a better, more readable way to implement this?
                     params[1] = "";
                 }
                 if (typeSpinner.getSelectedItem().toString().compareTo("Any") == 0) {
@@ -71,15 +72,15 @@ public class VehicleSearchFragment extends Fragment {
                     params[4] = "0";
                 }
 
-                params[0] = params[0].replaceAll(" ", "%20");
+                params[0] = params[0].replaceAll(" ", "%20");  //TODO make a variable for %20 with a descriptive name
                 params[1] = params[1].replaceAll(" ", "%20");
                 Intent intent = new Intent(getActivity(), VehicleResultsActivity.class);
                 intent.putExtra("params", params);
-                if (sharedPrefs.getBoolean("use_location", false)) {
-                    intent.putExtra("zip", sharedPrefs.getString("zip", ""));
-                } else {
-                    intent.putExtra("zip", "nope");
-                }
+
+                String zipValue = sharedPrefs.getBoolean("use_location", false)
+                        ? sharedPrefs.getString("zip", "")
+                        : "nope";
+                intent.putExtra("zip", zipValue);
                 startActivity(intent);
             }
         });
@@ -87,6 +88,11 @@ public class VehicleSearchFragment extends Fragment {
         return searchView;
     }
 
+    /**
+     * TODO add a good comment here to make this method easier to understand
+     * @param spinner
+     * @param index
+     */
     public void setSpinnerListener(final Spinner spinner, final int index) {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
