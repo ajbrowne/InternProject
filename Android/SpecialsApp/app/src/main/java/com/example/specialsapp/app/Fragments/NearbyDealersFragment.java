@@ -99,7 +99,6 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("lng", longg);
         param.put("lat", latt);
-        param.put("extra", "0");
 
         String url = generateUrl(param);
         JsonArrayRequest searchRequest = new JsonArrayRequest(url, new ResponseListener(), new Response.ErrorListener() {
@@ -191,7 +190,7 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
     }
 
     private String generateUrl(HashMap<String, String> parameters) {
-        return baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&extra=" + parameters.get("extra");
+        return baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat");
     }
 
     private class ResponseListener implements Response.Listener<JSONArray> {

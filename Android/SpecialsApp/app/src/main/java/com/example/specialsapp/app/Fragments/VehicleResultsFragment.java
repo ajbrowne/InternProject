@@ -67,7 +67,6 @@ public class VehicleResultsFragment extends BaseVehicleFragment implements OnRef
         param.put("model", params[1]);
         param.put("type", params[2]);
         param.put("max", params[3]);
-        param.put("extra", params[4]);
         vehicleAsync(param, resultsView, mPullToRefreshLayout, true);
     }
 

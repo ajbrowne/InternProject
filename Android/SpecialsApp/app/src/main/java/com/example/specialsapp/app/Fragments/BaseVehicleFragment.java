@@ -273,11 +273,9 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
     }
 
     private String generateUrl(HashMap<String, String> parameters) {
-        String url = BASE_URL + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat")
-                + "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
+        String url = BASE_URL + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat");
         if (isSearch) {
-            url = url + "&model=" + parameters.get("model") + "&type=" + parameters.get("type")
-                    + "&max=" + parameters.get("max");
+            url = url + "&model=" + parameters.get("model") + "&type=" + parameters.get("type");
         }
         return url;
     }

@@ -52,13 +52,11 @@ public class VehicleSearchFragment extends Fragment {
         setSpinnerListener(modelSpinner, 1);
         setSpinnerListener(typeSpinner, 2);
         setSpinnerListener(priceSpinner, 3);
-        params[4] = "1";
 
         submitSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO why are you using compareto instead of equals?
-                params[4] = "1";
                 if (makeSpinner.getSelectedItem().toString().compareTo("All") == 0) {
                     params[0] = ""; //TODO this is kind of confusing to quickly read and understand what is going on. is there a better, more readable way to implement this?
                     params[1] = "";
@@ -71,9 +69,6 @@ public class VehicleSearchFragment extends Fragment {
                 }
                 if (modelSpinner.getSelectedItem().toString().compareTo("All") == 0) {
                     params[1] = "";
-                }
-                if (params[0].equals("") && params[2].equals("") && params[3].equals("")) {
-                    params[4] = "0";
                 }
 
                 params[0] = params[0].replaceAll(" ", "%20");  //TODO make a variable for %20 with a descriptive name

@@ -46,9 +46,6 @@ public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRef
                 .listener(this)
                 .setup(mPullToRefreshLayout);
 
-        //TODO ***make a GPS location class that is just 2 doubles.
-        //TODO It is almost always best to create objects for these kinds of things
-
         GPS gps = new GPS(getActivity());
         LocationObject location = gps.checkLocationSettings();
 
@@ -88,8 +85,6 @@ public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRef
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("lng", longg);
         param.put("lat", latt);
-        param.put("make", "");
-        param.put("extra", "0");
 
         vehicleAsync(param, homeView, mPullToRefreshLayout, false);
     }

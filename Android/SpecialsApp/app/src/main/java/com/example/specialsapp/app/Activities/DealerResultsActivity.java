@@ -74,10 +74,7 @@ public class DealerResultsActivity extends BaseActivity {
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("lng", String.valueOf(longi));
         param.put("lat", String.valueOf(lat));
-        if (getIntent().getStringExtra("make").equals("All")){
-            param.put("extra", "0"); // TODO what are 0 and 1 here?
-        } else{
-            param.put("extra", "1");
+        if (!getIntent().getStringExtra("make").equals("All")){
             param.put("make", getIntent().getStringExtra("make"));
         }
         return param;
@@ -159,7 +156,7 @@ public class DealerResultsActivity extends BaseActivity {
 
     private String generateUrl(HashMap<String, String> parameters) {
         return baseUrl + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") +
-                "&make=" + parameters.get("make") + "&extra=" + parameters.get("extra");
+                "&make=" + parameters.get("make");
     }
 
     private class ResponseListener implements Response.Listener<JSONArray> {
