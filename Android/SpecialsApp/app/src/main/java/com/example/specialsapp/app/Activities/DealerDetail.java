@@ -45,7 +45,7 @@ public class DealerDetail extends BaseActivity {
         setContentView(R.layout.activity_dealer_detail);
         Bundle extras = getIntent().getExtras();
         mGeoCoder = new Geocoder(this, Locale.getDefault());
-        init();
+        loadTextViews();
         float ZOOM = 13;
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -61,7 +61,7 @@ public class DealerDetail extends BaseActivity {
     /**
      * Initialize TextViews TODO provide a better name for this method
      */
-    private void init() {
+    private void loadTextViews() {
         mAddress = (TextView) findViewById(R.id.dealer_address);
         mName = (TextView) findViewById(R.id.dealer_name);
         mPhone = (TextView) findViewById(R.id.dealer_phone);
@@ -137,19 +137,18 @@ public class DealerDetail extends BaseActivity {
             double longitude = doubles[1];
             String address = "No Address Found";
             List<Address> addresses = new ArrayList<Address>();
-            //TODO I'm sure that you found this online and that it works fine, but I usually
-            //TODO avoid while(true) so that you don't come across hard to debug out of memory errors
-            while (true) {
+            while (address.equals("No Address Found")) {
                 try {
                     addresses = mGeoCoder.getFromLocation(lat, longitude, 1);
                     address = addresses.get(0).getAddressLine(0) + "\n" + addresses.get(0).getAddressLine(1);
                 } catch (IOException e) {
-                    Log.d("error", "No Address Found");
+                    Log.d("error", "No Address Found",e);
                 }
                 if (addresses.size() != 0) {
                     return address;
                 }
             }
+            return address;
         }
 
         protected void onPostExecute(String result) {

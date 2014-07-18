@@ -1,6 +1,5 @@
 package com.internproject.api.services;
 
-import com.internproject.api.concurrency.RunnableQuery;
 import com.internproject.api.models.Dealer;
 import com.internproject.api.repositories.DealerRepository;
 import org.apache.log4j.Logger;
@@ -10,9 +9,6 @@ import org.springframework.data.geo.Point;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Service layer for dealer objects. This handles the logic for storing or searching for
@@ -74,20 +70,42 @@ public class DealerService {
         return dealers;
     }
 
+    /**
+     * Converts the georesults objects into a list of dealers.
+     *
+     * @param point - Used to get the dealers by location
+     * @return - Converted List of Dealers
+     */
     private List<Dealer> getDealersFromGeoresult(Point point) {
         List<GeoResult> locResults = dealerRepository.getDealerByLocation(point);
         List<Dealer> locDealers = new ArrayList<Dealer>();
 
+        //loop over the georesults to convert them to dealers
         for (GeoResult geoResult : locResults) {
             locDealers.add((Dealer) geoResult.getContent());
         }
         return locDealers;
     }
 
+    /**
+     * Get a dealer by a specific ID
+     *
+     * @param id - the id we are looking for
+     * @return - the matching dealer
+     */
     public Dealer getDealerById(String id) {
         return dealerRepository.getDealerById(id);
     }
 
+    /**
+     * Sorts through the dealers found by make and the ones
+     * found by location, and returns the dealers that match
+     * both criteria.
+     * TODO:Come up with a better method name
+     * @param dealers - dealers found by make
+     * @param locDealers - dealers found by location
+     * @return - merged list of dealers
+     */
     private List<Dealer> dealerSort(List<Dealer> dealers, List<Dealer> locDealers) {
         List<Dealer> temp = new ArrayList<Dealer>();
         for (Dealer dealer : locDealers) {
@@ -102,6 +120,15 @@ public class DealerService {
         return temp;
     }
 
+    /**
+     * Check the list of dealers and return only a list of dealers
+     * that match the make that was passed in from the app.
+     *
+     * TODO:Better method name
+     * @param dealers - list of dealers
+     * @param dealer - dealer object with the make attribute set to the one being searched for
+     * @return - A list of dealers with only the matching makes
+     */
     private List<Dealer> dealerCheck(List<Dealer> dealers, Dealer dealer) {
         List<Dealer> tempDealers = new ArrayList<Dealer>();
         for (Dealer temp : dealers) {
@@ -112,6 +139,12 @@ public class DealerService {
         return tempDealers;
     }
 
+    /**
+     * Kind of a helper method used to store the number of specials that
+     * each dealer has running at this time.
+     *
+     * @param id - the id of the dealer that needs that number updated
+     */
     public void updateSpecials(String id) {
         Dealer dealer = new Dealer();
         dealer.setId(id);

@@ -84,7 +84,6 @@ public class DealerResultsActivity extends BaseActivity {
             param.put("extra", "1");
             param.put("make", getIntent().getStringExtra("make"));
         }
-        Log.d("DealerResultsActivity", "Created params: " + param); // TODO I changed this into a log - avoid using System.out.println
         return param;
     }
 
