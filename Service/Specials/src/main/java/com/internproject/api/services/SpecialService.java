@@ -5,6 +5,7 @@ import com.internproject.api.models.Special;
 import com.internproject.api.repositories.SpecialRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
  * <p/>
  * Created by maharb on 6/27/14.
  */
+@Service
 public class SpecialService {
 
     @Autowired

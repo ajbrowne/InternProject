@@ -140,7 +140,7 @@ public class RunnableQuery implements Runnable {
      * and then run the query.
      */
     public void vehicleChildren() {
-        System.out.println(vehicle);
+        log.debug("Vehicle from runnable query" + vehicle);
         //Children created with their name being the field that thread will search in
         RunnableChild t1 = new RunnableChild("id", name, vehicleRepository, vehicle, vehicles);
         RunnableChild t5 = new RunnableChild("year", name, vehicleRepository, vehicle, vehicles);

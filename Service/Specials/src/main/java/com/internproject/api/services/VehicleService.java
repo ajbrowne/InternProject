@@ -5,6 +5,7 @@ import com.internproject.api.models.Vehicle;
 import com.internproject.api.repositories.VehicleRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
  * <p/>
  * Created by maharb on 6/30/14.
  */
+@Service
 public class VehicleService {
 
     @Autowired
