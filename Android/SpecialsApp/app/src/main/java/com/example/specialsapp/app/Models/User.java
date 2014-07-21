@@ -1,7 +1,7 @@
 package com.example.specialsapp.app.Models;
 
 /**
- * Created by brownea on 7/2/14.
+ * Basic user object used for login and registration.
  */
 public class User {
 

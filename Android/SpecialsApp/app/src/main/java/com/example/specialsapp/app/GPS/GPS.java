@@ -23,7 +23,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by brownea on 6/12/14.
+ * GPS class used to get location at will. Also includes helper methods for finding the
+ * distance to a dealer and checking location settings.
  */
 public class GPS extends Service implements LocationListener {
 
@@ -44,6 +45,11 @@ public class GPS extends Service implements LocationListener {
         getLocation();
     }
 
+    /**
+     * Called when the GPS is created. Gets location based off of either network or location
+     * services and sets the class variables that can be retrieved.
+     * @return - the location
+     */
     public Location getLocation() {
         try {
             locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
@@ -93,6 +99,7 @@ public class GPS extends Service implements LocationListener {
         return location;
     }
 
+    // These could be implemented if desired
     @Override
     public void onLocationChanged(Location location) {
     }
@@ -114,6 +121,10 @@ public class GPS extends Service implements LocationListener {
         return null;
     }
 
+    /**
+     * Used to get the latitude retrieved when the GPS object is created
+     * @return - the latitude as a double
+     */
     public double getLatitude() {
         if (location != null) {
             latitude = location.getLatitude();
@@ -121,6 +132,10 @@ public class GPS extends Service implements LocationListener {
         return latitude;
     }
 
+    /**
+     * Used to get the longitude retrieved when the GPS object is created
+     * @return - the longitude as a double
+     */
     public double getLongitude() {
         if (location != null) {
             longitude = location.getLongitude();
@@ -169,13 +184,18 @@ public class GPS extends Service implements LocationListener {
         alertDialog.show();
     }
 
+    /**
+     * Checks shared preferences to see whether a set zip code or current location
+     * is desired for the app.
+     * @return - custom object with lat/long
+     */
     public LocationObject checkLocationSettings() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String zip = sharedPreferences.getString("zip_code", "");
         boolean useLocation = sharedPreferences.getBoolean("use_location", false);
         LocationObject location = new LocationObject();
+        // Used GeoCoder based off of a zip code or else use current location
         if ((!zip.equals("") && !zip.equals("Enter Zip Code")) && !useLocation) {
-            System.out.println(zip);
             location = getLoc(zip);
         } else {
             location.setLatitude(getLatitude());
@@ -184,6 +204,11 @@ public class GPS extends Service implements LocationListener {
         return location;
     }
 
+    /**
+     * Uses the GeoCoder to retrieve a lat/long based off of zip code
+     * @param zip - zip code
+     * @return - object containing lat/long
+     */
     private LocationObject getLoc(String zip) {
         final Geocoder geocoder = new Geocoder(context);
         LocationObject location = new LocationObject(defaultLocation, defaultLocation);

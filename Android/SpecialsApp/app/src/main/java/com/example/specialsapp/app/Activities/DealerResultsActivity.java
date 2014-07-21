@@ -40,7 +40,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
 public class DealerResultsActivity extends BaseActivity {
 
 
-    private static final String baseUrl = "http://192.168.168.235:8080/v1/specials/dealers?";
+    private static final String baseUrl = "http://192.168.169.225:8080/v1/specials/dealers?";
     private TextView mResultsNone;
     private double lat;
     private double longi;

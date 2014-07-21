@@ -1,7 +1,7 @@
 package com.example.specialsapp.app.Models;
 
 /**
- * Created by brownea on 6/20/14.
+ * Basic special object that stores all necessary info for app.
  */
 public class Special {
 

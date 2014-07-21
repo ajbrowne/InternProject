@@ -1,7 +1,7 @@
 package com.example.specialsapp.app.Models;
 
 /**
- * Created by brownea on 7/18/14.
+ * Basic location object that stores latitude and longitude.
  */
 public class LocationObject {
 

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.example.specialsapp.app.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Occupies the first tab when the app is open and houses the top discounts and trending views.
  */
 public class HomeFragment extends Fragment {
 
@@ -34,11 +34,4 @@ public class HomeFragment extends Fragment {
 
         return homeView;
     }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        System.out.println("RESUMING");
-    }
-
 }

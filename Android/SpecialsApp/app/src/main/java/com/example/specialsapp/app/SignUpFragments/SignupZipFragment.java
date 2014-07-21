@@ -16,7 +16,7 @@ import com.example.specialsapp.app.Fragments.LoginFragment;
 import com.example.specialsapp.app.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment used to get zip code during signing up or info submission if user isn't logged in.
  */
 public class SignupZipFragment extends Fragment {
 
