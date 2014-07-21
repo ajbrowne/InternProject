@@ -19,8 +19,20 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class SpecialDetail extends BaseActivity {
+/**
+ * This is the vehicle detail activity that displays info
+ * about vehicles and allows the user to send their
+ * information to the dealer that has that vehicle.
+ *
+ *@author maharb
+ */
+public class VehicleDetail extends BaseActivity {
 
+    /**
+     * The main method that sets up the view
+     *
+     * @param savedInstanceState - saved data for the view
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +45,8 @@ public class SpecialDetail extends BaseActivity {
         ListView mSpecsList = (ListView) findViewById(R.id.specs_list);
 
 
+        //Set up the views with the correct information about the
+        //vehicles
         if (extras != null) {
             mTitle.setText(extras.getString("title"));
             mOldPrice.setText("$" + extras.getString("oldP"));
@@ -48,11 +62,18 @@ public class SpecialDetail extends BaseActivity {
             mSpecsList.setAdapter(spinnerArrayAdapter);
         }
 
+        //Configure actionbar and up navigation
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setTitle("Details");
     }
 
 
+    /**
+     * Sets up the options menu
+     *
+     * @param menu - the menu to be configured
+     * @return - return true if successfully created
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -60,17 +81,30 @@ public class SpecialDetail extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Configure the items in the options menu to be selected
+     *
+     * @param item - the item selected
+     * @return - return the result of the parent of this method
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Logic to handle clicking the buy button in the view
+     * This allows you to submit your info to the dealer.
+     * Depends on if the user is logged in or not
+     *
+     * @param view - the view that contains the button
+     */
     public void submitInfo(View view) {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
         if (shared.getBoolean("stored", true)) {
             Toast.makeText(this.getApplicationContext(), "Info Submitted", Toast.LENGTH_LONG).show();
         } else {
-            Intent intent = new Intent(SpecialDetail.this, MainActivity.class);
+            Intent intent = new Intent(VehicleDetail.this, MainActivity.class);
             intent.putExtra("submit", true);
             startActivity(intent);
         }

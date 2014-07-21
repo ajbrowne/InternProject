@@ -16,7 +16,7 @@ import com.example.specialsapp.app.Fragments.LoginFragment;
 import com.example.specialsapp.app.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment used to get name during sign up or info submission if user isn't logged in.
  */
 public class SignupNameFragment extends Fragment {
 
@@ -28,7 +28,6 @@ public class SignupNameFragment extends Fragment {
     public SignupNameFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

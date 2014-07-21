@@ -8,8 +8,16 @@ import android.view.MenuItem;
 import com.example.specialsapp.app.Fragments.VehicleResultsFragment;
 import com.example.specialsapp.app.R;
 
+/**
+ * Activity holding VehicleResultsFragment to allow for BaseVehicleFragment to be a thing.
+ */
 public class VehicleResultsActivity extends BaseActivity {
 
+    /**
+     * onCreate called when activity is created. This gets all needed views and carries
+     * out necessary initializations.
+     * @param savedInstanceState -
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,11 +25,15 @@ public class VehicleResultsActivity extends BaseActivity {
 
         VehicleResultsFragment fragment = new VehicleResultsFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container2, fragment); //TODO give container2 a better name
+        fragmentTransaction.replace(R.id.vehicle_results_activity, fragment);
         fragmentTransaction.commit();
     }
 
-
+    /**
+     * onCreateOptionsMenu gets the correct xml for the menu among other setup.
+     * @param menu - the menu for the activity
+     * @return - true upon success
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -29,6 +41,11 @@ public class VehicleResultsActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * onOptionsSelected handles action bar behavior for an activity.
+     * @param item - the selected item
+     * @return - true upon success
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);

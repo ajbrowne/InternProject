@@ -14,11 +14,19 @@ import android.view.MenuItem;
 import com.example.specialsapp.app.AlertDialogs.CustomAlertDialog;
 import com.example.specialsapp.app.R;
 
+/**
+ * Handles the settings for location within the app.
+ */
 public class SettingsActivity extends PreferenceActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
 
     private Menu menu;
 
+    /**
+     * onCreate called when activity is created. This gets all needed views and carries
+     * out necessary initializations.
+     * @param savedInstanceState -
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,34 +47,11 @@ public class SettingsActivity extends PreferenceActivity implements
         editTextPref.setSelectable(true);
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Preference pref = findPreference(key);//TODO don't use deprecated methods
-        if (pref instanceof EditTextPreference) { //TODO Don't use instanceof, if possible. Instead of instanceof, use Java OO (interfaces)
-            EditTextPreference etp = (EditTextPreference) pref;
-            pref.setSummary(etp.getText());
-        }
-        if (pref instanceof CheckBoxPreference) {
-            EditTextPreference editTextPref = (EditTextPreference) findPreference("zip_code");
-
-            boolean useLocation = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("use_location", false);
-            editTextPref.setEnabled(!useLocation);
-            editTextPref.setSelectable(true);
-        }
-    }
-
-    protected void onResume() {
-        super.onResume();
-        getPreferenceScreen().getSharedPreferences()//TODO don't use deprecated methods
-                .registerOnSharedPreferenceChangeListener(this);
-    }
-
-    protected void onPause() {
-        super.onPause();
-        getPreferenceScreen().getSharedPreferences()
-                .unregisterOnSharedPreferenceChangeListener(this);
-    }
-
+    /**
+     * onCreateOptionsMenu gets the correct xml for the menu among other setup.
+     * @param menu - the menu for the activity
+     * @return - true upon success
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -82,6 +67,11 @@ public class SettingsActivity extends PreferenceActivity implements
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * onOptionsSelected handles action bar behavior for an activity.
+     * @param item - the selected item
+     * @return - true upon success
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -114,5 +104,33 @@ public class SettingsActivity extends PreferenceActivity implements
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Preference pref = findPreference(key);//TODO don't use deprecated methods
+        if (pref instanceof EditTextPreference) { //TODO Don't use instanceof, if possible. Instead of instanceof, use Java OO (interfaces)
+            EditTextPreference etp = (EditTextPreference) pref;
+            pref.setSummary(etp.getText());
+        }
+        if (pref instanceof CheckBoxPreference) {
+            EditTextPreference editTextPref = (EditTextPreference) findPreference("zip_code");
+
+            boolean useLocation = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("use_location", false);
+            editTextPref.setEnabled(!useLocation);
+            editTextPref.setSelectable(true);
+        }
+    }
+
+    protected void onResume() {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()//TODO don't use deprecated methods
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    protected void onPause() {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 }

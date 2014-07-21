@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     android:orientation="vertical"
-    tools:context="com.example.specialsapp.app.Activities.SpecialDetail">
+    tools:context="com.example.specialsapp.app.Activities.VehicleDetail">
 
     <RelativeLayout
         android:id="@+id/title_view"

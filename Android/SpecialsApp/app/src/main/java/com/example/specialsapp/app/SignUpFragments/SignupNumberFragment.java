@@ -18,7 +18,7 @@ import com.example.specialsapp.app.Fragments.LoginFragment;
 import com.example.specialsapp.app.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment used to get phone number during sign up or info submission if user isn't logged in.
  */
 public class SignupNumberFragment extends Fragment {
 

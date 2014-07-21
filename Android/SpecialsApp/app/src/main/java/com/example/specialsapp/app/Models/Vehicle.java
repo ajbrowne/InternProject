@@ -5,7 +5,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 
 /**
- * Created by brownea on 7/7/14.
+ * Basic Vehicle object with necessary info for app.
  */
 public class Vehicle {
 
@@ -23,7 +23,9 @@ public class Vehicle {
     private String oldPrice;
     private String discount;
 
-    public Vehicle(String year, String make, String model, String type, JSONArray specs, String id, String dealer, ArrayList<Special> specials, String name, String newPrice, String oldPrice, String url, String discount) {
+    public Vehicle(String year, String make, String model, String type, JSONArray specs, String id,
+                   String dealer, ArrayList<Special> specials, String name, String newPrice,
+                   String oldPrice, String url, String discount) {
         this.year = year;
         this.make = make;
         this.model = model;

@@ -17,21 +17,23 @@ import com.example.specialsapp.app.Activities.VehicleResultsActivity;
 import com.example.specialsapp.app.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Gets the fields for a vehicle search to be carried out.
  */
 public class VehicleSearchFragment extends Fragment {
 
+    private static final int MAKE = 0;
+    private static final int MODEL = 1;
+    private static final int TYPE  = 2;
+    private static final String SPACE = "%20";
+
     private Spinner makeSpinner;
     private Spinner modelSpinner;
-    private Spinner priceSpinner;
     private Spinner typeSpinner;
     private String[] params = new String[5];
-
 
     public VehicleSearchFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,41 +45,28 @@ public class VehicleSearchFragment extends Fragment {
                 .getDefaultSharedPreferences(getActivity());
 
         Button submitSearch = (Button) searchView.findViewById(R.id.searchButton);
-        makeSpinner = (Spinner) searchView.findViewById(R.id.makeSpinner);
-        modelSpinner = (Spinner) searchView.findViewById(R.id.modelSpinner);
-        priceSpinner = (Spinner) searchView.findViewById(R.id.priceSpinner);
-        typeSpinner = (Spinner) searchView.findViewById(R.id.typeSpinner);
+        initializeSpinners(searchView);
 
-        setSpinnerListener(makeSpinner, 0); //TODO please make these integers variables with descriptive names
-        setSpinnerListener(modelSpinner, 1);
-        setSpinnerListener(typeSpinner, 2);
-        setSpinnerListener(priceSpinner, 3);
-        params[4] = "1";
-
+        // Sets the listener for the search button catching certain input cases
         submitSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO why are you using compareto instead of equals?
-                params[4] = "1";
-                if (makeSpinner.getSelectedItem().toString().compareTo("All") == 0) {
-                    params[0] = ""; //TODO this is kind of confusing to quickly read and understand what is going on. is there a better, more readable way to implement this?
-                    params[1] = "";
+                // Sets parameters to "" for when all default fields are used
+                if (makeSpinner.getSelectedItem().toString().equals("Any")) {
+                    params[MAKE] = "";
+                    params[MODEL] = "";
                 }
                 if (typeSpinner.getSelectedItem().toString().compareTo("Any") == 0) {
-                    params[2] = "";
-                }
-                if (priceSpinner.getSelectedItem().toString().compareTo("None") == 0) {
-                    params[3] = "";
+                    params[TYPE] = "";
                 }
                 if (modelSpinner.getSelectedItem().toString().compareTo("All") == 0) {
-                    params[1] = "";
-                }
-                if (params[0].equals("") && params[2].equals("") && params[3].equals("")) {
-                    params[4] = "0";
+                    params[MODEL] = "";
                 }
 
-                params[0] = params[0].replaceAll(" ", "%20");  //TODO make a variable for %20 with a descriptive name
-                params[1] = params[1].replaceAll(" ", "%20");
+                // Remove spaces to get string-arrays correctly
+                params[MAKE] = params[MAKE].replaceAll(" ", SPACE);
+                params[MODEL] = params[MODEL].replaceAll(" ", SPACE);
+
                 Intent intent = new Intent(getActivity(), VehicleResultsActivity.class);
                 intent.putExtra("params", params);
 
@@ -88,14 +77,30 @@ public class VehicleSearchFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         return searchView;
     }
 
     /**
-     * TODO add a good comment here to make this method easier to understand
-     * @param spinner
-     * @param index
+     * Initialize the spinners for the view
+     * @param searchView - the current view
+     */
+    private void initializeSpinners(View searchView) {
+        makeSpinner = (Spinner) searchView.findViewById(R.id.makeSpinner);
+        modelSpinner = (Spinner) searchView.findViewById(R.id.modelSpinner);
+        typeSpinner = (Spinner) searchView.findViewById(R.id.typeSpinner);
+
+        setSpinnerListener(makeSpinner, MAKE);
+        setSpinnerListener(modelSpinner, MODEL);
+        setSpinnerListener(typeSpinner, TYPE);
+    }
+
+    /**
+     * Listener that pulls the correct string-array of vehicle models for the selected make.
+     * Also handles when we don't have data for that make or when the make is "Any".
+     *
+     * @param spinner - spinner that was clicked
+     * @param index - index used to change correct spinner
+     *
      */
     public void setSpinnerListener(final Spinner spinner, final int index) {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -104,16 +109,24 @@ public class VehicleSearchFragment extends Fragment {
                 String selected = spinner.getSelectedItem().toString();
                 params[index] = selected;
                 String theStringField;
+
+                // For model spinner
                 if (index == 0) {
+
+                    // Format string received from spinner
                     theStringField = spinner.getSelectedItem().toString();
                     theStringField = theStringField.replaceAll(" ", "").replaceAll("-", "");
                     int identifier = 0;
                     String[] models;
+
+                    //Attempt to find the array for the input
                     identifier = getActivity().getResources().getIdentifier(theStringField, "array", getActivity().getPackageName());
+
+                    // If nothing is found, set to none. If "Any" set to any. Otherwise string-array was found.
                     if (identifier == 0) {
                         identifier = getActivity().getResources().getIdentifier("none", "array", getActivity().getPackageName());
                         models = getActivity().getResources().getStringArray(identifier);
-                    } else if (theStringField.equals("All")) {
+                    } else if (theStringField.equals("Any")) {
                         identifier = getActivity().getResources().getIdentifier("any", "array", getActivity().getPackageName());
                         models = getActivity().getResources().getStringArray(identifier);
                     } else {
@@ -127,6 +140,7 @@ public class VehicleSearchFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                // Set model to "Any"
                 if (index == 1) {
                     String[] models = getActivity().getResources().getStringArray(R.array.any);
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
@@ -136,5 +150,4 @@ public class VehicleSearchFragment extends Fragment {
             }
         });
     }
-
 }

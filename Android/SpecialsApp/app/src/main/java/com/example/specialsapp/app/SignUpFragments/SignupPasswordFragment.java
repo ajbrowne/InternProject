@@ -19,7 +19,7 @@ import com.example.specialsapp.app.Fragments.LoginFragment;
 import com.example.specialsapp.app.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment used to get password and then retrieve other info during sign up or submission.
  */
 public class SignupPasswordFragment extends Fragment {
 
@@ -57,6 +57,7 @@ public class SignupPasswordFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get all previously entered info
                 userPassword = password.getText().toString();
                 confirmPassword = confirm.getText().toString();
                 email = ((MainActivity) getActivity()).getUser().getEmail();
@@ -65,6 +66,7 @@ public class SignupPasswordFragment extends Fragment {
                 zip = ((MainActivity) getActivity()).getUser().getZip();
                 phone = ((MainActivity) getActivity()).getUser().getPhoneNumber();
 
+                // Password checking
                 if (userPassword.compareTo(confirmPassword) != 0) {
                     new CustomAlertDialog(getActivity(), "Passwords do not match", "Please enter your password correctly both times.").show();
                 } else if (userPassword.length() == 0 || confirmPassword.length() == 0) {
@@ -98,7 +100,10 @@ public class SignupPasswordFragment extends Fragment {
         return view;
     }
 
-    // Text watcher that see that there are matching passwords and turns the boxes green
+    /**
+     * Text Watcher used to confirm that passwords are matching, displayed with red/green
+     * surrounding of text box
+     */
     private class MyTextWatcher implements TextWatcher {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {

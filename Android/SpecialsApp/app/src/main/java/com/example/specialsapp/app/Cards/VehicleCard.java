@@ -40,6 +40,12 @@ public class VehicleCard extends Card {
         this.context = context;
     }
 
+    /**
+     * Automatically called upon a listener being added to a card array (I think).
+     * Sets up all elements on a card.
+     * @param parent - the parent view
+     * @param view - the current view where cards will be added
+     */
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
         TextView mDealer = (TextView) parent.findViewById(R.id.dealerName);
@@ -58,6 +64,8 @@ public class VehicleCard extends Card {
         mOldPrice.setText("$" + oldPrice);
         mOldPrice.setPaintFlags(mOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         mNewPrice.setText("$" + newPrice);
+
+        // Used to load images either from imgur or cache
         Picasso.with(context)
                 .load(url)
                 .placeholder(R.drawable.tesla)

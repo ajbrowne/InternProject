@@ -1,6 +1,5 @@
 package com.example.specialsapp.app.HomeFragments;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,7 +17,7 @@ import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.specialsapp.app.Activities.HomeActivity;
-import com.example.specialsapp.app.Activities.SpecialDetail;
+import com.example.specialsapp.app.Activities.VehicleDetail;
 import com.example.specialsapp.app.Cards.HomeVehicleCard;
 import com.example.specialsapp.app.Models.Vehicle;
 import com.example.specialsapp.app.R;
@@ -31,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.GenericArrayType;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -39,25 +39,22 @@ import it.gmariotti.cardslib.library.internal.CardGridArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardGridView;
 
 /**
- * A simple {@link Fragment} subclass.
+ * View similar to those in the Google Play Store home view displaying the top discounts
+ * that are currently available.
  */
-public class TopDiscountFragment extends Fragment {
+public class TopDiscountFragment extends BaseHomeFragment {
 
-    private static final String TopDiscounts = "Top Discounts";
-    private static final String TopDiscountsDescription = "The Best Deals Around";
-    private static final String baseUrl = "http://192.168.168.235:8080/v1/specials/special/top";
+    private static final String TOP_DISCOUNTS = "Top Discounts";
+    private static final String TOP_DISCOUNTS_DESCRIPTION = "The Best Deals Around";
+    private static final String BASE_URL = "http://192.168.169.225:8080/v1/specials/special/top";
     private ArrayList<Card> cards;
     private View homeView;
-    private ArrayList<String> addedVehicles = new ArrayList<String>();
-    private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
-    private RequestQueue queue;
-    private AbstractHttpClient client;
-    private ProgressDialog pDialog;
+    private ArrayList<String> addedVehicles = new ArrayList<>();
+    private ArrayList<Vehicle> vehicles = new ArrayList<>();
 
     public TopDiscountFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,85 +63,23 @@ public class TopDiscountFragment extends Fragment {
         homeView = inflater.inflate(R.layout.fragment_top_discount, container, false);
         setHasOptionsMenu(true);
         getActivity().setTitle("Home");
+        cards = new ArrayList<>();
 
-        client = new DefaultHttpClient();
-        queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
-
-        //pDialog = new ProgressDialog(getActivity());
-        //pDialog.setMessage("Loading...");
-        //pDialog.show();
-        topAsync();
+        setVariables(TOP_DISCOUNTS, TOP_DISCOUNTS_DESCRIPTION, BASE_URL);
+        homeAsync(null, false);
 
         return homeView;
     }
 
-    private void createCards(View view, String title, String description, ArrayList<Card> theCards) {
-        TextView theTitle = (TextView) view.findViewById(R.id.newVehicles1);
-        TextView theDescription = (TextView) view.findViewById(R.id.descrip1);
-        TextView more = (TextView) view.findViewById(R.id.more1);
-
-        more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((HomeActivity) getActivity()).getViewPager().setCurrentItem(1);
-            }
-        });
-
-        theTitle.setText(title);
-        theDescription.setText(description);
-
-        CardGridArrayAdapter cardGridArrayAdapter = new CardGridArrayAdapter(getActivity(), theCards);
-        CardGridView gridView = (CardGridView) view.findViewById(R.id.newGrid1);
-        if (gridView != null) {
-            gridView.setAdapter(cardGridArrayAdapter);
-        }
-    }
-
-    private void topAsync() {
-        client = new DefaultHttpClient();
-        queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
-
-        Cache cache = AppController.getInstance().getRequestQueue().getCache();
-        Cache.Entry entry = cache.get(baseUrl);
-        if (entry != null) {
-            try {
-                String data = new String(entry.data, "UTF-8");
-                JSONArray cached = new JSONArray(data);
-                Log.d("TopDiscounts","Cached top discounts call");
-                getDiscounts(cached);
-            } catch (UnsupportedEncodingException | JSONException e) {
-                Log.d("TopDiscounts","problem grabbing the top discounts");
-            }
-
-        } else {
-            JsonArrayRequest searchRequest = new JsonArrayRequest(baseUrl, new ResponseListener(), new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    Log.e("TopDiscounts","problem grabbing discounts");
-                }
-            });
-            queue.add(searchRequest);
-        }
-
-    }
-
-    private void topDiscountHelp(JSONObject dealer, JSONArray specialArray) throws JSONException {
-        for (int i = 0; i < specialArray.length(); i++) {
-            JSONObject spec = (JSONObject) specialArray.get(i);
-            JSONArray vehicles2 = (JSONArray) dealer.get("vehicles");
-            topVehicleHelp(spec, vehicles2);
-        }
-    }
-
-    private void topVehicleHelp(JSONObject spec, JSONArray vehicles2) throws JSONException {
-        for (int j = 0; j < vehicles2.length(); j++) {
-            JSONObject vehicle = (JSONObject) vehicles2.get(j);
-            JSONArray ids = (JSONArray) spec.get("vehicleId");
-            topIdCheck(spec, vehicle, ids);
-        }
-    }
-
-    private void topIdCheck(JSONObject spec, JSONObject vehicle, JSONArray ids) throws JSONException {
+    /**
+     * Checks to see if a vehicle has been previously added. If not, a new vehicle object is
+     * created and added to the ArrayList of vehicles for which cards will be created.
+     * @param spec - special being examined
+     * @param vehicle - vehicle being checked against
+     * @param ids - all vehicles in the special
+     * @throws JSONException
+     */
+    public ArrayList<Vehicle> idCheck(JSONObject dealer, JSONObject spec, JSONObject vehicle, JSONArray ids) throws JSONException {
         for (int k = 0; k < ids.length(); k++) {
             boolean add = false;
             for (String addedVehicle : addedVehicles) {
@@ -169,14 +104,17 @@ public class TopDiscountFragment extends Fragment {
                 }
             }
         }
+        return vehicles;
     }
 
-    private void addCards(ArrayList<Vehicle> vehicles) {
-        cards = new ArrayList<Card>();
-        cards = createSpecials(0, vehicles);
-    }
-
-    private ArrayList<Card> createSpecials(int index, ArrayList<Vehicle> vehicles) {
+    /**
+     * Creates the three cards for the view. Adds a listener with all information needed to
+     * make the detailed views when a card is clicked.
+     * @param index - index of card that is created
+     * @param vehicles - vehicles for which cards are being created (top discounts)
+     * @return - An ArrayList of the cards that are created
+     */
+    public ArrayList<Card> createVehicles(int index, ArrayList<Vehicle> vehicles) {
         for (int i = index; i < 3; i++) {
             HomeVehicleCard card = new HomeVehicleCard(getActivity(), R.layout.h_vehicle_card);
             final Vehicle vehicle = vehicles.get(i);
@@ -190,7 +128,7 @@ public class TopDiscountFragment extends Fragment {
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
-                    Intent intent = new Intent(getActivity(), SpecialDetail.class);
+                    Intent intent = new Intent(getActivity(), VehicleDetail.class);
                     HomeVehicleCard temp = (HomeVehicleCard) card;
                     intent.putExtra("title", temp.getTitle());
                     intent.putExtra("oldP", insertCommas(vehicle.getOldPrice()));
@@ -199,7 +137,7 @@ public class TopDiscountFragment extends Fragment {
                     intent.putExtra("year", vehicle.getYear());
                     intent.putExtra("make", vehicle.getMake());
                     intent.putExtra("model", vehicle.getModel());
-                    ArrayList<String> tempSpecs = new ArrayList<String>();
+                    ArrayList<String> tempSpecs = new ArrayList<>();
                     for (int i = 0; i < vehicle.getSpecs().length(); i++) {
                         try {
                             tempSpecs.add(vehicle.getSpecs().get(i).toString());
@@ -212,37 +150,40 @@ public class TopDiscountFragment extends Fragment {
 
                 }
             });
-
             cards.add(card);
         }
-        createCards(homeView, TopDiscounts, TopDiscountsDescription, cards);
+        createCards(homeView, TOP_DISCOUNTS, TOP_DISCOUNTS_DESCRIPTION, cards);
         return cards;
     }
 
-    private String insertCommas(String amount) {
-        DecimalFormat formatter = new DecimalFormat("#,###");
-        Double number = Double.parseDouble(amount);
-        return String.valueOf(formatter.format(number));
-    }
+    /**
+     * Gets the static fields on the view and sets them. Also sets the card adapter to
+     * make cards visible.
+     *
+     * @param view        - current view
+     * @param title       - "Top Discounts"
+     * @param description - "The Best Deals Around"
+     * @param theCards    - cards to be created
+     */
+    public void createCards(View view, String title, String description, ArrayList<Card> theCards) {
+        TextView theTitle = (TextView) view.findViewById(R.id.newVehicles1);
+        TextView theDescription = (TextView) view.findViewById(R.id.descrip1);
+        TextView more = (TextView) view.findViewById(R.id.more1);
 
-    private void getDiscounts(JSONArray response) {
-        //pDialog.hide();
-        try {
-            JSONObject dealer = (JSONObject) response.get(0);
-            JSONArray specialArray = (JSONArray) dealer.get("specials");
-            topDiscountHelp(dealer, specialArray);
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((HomeActivity) getActivity()).getViewPager().setCurrentItem(1);
+            }
+        });
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+        theTitle.setText(title);
+        theDescription.setText(description);
+
+        CardGridArrayAdapter cardGridArrayAdapter = new CardGridArrayAdapter(getActivity(), theCards);
+        CardGridView gridView = (CardGridView) view.findViewById(R.id.newGrid1);
+        if (gridView != null) {
+            gridView.setAdapter(cardGridArrayAdapter);
         }
-        addCards(vehicles);
-    }
-
-    private class ResponseListener implements Response.Listener<JSONArray> {
-        @Override
-        public void onResponse(JSONArray response) {
-            getDiscounts(response);
-        }
-
     }
 }

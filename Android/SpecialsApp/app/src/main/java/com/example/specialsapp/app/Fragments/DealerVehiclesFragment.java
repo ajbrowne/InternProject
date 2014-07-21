@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.specialsapp.app.GPS.GPS;
+import com.example.specialsapp.app.Models.LocationObject;
 import com.example.specialsapp.app.R;
 
 import org.json.JSONException;
@@ -18,12 +19,10 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 /**
- * Currently the home view that displays all specials from the dealer
- * that is closest to your current location.
- * <p/>
- * Created by brownea on 6/12/14.
+ * The home view that displays all vehicles on special from the dealer
+ * that is closest to your current location or entered zip.
  */
-public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRefreshListener {
+public class DealerVehiclesFragment extends BaseVehicleFragment implements OnRefreshListener {
 
     private View homeView;
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -33,32 +32,32 @@ public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRef
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         homeView = inflater.inflate(R.layout.fragment_dealer_specials, container, false);
-
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setTitle("Cobalt Deals");
-
         setHasOptionsMenu(true);
 
+        // Set up the pull to refresh for this view
         mPullToRefreshLayout = (PullToRefreshLayout) homeView.findViewById(R.id.carddemo_extra_ptr_layout);
         ActionBarPullToRefresh.from(this.getActivity())
                 .allChildrenArePullable()
                 .listener(this)
                 .setup(mPullToRefreshLayout);
 
-        //TODO ***make a GPS location class that is just 2 doubles.
-        //TODO It is almost always best to create objects for these kinds of things
-
         GPS gps = new GPS(getActivity());
-        double[] location = gps.checkLocationSettings();
+        LocationObject location = gps.checkLocationSettings();
 
         try {
-            getDealerSpecials(location[0], location[1]);
+            getDealerSpecials(location.getLatitude(), location.getLongitude());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return homeView;
     }
 
+    /**
+     * Executes the GET request again/uses cached info if possible
+     * @param view
+     */
     @Override
     public void onRefreshStarted(View view) {
         final GPS gps = new GPS(getActivity());
@@ -84,11 +83,9 @@ public class DealerSpecialsFragment extends BaseVehicleFragment implements OnRef
         String latt = String.valueOf(lat);
         String longg = String.valueOf(lng);
 
-        HashMap<String, String> param = new HashMap<String, String>();
+        HashMap<String, String> param = new HashMap<>();
         param.put("lng", longg);
         param.put("lat", latt);
-        param.put("make", "");
-        param.put("extra", "0");
 
         vehicleAsync(param, homeView, mPullToRefreshLayout, false);
     }

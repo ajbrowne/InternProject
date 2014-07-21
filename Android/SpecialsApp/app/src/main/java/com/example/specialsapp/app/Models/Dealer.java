@@ -1,7 +1,7 @@
 package com.example.specialsapp.app.Models;
 
 /**
- * Created by brownea on 6/20/14.
+ * Basic dealer object with fields necessary for app.
  */
 public class Dealer {
 
