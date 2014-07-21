@@ -1,10 +1,8 @@
 package com.example.specialsapp.app.HomeFragments;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.android.volley.Cache;
 import com.android.volley.RequestQueue;
@@ -13,11 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.specialsapp.app.Activities.HomeActivity;
-import com.example.specialsapp.app.Activities.VehicleDetail;
-import com.example.specialsapp.app.Cards.HomeVehicleCard;
 import com.example.specialsapp.app.Models.Vehicle;
-import com.example.specialsapp.app.R;
 import com.example.specialsapp.app.Rest.AppController;
 
 import org.apache.http.impl.client.AbstractHttpClient;
@@ -32,8 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardGridArrayAdapter;
-import it.gmariotti.cardslib.library.view.CardGridView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,7 +34,6 @@ public abstract class BaseHomeFragment extends Fragment {
 
     private static String TITLE;
     private static String DESCRIPTION;
-    //TODO I've seen this in a couple of places - this is another thing that should be read in from a properties file
     private static String BASE_URL;
     private ArrayList<Card> cards;
     private View homeView;

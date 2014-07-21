@@ -1,7 +1,9 @@
 package com.example.specialsapp.app.Cards;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,7 +23,6 @@ import it.gmariotti.cardslib.library.internal.Card;
 public class VehicleCard extends Card {
 
     private Context context;
-
     private String title;
     private String gasMileage;
     private String type;
@@ -55,6 +56,7 @@ public class VehicleCard extends Card {
         TextView mNewPrice = (TextView) parent.findViewById(R.id.newPrice);
         TextView mOldPrice = (TextView) parent.findViewById(R.id.oldPrice);
         ImageView mThumbnail = (ImageView) parent.findViewById(R.id.thumbnail);
+        ImageView mPhone = (ImageView) parent.findViewById(R.id.phoneButton);
 
         mDealer.setText(dealer);
         mTitle.setText(title);
@@ -64,6 +66,15 @@ public class VehicleCard extends Card {
         mOldPrice.setText("$" + oldPrice);
         mOldPrice.setPaintFlags(mOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         mNewPrice.setText("$" + newPrice);
+
+        mPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + "5555555555"));
+                context.startActivity(intent);
+            }
+        });
 
         // Used to load images either from imgur or cache
         Picasso.with(context)

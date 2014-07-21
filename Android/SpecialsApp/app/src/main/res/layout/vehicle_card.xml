@@ -21,9 +21,18 @@
         android:layout_below="@id/thumbnail"
         android:fontFamily="sans-serif-light"
         android:paddingLeft="10dp"
-
         android:paddingTop="8dp"
         android:text="2004 Chevrolet Silverado" />
+
+    <ImageView
+        android:id="@+id/phoneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/thumbnail"
+        android:paddingRight="3dp"
+        android:paddingTop="7dp"
+        android:src="@drawable/ic_action_call" />
 
     <TextView
         android:id="@+id/gasMileage"
@@ -34,7 +43,6 @@
         android:fontFamily="sans-serif-light"
         android:paddingLeft="10dp"
         android:paddingTop="2dp"
-
         android:text="22-27 MPG"
         android:textColor="@android:color/holo_green_dark" />
 
@@ -46,7 +54,6 @@
         android:fontFamily="sans-serif-light"
         android:paddingLeft="10dp"
         android:paddingTop="2dp"
-
         android:text="Shaver Autos" />
 
     <TextView
@@ -56,7 +63,6 @@
         android:layout_below="@id/dealerName"
         android:layout_marginTop="15dp"
         android:fontFamily="sans-serif-light"
-
         android:paddingLeft="10dp"
         android:text="@string/strikethrough"
         android:textColor="#aaa" />
@@ -71,7 +77,6 @@
         android:layout_toRightOf="@id/oldPrice"
         android:fontFamily="sans-serif-light"
         android:paddingLeft="3dp"
-
         android:text="$11,000"
         android:textColor="@android:color/holo_green_dark" />
 
@@ -82,7 +87,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/dealerName"
         android:layout_marginTop="15dp"
-
         android:fontFamily="sans-serif-light"
         android:paddingRight="10dp"
         android:text="USED"

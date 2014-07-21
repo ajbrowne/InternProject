@@ -39,7 +39,7 @@ public class DealerDetail extends BaseActivity {
 
     private GoogleMap googleMap;
     private String phoneNumber;
-    private TextView mAddress; //TODO what is m for?
+    private TextView mAddress;
     private TextView mName;
     private TextView mPhone;
     private TextView mDistance;

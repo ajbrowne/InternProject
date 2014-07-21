@@ -51,7 +51,7 @@ public class VehicleSearchFragment extends Fragment {
         submitSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Sets parameters to "" for when all default fields are used
+                // Sets parameters to "" for when all or some default fields are used
                 if (makeSpinner.getSelectedItem().toString().equals("Any")) {
                     params[MAKE] = "";
                     params[MODEL] = "";
@@ -59,7 +59,7 @@ public class VehicleSearchFragment extends Fragment {
                 if (typeSpinner.getSelectedItem().toString().compareTo("Any") == 0) {
                     params[TYPE] = "";
                 }
-                if (modelSpinner.getSelectedItem().toString().compareTo("All") == 0) {
+                if (modelSpinner.getSelectedItem().toString().compareTo("Any") == 0) {
                     params[MODEL] = "";
                 }
 
@@ -123,11 +123,11 @@ public class VehicleSearchFragment extends Fragment {
                     identifier = getActivity().getResources().getIdentifier(theStringField, "array", getActivity().getPackageName());
 
                     // If nothing is found, set to none. If "Any" set to any. Otherwise string-array was found.
-                    if (identifier == 0) {
-                        identifier = getActivity().getResources().getIdentifier("none", "array", getActivity().getPackageName());
-                        models = getActivity().getResources().getStringArray(identifier);
-                    } else if (theStringField.equals("Any")) {
+                    if (theStringField.equals("Any")) {
                         identifier = getActivity().getResources().getIdentifier("any", "array", getActivity().getPackageName());
+                        models = getActivity().getResources().getStringArray(identifier);
+                    } else if (identifier == 0) {
+                        identifier = getActivity().getResources().getIdentifier("none", "array", getActivity().getPackageName());
                         models = getActivity().getResources().getStringArray(identifier);
                     } else {
                         models = getActivity().getResources().getStringArray(identifier);

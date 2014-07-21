@@ -21,6 +21,7 @@ import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.specialsapp.app.Activities.DealerDetail;
+import com.example.specialsapp.app.Adapters.AssetsPropertyAdapter;
 import com.example.specialsapp.app.Cards.DealerCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Dealer;
@@ -37,6 +38,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
@@ -50,7 +52,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
  */
 public class NearbyDealersFragment extends Fragment implements OnRefreshListener {
 
-    private static final String baseUrl = "http://192.168.169.225:8080/v1/specials/dealers?";
+    private static String baseUrl;
     private View homeView;
     private Double lat;
     private Double longi;
@@ -67,6 +69,10 @@ public class NearbyDealersFragment extends Fragment implements OnRefreshListener
         getActivity().setTitle("Dealers");
         setHasOptionsMenu(true);
         gps = new GPS(getActivity());
+
+        AssetsPropertyAdapter assetsPropertyAdapter = new AssetsPropertyAdapter(getActivity());
+        Properties properties = assetsPropertyAdapter.getProperties("specials.properties");
+        baseUrl = properties.getProperty("dealerUrl");
 
         AbstractHttpClient client = new DefaultHttpClient();
         queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));

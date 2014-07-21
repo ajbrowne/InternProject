@@ -17,7 +17,6 @@ import org.apache.http.entity.StringEntity;
  */
 
 public class SpecialsRestClient {
-    // TODO another address that should be in a properties file
     private static final String IP = "192.168.169.225";
     private static final String BASE_URL = "http://" + IP + ":8080/v1/specials/";
 
@@ -58,9 +57,9 @@ public class SpecialsRestClient {
     }
 
     /**
-     * Takes base url and adds /vehicles to url for example
-     * @param relativeUrl - relative url to be added to base url
-     * @return - final url
+     * Takes base url and adds /vehicles to url for exm
+     * @param relativeUrl
+     * @return
      */
     private static String getAbsoluteUrl(String relativeUrl) {
         System.out.println(BASE_URL + relativeUrl);
