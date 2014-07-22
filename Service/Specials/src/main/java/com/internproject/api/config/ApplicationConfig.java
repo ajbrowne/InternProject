@@ -20,7 +20,7 @@ import java.net.UnknownHostException;
  * Created by maharb on 6/18/14.
  */
 @Configuration
-public class DatabaseConfig {
+public class ApplicationConfig {
 
 
     @Bean
