@@ -1,7 +1,19 @@
-conn = new Mongo();
-db = conn.getDB("Specials");
+var conn = new Mongo();
+var db = conn.getDB("Specials");
+
+db.dealers.insert({
+_id:"53be8f56ee4a2bd5a4c8dc8d",
+    name:"Bob Thomas Ford West",
+    loc: { coordinates : [ 41.073853, -85.210483 ], type : "Point" },
+    numSpecials:8,
+    make:["Chevrolet","Cadillac","Buick","GMC"],
+    city: "Fort Wayne",
+    state:"IN",
+    location : { x : 41.073853, y : -85.210483 }
+});
 
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b47f5",
   year: 2014,
   make : "Cadillac",
   model:"Srx",
@@ -13,6 +25,7 @@ db.vehicles.insert({
 });
 
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b47f6",
   year: 2014,
   make : "Cadillac",
   model:"CTS",
@@ -24,6 +37,7 @@ db.vehicles.insert({
 });
 
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b47f7",
   year: 2015,
   make : "Cadillac",
   model:"Escalade",
@@ -34,6 +48,7 @@ db.vehicles.insert({
   specs:["14 CITY / 21 HWY"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b47f8",
   year: 2012,
   make : "Chevrolet",
   model:"Volt",
@@ -44,6 +59,7 @@ db.vehicles.insert({
   specs:["95 CITY / 93 HWY"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b47f9",
   year: 2007,
   make : "GMC",
   model:"Yukon",
@@ -54,6 +70,7 @@ db.vehicles.insert({
   specs:["14 CITY / 20 HWY"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b47fa",
   year: 2014,
   make : "GMC",
   model:"Sierra",
@@ -64,6 +81,7 @@ db.vehicles.insert({
   specs:["18 CITY / 24 HWY"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b47fb",
   year: 2005,
   make : "Chevrolet",
   model:"Cobalt",
@@ -74,6 +92,7 @@ db.vehicles.insert({
   specs:["22 CITY / 31 HWY"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b47fc",
   year: 2007,
   make : "Chevrolet",
   model:"Suburban",
@@ -84,6 +103,7 @@ db.vehicles.insert({
   specs:["14 CITY / 19 HWY"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b47fd",
   year: 2013,
   make : "GMC",
   model:"Acadia",
@@ -94,6 +114,7 @@ db.vehicles.insert({
   specs:["17 CITY / 24 HWY"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b47fe",
   year: 2014,
   make : "Chevrolet",
   model:"Impala",
@@ -104,6 +125,7 @@ db.vehicles.insert({
   specs:["19 CITY / 29 HWY", "Automatic", "Sedan 4 Dr.", "3.6L 6 CYL FUEL INJECTION"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b47ff",
   year: 2014,
   make : "Chevrolet",
   model:"Corvette Stringray",
@@ -114,6 +136,7 @@ db.vehicles.insert({
   specs:["17 City /  29 HWY"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b4800",
   year: 2014,
   make : "Chevrolet",
   model:"Silverado",
@@ -124,6 +147,7 @@ db.vehicles.insert({
   specs:["18 CITY / 24 HWY"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b4801",
   year: 2014,
   make : "Chevrolet",
   model:"Camaro",
@@ -134,6 +158,7 @@ db.vehicles.insert({
   specs:["17 CITY / 28 HWY"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b4802",
   year: 2014,
   make : "Buick",
   model:"Regal",
@@ -144,6 +169,7 @@ db.vehicles.insert({
   specs:["21 CITY / 30 HWY"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b4803",
   year: 2006,
   make : "Buick",
   model:"LaCrosse",
@@ -154,6 +180,7 @@ db.vehicles.insert({
   specs:["17 CITY / 28 HWY"]
 });
 db.vehicles.insert({
+    _id:"53bc30ab4be9fb81694b4804",
   year: 2014,
   make : "Chevrolet",
   model:"Cruze",
@@ -162,6 +189,79 @@ db.vehicles.insert({
   urlImage:"http://i.imgur.com/LM43Vci.jpg",
   type:"New",
   specs:["22 CITY / 35 HWY"]
+});
+
+
+db.special.insert({
+  title: "Corvette Sale",
+  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  amount :"6000",
+  status:1,
+  vehicleId:["53bc30ab4be9fb81694b47ff"],
+  trending :false
+});
+
+db.special.insert({
+  title: "Cadillac Sale",
+  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  amount :"700",
+  status:1,
+  vehicleId:["53bc30ab4be9fb81694b47f5", "53bc30ab4be9fb81694b47f6", "53bc30ab4be9fb81694b47f7"],
+  trending :false
+});
+
+db.special.insert({
+  title: "Green Sale",
+  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  amount :"2000",
+  status:1,
+  vehicleId:["53bc30ab4be9fb81694b47f8"],
+  trending :false
+});
+
+db.special.insert({
+  title: "Family Deal",
+  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  amount :"650",
+  status:1,
+  vehicleId:["53bc30ab4be9fb81694b47f7", "53bc30ab4be9fb81694b47f9", "53bc30ab4be9fb81694b47fc", "53bc30ab4be9fb81694b47fd"],
+  trending :false
+});
+
+db.special.insert({
+  title: "First Car Special",
+  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  amount :"500",
+  status:1,
+  vehicleId:["53bc30ab4be9fb81694b4804", "53bc30ab4be9fb81694b47fb", "53bc30ab4be9fb81694b4803"],
+  trending :false
+});
+
+db.special.insert({
+  title: "Chevy Summer Sale",
+  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  amount :"1000",
+  status:1,
+  vehicleId:["53bc30ab4be9fb81694b4804", "53bc30ab4be9fb81694b4801", "53bc30ab4be9fb81694b4800", "53bc30ab4be9fb81694b47ff", "53bc30ab4be9fb81694b47fe"],
+  trending :false
+});
+
+db.special.insert({
+  title: "Buick Flash Sale",
+  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  amount :"1500",
+  status:1,
+  vehicleId:["53bc30ab4be9fb81694b4802","53bc30ab4be9fb81694b4803"],
+  trending :false
+});
+
+db.special.insert({
+  title: "Truck Sale",
+  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  amount :"637",
+  status:1,
+  vehicleId:["53bc30ab4be9fb81694b47fa", "53bc30ab4be9fb81694b4800"],
+  trending :false
 });
 
 
