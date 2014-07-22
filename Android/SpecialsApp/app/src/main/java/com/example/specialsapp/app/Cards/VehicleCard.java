@@ -72,7 +72,7 @@ public class VehicleCard extends Card {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + "5555555555"));
+                intent.setData(Uri.parse("tel:" + "555-434-5638"));
                 context.startActivity(intent);
             }
         });

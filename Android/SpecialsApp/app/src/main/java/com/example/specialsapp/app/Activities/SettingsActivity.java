@@ -34,8 +34,8 @@ public class SettingsActivity extends PreferenceActivity implements
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        addPreferencesFromResource(R.xml.pref_general); //TODO don't use deprecated methods
-        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();//TODO don't use deprecated methods
+        addPreferencesFromResource(R.xml.pref_general);
+        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         EditTextPreference editTextPref = (EditTextPreference) findPreference("zip_code");
 
@@ -111,7 +111,7 @@ public class SettingsActivity extends PreferenceActivity implements
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Preference pref = findPreference(key);//TODO don't use deprecated methods
+        Preference pref = findPreference(key);
         if (pref instanceof EditTextPreference) { //TODO Don't use instanceof, if possible. Instead of instanceof, use Java OO (interfaces)
             EditTextPreference etp = (EditTextPreference) pref;
             pref.setSummary(etp.getText());
@@ -127,7 +127,7 @@ public class SettingsActivity extends PreferenceActivity implements
 
     protected void onResume() {
         super.onResume();
-        getPreferenceScreen().getSharedPreferences()//TODO don't use deprecated methods
+        getPreferenceScreen().getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(this);
     }
 
