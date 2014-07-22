@@ -14,7 +14,6 @@ import java.util.List;
  * <p/>
  * Created by maharb on 6/30/14.
  */
-@Repository
 public class MongoVehicleRepository implements VehicleRepository {
 
     @Autowired

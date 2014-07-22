@@ -21,7 +21,6 @@ import java.util.List;
  *
  * Created by maharb on 6/30/14.
  */
-@Service
 public class MergeService {
 
     @Autowired

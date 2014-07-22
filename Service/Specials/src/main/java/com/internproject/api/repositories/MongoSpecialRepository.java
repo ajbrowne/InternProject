@@ -12,7 +12,6 @@ import java.util.List;
  * <p/>
  * Created by maharb on 6/18/14.
  */
-@Repository
 public class MongoSpecialRepository implements SpecialRepository {
 
     private MongoTemplate mongoTemplate;

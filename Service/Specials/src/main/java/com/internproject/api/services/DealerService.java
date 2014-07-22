@@ -17,7 +17,6 @@ import java.util.List;
  * <p/>
  * Created by maharb on 6/27/14.
  */
-@Service
 public class DealerService {
 
     @Autowired

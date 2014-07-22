@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
  * <p/>
  * Created by maharb on 6/18/14.
  */
-@Repository
 public class MongoUserRepository implements UserRepository {
 
     private MongoTemplate mongoTemplate;

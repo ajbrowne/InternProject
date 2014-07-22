@@ -47,7 +47,7 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
  */
 public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrollListener {
 
-    private static final String BASE_URL = "http://192.168.169.225:8080/v1/specials/vehicle?";
+    private static final String BASE_URL = "http://192.168.169.252:8080/v1/specials/vehicle?";
     private View baseView;
     private CardArrayAdapter mCardArrayAdapter;
     private ArrayList<Vehicle> newVehicles;

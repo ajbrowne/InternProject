@@ -46,7 +46,7 @@ public class TopDiscountFragment extends BaseHomeFragment {
 
     private static final String TOP_DISCOUNTS = "Top Discounts";
     private static final String TOP_DISCOUNTS_DESCRIPTION = "The Best Deals Around";
-    private static final String BASE_URL = "http://192.168.169.225:8080/v1/specials/special/top";
+    private static final String BASE_URL = "http://192.168.169.252:8080/v1/specials/special/top";
     private ArrayList<Card> cards;
     private View homeView;
     private ArrayList<String> addedVehicles = new ArrayList<>();

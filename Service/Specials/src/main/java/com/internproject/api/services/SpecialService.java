@@ -19,7 +19,6 @@ import java.util.concurrent.TimeUnit;
  * <p/>
  * Created by maharb on 6/27/14.
  */
-@Service
 public class SpecialService {
 
     @Autowired

@@ -36,7 +36,7 @@ public class TrendingFragment extends BaseHomeFragment {
     private static final String TRENDING = "See What's Trending";
     private static final String TRENDING_DESCRIPTION = "Most Popular Deals";
     //TODO I've seen this in a couple of places - this is another thing that should be read in from a properties file
-    private static final String BASE_URL = "http://192.168.169.225:8080/v1/specials/vehicle?";
+    private static final String BASE_URL = "http://192.168.169.252:8080/v1/specials/vehicle?";
     private ArrayList<Card> cards;
     private View homeView;
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
