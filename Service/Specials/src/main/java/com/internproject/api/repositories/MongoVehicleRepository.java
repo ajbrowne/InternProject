@@ -4,6 +4,8 @@ import com.internproject.api.models.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -12,6 +14,7 @@ import java.util.List;
  * <p/>
  * Created by maharb on 6/30/14.
  */
+@Repository
 public class MongoVehicleRepository implements VehicleRepository {
 
     @Autowired

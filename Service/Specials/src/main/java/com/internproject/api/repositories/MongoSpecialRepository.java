@@ -3,6 +3,7 @@ package com.internproject.api.repositories;
 import com.internproject.api.models.Special;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * <p/>
  * Created by maharb on 6/18/14.
  */
+@Repository
 public class MongoSpecialRepository implements SpecialRepository {
 
     private MongoTemplate mongoTemplate;
