@@ -21,7 +21,7 @@ db.vehicles.insert({
   price: 40000,
   urlImage:"http://i.imgur.com/ZH8ANS7.jpg",
   type:"New",
-  specs:["17 CITY / 24 HWY"]
+  specs:["17 CITY / 24 HWY", "Automatic","SUV", "3.6L 6 CYL", "Wheels 18\"x8\"", "Remote Keyless Entry", "Drivetrain, FWD", "OnStar, 1-year of Directions and Connections plan"]
 });
 
 db.vehicles.insert({
@@ -33,7 +33,7 @@ db.vehicles.insert({
   price: 39495,
   urlImage:"http://i.imgur.com/RiL46nX.jpg",
   type:"New",
-  specs:["19 CITY / 28 HWY"]
+  specs:["18 CITY / 26 HWY", "Automatic", "3.6L 6 CYL FUEL INJECTION", "Wheels, 18\" x 8.5\" front", "Wheels, 18\" x 9\" back", "Keyless Start and Entry", "Differential, limited slip", "Drivetrain, AWD", "OnStar, 1-year of Directions and Connections plan"]
 });
 
 db.vehicles.insert({
@@ -41,11 +41,11 @@ db.vehicles.insert({
   year: 2015,
   make : "Cadillac",
   model:"Escalade",
-  trim :"Pimpmobile",
+  trim :"Big",
   price: 71695,
   urlImage:"http://i.imgur.com/hYyxqLu.jpg",
   type:"New",
-  specs:["14 CITY / 21 HWY"]
+  specs:["13 CITY / 18 HWY", "Automatic", "6.2L 8 CYL", "Wheels, 4 - 22\" x 9\"", "Keyless Start and Entry", "AWD", "OnStar, 1-year of Directions and Connections plan"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b47f8",
@@ -56,7 +56,7 @@ db.vehicles.insert({
   price: 34185,
   urlImage:"http://i.imgur.com/Ecc8jaJ.jpg",
   type:"Used",
-  specs:["95 CITY / 93 HWY"]
+  specs:["35 CITY / 40 HWY","Automatic", "Voltec Hybrid System", "Wheels, 17\"","Keyless Access",  "FWD"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b47f9",
@@ -67,18 +67,18 @@ db.vehicles.insert({
   price: 1000,
   urlImage:"http://i.imgur.com/cJ6g9rv.jpg",
   type:"Used",
-  specs:["14 CITY / 20 HWY"]
+  specs:["14 CITY / 20 HWY", "Automatic", "5.3 L V 8-cylinder","Wheel, 17\" x 7\"","RWD"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b47fa",
   year: 2014,
   make : "GMC",
   model:"Sierra",
-  trim :"BIG ASS TRUCK",
+  trim :"Pick up",
   price: 40000,
   urlImage:"http://i.imgur.com/CRWb2yl.jpg",
   type:"New",
-  specs:["18 CITY / 24 HWY"]
+  specs:["18 CITY / 24 HWY", "Automatic", "Gas/Ethanol V6 4.3L", "RWD", "Door Locks, power", "OnStar"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b47fb",
@@ -89,7 +89,7 @@ db.vehicles.insert({
   price: 2000,
   urlImage:"http://i.imgur.com/kiqrT2U.jpg",
   type:"Used",
-  specs:["22 CITY / 31 HWY"]
+  specs:["22 CITY / 31 HWY", "Manual", "2.2 L Inline 4-cylinder","FWD"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b47fc",
@@ -100,7 +100,7 @@ db.vehicles.insert({
   price: 15000,
   urlImage:"http://i.imgur.com/gRNY02E.jpg",
   type:"Used",
-  specs:["14 CITY / 19 HWY"]
+  specs:["14 CITY / 19 HWY", "Automatic", "Gas/Ethanol V8 5.3L","4WD","Wheel, 17\"", "Trailering Equipment"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b47fd",
@@ -111,7 +111,7 @@ db.vehicles.insert({
   price: 7000,
   urlImage:"http://i.imgur.com/RG7la8d.jpg",
   type:"Used",
-  specs:["17 CITY / 24 HWY"]
+  specs:["17 CITY / 24 HWY", "Automatic", "Gas V6","FWD", "Seating: 7"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b47fe",
@@ -122,29 +122,29 @@ db.vehicles.insert({
   price: 17000,
   urlImage:"http://i.imgur.com/tT2pT7S.jpg",
   type:"New",
-  specs:["19 CITY / 29 HWY", "Automatic", "Sedan 4 Dr.", "3.6L 6 CYL FUEL INJECTION"]
+  specs:["19 CITY / 29 HWY", "Automatic", "Sedan 4 Dr.", "3.6L 6 CYL FUEL INJECTION", "Wheels, 18\"", "SiriusXM Trial", "OnStar 6 Month Plan"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b47ff",
   year: 2014,
   make : "Chevrolet",
-  model:"Corvette Stringray",
+  model:"Corvette Stingray",
   trim :"Red",
   price: 50000,
   urlImage:"http://i.imgur.com/D3JifZv.jpg",
   type:"New",
-  specs:["17 City /  29 HWY"]
+  specs:["17 City /  29 HWY", "7-Speed Manual", "Gas V8 6.2L", "Wheels 19\"x8.5\" front", "Wheels 20\"x10\" back", "SiriusXM Trial Plan", "RWD", "Differential, electronic limited slip, rear", "OnStar 6 Month Plan"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b4800",
   year: 2014,
   make : "Chevrolet",
   model:"Silverado",
-  trim :"Big ass truck 2",
+  trim :"Big truck 2",
   price: 55000,
   urlImage:"http://i.imgur.com/76AsQCJ.jpg",
   type:"New",
-  specs:["18 CITY / 24 HWY"]
+  specs:["18 CITY / 24 HWY", "Automatic", "Gas/Ethanol V6 4.3L", "Spare Tire", "Wheels, 17\"x7\"", "Power Door Locks", "OnStar"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b4801",
@@ -155,7 +155,7 @@ db.vehicles.insert({
   price: 25000,
   urlImage:"http://i.imgur.com/lLeST34.jpg",
   type:"New",
-  specs:["17 CITY / 28 HWY"]
+  specs:["17 CITY / 28 HWY", "6-Speed Manual", "Gas V6 3.6L", "Wheels, 18\"", "SiriusXM Trial Plan", "Remote Keyless Entry", "Differential, Limited Slip", "Safety"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b4802",
@@ -166,7 +166,7 @@ db.vehicles.insert({
   price: 24000,
   urlImage:"http://i.imgur.com/0hDoAnJ.jpg",
   type:"New",
-  specs:["21 CITY / 30 HWY"]
+  specs:["21 CITY / 30 HWY","Automatic", "2.0L 4 CYL TurboCharged", "SiriusXM Trial", "Wheels, 18\"", "Power Outlet 12V", "FWD", "OnStar 6 Month Trial"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b4803",
@@ -177,7 +177,7 @@ db.vehicles.insert({
   price: 3000,
   urlImage:"http://i.imgur.com/XlD0emo.jpg",
   type:"Used",
-  specs:["17 CITY / 28 HWY"]
+  specs:["17 CITY / 28 HWY", "Automatic", "3.8 L V 6-cylinder", "FWD", "4dr","OnStar"]
 });
 db.vehicles.insert({
     _id:"53bc30ab4be9fb81694b4804",
@@ -188,7 +188,7 @@ db.vehicles.insert({
   price: 3000,
   urlImage:"http://i.imgur.com/LM43Vci.jpg",
   type:"New",
-  specs:["22 CITY / 35 HWY"]
+  specs:["22 CITY / 35 HWY", "Manual", "1.8L 4 CYL SEQUENTIAL-PORT F.I.", "SiriusXM Trial", "Wheels, 16\"", "Remote Keyless Entry", "FWD", "OnStar 6 Month Trial"]
 });
 
 
