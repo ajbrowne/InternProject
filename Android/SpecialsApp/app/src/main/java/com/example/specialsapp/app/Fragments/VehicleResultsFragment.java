@@ -74,6 +74,7 @@ public class VehicleResultsFragment extends BaseVehicleFragment implements OnRef
 
     /**
      * Searches again on refresh.
+     *
      * @param view - the current view
      */
     @Override

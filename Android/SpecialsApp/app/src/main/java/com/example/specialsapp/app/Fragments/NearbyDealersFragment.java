@@ -1,28 +1,14 @@
 package com.example.specialsapp.app.Fragments;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpClientStack;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.specialsapp.app.Activities.DealerDetail;
 import com.example.specialsapp.app.Adapters.AssetsPropertyAdapter;
-import com.example.specialsapp.app.Cards.DealerCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Dealer;
 import com.example.specialsapp.app.Models.LocationObject;
@@ -30,17 +16,11 @@ import com.example.specialsapp.app.R;
 
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Properties;
 
-import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
@@ -70,9 +50,10 @@ public class NearbyDealersFragment extends BaseDealerFragment implements OnRefre
         setHasOptionsMenu(true);
         gps = new GPS(getActivity());
 
+        // Get url from properties file
         AssetsPropertyAdapter assetsPropertyAdapter = new AssetsPropertyAdapter(getActivity());
         Properties properties = assetsPropertyAdapter.getProperties("specials.properties");
-        baseUrl = properties.getProperty("dealerUrl");
+        baseUrl = properties.getProperty("baseUrl") + properties.getProperty("dealer");
 
         AbstractHttpClient client = new DefaultHttpClient();
         queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
@@ -119,6 +100,7 @@ public class NearbyDealersFragment extends BaseDealerFragment implements OnRefre
 
     /**
      * Builds the url for the GET request.
+     *
      * @param parameters - map of parameters
      * @return - the generated url
      */
@@ -129,6 +111,7 @@ public class NearbyDealersFragment extends BaseDealerFragment implements OnRefre
     /**
      * Creates the ArrayList for the cards and calls createDealerCards to make the cards.
      * Then sets the adapter for the cards, making them visible.
+     *
      * @param dealers - Any dealers that will have cards made for them.
      */
     public void addCards(ArrayList<Dealer> dealers) {

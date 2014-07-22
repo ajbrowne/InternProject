@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.VehicleDetail;
+import com.example.specialsapp.app.Adapters.AssetsPropertyAdapter;
 import com.example.specialsapp.app.Cards.HomeVehicleCard;
 import com.example.specialsapp.app.GPS.GPS;
 import com.example.specialsapp.app.Models.Special;
@@ -23,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Properties;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardGridArrayAdapter;
@@ -35,8 +37,7 @@ public class TrendingFragment extends BaseHomeFragment {
 
     private static final String TRENDING = "See What's Trending";
     private static final String TRENDING_DESCRIPTION = "Most Popular Deals";
-    //TODO I've seen this in a couple of places - this is another thing that should be read in from a properties file
-    private static final String BASE_URL = "http://192.168.169.252:8080/v1/specials/vehicle?";
+    private static String BASE_URL;
     private ArrayList<Card> cards;
     private View homeView;
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
@@ -54,6 +55,11 @@ public class TrendingFragment extends BaseHomeFragment {
         setHasOptionsMenu(true);
         getActivity().setTitle("Home");
         cards = new ArrayList<>();
+
+        // Get url from properties file
+        AssetsPropertyAdapter assetsPropertyAdapter = new AssetsPropertyAdapter(getActivity());
+        Properties properties = assetsPropertyAdapter.getProperties("specials.properties");
+        BASE_URL = properties.getProperty("baseUrl") + properties.getProperty("vehicle");
 
         final GPS gps = new GPS(getActivity());
         Double latitude = gps.getLatitude();

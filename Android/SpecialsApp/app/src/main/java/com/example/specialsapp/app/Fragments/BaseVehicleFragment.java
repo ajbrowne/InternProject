@@ -18,6 +18,7 @@ import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.specialsapp.app.Activities.VehicleDetail;
+import com.example.specialsapp.app.Adapters.AssetsPropertyAdapter;
 import com.example.specialsapp.app.Cards.VehicleCard;
 import com.example.specialsapp.app.Models.Special;
 import com.example.specialsapp.app.Models.Vehicle;
@@ -34,6 +35,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
@@ -47,7 +49,7 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
  */
 public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrollListener {
 
-    private static final String BASE_URL = "http://192.168.169.252:8080/v1/specials/vehicle?";
+    private static String BASE_URL;
     private View baseView;
     private CardArrayAdapter mCardArrayAdapter;
     private ArrayList<Vehicle> newVehicles;
@@ -72,13 +74,17 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
     /**
      * Initializes async fields including caching.
      *
-     * @param parameters - parameters for search
-     * @param view - current view
+     * @param parameters          - parameters for search
+     * @param view                - current view
      * @param pullToRefreshLayout - current PullToRefreshLayout
-     * @param isSearch - denotes whether from home view or search
-     *
+     * @param isSearch            - denotes whether from home view or search
      */
     public void vehicleAsync(HashMap<String, String> parameters, View view, PullToRefreshLayout pullToRefreshLayout, boolean isSearch) {
+        // Get url from properties file
+        AssetsPropertyAdapter assetsPropertyAdapter = new AssetsPropertyAdapter(getActivity());
+        Properties properties = assetsPropertyAdapter.getProperties("specials.properties");
+        BASE_URL = properties.getProperty("baseUrl") + properties.getProperty("vehicle");
+
         this.isSearch = isSearch;
         AbstractHttpClient client = new DefaultHttpClient();
         RequestQueue queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
@@ -87,7 +93,6 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         String url = generateUrl(parameters);
-        System.out.println("URL: " + url);
         Cache.Entry entry = cache.get(url);
         makeAsync(isSearch, queue, url, entry);
     }
@@ -96,10 +101,9 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
      * Makes the actual call for vehicles, whether with cached or new results from the api
      *
      * @param isSearch - denotes whether from home view or search
-     * @param queue - queue of async calls being made
-     * @param url - url being sent to api
-     * @param entry - cached results if they exist
-     *
+     * @param queue    - queue of async calls being made
+     * @param url      - url being sent to api
+     * @param entry    - cached results if they exist
      */
     private void makeAsync(boolean isSearch, RequestQueue queue, String url, Cache.Entry entry) {
         JsonArrayRequest searchRequest;
@@ -137,12 +141,13 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
     /**
      * Checks to see if the vehicle was previously found for a special. If so, the discounts are
      * aggregated. If not, a new vehicle is created and added to the ArrayList of vehicles.
-     * @param dealer - dealer of the vehicle
-     * @param vehicle - vehicle to be added in some way
-     * @param special - special for this vehicle
+     *
+     * @param dealer        - dealer of the vehicle
+     * @param vehicle       - vehicle to be added in some way
+     * @param special       - special for this vehicle
      * @param specialObject - special being stored with vehicle
-     * @param specs - array of specs for the vehicle
-     * @param newPrice - new price of vehicle after specials
+     * @param specs         - array of specs for the vehicle
+     * @param newPrice      - new price of vehicle after specials
      * @throws JSONException
      */
     private void checkVehicle(JSONObject dealer, JSONObject vehicle, JSONObject special, Special specialObject, ArrayList<Special> specs, String newPrice) throws JSONException {
@@ -169,6 +174,7 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
 
     /**
      * Calls createVehicles and then sets the adapter for the cards
+     *
      * @param newVehicles - the vehicles for which cards will be created
      */
     public void addCards(ArrayList<Vehicle> newVehicles) {
@@ -189,9 +195,10 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
 
     /**
      * Creates a card for each vehicle to be displayed
-     * @param index - index in the overall JSON array of results for loading
+     *
+     * @param index       - index in the overall JSON array of results for loading
      * @param newVehicles - the vehicles for which cards will be created
-     * @param cards - the cards to be created
+     * @param cards       - the cards to be created
      */
     public void createVehicles(int index, ArrayList<Vehicle> newVehicles, ArrayList<Card> cards) {
         for (int i = index; i < index + 10 && i < returnSize; i++) {
@@ -220,6 +227,7 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
     /**
      * Sets the listener for each card that holds vehicle detailed information for
      * the next view.
+     *
      * @param vehicle - the vehicle being assigned the listener
      * @return - the listener
      */
@@ -253,18 +261,21 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
 
     /**
      * Overridden for loading but not used
-     * @param view - current view
+     *
+     * @param view        - current view
      * @param scrollState - current scroll state
      */
     @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {    }
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+    }
 
     /**
      * Called when scrolling occurs. Loads more cards at the bottom of the screen.
-     * @param view - current view
+     *
+     * @param view             - current view
      * @param firstVisibleItem - first visible item
      * @param visibleItemCount - number of visible items
-     * @param totalItemCount - total items
+     * @param totalItemCount   - total items
      */
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
@@ -277,6 +288,7 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
 
     /**
      * Inserts commas into a string that is really a number
+     *
      * @param amount - string being edited
      * @return - the editied string
      */
@@ -288,6 +300,7 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
 
     /**
      * Parses the JSON response for vehicles and calls getVehicleInfo to continue the process
+     *
      * @param response
      */
     public void vehicleSearch(JSONArray response) {
@@ -315,6 +328,7 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
 
     /**
      * Generates the url for the GET request.
+     *
      * @param parameters - maps of parameters
      * @return - the url to be used in the GET request
      */

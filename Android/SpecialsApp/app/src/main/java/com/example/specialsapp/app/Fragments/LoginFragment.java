@@ -64,6 +64,7 @@ public class LoginFragment extends Fragment {
 
     /**
      * Attempts to log the user in when the button is clicked
+     *
      * @return
      */
     private View.OnClickListener loginClick() {

@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * about vehicles and allows the user to send their
  * information to the dealer that has that vehicle.
  *
- *@author maharb
+ * @author maharb
  */
 public class VehicleDetail extends BaseActivity {
 

@@ -2,37 +2,24 @@ package com.example.specialsapp.app.HomeFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.volley.Cache;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpClientStack;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.specialsapp.app.Activities.HomeActivity;
 import com.example.specialsapp.app.Activities.VehicleDetail;
+import com.example.specialsapp.app.Adapters.AssetsPropertyAdapter;
 import com.example.specialsapp.app.Cards.HomeVehicleCard;
 import com.example.specialsapp.app.Models.Vehicle;
 import com.example.specialsapp.app.R;
-import com.example.specialsapp.app.Rest.AppController;
 
-import org.apache.http.impl.client.AbstractHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.GenericArrayType;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardGridArrayAdapter;
@@ -46,7 +33,7 @@ public class TopDiscountFragment extends BaseHomeFragment {
 
     private static final String TOP_DISCOUNTS = "Top Discounts";
     private static final String TOP_DISCOUNTS_DESCRIPTION = "The Best Deals Around";
-    private static final String BASE_URL = "http://192.168.169.252:8080/v1/specials/special/top";
+    private static String BASE_URL;
     private ArrayList<Card> cards;
     private View homeView;
     private ArrayList<String> addedVehicles = new ArrayList<>();
@@ -65,6 +52,11 @@ public class TopDiscountFragment extends BaseHomeFragment {
         getActivity().setTitle("Home");
         cards = new ArrayList<>();
 
+        // Get url from properties file
+        AssetsPropertyAdapter assetsPropertyAdapter = new AssetsPropertyAdapter(getActivity());
+        Properties properties = assetsPropertyAdapter.getProperties("specials.properties");
+        BASE_URL = properties.getProperty("baseUrl") + properties.getProperty("top");
+
         setVariables(TOP_DISCOUNTS, TOP_DISCOUNTS_DESCRIPTION, BASE_URL);
         homeAsync(null, false);
 
@@ -74,9 +66,10 @@ public class TopDiscountFragment extends BaseHomeFragment {
     /**
      * Checks to see if a vehicle has been previously added. If not, a new vehicle object is
      * created and added to the ArrayList of vehicles for which cards will be created.
-     * @param spec - special being examined
+     *
+     * @param spec    - special being examined
      * @param vehicle - vehicle being checked against
-     * @param ids - all vehicles in the special
+     * @param ids     - all vehicles in the special
      * @throws JSONException
      */
     public ArrayList<Vehicle> idCheck(JSONObject dealer, JSONObject spec, JSONObject vehicle, JSONArray ids) throws JSONException {
@@ -110,7 +103,8 @@ public class TopDiscountFragment extends BaseHomeFragment {
     /**
      * Creates the three cards for the view. Adds a listener with all information needed to
      * make the detailed views when a card is clicked.
-     * @param index - index of card that is created
+     *
+     * @param index    - index of card that is created
      * @param vehicles - vehicles for which cards are being created (top discounts)
      * @return - An ArrayList of the cards that are created
      */

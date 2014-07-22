@@ -16,12 +16,8 @@
   ~   See the License for the specific language governing permissions and
   ~   limitations under the License.
   ~  *****************************************************************************
-  -->
-    <!-- Image view used for shadow.
+  --><!-- Image view used for shadow.
          You can customize it with your style file and card.shadow_image style-->
-    <ImageView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/card_shadow_view"
-        style="@style/card.shadow_image"
-        />
-<!-- From: file:/home/gabriele/Lavoro/Android/AndroidStudioProjects/wrks/cardslib/library/src/main/res/layout/base_shadow_layout.xml -->
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_shadow_view"
+    style="@style/card.shadow_image" /><!-- From: file:/home/gabriele/Lavoro/Android/AndroidStudioProjects/wrks/cardslib/library/src/main/res/layout/base_shadow_layout.xml -->

@@ -25,21 +25,21 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 
     <View
         android:id="@+id/card_main_content_layout"
         style="@style/card.main_layout"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/card_base_empty_height"/>
+        android:layout_height="@dimen/card_base_empty_height" />
 
     <it.gmariotti.cardslib.library.view.component.CardShadowView
         android:id="@+id/card_shadow_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout><!-- From: file:/home/gabriele/Lavoro/Android/AndroidStudioProjects/wrks/cardslib/library/src/main/res/layout/card_base_layout.xml -->

@@ -19,12 +19,12 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:card="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_marginLeft="@dimen/card_base_cardwithlist_layout_leftmargin"
-              android:layout_marginRight="@dimen/card_base_cardwithlist_layout_rightmargin"
-              android:layout_height="wrap_content">
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="@dimen/card_base_cardwithlist_layout_leftmargin"
+    android:layout_marginRight="@dimen/card_base_cardwithlist_layout_rightmargin"
+    android:layout_height="wrap_content">
 
 
     <!-- This is the base Inner View inside a CardWithList.
@@ -34,8 +34,7 @@
     <it.gmariotti.cardslib.library.prototypes.LinearListView
         android:id="@+id/card_inner_base_main_cardwithlist"
         style="@style/cardwithlist"
-        card:card_list_item_dividerHeight="@dimen/card_base_cardwithlist_dividerHeight"
-        />
+        card:card_list_item_dividerHeight="@dimen/card_base_cardwithlist_dividerHeight" />
 
     <!-- This provide a default empty-view built-in feature.
          You can customize this layout in manu ways. Check the doc-->
@@ -43,15 +42,13 @@
         android:id="@+id/card_inner_base_empty_cardwithlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        />
+        android:layout_gravity="center" />
 
     <ViewStub
         android:id="@+id/card_inner_base_progressbar_cardwithlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
 </LinearLayout><!-- From: file:/home/gabriele/Lavoro/Android/AndroidStudioProjects/wrks/cardslib/library/src/main/res/layout/inner_base_main_cardwithlist.xml -->

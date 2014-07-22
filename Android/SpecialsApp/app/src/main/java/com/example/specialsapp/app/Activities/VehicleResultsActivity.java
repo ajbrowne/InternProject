@@ -16,6 +16,7 @@ public class VehicleResultsActivity extends BaseActivity {
     /**
      * onCreate called when activity is created. This gets all needed views and carries
      * out necessary initializations.
+     *
      * @param savedInstanceState -
      */
     @Override
@@ -31,6 +32,7 @@ public class VehicleResultsActivity extends BaseActivity {
 
     /**
      * onCreateOptionsMenu gets the correct xml for the menu among other setup.
+     *
      * @param menu - the menu for the activity
      * @return - true upon success
      */
@@ -43,6 +45,7 @@ public class VehicleResultsActivity extends BaseActivity {
 
     /**
      * onOptionsSelected handles action bar behavior for an activity.
+     *
      * @param item - the selected item
      * @return - true upon success
      */

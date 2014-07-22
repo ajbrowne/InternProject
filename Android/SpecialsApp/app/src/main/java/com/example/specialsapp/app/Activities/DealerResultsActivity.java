@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.example.specialsapp.app.Fragments.DealerResultsFragment;
 import com.example.specialsapp.app.R;
+
 /**
  * Displays the results of a dealer search that is done based on the make of
  * cars that the dealer sells.
@@ -15,6 +17,7 @@ public class DealerResultsActivity extends BaseActivity {
     /**
      * onCreate called when activity is created. This gets all needed views and carries
      * out necessary initializations.
+     *
      * @param savedInstanceState -
      */
     @Override
@@ -32,6 +35,7 @@ public class DealerResultsActivity extends BaseActivity {
 
     /**
      * onCreateOptionsMenu gets the correct xml for the menu among other setup.
+     *
      * @param menu - the menu for the activity
      * @return - true upon success
      */
@@ -44,6 +48,7 @@ public class DealerResultsActivity extends BaseActivity {
 
     /**
      * onOptionsSelected handles action bar behavior for an activity.
+     *
      * @param item - the selected item
      * @return - true upon success
      */

@@ -38,6 +38,7 @@ public class AppController extends Application {
 
     /**
      * Can be used to control order of requests being made
+     *
      * @param req - request being added
      * @param tag - tag for request
      * @param <T> - type of request
@@ -50,6 +51,7 @@ public class AppController extends Application {
 
     /**
      * Can be used to control order of requests being made
+     *
      * @param req - request being added
      * @param <T> - type of request
      */
@@ -60,6 +62,7 @@ public class AppController extends Application {
 
     /**
      * Can be used to cancel a pending request call.
+     *
      * @param tag - tag of the call
      */
     public void cancelPendingRequests(Object tag) {

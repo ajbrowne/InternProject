@@ -23,7 +23,7 @@ public class VehicleSearchFragment extends Fragment {
 
     private static final int MAKE = 0;
     private static final int MODEL = 1;
-    private static final int TYPE  = 2;
+    private static final int TYPE = 2;
     private static final String SPACE = "%20";
 
     private Spinner makeSpinner;
@@ -82,6 +82,7 @@ public class VehicleSearchFragment extends Fragment {
 
     /**
      * Initialize the spinners for the view
+     *
      * @param searchView - the current view
      */
     private void initializeSpinners(View searchView) {
@@ -99,8 +100,7 @@ public class VehicleSearchFragment extends Fragment {
      * Also handles when we don't have data for that make or when the make is "Any".
      *
      * @param spinner - spinner that was clicked
-     * @param index - index used to change correct spinner
-     *
+     * @param index   - index used to change correct spinner
      */
     public void setSpinnerListener(final Spinner spinner, final int index) {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

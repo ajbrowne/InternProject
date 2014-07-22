@@ -19,6 +19,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
 
     /**
      * Handles these tab indexes upon creation.
+     *
      * @param position - position of tab
      * @return - the fragment that is the tab
      */
@@ -37,6 +38,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
 
     /**
      * Sets the title for each tab.
+     *
      * @param position - position of tab
      * @return - the title of the tab
      */
@@ -56,6 +58,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
 
     /**
      * Return the total number of tabs
+     *
      * @return - the number of tabs
      */
     @Override

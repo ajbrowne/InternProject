@@ -95,7 +95,7 @@ public class DealerDetail extends BaseActivity {
      * and to take the user to google maps.
      *
      * @param extras - the info needed to create the pins
-     * @param ZOOM - distance to zoom in on the map
+     * @param ZOOM   - distance to zoom in on the map
      */
     private void configureMap(final Bundle extras, float ZOOM) {
         mMarkerOptions = new MarkerOptions().position(new LatLng(extras.getDouble("lat"), extras.getDouble("long"))).title(extras.getString("name"));
@@ -171,6 +171,7 @@ public class DealerDetail extends BaseActivity {
     /**
      * Helper method to start the dialer activity with
      * the dealers phone number
+     *
      * @param view - the view that we are currently in
      */
     public void sendToDialer(View view) {

@@ -44,8 +44,9 @@ public class VehicleCard extends Card {
     /**
      * Automatically called upon a listener being added to a card array (I think).
      * Sets up all elements on a card.
+     *
      * @param parent - the parent view
-     * @param view - the current view where cards will be added
+     * @param view   - the current view where cards will be added
      */
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {

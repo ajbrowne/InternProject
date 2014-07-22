@@ -8,7 +8,7 @@ public class LocationObject {
     private double latitude;
     private double longitude;
 
-    public LocationObject(){
+    public LocationObject() {
 
     }
 

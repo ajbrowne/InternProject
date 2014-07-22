@@ -48,6 +48,7 @@ public class GPS extends Service implements LocationListener {
     /**
      * Called when the GPS is created. Gets location based off of either network or location
      * services and sets the class variables that can be retrieved.
+     *
      * @return - the location
      */
     public Location getLocation() {
@@ -123,6 +124,7 @@ public class GPS extends Service implements LocationListener {
 
     /**
      * Used to get the latitude retrieved when the GPS object is created
+     *
      * @return - the latitude as a double
      */
     public double getLatitude() {
@@ -134,6 +136,7 @@ public class GPS extends Service implements LocationListener {
 
     /**
      * Used to get the longitude retrieved when the GPS object is created
+     *
      * @return - the longitude as a double
      */
     public double getLongitude() {
@@ -187,6 +190,7 @@ public class GPS extends Service implements LocationListener {
     /**
      * Checks shared preferences to see whether a set zip code or current location
      * is desired for the app.
+     *
      * @return - custom object with lat/long
      */
     public LocationObject checkLocationSettings() {
@@ -206,6 +210,7 @@ public class GPS extends Service implements LocationListener {
 
     /**
      * Uses the GeoCoder to retrieve a lat/long based off of zip code
+     *
      * @param zip - zip code
      * @return - object containing lat/long
      */

@@ -56,6 +56,7 @@ public class DealerVehiclesFragment extends BaseVehicleFragment implements OnRef
 
     /**
      * Executes the GET request again/uses cached info if possible
+     *
      * @param view
      */
     @Override

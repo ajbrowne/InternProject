@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity {
     /**
      * onCreate called when activity is created. This gets all needed views and carries
      * out necessary initializations.
+     *
      * @param savedInstanceState -
      */
     @Override
@@ -67,6 +68,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * onCreateOptionsMenu gets the correct xml for the menu among other setup.
+     *
      * @param menu - the menu for the activity
      * @return - true upon success
      */
@@ -79,6 +81,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * onOptionsSelected handles action bar behavior for an activity.
+     *
      * @param item - the selected item
      * @return - true upon success
      */
@@ -167,13 +170,14 @@ public class MainActivity extends BaseActivity {
 
     /**
      * Creates the JSON Object used for registration with the POST request.
+     *
      * @param username - desired username
      * @param password - password entered
-     * @param phone - user phone number
-     * @param zip - user zip code
-     * @param first - user first name
-     * @param last - user last name
-     * @param auth - JSON Object returned with parameters
+     * @param phone    - user phone number
+     * @param zip      - user zip code
+     * @param first    - user first name
+     * @param last     - user last name
+     * @param auth     - JSON Object returned with parameters
      * @throws JSONException
      */
     private void createAuth(String username, String password, String phone, String zip, String first, String last, JSONObject auth) throws JSONException {
@@ -188,6 +192,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * First step of password encryption
+     *
      * @param password - the password to be encrypted
      * @return - the encrypted string
      */
@@ -199,7 +204,7 @@ public class MainActivity extends BaseActivity {
             mdSha1.update(password.getBytes("ASCII"));
             byte[] data = mdSha1.digest();
             SHAHash = convertToHex(data);
-        } catch (NoSuchAlgorithmException | IOException e ) {
+        } catch (NoSuchAlgorithmException | IOException e) {
             Log.e("SpecialsApp", "Error initializing SHA1 message digest");
         }
 
@@ -208,6 +213,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * Converts to hex for encryption
+     *
      * @param data - byte[] being converted
      * @return - the encrypted password
      * @throws java.io.IOException
@@ -222,7 +228,8 @@ public class MainActivity extends BaseActivity {
 
     /**
      * Store user for cached login, storing a string
-     * @param key - key to retrieve value
+     *
+     * @param key   - key to retrieve value
      * @param value - value to be retrieved
      */
     private void savePreferences(String key, String value) {
@@ -234,7 +241,8 @@ public class MainActivity extends BaseActivity {
 
     /**
      * Store user for cached login, storing a boolean
-     * @param key - key to retrieve value
+     *
+     * @param key   - key to retrieve value
      * @param value - value to be retrieved
      */
     private void savePreferences(String key, boolean value) {
@@ -254,6 +262,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * Returns the current user
+     *
      * @return the user
      */
     public User getUser() {

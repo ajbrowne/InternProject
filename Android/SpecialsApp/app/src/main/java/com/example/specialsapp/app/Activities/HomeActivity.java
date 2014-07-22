@@ -27,6 +27,7 @@ public class HomeActivity extends BaseActivity {
     /**
      * onCreate called when activity is created. This gets all needed views and carries
      * out necessary initializations.
+     *
      * @param savedInstanceState -
      */
     @Override
@@ -52,6 +53,7 @@ public class HomeActivity extends BaseActivity {
 
     /**
      * onCreateOptionsMenu gets the correct xml for the menu among other setup.
+     *
      * @param menu - the menu for the activity
      * @return - true upon success
      */
@@ -64,6 +66,7 @@ public class HomeActivity extends BaseActivity {
 
     /**
      * onOptionsSelected handles action bar behavior for an activity.
+     *
      * @param item - the selected item
      * @return - true upon success
      */
@@ -82,6 +85,7 @@ public class HomeActivity extends BaseActivity {
 
     /**
      * Return list of dealers
+     *
      * @return - dealers
      */
     public ArrayList<Dealer> getDealers() {
@@ -90,6 +94,7 @@ public class HomeActivity extends BaseActivity {
 
     /**
      * Set list of dealers
+     *
      * @param dealers - dealers being stored
      */
     public void setDealers(ArrayList<Dealer> dealers) {
@@ -98,6 +103,7 @@ public class HomeActivity extends BaseActivity {
 
     /**
      * Return the ViewPager for the HomeActivity which is used in correct tab switching.
+     *
      * @return - the ViewPager
      */
     public ViewPager getViewPager() {

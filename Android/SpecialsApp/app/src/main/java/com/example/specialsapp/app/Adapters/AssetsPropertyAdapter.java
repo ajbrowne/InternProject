@@ -1,12 +1,12 @@
 package com.example.specialsapp.app.Adapters;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class AssetsPropertyAdapter {
     private Context context;
@@ -39,7 +39,7 @@ public class AssetsPropertyAdapter {
             properties.load(inputStream);
 
         } catch (IOException e) {
-            Log.e("AssetsPropertyReader",e.toString());
+            Log.e("AssetsPropertyReader", e.toString());
         }
         return properties;
 

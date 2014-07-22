@@ -24,8 +24,9 @@ public class SpecialsRestClient {
 
     /**
      * Get request with parameters
-     * @param url - url for request
-     * @param params - parameters for request
+     *
+     * @param url             - url for request
+     * @param params          - parameters for request
      * @param responseHandler - response handler (can be changed per type of response)
      */
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
@@ -35,7 +36,8 @@ public class SpecialsRestClient {
 
     /**
      * Get request without parameters
-     * @param url - url for request
+     *
+     * @param url             - url for request
      * @param responseHandler - response handler (can be changed per type of response)
      */
     public static void get(String url, JsonHttpResponseHandler responseHandler) {
@@ -45,10 +47,11 @@ public class SpecialsRestClient {
 
     /**
      * Post request
-     * @param context - current context in app
-     * @param url - url for request
-     * @param entity - entity of request
-     * @param type - type of request (i.e application/json)
+     *
+     * @param context         - current context in app
+     * @param url             - url for request
+     * @param entity          - entity of request
+     * @param type            - type of request (i.e application/json)
      * @param responseHandler - reponse handler (can be changed per type of request)
      */
     public static void post(Context context, String url, StringEntity entity, String type, AsyncHttpResponseHandler responseHandler) {
@@ -58,6 +61,7 @@ public class SpecialsRestClient {
 
     /**
      * Takes base url and adds /vehicles to url for exm
+     *
      * @param relativeUrl
      * @return
      */

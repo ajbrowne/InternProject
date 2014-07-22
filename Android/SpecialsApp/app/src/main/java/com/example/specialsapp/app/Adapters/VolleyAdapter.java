@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  * Adapter used to make HTTP requests with Google Volley.
- **/
+ */
 public class VolleyAdapter extends ArrayAdapter<String> implements SectionIndexer {
     private HashMap<String, Integer> alphaIndexer;
     private String[] sections;

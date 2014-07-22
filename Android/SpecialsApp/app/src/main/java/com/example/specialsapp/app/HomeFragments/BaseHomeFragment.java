@@ -62,9 +62,10 @@ public abstract class BaseHomeFragment extends Fragment {
 
     /**
      * Used if trending is the subclass using this
-     * @param latitude - lat of user
+     *
+     * @param latitude  - lat of user
      * @param longitude - long of user
-     * @param homeView - current view
+     * @param homeView  - current view
      */
     public void setParameters(double latitude, double longitude, View homeView) {
         this.homeView = homeView;
@@ -86,7 +87,7 @@ public abstract class BaseHomeFragment extends Fragment {
         AbstractHttpClient client = new DefaultHttpClient();
         RequestQueue queue = Volley.newRequestQueue(getActivity(), new HttpClientStack(client));
 
-        if (trending){
+        if (trending) {
             BASE_URL = generateUrl(params);
         }
 

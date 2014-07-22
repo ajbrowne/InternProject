@@ -25,6 +25,7 @@ public class SettingsActivity extends PreferenceActivity implements
     /**
      * onCreate called when activity is created. This gets all needed views and carries
      * out necessary initializations.
+     *
      * @param savedInstanceState -
      */
     @Override
@@ -49,6 +50,7 @@ public class SettingsActivity extends PreferenceActivity implements
 
     /**
      * onCreateOptionsMenu gets the correct xml for the menu among other setup.
+     *
      * @param menu - the menu for the activity
      * @return - true upon success
      */
@@ -69,6 +71,7 @@ public class SettingsActivity extends PreferenceActivity implements
 
     /**
      * onOptionsSelected handles action bar behavior for an activity.
+     *
      * @param item - the selected item
      * @return - true upon success
      */
