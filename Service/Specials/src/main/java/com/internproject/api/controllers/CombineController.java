@@ -55,9 +55,15 @@ public class CombineController {
         log.info("Vehicle Location received from app: " + point);
         if(keyword != null){
             HashMap<String, String> parsed = StringParser.mapValues(StringParser.parseString(keyword));
-            vehicle.setMake(parsed.get("make"));
-            vehicle.setModel(parsed.get("model"));
-            vehicle.setYear(Integer.parseInt(parsed.get("year")));
+            if(parsed.get("make") != null){
+                vehicle.setMake(parsed.get("make"));
+            }
+            if(parsed.get("model") != null){
+                vehicle.setModel(parsed.get("model"));
+            }
+            if(parsed.get("year") != null){
+                vehicle.setYear(Integer.parseInt(parsed.get("year")));
+            }
             log.info("Keyword Search Vehicle: " + vehicle);
         }
         return new ResponseEntity<List>(mergeService.getNearestVehicles(point, vehicle), HttpStatus.OK);

@@ -8,7 +8,6 @@ import com.internproject.api.models.Vehicle;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -143,6 +142,14 @@ public class MergeService {
                     break;
                 }
             } else if (match.getType() != null && !vehicles.get(i).getType().equals(match.getType())&& !match.getType().equals("")) {
+                //if it is not then we remove it
+                vehicles.remove(vehicles.get(i));
+                length--;
+                i--;
+                if (i >= length) {
+                    break;
+                }
+            }else if (match.getYear() != 0 && vehicles.get(i).getYear() != match.getYear()) {
                 //if it is not then we remove it
                 vehicles.remove(vehicles.get(i));
                 length--;
