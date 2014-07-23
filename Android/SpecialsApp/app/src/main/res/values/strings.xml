@@ -141,7 +141,7 @@
         <item>Cobalt</item>
         <item>Colorado</item>
         <item>Corvette</item>
-        <item>Corvette Stringray</item>
+        <item>Corvette Stingray</item>
         <item>Cruze</item>
         <item>Equinox</item>
         <item>Express</item>
@@ -192,6 +192,20 @@
         <item>Yukon</item>
         <item>Yukon Hybrid</item>
         <item>Yukon XL</item>
+    </string-array>
+    <string-array name="Buick">
+        <item>Century</item>
+        <item>Enclave</item>
+        <item>Encore</item>
+        <item>LaCrosse</item>
+        <item>LeSabre</item>
+        <item>Lucerne</item>
+        <item>Park Avenue</item>
+        <item>Rainier</item>
+        <item>Regal</item>
+        <item>Rendezvous</item>
+        <item>Terraza</item>
+        <item>Verano</item>
     </string-array>
     <string-array name="Lamborghini">
         <item>Any</item>
