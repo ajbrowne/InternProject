@@ -1,5 +1,6 @@
 package com.internproject.api.controllers;
 
+import com.internproject.api.helpers.StringParser;
 import com.internproject.api.models.Vehicle;
 import com.internproject.api.services.MergeService;
 import org.apache.log4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -48,9 +50,16 @@ public class CombineController {
      */
     @RequestMapping(value = "/vehicle", produces = "application/json", params = {"lng", "lat"})
     @ResponseBody
-    public ResponseEntity<List> vehicleLoc(@RequestParam(value = "lng", required = false) double lng, @RequestParam(value = "lat", required = false) double lat, @ModelAttribute Vehicle vehicle) {
+    public ResponseEntity<List> vehicleLoc(@RequestParam(value = "lng", required = false) double lng, @RequestParam(value = "lat", required = false) double lat, @ModelAttribute Vehicle vehicle, @RequestParam(value = "keyword", required = false)String keyword) {
         Point point = new Point(lng, lat);
         log.info("Vehicle Location received from app: " + point);
+        if(keyword != null){
+            HashMap<String, String> parsed = StringParser.mapValues(StringParser.parseString(keyword));
+            vehicle.setMake(parsed.get("make"));
+            vehicle.setModel(parsed.get("model"));
+            vehicle.setYear(Integer.parseInt(parsed.get("year")));
+            log.info("Keyword Search Vehicle: " + vehicle);
+        }
         return new ResponseEntity<List>(mergeService.getNearestVehicles(point, vehicle), HttpStatus.OK);
     }
 
