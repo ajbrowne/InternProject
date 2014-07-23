@@ -53,7 +53,7 @@ public class SearchActivity extends BaseActivity {
 
         // Set the correct search tab
         if (tabIndex != numTabs) {
-            viewPager.setCurrentItem(tabIndex - 1);
+            viewPager.setCurrentItem(tabIndex);
         }
 
     }

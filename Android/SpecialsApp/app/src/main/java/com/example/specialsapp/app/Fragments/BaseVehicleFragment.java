@@ -333,7 +333,7 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
      * @return - the url to be used in the GET request
      */
     private String generateUrl(HashMap<String, String> parameters) {
-        String url = BASE_URL + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat");
+        String url = BASE_URL + "lng=" + parameters.get("lng") + "&lat=" + parameters.get("lat") + "&keyword=" + parameters.get("keyword");
         if (isSearch) {
             url = url + "&model=" + parameters.get("model") + "&type=" + parameters.get("type");
         }

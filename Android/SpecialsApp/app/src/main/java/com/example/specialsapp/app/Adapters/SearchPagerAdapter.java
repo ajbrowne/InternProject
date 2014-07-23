@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.specialsapp.app.Fragments.DealerSearchFragment;
+import com.example.specialsapp.app.Fragments.KeywordSearchFragment;
 import com.example.specialsapp.app.Fragments.VehicleSearchFragment;
 
 /**
@@ -26,8 +27,10 @@ public class SearchPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new VehicleSearchFragment();
+                return new KeywordSearchFragment();
             case 1:
+                return new VehicleSearchFragment();
+            case 2:
                 return new DealerSearchFragment();
         }
         return null;
@@ -43,8 +46,10 @@ public class SearchPagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return "Vehicles";
+                return "Keyword";
             case 1:
+                return "Vehicles";
+            case 2:
                 return "Dealers";
         }
         return null;
@@ -57,6 +62,6 @@ public class SearchPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }
