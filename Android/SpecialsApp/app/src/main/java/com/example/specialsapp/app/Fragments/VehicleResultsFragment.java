@@ -62,14 +62,22 @@ public class VehicleResultsFragment extends BaseVehicleFragment implements OnRef
         String latt = String.valueOf(latitude);
         String longi = String.valueOf(longitude);
 
-        HashMap<String, String> param = new HashMap<>();
-        param.put("lat", latt);
-        param.put("lng", longi);
-        param.put("make", params[0]);
-        param.put("model", params[1]);
-        param.put("type", params[2]);
-        param.put("max", params[3]);
-        vehicleAsync(param, resultsView, mPullToRefreshLayout, true);
+        if (params[0].equals("keyword")){
+            HashMap<String, String> param = new HashMap<>();
+            param.put("lat", latt);
+            param.put("lng", longi);
+            param.put("keyword", params[1]);
+            vehicleAsync(param, resultsView, mPullToRefreshLayout, false);
+        } else{
+            HashMap<String, String> param = new HashMap<>();
+            param.put("lat", latt);
+            param.put("lng", longi);
+            param.put("make", params[0]);
+            param.put("model", params[1]);
+            param.put("type", params[2]);
+            param.put("max", params[3]);
+            vehicleAsync(param, resultsView, mPullToRefreshLayout, true);
+        }
     }
 
     /**
