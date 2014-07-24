@@ -66,6 +66,7 @@ public class CombineController {
             }
             log.info("Keyword Search Vehicle: " + vehicle);
         }
+        
         return new ResponseEntity<List>(mergeService.getNearestVehicles(point, vehicle), HttpStatus.OK);
     }
 

@@ -194,6 +194,7 @@
         <item>Yukon XL</item>
     </string-array>
     <string-array name="Buick">
+        <item>Any</item>
         <item>Century</item>
         <item>Enclave</item>
         <item>Encore</item>
