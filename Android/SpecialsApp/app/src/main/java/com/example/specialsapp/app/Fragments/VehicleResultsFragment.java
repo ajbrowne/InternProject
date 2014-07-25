@@ -34,6 +34,8 @@ public class VehicleResultsFragment extends BaseVehicleFragment implements OnRef
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().
+                setTheme(R.style.AppTheme);
         resultsView = inflater.inflate(R.layout.fragment_vehicle_results, container, false);
 
         params = getActivity().getIntent().getStringArrayExtra("params");

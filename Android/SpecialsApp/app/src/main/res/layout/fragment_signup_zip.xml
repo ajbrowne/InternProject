@@ -27,7 +27,7 @@
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:paddingTop="25dp"
-        android:text="This will tell dealers how near you are to them\n and of they are the right dealer for you."
+        android:text="This will tell dealers how near you are to them\n and if they are the right dealer for you."
         android:textColor="#000" />
 
     <EditText
