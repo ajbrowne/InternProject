@@ -25,7 +25,7 @@
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:paddingTop="25dp"
-        android:text="Dealers will use this number to contact\n you if you show interest in a special."
+        android:text="Dealers will use this number to contact\n you if you show interest in a vehicle."
         android:textColor="#000" />
 
     <EditText
