@@ -1,8 +1,11 @@
 package com.example.specialsapp.app.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -100,13 +103,44 @@ public class VehicleDetail extends BaseActivity {
      * @param view - the view that contains the button
      */
     public void submitInfo(View view) {
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
-        if (shared.getBoolean("stored", true)) {
-            Toast.makeText(this.getApplicationContext(), "Info Submitted", Toast.LENGTH_LONG).show();
-        } else {
-            Intent intent = new Intent(VehicleDetail.this, MainActivity.class);
-            intent.putExtra("submit", true);
-            startActivity(intent);
-        }
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(VehicleDetail.this);
+
+        alertDialog.setTitle("Submit Info");
+        alertDialog.setMessage("How would you like to contact the dealer?");
+
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("Call", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + "555-555-5555"));
+                startActivity(intent);
+            }
+        });
+
+        alertDialog.setNegativeButton("Email", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                if (shared.getBoolean("stored", true)) {
+                    Toast.makeText(getApplicationContext(), "Info Submitted", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(VehicleDetail.this, MainActivity.class);
+                    intent.putExtra("submit", true);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        // Setting Netural "Cancel" Button
+        alertDialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // User pressed Cancel button. Write Logic Here
+                Toast.makeText(getApplicationContext(), "You clicked on Cancel",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Showing Alert Message
+        alertDialog.show();
+
     }
 }
