@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -49,7 +48,13 @@ public class MongoDealerRepository implements DealerRepository {
 
     @Override
     public Dealer getDealerById(String id) {
-        return mongoTemplate.findOne(Query.query(Criteria.where("id").is(id)), Dealer.class, "dealers");
+        List<Dealer> allDealers = findAllDealers();
+        for(Dealer dealer: allDealers){
+            if(dealer.getId().equals(id)){
+                return dealer;
+            }
+        }
+        return null;
     }
 
     @Override

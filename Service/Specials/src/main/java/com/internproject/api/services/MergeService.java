@@ -209,7 +209,12 @@ public class MergeService {
         mergerObjs = createMerger(mergerObjs, sortedSpecials, vehicles);
         //Get the dealer names based on the id in the specials and add it to the objects
         for (MergerObj mergerObj : mergerObjs) {
-            String dealerName = dealerService.getDealerById(mergerObj.getSpecials().get(0).getDealer()).getName();
+            Dealer tempDealer = dealerService.getDealerById(mergerObj.getSpecials().get(0).getDealer());
+            String dealerName = tempDealer.getName();
+            if(tempDealer == null){
+                dealerName = "Not Found";
+            }
+
             mergerObj.setDealerName(dealerName);
         }
         return mergerObjs;
