@@ -41,7 +41,7 @@ public class SpecialService {
      */
     public List<Special> getSpecials(Special special) {
         List<Special> specials = new ArrayList<Special>();
-        //Create the parent thread taht will manage the special search threads
+        //Create the parent thread that will manage the special search threads
         RunnableQuery mainThread = new RunnableQuery("special", specialRepository, special, specials);
         ExecutorService es = Executors.newCachedThreadPool();
         es.execute(mainThread);

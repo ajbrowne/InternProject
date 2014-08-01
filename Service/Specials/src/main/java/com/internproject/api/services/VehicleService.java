@@ -49,17 +49,18 @@ public class VehicleService {
      * @return - List of matching vehicles
      */
     public List<Vehicle> getVehicles(Vehicle vehicle) {
-        List<Vehicle> vehicles = new ArrayList<Vehicle>();
-        RunnableQuery mainThread = new RunnableQuery("vehicle", vehicleRepository, vehicle, vehicles);
-        ExecutorService es = Executors.newCachedThreadPool();
-        es.execute(mainThread);
-        es.shutdown();
-        try {
-            es.awaitTermination(30, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            log.warn(e);
-        }
-        return vehicles;
+//        List<Vehicle> vehicles = new ArrayList<Vehicle>();
+//        RunnableQuery mainThread = new RunnableQuery("vehicle", vehicleRepository, vehicle, vehicles);
+//        ExecutorService es = Executors.newCachedThreadPool();
+//        es.execute(mainThread);
+//        es.shutdown();
+//        try {
+//            es.awaitTermination(30, TimeUnit.SECONDS);
+//        } catch (InterruptedException e) {
+//            log.warn(e);
+//        }
+//        return vehicles;
+        return vehicleRepository.getAllVehicles();
     }
 
     public List<Vehicle> getAllVehicles() {
