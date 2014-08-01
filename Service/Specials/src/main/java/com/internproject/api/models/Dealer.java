@@ -15,6 +15,7 @@ public class Dealer {
 
     @Id
     private String id;
+
     private String name;
     private String admin;
     private Location loc;
