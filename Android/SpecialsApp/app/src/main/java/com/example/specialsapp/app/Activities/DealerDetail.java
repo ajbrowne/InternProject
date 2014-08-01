@@ -33,7 +33,7 @@ import java.util.Locale;
  * It sets up the activity to display dealer information
  * and to display the dealers location on a map.
  *
- * @author maharb
+ * @author maharb      \
  */
 public class DealerDetail extends BaseActivity {
 
