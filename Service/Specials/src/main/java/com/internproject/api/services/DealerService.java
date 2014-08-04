@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.GeoResult;
 import org.springframework.data.geo.Point;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +132,8 @@ public class DealerService {
     private List<Dealer> dealerCheck(List<Dealer> dealers, Dealer dealer) {
         List<Dealer> tempDealers = new ArrayList<Dealer>();
         for (Dealer temp : dealers) {
-            if (dealer.getMake().contains(temp.getMake().get(FIRST_VALUE))) {
+            List makes = temp.getMake();
+            if (makes.contains(dealer.getMake().get(FIRST_VALUE))) {
                 tempDealers.add(temp);
             }
         }
