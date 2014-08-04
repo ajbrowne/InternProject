@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
-                android:text="555-434-5638" />
+                android:text="(555)-434-5638" />
 
             <View
                 android:layout_width="0dp"
@@ -83,7 +83,7 @@
             android:background="@drawable/custom_button"
             android:fontFamily="sans-serif-light"
             android:onClick="sendToDialer"
-            android:text="555-434-5638"
+            android:text="(555)-434-5638"
             android:textColor="#fff" />
     </RelativeLayout>
 

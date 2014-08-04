@@ -73,9 +73,9 @@ public class DealerDetail extends BaseActivity {
         //the vehicle info
         new GetAddressTask().execute(extras.getDouble("lat"), extras.getDouble("long"));
         mName.setText(extras.getString("name"));
-        mPhone.setText("555-434-5638");
+        mPhone.setText("(555)-434-5638");
         mDistance.setText(extras.getString("dist") + " miles away");
-        phoneNumber = "555-434-5638";
+        phoneNumber = "(555)-434-5638";
         configureMap(extras, ZOOM);
     }
 
