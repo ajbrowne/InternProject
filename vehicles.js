@@ -6,10 +6,32 @@ _id:"53be8f56ee4a2bd5a4c8dc8d",
     name:"Bob Thomas Ford West",
     loc: { coordinates : [ 41.073853, -85.210483 ], type : "Point" },
     numSpecials:8,
-    make:["Chevrolet","Cadillac","Buick","GMC"],
+    make:["Ford"],
     city: "Fort Wayne",
     state:"IN",
     location : { x : 41.073853, y : -85.210483 }
+});
+
+db.dealers.insert({
+_id:"53be8f56ee4a2bd5a4c8d000",
+    name:"Summit City Chevrolet",
+    loc: { coordinates : [ 41.074547, -85.208172 ], type : "Point" },
+    numSpecials:6,
+    make:["Chevrolet","Buick","GMC","Cadillac"],
+    city: "Fort Wayne",
+    state:"IN",
+    location : { x : 41.074547, y : -85.208172 }
+});
+
+db.dealers.insert({
+_id:"53be8f56ee4a2bd5a4c8d111",
+    name:"Bob Rohrman Subaru",
+    loc: { coordinates : [ 40.394931, -86.839496 ], type : "Point" },
+    numSpecials:14,
+    make:["Subaru"],
+    city: "Lafayette",
+    state:"IN",
+    location : { x : 40.394931, y : -86.839496 }
 });
 
 db.vehicles.insert({
@@ -194,7 +216,7 @@ db.vehicles.insert({
 
 db.special.insert({
   title: "Corvette Sale",
-  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  dealer : "53be8f56ee4a2bd5a4c8d000",
   amount :"6000",
   status:1,
   vehicleId:["53bc30ab4be9fb81694b47ff"],
@@ -203,7 +225,7 @@ db.special.insert({
 
 db.special.insert({
   title: "Cadillac Sale",
-  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  dealer : "53be8f56ee4a2bd5a4c8d000",
   amount :"700",
   status:1,
   vehicleId:["53bc30ab4be9fb81694b47f5", "53bc30ab4be9fb81694b47f6", "53bc30ab4be9fb81694b47f7"],
@@ -212,7 +234,7 @@ db.special.insert({
 
 db.special.insert({
   title: "Green Sale",
-  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  dealer : "53be8f56ee4a2bd5a4c8d000",
   amount :"2000",
   status:1,
   vehicleId:["53bc30ab4be9fb81694b47f8"],
@@ -221,7 +243,7 @@ db.special.insert({
 
 db.special.insert({
   title: "Family Deal",
-  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  dealer : "53be8f56ee4a2bd5a4c8d000",
   amount :"650",
   status:1,
   vehicleId:["53bc30ab4be9fb81694b47f7", "53bc30ab4be9fb81694b47f9", "53bc30ab4be9fb81694b47fc", "53bc30ab4be9fb81694b47fd"],
@@ -230,7 +252,7 @@ db.special.insert({
 
 db.special.insert({
   title: "First Car Special",
-  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  dealer : "53be8f56ee4a2bd5a4c8d000",
   amount :"500",
   status:1,
   vehicleId:["53bc30ab4be9fb81694b4804", "53bc30ab4be9fb81694b47fb", "53bc30ab4be9fb81694b4803"],
@@ -239,7 +261,7 @@ db.special.insert({
 
 db.special.insert({
   title: "Chevy Summer Sale",
-  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  dealer : "53be8f56ee4a2bd5a4c8d000",
   amount :"1000",
   status:1,
   vehicleId:["53bc30ab4be9fb81694b4804", "53bc30ab4be9fb81694b4801", "53bc30ab4be9fb81694b4800", "53bc30ab4be9fb81694b47ff", "53bc30ab4be9fb81694b47fe"],
@@ -248,7 +270,7 @@ db.special.insert({
 
 db.special.insert({
   title: "Buick Flash Sale",
-  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  dealer : "53be8f56ee4a2bd5a4c8d000",
   amount :"1500",
   status:1,
   vehicleId:["53bc30ab4be9fb81694b4802","53bc30ab4be9fb81694b4803"],
@@ -257,7 +279,7 @@ db.special.insert({
 
 db.special.insert({
   title: "Truck Sale",
-  dealer : "53be8f56ee4a2bd5a4c8dc8d",
+  dealer : "53be8f56ee4a2bd5a4c8d000",
   amount :"637",
   status:1,
   vehicleId:["53bc30ab4be9fb81694b47fa", "53bc30ab4be9fb81694b4800"],

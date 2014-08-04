@@ -93,6 +93,7 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         String url = generateUrl(parameters);
+        System.out.println(url);
         Cache.Entry entry = cache.get(url);
         makeAsync(isSearch, queue, url, entry);
     }
