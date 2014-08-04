@@ -109,7 +109,7 @@ public class VehicleDetail extends BaseActivity {
         alertDialog.setMessage("How would you like to contact the dealer?");
 
         // Setting Positive "Yes" Button
-        alertDialog.setPositiveButton("Call", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("Call", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + "555-555-5555"));
@@ -117,7 +117,7 @@ public class VehicleDetail extends BaseActivity {
             }
         });
 
-        alertDialog.setNegativeButton("Email", new DialogInterface.OnClickListener() {
+        alertDialog.setNeutralButton("Email", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 if (shared.getBoolean("stored", true)) {
@@ -131,7 +131,7 @@ public class VehicleDetail extends BaseActivity {
         });
 
         // Setting Netural "Cancel" Button
-        alertDialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 // User pressed Cancel button. Write Logic Here
                 Toast.makeText(getApplicationContext(), "You clicked on Cancel",
