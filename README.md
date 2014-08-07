@@ -9,7 +9,7 @@ Intern Project
 
     NOTE: 'mongo' in the above command is the path to your mongo client. If you have that path set as an enviroment            variable you can just run mongo. If you don't have that set you need to use the full path to the mongo client instead      of just mongo. (i.e. /Users/<username>/Documents/mongodb/mongodb-osx-x86_64-2.6.1/bin/mongo localhost:27017/Specials           vehicles.js)
 
-4. cd into the folder in the Service with the pom.xml file (cd InterProject/Service/Specials) and run command : mvn spring-boot:run
+4. cd into the folder in the Service with the pom.xml file (cd InternProject/Service/Specials) and run command : mvn spring-boot:run
 
 5. Install and Android friendly IDE like Android Studio or Eclipse
 
