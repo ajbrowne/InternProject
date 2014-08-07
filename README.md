@@ -1,3 +1,6 @@
+Intern Project
+==============
+
 1. Clone the project.
 
 2. Install Mongo (http://docs.mongodb.org/manual/installation/)
