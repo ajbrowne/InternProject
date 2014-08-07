@@ -11,8 +11,13 @@ Intern Project
 
 4. cd into the folder in the Service with the pom.xml file (cd InternProject/Service/Specials) and run command : mvn spring-boot:run
 
-5. Install and Android friendly IDE like Android Studio or Eclipse
+5. Install an Android friendly IDE like Android Studio, Intellij or Eclipse
 
 6. Open up the SDK Manager in your IDE and update packages
 
-7. Connect you phone to your computer and run the application to your phone. Your IDE should recognize your phone.
+7. Make sure that your computer and phone are on the same network and get your computer's IP address -> ifconfig
+
+8. In SpecialsApp/app/src/main/assets/specials.properties, change the ip in the baseUrl to your IP address.
+   In SpecialsApp/app/src/main/java/Rest/SpecialsRestClient, change the String IP to your IP address.
+
+9. Connect you phone to your computer and run the application to your phone (it will build when run). Your IDE should recognize your phone.
