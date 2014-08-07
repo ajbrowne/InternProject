@@ -1,4 +1,4 @@
-Intern Project
+Cobalt Specials
 ==============
 
 1. Clone the project.
