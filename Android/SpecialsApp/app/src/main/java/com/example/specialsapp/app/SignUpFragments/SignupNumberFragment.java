@@ -42,8 +42,9 @@ public class SignupNumberFragment extends Fragment {
         }
 
         TelephonyManager tMgr = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-        if (tMgr.getLine1Number() != null) {
-            String num = tMgr.getLine1Number();
+        String num = tMgr.getLine1Number();
+        System.out.println("*******NUM:"+num);
+        if (!num.isEmpty()) {
             num = ("(" + num.substring(0, 3) + ") " + num.substring(3, 6) + "-" + num.substring(6, 10));
             number.setText(num);
         }
