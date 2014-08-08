@@ -20,4 +20,7 @@ Cobalt Specials
 8. In SpecialsApp/app/src/main/assets/specials.properties, change the ip in the baseUrl to your IP address.
    In SpecialsApp/app/src/main/java/Rest/SpecialsRestClient, change the String IP to your IP address.
 
-9. Connect you phone to your computer and run the application to your phone (it will build when run). Your IDE should recognize your phone.
+9. Put your phone into developer mode by tapping the build number in the about section of the phone seven times.
+    Enter the developer settings and enable usb debugging.
+
+10. Connect you phone to your computer and run the application to your phone (it will build when run). Your IDE should recognize your phone.
