@@ -15,7 +15,7 @@ Cobalt Specials
 
 6. Open up the SDK Manager in your IDE and update packages
 
-7. Make sure that your computer and phone are on the same network and get your computer's IP address -> ifconfig
+7. Make sure that your computer and phone are on the same network and get your computer's IP address -> ifconfig -> the first address under en0 should be the IP you need. 
 
 8. In SpecialsApp/app/src/main/assets/specials.properties, change the ip in the baseUrl to your IP address.
    In SpecialsApp/app/src/main/java/Rest/SpecialsRestClient, change the String IP to your IP address.
