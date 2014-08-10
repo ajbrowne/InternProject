@@ -8,6 +8,7 @@ import com.internproject.api.services.VehicleService;
 import com.mongodb.MongoClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
@@ -22,6 +23,12 @@ import java.net.UnknownHostException;
 @Configuration
 public class ApplicationConfig {
 
+    String host = System.getenv("OPENSHIFT_MONGODB_DB_HOST");
+    String sport = System.getenv("OPENSHIFT_MONGODB_DB_PORT");
+    String db = System.getenv("OPENSHIFT_APP_NAME");
+    String user = System.getenv("OPENSHIFT_MONGODB_DB_USERNAME");
+    String password = System.getenv("OPENSHIFT_MONGODB_DB_PASSWORD");
+    int port = Integer.decode(sport);
 
     @Bean
     public SpecialRepository specialRepository() throws UnknownHostException {
@@ -66,7 +73,8 @@ public class ApplicationConfig {
 
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-        return new SimpleMongoDbFactory(new MongoClient("localhost"), "Specials");
+        return new SimpleMongoDbFactory(new MongoClient(host,port), db,
+                new UserCredentials(user,password));
     }
 
     @Bean
