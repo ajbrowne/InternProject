@@ -349,7 +349,9 @@ public class BaseVehicleFragment extends Fragment implements AbsListView.OnScrol
         public void onResponse(JSONArray response) {
             if (response.length() == 0) {
                 TextView result = (TextView) baseView.findViewById(R.id.third_result);
-                result.setVisibility(View.VISIBLE);
+                if(result != null){
+                    result.setVisibility(View.VISIBLE);
+                }
             } else {
                 vehicleSearch(response);
             }

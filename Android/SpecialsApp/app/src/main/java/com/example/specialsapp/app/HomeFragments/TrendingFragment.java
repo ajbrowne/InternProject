@@ -127,6 +127,9 @@ public class TrendingFragment extends BaseHomeFragment {
      * @return - An ArrayList of the cards that are created
      */
     public ArrayList<Card> createVehicles(int index, ArrayList<Vehicle> vehicles) {
+        if(vehicles.isEmpty()){
+            return cards;
+        }
         for (int i = index; i < 3; i++) {
             HomeVehicleCard card = new HomeVehicleCard(getActivity(), R.layout.h_vehicle_card);
             final Vehicle vehicle = vehicles.get(i);

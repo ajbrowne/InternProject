@@ -17,8 +17,7 @@ import org.apache.http.entity.StringEntity;
  */
 
 public class SpecialsRestClient {
-    private static final String IP = "192.168.169.142";
-    private static final String BASE_URL = "http://" + IP + ":8080/v1/specials/";
+    private static final String BASE_URL = "http://specials-switch.rhcloud.com/Specials/v1/specials/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
@@ -30,7 +29,6 @@ public class SpecialsRestClient {
      * @param responseHandler - response handler (can be changed per type of response)
      */
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.setProxy(IP, 8080);
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
@@ -41,7 +39,6 @@ public class SpecialsRestClient {
      * @param responseHandler - response handler (can be changed per type of response)
      */
     public static void get(String url, JsonHttpResponseHandler responseHandler) {
-        client.setProxy(IP, 8080);
         client.get(getAbsoluteUrl(url), responseHandler);
     }
 
@@ -55,7 +52,6 @@ public class SpecialsRestClient {
      * @param responseHandler - reponse handler (can be changed per type of request)
      */
     public static void post(Context context, String url, StringEntity entity, String type, AsyncHttpResponseHandler responseHandler) {
-        client.setProxy(IP, 8080);
         client.post(context, getAbsoluteUrl(url), entity, type, responseHandler);
     }
 

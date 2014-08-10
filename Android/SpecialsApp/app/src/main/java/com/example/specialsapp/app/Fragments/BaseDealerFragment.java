@@ -211,7 +211,7 @@ public abstract class BaseDealerFragment extends Fragment {
             } catch (JSONException e) {
                 Log.e("DealerResultsActivity", "Invalid JSON in response");
             }
-            if (dealers.isEmpty()) {
+            if (dealers.isEmpty() && mResultsNone != null) {
                 mResultsNone.setVisibility(View.VISIBLE);
             }
             addCards(dealers);
