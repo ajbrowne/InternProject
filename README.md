@@ -24,3 +24,5 @@ Cobalt Specials
     Enter the developer settings and enable usb debugging.
 
 10. Connect you phone to your computer and run the application to your phone (it will build when run). Your IDE should recognize your phone.
+
+Authors: Brady Mahar and Austin Browne
